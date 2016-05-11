@@ -1,0 +1,6 @@
+#ignore build directory and contents of lib
+build
+lib/*
+
+# Ignore compiled targets
+bin/*

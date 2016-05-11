@@ -7,7 +7,7 @@
 
 #include <string>
 
-#include "sensor_data.h"
+#include "sensor_data/sensor_data.h"
 
 using std::string;
 

@@ -3,38 +3,79 @@
  *  
  *  Creation Date : 09-05-2016
  *
- *  Last Modified : Mon 09 May 2016 03:35:28 PM EDT
+ *  Last Modified : Tue 10 May 2016 07:30:01 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
  */
 
-#include "syscall_sensor.h"
+#include "sensors/syscall_sensors/syscall_sensor.h"
+#include "sensors/syscall_sensors/syscall_readers/syscall_reader.h"
 
 Syscall_Sensor::Syscall_Sensor(){
 
     // Do later.
 
+    status = SENSING_ON;
+
 }
 
-static Syscall_Sensor & Syscall_Sensor::get_instance(){
+Syscall_Sensor * Syscall_Sensor::get_instance(){
 
     if ( !ss_instance ){
         ss_instance = new Syscall_Sensor();
     }
+
+    return ss_instance;
 }
 
-fast_uint8_t Syscall_Sensor::set_exit ( bool on ){
+uint_fast8_t Syscall_Sensor::set_exit ( bool on ){
 
-    status = reader.set_exit( on );
+    status = reader->set_exit( on );
+
+    return status;
 }
 
-fast_uint8_t Syscall_Sensor::set_enter ( bool on ){
+uint_fast8_t Syscall_Sensor::set_enter ( bool on ){
 
-    status = reader.set_enter( on );
+    status = reader->set_enter( on );
+    
+    return status;
 }
 
-fast_uint8_t Syscall_Sensor::set_self_filter( bool filter_self ){
+uint_fast8_t Syscall_Sensor::configure( uint_fast8_t flags ){
+
+    status = flags;
+
+    return status;
+}
+
+uint_fast8_t Syscall_Sensor::sensing_status(){
+
+    return status;
+}
+
+bool Sensor::is_sensing(){
+
+    return true; // TODO: Fix later
+}
+
+void Sensor::sense(){
+
+    //TODO: implement later.
+}
+
+Sensor_Data Sensor::sense_data(){
+
+    Sensor_Data tmp("","","","");
+
+    return tmp;
+}
+
+/*
+uint_fast8_t Syscall_Sensor::set_self_filter( bool filter_self ){
 
     status = reader.set_filter_self( filter_self );
-}
+
+    return status;
+}*/
