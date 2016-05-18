@@ -11,7 +11,7 @@ class Reader_Factory{
 
         uint_fast8_t set_status( uint_fast8_t flags );
 
-        Syscall_Reader * create_reader( uint_fast8_t flags=READER_DEFAULT);
+        Syscall_Reader * create_reader();
 
     protected:
         uint_fast8_t status;

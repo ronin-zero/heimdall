@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 09-05-2016
  *
- *  Last Modified : Tue 17 May 2016 09:44:00 PM EDT
+ *  Last Modified : Wed 18 May 2016 02:31:46 AM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -219,7 +219,7 @@ Sensor_Data Linux_Syscall_Reader::read_syscall(){
     {
         tmp = "";
     }
-
+    
     Sensor_Data data( os, data_type, tmp, "" );
     return data; 
 }
