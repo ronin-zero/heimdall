@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 09-05-2016
  *
- *  Last Modified : Wed 18 May 2016 02:32:53 AM EDT
+ *  Last Modified : Wed 18 May 2016 10:08:40 AM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -68,7 +68,7 @@ uint_fast8_t Syscall_Sensor::sensing_status(){
 
 bool Syscall_Sensor::is_sensing(){
 
-    return ( status | SENSING_ON );
+    return ( status & SENSING_ON );
 }
 
 void Syscall_Sensor::sense(){
@@ -78,16 +78,7 @@ void Syscall_Sensor::sense(){
 
 Sensor_Data Syscall_Sensor::sense_data(){
 
-    // TODO -- make sure this works
-    //
-    // EDIT: It doesn't.  Commenting the whole block...
-
-    /*
-    Sensor_Data tmp  = reader->read_syscall() ;
-    */
-
-    Sensor_Data tmp( "","","","" );
-    return tmp;
+    return reader->read_syscall();
 }
 
 uint_fast8_t Syscall_Sensor::set_self_filter( bool on ){

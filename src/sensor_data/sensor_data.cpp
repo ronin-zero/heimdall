@@ -23,7 +23,7 @@ Sensor_Data::Sensor_Data( string operating_system_label,
 
 }
 
-Sensor_Data::Sensor_Data( Sensor_Data & other ){
+Sensor_Data::Sensor_Data( const Sensor_Data & other ){
 
     operating_system_label_ = other.get_operating_system_label();
     data_label_ = other.get_data_label();
@@ -31,22 +31,22 @@ Sensor_Data::Sensor_Data( Sensor_Data & other ){
     aux_ = other.get_aux();
 }
 
-string Sensor_Data::get_operating_system_label(){
+string Sensor_Data::get_operating_system_label() const{
 
     return operating_system_label_;
 }
 
-string Sensor_Data::get_data_label(){
+string Sensor_Data::get_data_label() const{
 
     return data_label_;
 }
 
-string Sensor_Data::get_data(){
+string Sensor_Data::get_data() const{
 
     return data_;
 }
 
-string Sensor_Data::get_aux(){
+string Sensor_Data::get_aux() const{
 
     return aux_;
 }

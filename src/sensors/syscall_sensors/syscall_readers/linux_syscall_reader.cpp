@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 09-05-2016
  *
- *  Last Modified : Wed 18 May 2016 02:31:46 AM EDT
+ *  Last Modified : Wed 18 May 2016 10:10:44 AM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -204,7 +204,7 @@ uint_fast8_t Linux_Syscall_Reader::reading_status(){
 
 bool Linux_Syscall_Reader::is_reading(){
 
-    return ( status & READING_ON ) == READING_ON ;
+    return ( status & READING_ON );
 }
 
 Sensor_Data Linux_Syscall_Reader::read_syscall(){

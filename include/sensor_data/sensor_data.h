@@ -27,7 +27,7 @@ class Sensor_Data{
 
         // Copy Constructor
 
-        Sensor_Data( Sensor_Data & other );
+        Sensor_Data( const Sensor_Data & other );
 
         /*
          *  Destructor
@@ -39,10 +39,10 @@ class Sensor_Data{
          * Accessors/Inspectors
          */
 
-        string get_operating_system_label();
-        string get_data_label();
-        string get_data();
-        string get_aux();
+        string get_operating_system_label() const;
+        string get_data_label() const;
+        string get_data() const;
+        string get_aux() const;
 
     private:
 
