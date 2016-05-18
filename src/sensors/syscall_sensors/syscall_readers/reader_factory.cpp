@@ -3,36 +3,36 @@
  *  
  *  Creation Date : 09-05-2016
  *
- *  Last Modified : Mon 09 May 2016 03:53:08 PM EDT
+ *  Last Modified : Tue 17 May 2016 09:09:57 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
  */
+#include "sensors/syscall_sensors/syscall_readers/reader_factory.h"
+#include "sensors/syscall_sensors/syscall_readers/syscall_reader.h"
 
-#include "syscall_reader.h"
+// Check for operating system here (So far, only Linux is defined).
 
-Reader_Factory::Reader_Factory(){
+#ifdef __linux__
+#include "sensors/syscall_sensors/syscall_readers/linux_syscall_reader.h"
+typedef Linux_Syscall_Reader Reader;
+#else
+typedef Syscall_Reader Reader;
+#endif
 
-    status = SENSOR_DEFAULT;
-}
-
-Reader_Factory::Reader_Factory( fast_uint8_t flags){
+Reader_Factory::Reader_Factory( uint_fast8_t flags){
 
     status = flags;
 }
 
-fast_uint8_t set_status( fast_uint8_t flags ){
+uint_fast8_t Reader_Factory::set_status( uint_fast8_t flags ){
 
     status = flags;
     return status;
 }
 
-Syscall_Reader * Reader_Factory::create_reader( fast_uint8_t flags = SENSOR_DEFAULT ){
+Syscall_Reader * Reader_Factory::create_reader( uint_fast8_t flags ){
 
-    Syscall_Reader* reader = NULL;
-
-#ifdef __linux__
-    reader = new Linux_Syscall_Reader( flags );
-#endif
+    Syscall_Reader * reader = Reader::get_instance( flags );
     return reader;
 }

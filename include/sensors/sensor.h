@@ -8,6 +8,7 @@
 #include "sensor_observers/sensor_observer.h"
 #include "concurrentqueue/blockingconcurrentqueue.h"
 
+
 typedef moodycamel::BlockingConcurrentQueue<Sensor_Data> queue;
 
 // Sensor constants
@@ -17,67 +18,67 @@ const uint_fast8_t SENSING_OFF = 0x00;
 
 class Sensor {
 
-public:     // Public
+    public:     // Public
 
-    /*
-     *  Constructor(s)
-     */
+        /*
+         *  Constructor(s)
+         */
 
-    Sensor() {}
+        Sensor() {}
 
-    /*
-     *  Destructor
-     */
+        /*
+         *  Destructor
+         */
 
-    virtual ~Sensor()=0;
+        virtual ~Sensor()=0;
 
-    /*
-     *  Accessors/Inspectors
-     */
-    
-    virtual uint_fast8_t sensing_status()=0;
-    virtual bool is_sensing()=0;
-    virtual Sensor_Data sense_data()=0;
+        /*
+         *  Accessors/Inspectors
+         */
 
-    uint_fast32_t observer_count();
+        virtual uint_fast8_t sensing_status()=0;
+        virtual bool is_sensing()=0;
+        virtual Sensor_Data sense_data()=0;
 
-    /*
-     *  Facilitators
-     */
+        uint_fast32_t observer_count();
 
-    virtual void sense()=0;
+        /*
+         *  Facilitators
+         */
 
-    /*
-     *  Mutators
-     */
+        virtual void sense()=0;
 
-    virtual uint_fast8_t toggle_sensing()=0;
+        /*
+         *  Mutators
+         */
 
-    void attach_observer( Sensor_Observer * observer );
-    void detatch_observer( Sensor_Observer * observer );
-    
+        virtual uint_fast8_t toggle_sensing()=0;
 
-protected:  // Protected
+        void attach_observer( Sensor_Observer * observer );
+        void detatch_observer( Sensor_Observer * observer );
 
-    /*
-     * Variables
-     */
 
-    bool sensing = false;
-    std::unordered_set<Sensor_Observer *> observers;
-    uint_fast8_t status = SENSING_OFF;
+    protected:  // Protected
 
-    queue data_queue;
-    string data_label = "";
-    string operating_system_label = "";
-    string aux = "";
+        /*
+         * Variables
+         */
 
-    /*
-     *  Facilitators
-     */
+        bool sensing = false;
+        std::unordered_set<Sensor_Observer *> observers;
+        uint_fast8_t status = SENSING_OFF;
 
-    virtual void notify_observers( Sensor_Data data )=0;
-    virtual void notify_observers()=0;
+        queue data_queue;
+        string data_label = "";
+        string operating_system_label = "";
+        string aux = "";
+
+        /*
+         *  Facilitators
+         */
+
+        virtual void notify_observers( Sensor_Data data )=0;
+        virtual void notify_observers()=0;
 
 };
 
@@ -98,3 +99,4 @@ uint_fast32_t Sensor::observer_count(){
 
     observers.size();
 }
+

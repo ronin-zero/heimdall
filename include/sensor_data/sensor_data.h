@@ -6,8 +6,6 @@
  *
  */
 
-
-
 #pragma once
 
 #include <stdint.h>
@@ -16,44 +14,44 @@
 using std::string;
 
 class Sensor_Data{
-public:
+    public:
 
-    /*
-     * Constructor
-     */
+        /*
+         * Constructor
+         */
 
-    Sensor_Data( string operating_system_label,  // For Labeling the OS
-                 string data_label,              // What type of data are recorded
-                 string data,                    // The data
-                 string aux="" );                // Possibly used in future.  Defaults to an empty string.
-    
-    // Copy Constructor
+        Sensor_Data( string operating_system_label,  // For Labeling the OS
+                string data_label,              // What type of data are recorded
+                string data,                    // The data
+                string aux="" );                // Possibly used in future.  Defaults to an empty string.
 
-    Sensor_Data( Sensor_Data & other );
+        // Copy Constructor
 
-    /*
-     *  Destructor
-     */
-    
-    ~Sensor_Data();
+        Sensor_Data( Sensor_Data & other );
 
-    /*
-     * Accessors/Inspectors
-     */
+        /*
+         *  Destructor
+         */
 
-    string get_operating_system_label();
-    string get_data_label();
-    string get_data();
-    string get_aux();
+        ~Sensor_Data();
 
-private:
-    
-    /*
-     * Data Members
-     */
+        /*
+         * Accessors/Inspectors
+         */
 
-    string operating_system_label_;
-    string data_label_;
-    string data_;
-    string aux_;
+        string get_operating_system_label();
+        string get_data_label();
+        string get_data();
+        string get_aux();
+
+    private:
+
+        /*
+         * Data Members
+         */
+
+        string operating_system_label_;
+        string data_label_;
+        string data_;
+        string aux_;
 };
