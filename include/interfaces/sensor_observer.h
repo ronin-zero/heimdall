@@ -5,8 +5,7 @@
 class Sensor_Observer{
 
     public:
-    
-        void update();
-        void update( Sensor_Data );
+        virtual void update() = 0;
+        virtual void update( Sensor_Data ) = 0;
 
 };
