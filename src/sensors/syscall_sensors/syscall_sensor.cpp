@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 09-05-2016
  *
- *  Last Modified : Wed 18 May 2016 10:08:40 AM EDT
+ *  Last Modified : Wed 18 May 2016 10:06:24 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -32,31 +32,16 @@ Syscall_Sensor * Syscall_Sensor::get_instance( uint_fast8_t flags ){
     return ss_instance;
 }
 
-uint_fast8_t Syscall_Sensor::set_exit ( bool on ){
-
-    status = reader->set_exit( on );
-
-    return status;
-}
-
-uint_fast8_t Syscall_Sensor::set_enter ( bool on ){
-
-    status = reader->set_enter( on );
-    
-    return status;
-}
 
 uint_fast8_t Syscall_Sensor::configure( uint_fast8_t flags ){
 
-    status = 0x00;
+    status = 0x00; 
 
-    /*
-
-    status |= reader->set_reading_on( flags | SENSING_ON );
-    status |= reader->set_self_filter( flags | FILTER_SELF );
-    status |= reader->set_enter( flags | SYS_ENTER );
-    status |= reader->set_exit( flags | SYS_EXIT );
-    */
+    set_self_filter( flags & FILTER_SELF );
+    set_enter( flags & SYS_ENTER );
+    set_exit( flags & SYS_EXIT );
+    
+    status |= reader->set_reading_on( flags & SENSING_ON );
 
     return status;
 }
@@ -81,6 +66,19 @@ Sensor_Data Syscall_Sensor::sense_data(){
     return reader->read_syscall();
 }
 
+uint_fast8_t Syscall_Sensor::set_exit ( bool on ){
+
+    status = reader->set_exit( on );
+
+    return status;
+}
+
+uint_fast8_t Syscall_Sensor::set_enter ( bool on ){
+
+    status = reader->set_enter( on );
+    
+    return status;
+}
 uint_fast8_t Syscall_Sensor::set_self_filter( bool on ){
 
     status = reader->set_self_filter( on );
