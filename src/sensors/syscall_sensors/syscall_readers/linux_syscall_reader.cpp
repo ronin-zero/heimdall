@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 09-05-2016
  *
- *  Last Modified : Mon 23 May 2016 11:12:31 PM EDT
+ *  Last Modified : Tue 24 May 2016 03:23:46 AM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -50,6 +50,22 @@ Linux_Syscall_Reader * Linux_Syscall_Reader::get_instance( uint_fast8_t flags ){
     return lsr_instance;
 }
 
+uint_fast8_t Linux_Syscall_Reader::set_reading( bool on ){
+
+    if ( on )
+    {
+        return start_reading();
+    }
+    else
+    {
+        return stop_reading();
+    }
+}
+
+uint_fast8_t Linux_Syscall_Reader::toggle_reading(){
+
+    return set_reading( !is_reading() );
+}
 
 uint_fast8_t Linux_Syscall_Reader::start_reading(){
 
@@ -84,33 +100,6 @@ uint_fast8_t Linux_Syscall_Reader::stop_reading(){
 
     return status;
 }
-
-uint_fast8_t Linux_Syscall_Reader::toggle_reading(){
-
-    if ( is_reading() )
-    {
-        status = stop_reading();
-    }
-    else
-    {
-        status = start_reading();
-    }
-
-    return status;
-}
-
-uint_fast8_t Linux_Syscall_Reader::set_reading_on( bool on ){
-
-    if ( on )
-    {
-        return start_reading();
-    }
-    else
-    {
-        return stop_reading();
-    }
-}
-
 uint_fast8_t Linux_Syscall_Reader::set_self_filter( bool filter ){
 
     pid_t self_pid = getpid();
@@ -279,6 +268,25 @@ Sensor_Data Linux_Syscall_Reader::read_syscall(){
     
     Sensor_Data data( os, data_type, tmp, "" );
     return data; 
+}
+
+void Linux_Syscall_Reader::read(){
+
+    // TODO: You were very tired, make sure this works.
+    // Also, finish it.
+    // The idea is that you have a "read" function that
+    // loops in its own thread. 
+    //
+    // If it is in reading mode, it reads a line from the
+    // syscall pipe (trace_pipe) into a new Sensor_Data object,
+    // Then enqueues that object on the shared queue.
+
+    if ( is_reading() )
+    {
+        Sensor_Data data_point = read_syscall();
+
+        data_queue->enqueue( data_point );        
+    }
 }
 
 // Protected methods

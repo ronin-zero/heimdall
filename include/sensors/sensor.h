@@ -8,8 +8,7 @@
 #include "sensor_observers/sensor_observer.h"
 #include "concurrentqueue/blockingconcurrentqueue.h"
 
-
-typedef moodycamel::BlockingConcurrentQueue<Sensor_Data> queue;
+typedef moodycamel::ConcurrentQueue<Sensor_Data> queue;
 
 // Sensor constants
 
@@ -50,7 +49,6 @@ class Sensor {
         string operating_system_label = "";
         string aux = "";
 
-        virtual void notify_observers( Sensor_Data data )=0;
         virtual void notify_observers()=0; 
         virtual uint_fast8_t set_sensing( bool on )=0;
 

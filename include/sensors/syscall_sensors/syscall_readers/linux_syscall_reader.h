@@ -42,19 +42,22 @@ class Linux_Syscall_Reader:public Syscall_Reader{
            static const string NO_TRACE =          "set_ftrace_notrace";
          */
 
+        uint_fast8_t set_reading( bool on );
+        uint_fast8_t toggle_reading();
         uint_fast8_t start_reading();
         uint_fast8_t stop_reading();
-        uint_fast8_t toggle_reading();
-        uint_fast8_t set_reading_on( bool on );
-        uint_fast8_t set_self_filter( bool on=true );
+
         uint_fast8_t set_enter( bool on );
         uint_fast8_t set_exit( bool on );
+        uint_fast8_t set_self_filter( bool on=true );
 
         uint_fast8_t reading_status();
 
         bool is_reading();
 
         Sensor_Data read_syscall();
+
+        void read();
 
     protected:
 

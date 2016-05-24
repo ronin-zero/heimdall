@@ -12,7 +12,6 @@ static const uint_fast8_t SENSING_ON = READING_ON;
 //static const uint_fast8_t SYS_EXIT = 0x08;
 static const uint_fast8_t SENSOR_DEFAULT = READER_DEFAULT;
 
-
 class Syscall_Sensor:public Sensor{
 
     public:
@@ -33,7 +32,6 @@ class Syscall_Sensor:public Sensor{
         uint_fast8_t set_enter( bool on );
         uint_fast8_t set_self_filter( bool on=true );
 
-        void notify_observers( Sensor_Data data );
         void notify_observers();
 
 

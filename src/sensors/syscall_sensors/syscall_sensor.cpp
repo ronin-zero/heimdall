@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 09-05-2016
  *
- *  Last Modified : Mon 23 May 2016 11:17:27 PM EDT
+ *  Last Modified : Tue 24 May 2016 03:20:07 AM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -27,13 +27,13 @@ Syscall_Sensor * Syscall_Sensor::get_instance( uint_fast8_t flags ){
 
 uint_fast8_t Syscall_Sensor::configure( uint_fast8_t flags ){
 
-    status = 0x00; 
+    status = SENSING_OFF; 
 
     set_self_filter( flags & FILTER_SELF );
     set_enter( flags & SYS_ENTER );
     set_exit( flags & SYS_EXIT );
     
-    status |= reader->set_reading_on( flags & SENSING_ON );
+    status |= reader->set_reading( flags & SENSING_ON );
 
     return status;
 }
@@ -117,16 +117,13 @@ uint_fast8_t Syscall_Sensor::set_self_filter( bool on ){
     return status;
 }
 
-void Syscall_Sensor::notify_observers( Sensor_Data data ){
-
-    // TODO: loop through the observers, update them with
-    // a DEEP COPY of data (must be deep).
-}
-
 void Syscall_Sensor::notify_observers(){
 
     // TODO: Some base functionality if we don't have anything
     // to report to the observers.
+
+    // UPDATE: I decided we don't need the version that takes
+    // data as an argument.  It's really not needed.
 }
 
 
@@ -137,6 +134,8 @@ Syscall_Sensor::Syscall_Sensor( uint_fast8_t flags ){
     Reader_Factory factory ( flags );
 
     reader = factory.create_reader();
+
+    reader->set_queue( &data_queue );
 
     status = reader->reading_status();
 
