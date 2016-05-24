@@ -18,23 +18,10 @@ const uint_fast8_t SENSING_OFF = 0x00;
 
 class Sensor {
 
-    public:     // Public
-
-        /*
-         *  Constructor(s)
-         */
+    public:
 
         Sensor() {}
-
-        /*
-         *  Destructor
-         */
-
         virtual ~Sensor()=0;
-
-        /*
-         *  Accessors/Inspectors
-         */
 
         virtual uint_fast8_t sensing_status()=0;
         virtual bool is_sensing()=0;
@@ -42,27 +29,17 @@ class Sensor {
 
         uint_fast32_t observer_count();
 
-        /*
-         *  Facilitators
-         */
-
         virtual void sense()=0;
 
-        /*
-         *  Mutators
-         */
-
         virtual uint_fast8_t toggle_sensing()=0;
+        virtual uint_fast8_t start_sensing()=0;
+        virtual uint_fast8_t stop_sensing()=0;
 
         void attach_observer( Sensor_Observer * observer );
         void detatch_observer( Sensor_Observer * observer );
 
 
-    protected:  // Protected
-
-        /*
-         * Variables
-         */
+    protected:
 
         bool sensing = false;
         std::unordered_set<Sensor_Observer *> observers;
@@ -73,12 +50,9 @@ class Sensor {
         string operating_system_label = "";
         string aux = "";
 
-        /*
-         *  Facilitators
-         */
-
         virtual void notify_observers( Sensor_Data data )=0;
-        virtual void notify_observers()=0;
+        virtual void notify_observers()=0; 
+        virtual uint_fast8_t set_sensing( bool on )=0;
 
 };
 

@@ -23,9 +23,8 @@ class Syscall_Reader{
         virtual uint_fast8_t start_reading() = 0;
         virtual uint_fast8_t stop_reading() = 0;
         virtual uint_fast8_t toggle_reading() = 0;
-        virtual uint_fast8_t set_reading_on( bool on ) = 0;
         virtual uint_fast8_t set_self_filter( bool on=true ) = 0;
-
+        virtual uint_fast8_t set_reading_on( bool on ) = 0;
         virtual uint_fast8_t set_enter( bool on );
         virtual uint_fast8_t set_exit( bool on );
 
@@ -39,10 +38,8 @@ class Syscall_Reader{
 
         uint_fast8_t status;
 
+
         std::ifstream trace_pipe_stream;
 };
 
 Syscall_Reader::~Syscall_Reader() {}
-
-
-

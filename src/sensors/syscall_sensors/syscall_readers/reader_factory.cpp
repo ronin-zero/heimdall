@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 09-05-2016
  *
- *  Last Modified : Wed 18 May 2016 01:39:34 AM EDT
+ *  Last Modified : Fri 20 May 2016 10:35:18 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -20,7 +20,7 @@ typedef Linux_Syscall_Reader Reader;
 typedef Syscall_Reader Reader;
 #endif
 
-Reader_Factory::Reader_Factory( uint_fast8_t flags){
+Reader_Factory::Reader_Factory( uint_fast8_t flags ){
 
     status = flags;
 }
@@ -33,6 +33,6 @@ uint_fast8_t Reader_Factory::set_status( uint_fast8_t flags ){
 
 Syscall_Reader * Reader_Factory::create_reader(){
 
-    Syscall_Reader * concrete_reader = Reader::get_instance( status );
+        Syscall_Reader * concrete_reader = Reader::get_instance( status );
     return concrete_reader;
 }
