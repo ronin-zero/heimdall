@@ -3,14 +3,13 @@
  *  
  *  Creation Date : 09-05-2016
  *
- *  Last Modified : Tue 24 May 2016 03:20:07 AM EDT
+ *  Last Modified : Thu 26 May 2016 03:02:01 AM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
  */
 
 #include "sensors/syscall_sensors/syscall_sensor.h"
-#include "sensors/syscall_sensors/syscall_readers/syscall_reader.h"
 #include "sensors/syscall_sensors/syscall_readers/reader_factory.h"
 
 // Public Methods
@@ -61,6 +60,15 @@ void Syscall_Sensor::sense(){
     //
     // Consider adding a "report" function or something, then call them in
     // independent threads along with "sense."
+
+    // TODO: left off here when going to office hours.
+
+    while ( is_sensing() )
+    {
+        Sensor_Data = reader.read_syscall();
+
+
+    }
 }
 
 uint_fast8_t Syscall_Sensor::set_sensing( bool on ){
@@ -135,9 +143,5 @@ Syscall_Sensor::Syscall_Sensor( uint_fast8_t flags ){
 
     reader = factory.create_reader();
 
-    reader->set_queue( &data_queue );
-
     status = reader->reading_status();
-
 }
-

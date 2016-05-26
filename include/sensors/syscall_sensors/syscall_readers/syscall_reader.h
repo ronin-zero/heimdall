@@ -6,15 +6,12 @@
 #include <string>
 
 #include "sensor_data/sensor_data.h"
-#include "concurrentqueue/blockingconcurrentqueue.h"
 
 static const uint_fast8_t READING_ON       = 0x01; // Note that this is the same value as SENSING_ON.
 static const uint_fast8_t FILTER_SELF      = 0x02;
 static const uint_fast8_t SYS_ENTER        = 0x04;
 static const uint_fast8_t SYS_EXIT         = 0x08;
 static const uint_fast8_t READER_DEFAULT   = READING_ON | SYS_ENTER | FILTER_SELF;
-
-typedef moodycamel::ConcurrentQueue<Sensor_Data> queue;
 
 class Syscall_Reader{
 
@@ -40,21 +37,11 @@ class Syscall_Reader{
 
         virtual Sensor_Data read_syscall() = 0;
 
-        virtual void read() = 0;
-
-        void set_queue( queue* the_queue );
-
     protected:
 
         uint_fast8_t status;
-
-        queue * data_queue;
 
         std::ifstream trace_pipe_stream;
 };
 
 Syscall_Reader::~Syscall_Reader() {}
-
-void Syscall_Reader::set_queue( queue* the_queue ){
-    data_queue = the_queue;
-}

@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 09-05-2016
  *
- *  Last Modified : Tue 24 May 2016 03:23:46 AM EDT
+ *  Last Modified : Wed 25 May 2016 02:01:09 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -257,7 +257,7 @@ Sensor_Data Linux_Syscall_Reader::read_syscall(){
 
     string tmp;
 
-    if ( is_reading() )
+    if ( is_reading() && !trace_pipe_stream.eof() )
     {
         getline( trace_pipe_stream, tmp );
     }
@@ -270,6 +270,7 @@ Sensor_Data Linux_Syscall_Reader::read_syscall(){
     return data; 
 }
 
+/*
 void Linux_Syscall_Reader::read(){
 
     // TODO: You were very tired, make sure this works.
@@ -280,6 +281,9 @@ void Linux_Syscall_Reader::read(){
     // If it is in reading mode, it reads a line from the
     // syscall pipe (trace_pipe) into a new Sensor_Data object,
     // Then enqueues that object on the shared queue.
+    // 
+    // EDIT: You are redesigning this.
+    //      The reader no longer has access to the queue.
 
     if ( is_reading() )
     {
@@ -287,7 +291,7 @@ void Linux_Syscall_Reader::read(){
 
         data_queue->enqueue( data_point );        
     }
-}
+}*/
 
 // Protected methods
 

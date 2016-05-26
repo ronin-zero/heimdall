@@ -6,20 +6,27 @@
 
 #include "sensor_data/sensor_data.h"
 #include "sensor_observers/sensor_observer.h"
-#include "concurrentqueue/blockingconcurrentqueue.h"
+#include "queues/readerwriterqueue.h"
 
-typedef moodycamel::ConcurrentQueue<Sensor_Data> queue;
+typedef moodycamel::ReaderWriterQueue<Sensor_Data> queue;
+
+using std::string;
 
 // Sensor constants
 
 const uint_fast8_t SENSING_OFF = 0x00;
+const uint_fast32_t QUEUE_SIZE = 100; // This is entirely arbitarary right now.
 
 
 class Sensor {
 
     public:
 
-        Sensor() {}
+        // TODO: Fix this man it's broke as heck.
+        // The corresponding stuff is in syscall_sensor.cpp
+        // at line 131ish.
+
+        Sensor() { queue data_queue(QUEUE_SIZE); }
         virtual ~Sensor()=0;
 
         virtual uint_fast8_t sensing_status()=0;
