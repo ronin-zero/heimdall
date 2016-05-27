@@ -1,8 +1,8 @@
 #pragma once
 
 #include <stdint.h>
-#include <string>
 #include <unordered_set>
+#include <thread>
 
 #include "sensor_data/sensor_data.h"
 #include "sensor_observers/sensor_observer.h"
@@ -10,55 +10,64 @@
 
 typedef moodycamel::ReaderWriterQueue<Sensor_Data> queue;
 
-using std::string;
+using std::thread;
 
 // Sensor constants
 
 const uint_fast8_t SENSING_OFF = 0x00;
-const uint_fast32_t QUEUE_SIZE = 100; // This is entirely arbitarary right now.
-
+const uint_fast32_t QUEUE_SIZE = 100; // CHECK: This is entirely arbitrary right now. If something works better, it will be changed.
 
 class Sensor {
 
     public:
 
-        // TODO: Fix this man it's broke as heck.
-        // The corresponding stuff is in syscall_sensor.cpp
-        // at line 131ish.
+        // As of 5/26/2016, this compiles and *should* work.
+        // The sensor abstract class merely
+        // initializes a queue. All sensors
+        // should have a queue like this.
 
-        Sensor() { queue data_queue(QUEUE_SIZE); }
+        Sensor() : data_queue ( QUEUE_SIZE ) {}
         virtual ~Sensor()=0;
 
-        virtual uint_fast8_t sensing_status()=0;
+       
+        // These methods will vary from sensor to sensor.
+        // As such, they are pure virtual and derived classes
+        // must provide a specific implementation.
+        
         virtual bool is_sensing()=0;
-        virtual Sensor_Data sense_data()=0;
 
-        uint_fast32_t observer_count();
-
-        virtual void sense()=0;
-
+        virtual uint_fast8_t set_sensing( bool on )=0;
+        virtual uint_fast8_t sensing_status()=0;
         virtual uint_fast8_t toggle_sensing()=0;
         virtual uint_fast8_t start_sensing()=0;
         virtual uint_fast8_t stop_sensing()=0;
 
+        // These methods should be the same for all sensors.
+
         void attach_observer( Sensor_Observer * observer );
         void detatch_observer( Sensor_Observer * observer );
-
+        uint_fast32_t observer_count();
 
     protected:
 
-        bool sensing = false;
+        // All sensors will have these data members
+        // in common.
+
+        thread sense_thread;
+        thread notify_thread;
         std::unordered_set<Sensor_Observer *> observers;
-        uint_fast8_t status = SENSING_OFF;
 
         queue data_queue;
-        string data_label = "";
-        string operating_system_label = "";
-        string aux = "";
 
+        uint_fast8_t status;
+
+        // These methods will vary from sensor to sensor.
+        // Thus, they are pure virtual and must be
+        // defined in all derived classes.
+
+        virtual Sensor_Data * sense_data()=0;
+        virtual void sense()=0;
         virtual void notify_observers()=0; 
-        virtual uint_fast8_t set_sensing( bool on )=0;
-
 };
 
 Sensor::~Sensor() {}

@@ -15,32 +15,36 @@ static const uint_fast8_t SENSOR_DEFAULT = READER_DEFAULT;
 class Syscall_Sensor:public Sensor{
 
     public:
+
         static Syscall_Sensor * get_instance( uint_fast8_t flags=SENSOR_DEFAULT );
         ~Syscall_Sensor();
-        uint_fast8_t configure( uint_fast8_t flags );
-        Sensor_Data sense_data();
-        uint_fast8_t sensing_status();
+
         bool is_sensing();
-        void sense();
 
         uint_fast8_t set_sensing( bool on );
+        uint_fast8_t sensing_status();
         uint_fast8_t toggle_sensing();
         uint_fast8_t start_sensing();
         uint_fast8_t stop_sensing();
+
+        // These are unique to Syscall_Sensor
 
         uint_fast8_t set_exit( bool on );
         uint_fast8_t set_enter( bool on );
         uint_fast8_t set_self_filter( bool on=true );
 
-        void notify_observers();
-
+        uint_fast8_t configure( uint_fast8_t flags );
 
     protected:
+        
         Syscall_Sensor( uint_fast8_t flags=SENSOR_DEFAULT );
+
+        Syscall_Reader * reader;
 
         static Syscall_Sensor * ss_instance;
 
+        Sensor_Data * sense_data();
+        void sense();
+        void notify_observers();
 
-        uint_fast8_t status;
-        Syscall_Reader * reader;
 };

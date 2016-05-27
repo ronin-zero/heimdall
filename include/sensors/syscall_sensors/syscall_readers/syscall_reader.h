@@ -7,11 +7,13 @@
 
 #include "sensor_data/sensor_data.h"
 
-static const uint_fast8_t READING_ON       = 0x01; // Note that this is the same value as SENSING_ON.
+using std::string;
+
+static const uint_fast8_t READING_ON       = 0x01; // CHECK: Note that this is the same value as SENSING_ON.  May need to change it...
 static const uint_fast8_t FILTER_SELF      = 0x02;
 static const uint_fast8_t SYS_ENTER        = 0x04;
 static const uint_fast8_t SYS_EXIT         = 0x08;
-static const uint_fast8_t READER_DEFAULT   = READING_ON | SYS_ENTER | FILTER_SELF;
+static const uint_fast8_t READER_DEFAULT   = SYS_ENTER | FILTER_SELF;
 
 class Syscall_Reader{
 
@@ -35,11 +37,14 @@ class Syscall_Reader{
 
         virtual bool is_reading() = 0;
 
-        virtual Sensor_Data read_syscall() = 0;
+        virtual Sensor_Data * read_syscall() = 0;
 
     protected:
 
         uint_fast8_t status;
+
+        string os;
+        string data_type = "syscall";
 
         std::ifstream trace_pipe_stream;
 };

@@ -3,17 +3,15 @@
  *  
  *  Creation Date : 09-05-2016
  *
- *  Last Modified : Wed 25 May 2016 02:01:09 PM EDT
+ *  Last Modified : Thu 26 May 2016 07:00:09 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
  */
 
-#include <stdint.h>
-#include <string>
 #include <sstream>
-#include <unistd.h>
 #include <sys/types.h>
+#include <unistd.h>
 
 #include "sensors/syscall_sensors/syscall_readers/linux_syscall_reader.h"
 
@@ -253,20 +251,18 @@ bool Linux_Syscall_Reader::is_reading(){
     return ( status & READING_ON );
 }
 
-Sensor_Data Linux_Syscall_Reader::read_syscall(){
+Sensor_Data * Linux_Syscall_Reader::read_syscall(){
 
-    string tmp;
+    string tmp = "";
+    Sensor_Data * data = NULL;
 
     if ( is_reading() && !trace_pipe_stream.eof() )
     {
         getline( trace_pipe_stream, tmp );
-    }
-    else
-    {
-        tmp = "";
+    
+        data = new Sensor_Data( os, data_type, tmp, "" );
     }
     
-    Sensor_Data data( os, data_type, tmp, "" );
     return data; 
 }
 

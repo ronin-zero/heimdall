@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 09-05-2016
  *
- *  Last Modified : Thu 26 May 2016 03:02:01 AM EDT
+ *  Last Modified : Thu 26 May 2016 09:18:16 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -16,8 +16,13 @@
 
 Syscall_Sensor * Syscall_Sensor::get_instance( uint_fast8_t flags ){
 
-    if ( !ss_instance ){
+    if ( !ss_instance )
+    {
         ss_instance = new Syscall_Sensor( flags );
+    }
+    else
+    {
+        ss_instance->configure( flags );
     }
 
     return ss_instance;
@@ -32,12 +37,18 @@ uint_fast8_t Syscall_Sensor::configure( uint_fast8_t flags ){
     set_enter( flags & SYS_ENTER );
     set_exit( flags & SYS_EXIT );
     
-    status |= reader->set_reading( flags & SENSING_ON );
+    // TODO: This isn't good.  Change this so that
+    // it calls "set_sensing" with the argument as flags
+    // bit-wise anded with SENSING_ON.
+    //
+    // status |= reader->set_reading( flags & SENSING_ON );
+
+    status = set_sensing ( flags & SENSING_ON );    // CHECK: <--- I *think* this is better.
 
     return status;
 }
 
-Sensor_Data Syscall_Sensor::sense_data(){
+Sensor_Data * Syscall_Sensor::sense_data(){
 
     return reader->read_syscall();
 }
@@ -54,20 +65,48 @@ bool Syscall_Sensor::is_sensing(){
 
 void Syscall_Sensor::sense(){
 
-    // TODO: implement later.
-    // This should be where the program checks if it's supposed to be sensing
-    // and adds Sensor_Data to its data queue.
-    //
-    // Consider adding a "report" function or something, then call them in
-    // independent threads along with "sense."
-
     // TODO: left off here when going to office hours.
 
     while ( is_sensing() )
     {
-        Sensor_Data = reader.read_syscall();
+        Sensor_Data * data_point = sense_data();
 
+        if ( data_point != NULL )
+        {
+            data_queue.enqueue( *data_point );
+        }
+    }
+}
 
+void Syscall_Sensor::notify_observers(){
+
+    // TODO: Some base functionality if we don't have anything
+    // to report to the observers.
+
+    // UPDATE: I decided we don't need the version that takes
+    // data as an argument.  It's really not needed.
+    
+    while ( is_sensing() )
+    {
+        Sensor_Data data_point;
+
+        // This method returns true if there is data in the
+        // queue and we were able to assign it to the argument,
+        // which is, in this case, data_point.
+
+        if ( data_queue.try_dequeue( data_point ) )
+        {
+            // Iterate through our set of observers and
+            // pass data_queue to them.  It is passed
+            // as an object and a copy constructor exists
+            // for the Sensor_Data class.  Each observer
+            // should have a copy of the data point.
+
+            for ( auto obs_it = observers.begin(); obs_it != observers.end(); ++obs_it )
+            {
+                (*obs_it)->update( data_point );
+            }
+        }
     }
 }
 
@@ -94,7 +133,10 @@ uint_fast8_t Syscall_Sensor::toggle_sensing(){
 
 uint_fast8_t Syscall_Sensor::start_sensing(){
 
-    status = reader->start_reading();
+    if ( !is_sensing() )
+    {
+        status = reader->start_reading();
+    }
     return status;
 }
 
@@ -125,14 +167,7 @@ uint_fast8_t Syscall_Sensor::set_self_filter( bool on ){
     return status;
 }
 
-void Syscall_Sensor::notify_observers(){
 
-    // TODO: Some base functionality if we don't have anything
-    // to report to the observers.
-
-    // UPDATE: I decided we don't need the version that takes
-    // data as an argument.  It's really not needed.
-}
 
 
 // Protected methods

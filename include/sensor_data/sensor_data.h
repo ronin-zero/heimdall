@@ -19,6 +19,12 @@ class Sensor_Data{
         /*
          * Constructor
          */
+        
+        // Default Constructor
+
+        Sensor_Data() {}    // CHECK: This effectively makes an empty reference, which is what I want.  I think.
+
+        // Alternate Constructor
 
         Sensor_Data( string operating_system_label,  // For Labeling the OS
                 string data_label,              // What type of data are recorded

@@ -55,7 +55,9 @@ class Linux_Syscall_Reader:public Syscall_Reader{
 
         bool is_reading();
 
-        Sensor_Data read_syscall();
+        // I need this to be a pointer to check for nullity.
+
+        Sensor_Data * read_syscall();
 
         void read();
 
@@ -70,5 +72,4 @@ class Linux_Syscall_Reader:public Syscall_Reader{
         bool file_write( string filename, string output, std::ios_base::openmode mode=std::ofstream::out );
 
         string os = "linux";
-        string data_type = "syscall";
 };
