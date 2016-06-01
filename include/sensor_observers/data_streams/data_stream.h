@@ -6,6 +6,6 @@ class Data_Stream{
 
     public:
         
-        virtual void process_data ( Sensor_Data record ) = 0;
+        virtual void process_data ( Sensor_Data record )=0;
 
 };

@@ -27,7 +27,7 @@ class Sensor {
         // should have a queue like this.
 
         Sensor() : data_queue ( QUEUE_SIZE ) {}
-        virtual ~Sensor()=0;
+        virtual ~Sensor(); // CHECK: I had this as pure virtual, but I'm not sure why.  I removed "=0" from it.
 
        
         // These methods will vary from sensor to sensor.
@@ -55,6 +55,7 @@ class Sensor {
 
         thread sense_thread;
         thread notify_thread;
+
         std::unordered_set<Sensor_Observer *> observers;
 
         queue data_queue;

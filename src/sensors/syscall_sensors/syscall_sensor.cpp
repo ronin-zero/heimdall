@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 09-05-2016
  *
- *  Last Modified : Thu 26 May 2016 09:18:16 PM EDT
+ *  Last Modified : Tue 31 May 2016 06:59:32 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -20,10 +20,8 @@ Syscall_Sensor * Syscall_Sensor::get_instance( uint_fast8_t flags ){
     {
         ss_instance = new Syscall_Sensor( flags );
     }
-    else
-    {
-        ss_instance->configure( flags );
-    }
+    
+    ss_instance->configure( flags );
 
     return ss_instance;
 }
@@ -37,9 +35,9 @@ uint_fast8_t Syscall_Sensor::configure( uint_fast8_t flags ){
     set_enter( flags & SYS_ENTER );
     set_exit( flags & SYS_EXIT );
     
-    // TODO: This isn't good.  Change this so that
+    // TODO--FIXED: This isn't good.  Change this so that
     // it calls "set_sensing" with the argument as flags
-    // bit-wise anded with SENSING_ON.
+    // bit-wise anded with SENSING_ON.  (should be fine now)
     //
     // status |= reader->set_reading( flags & SENSING_ON );
 
@@ -65,8 +63,6 @@ bool Syscall_Sensor::is_sensing(){
 
 void Syscall_Sensor::sense(){
 
-    // TODO: left off here when going to office hours.
-
     while ( is_sensing() )
     {
         Sensor_Data * data_point = sense_data();
@@ -80,17 +76,12 @@ void Syscall_Sensor::sense(){
 
 void Syscall_Sensor::notify_observers(){
 
-    // TODO: Some base functionality if we don't have anything
-    // to report to the observers.
+    Sensor_Data data_point;
 
-    // UPDATE: I decided we don't need the version that takes
-    // data as an argument.  It's really not needed.
-    
     while ( is_sensing() )
     {
-        Sensor_Data data_point;
 
-        // This method returns true if there is data in the
+        // This method (try_dequeue) returns true if there is data in the
         // queue and we were able to assign it to the argument,
         // which is, in this case, data_point.
 
@@ -101,12 +92,38 @@ void Syscall_Sensor::notify_observers(){
             // as an object and a copy constructor exists
             // for the Sensor_Data class.  Each observer
             // should have a copy of the data point.
-
-            for ( auto obs_it = observers.begin(); obs_it != observers.end(); ++obs_it )
-            {
-                (*obs_it)->update( data_point );
-            }
+            
+            push_data( data_point );
         }
+    } 
+}
+
+// This method takes a Sensor_Data object and pushes it
+// to all observers attached to this sensor.
+
+void Syscall_Sensor::push_data( Sensor_Data data ){
+
+    for ( auto obs_it = observers.begin(); obs_it != observers.end(); ++obs_it )
+    {
+        (*obs_it)->update( data );
+    }
+}
+
+// If sensing stops and there are still Sensor_Data objects in the queue, pass them to the
+// observers until the queue is empty.
+//
+// NOTE: This functionality might not be desirable.  I have made the design decision that
+// when a sensor is "sensing," it is both collecting data and reporting/pushing the data to its
+// observers (notifying observers).  In the future, it may become clear that it would make more sense to
+// separate the sensing and notifying processes so that data may be collected without necessarily being pushed
+// and vice-versa
+void Syscall_Sensor::process_remaining_queue(){
+
+    Sensor_Data data_point;
+
+    while ( data_queue.try_dequeue( data_point ) )
+    {
+        push_data( data_point );
     }
 }
 
@@ -137,12 +154,34 @@ uint_fast8_t Syscall_Sensor::start_sensing(){
     {
         status = reader->start_reading();
     }
+
+    sense_thread = thread( &Syscall_Sensor::sense, this );
+    notify_thread = thread( &Syscall_Sensor::notify_observers, this );
+
+    sense_thread.detach();
+    notify_thread.detach();
+    
     return status;
 }
 
 uint_fast8_t Syscall_Sensor::stop_sensing(){
 
     status = reader->stop_reading();
+
+    // NOTE: This is if we want to empty the remaining
+    // data on the queue by passing them to the observers.
+    // We may wish not to do this.  We may wish to just
+    // make the queue empty by deleting it.  We may wish
+    // to make this controlled by a configuration option.
+    // This is just how I decided for now.
+
+    notify_thread = thread( &Syscall_Sensor::process_remaining_queue, this );
+
+    // Wait until all remaining records are passed to
+    // the observers...
+
+    notify_thread.join();
+
     return status;
 }
 
@@ -166,9 +205,6 @@ uint_fast8_t Syscall_Sensor::set_self_filter( bool on ){
 
     return status;
 }
-
-
-
 
 // Protected methods
 
