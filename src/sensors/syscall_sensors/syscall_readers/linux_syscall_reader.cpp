@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 09-05-2016
  *
- *  Last Modified : Fri 03 Jun 2016 06:30:49 PM EDT
+ *  Last Modified : Fri 03 Jun 2016 11:57:05 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -232,7 +232,7 @@ uint_fast8_t Linux_Syscall_Reader::set_exit( bool on ){
     }
     else
     {
-        std::cerr << "Couln't set sys_exit to " << std::to_string(exit) << std::endl;
+        std::cerr << "Couldn't set sys_exit to " << std::to_string(exit) << std::endl;
     }
 
     return status;

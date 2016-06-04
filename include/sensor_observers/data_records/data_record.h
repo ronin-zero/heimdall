@@ -17,7 +17,7 @@ class Data_Record{
     public:
 
         // For now, default to all of the flags being on.
-        Data_Record( Sensor_Data data, uint_fast8_t setting_flags=ALL, char sep=',' ) ;
+        // Data_Record( Sensor_Data data, uint_fast8_t setting_flags=ALL, char sep=',' ) ;
         virtual ~Data_Record() = 0;
 
         virtual string raw_string() = 0;
@@ -32,20 +32,19 @@ class Data_Record{
         
         uint_fast8_t flags;
         string raw_data;
+        string separator;
+
         virtual void print( ostream& s_out ) const = 0;
-
-
-
 };
 
 // This is here just to give a basic constructor.
 // I don't like implementing functions in header files.
-
+/*
 Data_Record::Data_Record( Sensor_Data data, uint_fast8_t setting_flags, char sep ){
 
     raw_data = data.get_data();
     flags = setting_flags;
-}
+}*/
 
 // This must be defined like this in order to have polymorphic behavior of <<
 
