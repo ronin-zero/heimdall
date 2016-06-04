@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 09-05-2016
  *
- *  Last Modified : Thu 26 May 2016 07:00:09 PM EDT
+ *  Last Modified : Fri 03 Jun 2016 06:30:49 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -265,29 +265,6 @@ Sensor_Data * Linux_Syscall_Reader::read_syscall(){
     
     return data; 
 }
-
-/*
-void Linux_Syscall_Reader::read(){
-
-    // TODO: You were very tired, make sure this works.
-    // Also, finish it.
-    // The idea is that you have a "read" function that
-    // loops in its own thread. 
-    //
-    // If it is in reading mode, it reads a line from the
-    // syscall pipe (trace_pipe) into a new Sensor_Data object,
-    // Then enqueues that object on the shared queue.
-    // 
-    // EDIT: You are redesigning this.
-    //      The reader no longer has access to the queue.
-
-    if ( is_reading() )
-    {
-        Sensor_Data data_point = read_syscall();
-
-        data_queue->enqueue( data_point );        
-    }
-}*/
 
 // Protected methods
 

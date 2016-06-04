@@ -7,12 +7,16 @@
 #include "sensor_observers/data_records/data_record.h"
 #endif
 
-#include <stdint.h>
+#include <cstdint>
 
 #include "sensor_data/sensor_data.h"
 
 class Record_Factory{
 
-    //TODO: this whole class
+    public: 
+
+    protected:
+
+        uint_fast8_t flags;
 
 };

@@ -1,6 +1,6 @@
 #pragma once
 
-#include <stdint.h>
+#include <cstdint>
 
 #include "sensor_data/sensor_data.h"
 #include "queues/readerwriterqueue.h"
@@ -10,13 +10,13 @@ using std::string;
 
 typedef moodycamel::ReaderWriterQueue<Sensor_Data> queue;
 
-const uint_fast32_t QUEUE_SIZE = 100; // CHECK: As with include/sensors/sensor.h, this figure is arbitrary for now.
+const uint_fast32_t OBSERVER_QUEUE_SIZE = 100; // CHECK: As with include/sensors/sensor.h, this figure is arbitrary for now.
 
 class Sensor_Observer{
 
     public:
 
-        Sensor_Observer() : data_queue( QUEUE_SIZE ) {}
+        Sensor_Observer() : data_queue( OBSERVER_QUEUE_SIZE ) {}
 
         virtual void update()=0;
         virtual void update( Sensor_Data data )=0;

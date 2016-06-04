@@ -1,6 +1,6 @@
 #pragma once
 
-#include <stdint.h>
+#include <cstdint>
 
 #include "sensors/sensor.h"
 #include "sensors/syscall_sensors/syscall_readers/syscall_reader.h"

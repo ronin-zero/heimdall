@@ -1,6 +1,6 @@
 #pragma once
 
-#include <stdint.h>
+#include <cstdint>
 #include <unordered_set>
 #include <thread>
 
@@ -15,7 +15,7 @@ using std::thread;
 // Sensor constants
 
 const uint_fast8_t SENSING_OFF = 0x00;
-const uint_fast32_t QUEUE_SIZE = 100; // CHECK: This is entirely arbitrary right now. If something works better, it will be changed.
+const uint_fast32_t SENSOR_QUEUE_SIZE = 100; // CHECK: This is entirely arbitrary right now. If something works better, it will be changed.
 
 class Sensor {
 
@@ -26,7 +26,7 @@ class Sensor {
         // initializes a queue. All sensors
         // should have a queue like this.
 
-        Sensor() : data_queue ( QUEUE_SIZE ) {}
+        Sensor() : data_queue ( SENSOR_QUEUE_SIZE ) {}
         virtual ~Sensor(); // CHECK: I had this as pure virtual, but I'm not sure why.  I removed "=0" from it.
 
        
