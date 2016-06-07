@@ -20,7 +20,12 @@ class Linux_Syscall_Reader:public Syscall_Reader{
         ~Linux_Syscall_Reader();
 
         uint_fast8_t set_reading( bool on );
-        uint_fast8_t toggle_reading();
+
+        // CHECK: Shawn feels these toggle methods
+        // are unnecessary and I feel he's right.
+        // I'm taking them out for the time being.
+
+        //uint_fast8_t toggle_reading();
         uint_fast8_t start_reading();
         uint_fast8_t stop_reading();
 

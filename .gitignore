@@ -4,3 +4,6 @@ lib/*
 
 # Ignore compiled targets
 bin/*
+
+# Ignore backup files
+*.backup

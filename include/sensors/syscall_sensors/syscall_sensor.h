@@ -23,7 +23,10 @@ class Syscall_Sensor:public Sensor{
 
         uint_fast8_t set_sensing( bool on );
         uint_fast8_t sensing_status();
-        uint_fast8_t toggle_sensing();
+        
+        // CHECK: Shawn feels this is unnecessary.
+
+        //uint_fast8_t toggle_sensing();
         uint_fast8_t start_sensing();
         uint_fast8_t stop_sensing();
 

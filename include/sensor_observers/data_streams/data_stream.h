@@ -1,11 +1,10 @@
 #pragma once
 
-#include "../sensor_data/sensor_data.h"
+#include "sensor_observers/data_records/data_record.h"
 
 class Data_Stream{
 
     public:
         
-        virtual void process_data ( Sensor_Data record )=0;
-
+        virtual void process_data ( Data_Record record )=0;
 };

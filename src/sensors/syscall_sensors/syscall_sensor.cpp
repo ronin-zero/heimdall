@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 09-05-2016
  *
- *  Last Modified : Fri 03 Jun 2016 08:03:46 PM EDT
+ *  Last Modified : Mon 06 Jun 2016 07:50:26 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -76,14 +76,15 @@ void Syscall_Sensor::sense(){
 
 void Syscall_Sensor::notify_observers(){
 
-    Sensor_Data data_point;
 
     while ( is_sensing() )
     {
 
         // This method (try_dequeue) returns true if there is data in the
         // queue and we were able to assign it to the argument,
-        // which is, in this case, data_point.
+        // which is, in this case, data_point.        
+
+        Sensor_Data data_point;
 
         if ( data_queue.try_dequeue( data_point ) )
         {
@@ -139,6 +140,11 @@ uint_fast8_t Syscall_Sensor::set_sensing( bool on ){
     }
 }
 
+// CHECK: Shawn recommends not using this method.
+// It has redundant functionality.
+// For now, I'm just going to comment it out.
+
+/*
 uint_fast8_t Syscall_Sensor::toggle_sensing(){
 
     // Just check if it's sensing and call the method
@@ -147,6 +153,7 @@ uint_fast8_t Syscall_Sensor::toggle_sensing(){
 
     return set_sensing( !is_sensing() );
 }
+*/
 
 uint_fast8_t Syscall_Sensor::start_sensing(){
 

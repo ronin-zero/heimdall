@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 09-05-2016
  *
- *  Last Modified : Fri 03 Jun 2016 11:57:05 PM EDT
+ *  Last Modified : Mon 06 Jun 2016 07:53:47 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -60,10 +60,15 @@ uint_fast8_t Linux_Syscall_Reader::set_reading( bool on ){
     }
 }
 
+// CHECK: Shawn feels these are unnecessary.
+// I agree, so commenting out for now.
+
+/*
 uint_fast8_t Linux_Syscall_Reader::toggle_reading(){
 
     return set_reading( !is_reading() );
 }
+*/
 
 uint_fast8_t Linux_Syscall_Reader::start_reading(){
 

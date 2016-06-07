@@ -3,13 +3,12 @@
  *  
  *  Creation Date : 09-05-2016
  *
- *  Last Modified : Tue 24 May 2016 06:08:28 PM EDT
+ *  Last Modified : Mon 06 Jun 2016 06:48:14 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
  */
 #include "sensors/syscall_sensors/syscall_readers/reader_factory.h"
-#include "sensors/syscall_sensors/syscall_readers/syscall_reader.h"
 
 // Check for operating system here (So far, only Linux is defined).
 

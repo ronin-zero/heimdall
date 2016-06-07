@@ -29,26 +29,25 @@ class Sensor_Observer{
         // may come a time when a method to set/toggle/check observing
         // and/or processing is more complicated than flipping a boolean.
 
-        virtual uint_fast8_t set_observing( bool observe )=0;
-        virtual uint_fast8_t set_processing( bool process )=0;
+        virtual void set_observing( bool observe )=0;
+        virtual void set_processing( bool process )=0;
 
-        virtual uint_fast8_t observing_status()=0;
-        virtual uint_fast8_t processing_status()=0;
+        virtual bool observing_status()=0;
+        virtual bool processing_status()=0;
         
-        virtual uint_fast8_t toggle_observing()=0;
-        virtual uint_fast8_t toggle_processing()=0;
+        virtual void start_observing()=0;
+        virtual void start_processing()=0;
 
-        virtual uint_fast8_t start_observing()=0;
-        virtual uint_fast8_t start_processing()=0;
+        virtual void stop_observing()=0;
+        virtual void stop_processing()=0;
 
-        virtual uint_fast8_t stop_observing()=0;
-        virtual uint_fast8_t stop_processing()=0;
 
     protected:
 
+        virtual void process()=0;
+
         queue data_queue;
 
-        thread observing_thread;
         thread processing_thread;
 
         bool observing;

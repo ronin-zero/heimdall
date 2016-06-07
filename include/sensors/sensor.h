@@ -38,7 +38,12 @@ class Sensor {
 
         virtual uint_fast8_t set_sensing( bool on )=0;
         virtual uint_fast8_t sensing_status()=0;
-        virtual uint_fast8_t toggle_sensing()=0;
+
+        // CHECK: Shawn thinks these toggle methods are
+        // unnecessary.  Commenting out for now.
+
+        //virtual uint_fast8_t toggle_sensing()=0;
+
         virtual uint_fast8_t start_sensing()=0;
         virtual uint_fast8_t stop_sensing()=0;
 

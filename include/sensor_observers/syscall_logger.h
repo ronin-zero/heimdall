@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 31-05-2016
  *
- *  Last Modified : Tue 31 May 2016 07:33:42 PM EDT
+ *  Last Modified : Mon 06 Jun 2016 06:46:57 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -17,6 +17,7 @@
 
 #include "sensor_observers/sensor_observer.h"
 #include "sensor_observers/data_streams/data_stream.h"
+#include "sensor_observers/data_records/data_record.h"
 
 class Syscall_Logger : public Sensor_Observer{
 
@@ -30,20 +31,17 @@ class Syscall_Logger : public Sensor_Observer{
         void update();
         void update( Sensor_Data data );
 
-        uint_fast8_t set_observing( bool observe );
-        uint_fast8_t set_processing( bool process );
+        void set_observing( bool on );
+        void set_processing( bool on );
 
-        uint_fast8_t observing_status();
-        uint_fast8_t processing_status();
-                                        
-        uint_fast8_t toggle_observing();
-        uint_fast8_t toggle_processing();
+        bool observing_status();
+        bool processing_status();
 
-        uint_fast8_t start_observing();
-        uint_fast8_t start_processing();
+        void start_observing();
+        void start_processing();
 
-        uint_fast8_t stop_observing();
-        uint_fast8_t stop_processing();
+        void stop_observing();
+        void stop_processing();
 
         // Unique to Syscall_Logger
         
@@ -52,7 +50,9 @@ class Syscall_Logger : public Sensor_Observer{
 
     private:
 
+        void send_data( Data_Record record );
+        void process();
+        void process_remaining_queue();
+
         std::unordered_set<Data_Stream *> streams;
-
-
 };
