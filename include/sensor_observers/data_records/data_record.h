@@ -50,6 +50,7 @@ Data_Record::Data_Record( Sensor_Data data, uint_fast8_t setting_flags, string s
 
     raw_data = data.get_data();
     flags = setting_flags;
+    separator = sep;
 }
 
 string Data_Record::raw_string() const{

@@ -91,6 +91,6 @@ void Sensor::detatch_observer( Sensor_Observer * observer ){
 
 uint_fast32_t Sensor::observer_count(){
 
-    observers.size();
+    return observers.size();
 }
 
