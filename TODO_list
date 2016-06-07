@@ -1,12 +1,10 @@
 This is a list of pending tasks!
 
 TODO: 
-1) ./src/sensor_observers/syscall_logger.cpp, ./include/sensor_observers/syscall_logger.h
-2) ./src/sensor_observers/data_streams/output_stream.cpp, ./include/sensor_observers/data_streams/output_stream.h
-3) ./src/sensor_observers/data_records/linux_syscall_record.cpp, ./include/sensor_observers/data_records/linux_syscall_record.h
 
-4) ./test/driver --- This should just be a simple main that runs as a test.  Nothing formal.  Just see if it "blows up" or anything.
-
-5) Get CMake integrated here and organize the compiled sources into the build directory.
+1) Write executable
+    1.a) Daemonize
+2) XML Writer/parser
+3) cmake
 
 LOW PRIORITY) Update ./doc/uml/heimdall.[dia|png]
