@@ -19,9 +19,21 @@ class Syscall_Reader{
 
     public:
 
-        ~Syscall_Reader();
+        //~Syscall_Reader() {}
 
-        static Syscall_Reader * get_instance( uint_fast8_t flags=READER_DEFAULT );
+        // This is the ugliest line of terrible code I've written in my life.  If anyone knows a better way, please let me know.
+        // More information: this doesn't compile with the way I've set the warning flags (-Wall -Werror -Wextra -pedantic, etc.)
+        // and I don't want to turn them off.  The problem is it accepts a uint_fast8_t as an argument, but this was just supposed
+        // to be the template for derived classes.  Ideally, it would be virtual, but it must be static in order to keep it as
+        // a singleton. I have a few ideas of how to fix it:
+        //
+        // 1) Maybe don't make this a pure virtual abstract class/interface.
+        // 2) Maybe don't define THIS method in the interface; really as far as I know, only Linux syscall readers have to be a singleton.
+        // 3) Make a dummy constructor?
+
+        static Syscall_Reader * get_instance( uint_fast8_t flags=READER_DEFAULT ) { return ( flags == READER_DEFAULT ? NULL : NULL ); }
+
+        ~Syscall_Reader(){}
 
         virtual uint_fast8_t set_reading( bool on ) = 0;
 
@@ -34,8 +46,8 @@ class Syscall_Reader{
 
         virtual uint_fast8_t set_self_filter( bool on=true ) = 0;
         
-        virtual uint_fast8_t set_enter( bool on );
-        virtual uint_fast8_t set_exit( bool on );
+        virtual uint_fast8_t set_enter( bool on ) = 0;
+        virtual uint_fast8_t set_exit( bool on ) = 0;
 
         virtual uint_fast8_t reading_status() = 0;
 
@@ -45,6 +57,7 @@ class Syscall_Reader{
 
     protected:
 
+
         uint_fast8_t status;
 
         string os;
@@ -52,5 +65,3 @@ class Syscall_Reader{
 
         std::ifstream trace_pipe_stream;
 };
-
-Syscall_Reader::~Syscall_Reader() {}

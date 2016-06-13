@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 31-05-2016
  *
- *  Last Modified : Mon 06 Jun 2016 07:16:52 PM EDT
+ *  Last Modified : Mon 13 Jun 2016 06:26:03 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -17,7 +17,6 @@
 #include <stdint.h>
 
 #include "sensor_observers/data_streams/data_stream.h"
-#include "sensor_observers/data_records/record_factory.h"
 #include "sensor_observers/data_records/data_record.h"
 
 using std::string;
@@ -33,6 +32,8 @@ class Output_Stream : public Data_Stream{
         Output_Stream( ostream& o_stream, uint_fast8_t out_flags=ALL, string sep="," ); // Alternate that takes an existing ostream reference.
         Output_Stream( string file_name, uint_fast8_t out_flags=ALL, string sep="," ); // Takes a string.  Will open a file output stream.
 
+        ~Output_Stream();
+
         void process_data( Data_Record record );
 
         void set_flags( uint_fast8_t new_flags );
@@ -46,6 +47,5 @@ class Output_Stream : public Data_Stream{
         string separator;
         uint_fast8_t flags;
 
-        ostream * out;
-        Record_Factory * factory;
+        ostream* out;
 };

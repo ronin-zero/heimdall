@@ -22,7 +22,7 @@ class Sensor_Data{
         
         // Default Constructor
 
-        Sensor_Data() {}    // CHECK: This effectively makes an empty reference, which is what I want.  I think.
+        Sensor_Data(); // CHECK: This caused problems because there were multiple definitions.  It is only declared here, defined in sensor_data.cxx.
 
         // Alternate Constructor
 
@@ -39,7 +39,7 @@ class Sensor_Data{
          *  Destructor
          */
 
-        ~Sensor_Data();
+        ~Sensor_Data() { }
 
         /*
          * Accessors/Inspectors

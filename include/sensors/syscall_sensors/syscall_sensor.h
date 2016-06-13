@@ -6,15 +6,20 @@
 #include "sensors/syscall_sensors/syscall_readers/syscall_reader.h"
 #include "sensor_data/sensor_data.h"
 
-static const uint_fast8_t SENSING_ON = READING_ON;
-//static const uint_fast8_t FILTER_SELF = 0x02;
-//static const uint_fast8_t SYS_ENTER = 0x04;
-//static const uint_fast8_t SYS_EXIT = 0x08;
 static const uint_fast8_t SENSOR_DEFAULT = READER_DEFAULT;
 
 class Syscall_Sensor:public Sensor{
 
+    // This needs to be declared here for this to work.
+    // Originally, it was protected.  That won't work.
+
+    static Syscall_Sensor * ss_instance;
+
     public:
+
+        // As with the "get_instance" method of "syscall_reader," this is an ugly, ugly fix.
+        // See lines 24~32 of ./syscall_readers/syscall_reader.h for the rationale and if you know a better
+        // workaround, please let me know.
 
         static Syscall_Sensor * get_instance( uint_fast8_t flags=SENSOR_DEFAULT );
         ~Syscall_Sensor();
@@ -44,9 +49,8 @@ class Syscall_Sensor:public Sensor{
 
         Syscall_Reader * reader;
 
-        static Syscall_Sensor * ss_instance;
-
         Sensor_Data * sense_data();
+
         void sense();
         void notify_observers();
         void push_data( Sensor_Data data );

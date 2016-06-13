@@ -16,6 +16,7 @@ static const string NO_TRACE =          "set_ftrace_notrace";
 class Linux_Syscall_Reader:public Syscall_Reader{
 
     public:
+
         static Linux_Syscall_Reader * get_instance( uint_fast8_t flags=READER_DEFAULT );
         ~Linux_Syscall_Reader();
 
