@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 09-05-2016
  *
- *  Last Modified : Mon 13 Jun 2016 05:55:51 PM EDT
+ *  Last Modified : Wed 15 Jun 2016 04:20:40 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -256,8 +256,11 @@ Sensor_Data * Linux_Syscall_Reader::read_syscall(){
     if ( is_reading() && !trace_pipe_stream.eof() )
     {
         getline( trace_pipe_stream, tmp );
-    
-        data = new Sensor_Data( os, data_type, tmp, "" );
+   
+        if ( tmp.length() > MIN_LENGTH )
+        {
+            data = new Sensor_Data( os, data_type, tmp, "" );
+        }
     }
     
     return data; 

@@ -22,7 +22,7 @@ class Syscall_Sensor:public Sensor{
         // workaround, please let me know.
 
         static Syscall_Sensor * get_instance( uint_fast8_t flags=SENSOR_DEFAULT );
-        ~Syscall_Sensor();
+        virtual ~Syscall_Sensor();
 
         bool is_sensing();
 

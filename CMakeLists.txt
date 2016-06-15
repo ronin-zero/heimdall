@@ -4,7 +4,7 @@ project (Heimdall)
 
 set( CMAKE_CXX_FLAGS "-Wall -Wextra -Werror -pedantic -std=c++11" )
 
-set( CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -ggdb2" )
+set( CMAKE_CXX_FLAGS_DEBUG "-ggdb3 -O0" )
 
 set( INCLUDE_DIR "${CMAKE_SOURCE_DIR}/include/" )
 set( SOURCE_DIR "${CMAKE_SOURCE_DIR}/src/" )

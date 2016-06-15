@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 06-06-2016
  *
- *  Last Modified : Mon 13 Jun 2016 06:34:44 PM EDT
+ *  Last Modified : Wed 15 Jun 2016 04:23:50 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -32,9 +32,7 @@ Output_Stream::Output_Stream( string file_name, uint_fast8_t out_flags, string s
     flags = out_flags;
     separator = sep;
 
-    std::ofstream fout( file_name );
-
-    out = &fout;
+    out = new std::ofstream ( file_name );
 }
 
 // Destructor
@@ -44,9 +42,9 @@ Output_Stream::~Output_Stream(){
     out->flush();
 }
 
-void Output_Stream::process_data ( Data_Record record ){
+void Output_Stream::process_data ( Data_Record * record ){
 
-    *out << record;
+    *out << *record << std::endl;
 }
 
 void Output_Stream::set_flags( uint_fast8_t new_flags ){

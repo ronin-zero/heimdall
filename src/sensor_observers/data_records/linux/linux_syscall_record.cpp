@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 01-06-2016
  *
- *  Last Modified : Mon 13 Jun 2016 02:10:33 PM EDT
+ *  Last Modified : Wed 15 Jun 2016 01:41:35 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -12,15 +12,18 @@
 #include "sensor_observers/data_records/linux/linux_syscall_record.h"
 #include "utils/ascii_operations.h"
 
+
 Linux_Syscall_Record::Linux_Syscall_Record( Sensor_Data data, uint_fast8_t settings_flags, string sep )
 : Data_Record( data, settings_flags, sep ){
 
 }
 
+/*
 string Linux_Syscall_Record::raw_string() const{
 
     return raw_data;
 }
+*/
 
 // The basic pattern of the "get_<x>" methods is mostly the same:
 // Find the start and/or end of the field using find or rfind as 
@@ -74,7 +77,7 @@ string Linux_Syscall_Record::get_cpu() const{
     return cpu;
 }
 
-string Linux_Syscall_Record::get_flags() const{
+string Linux_Syscall_Record::get_trace_flags() const{
 
     string trace_flags = raw_data.substr( TFLAGS_INDEX, NUM_TFLAGS );
 
@@ -183,11 +186,12 @@ double Linux_Syscall_Record::get_timestamp_num() const{
 
     return ASCII_Operations::to_floating_point( get_timestamp() );
 }
-
+/*
 uint_fast8_t Linux_Syscall_Record::check_flags() const{
 
     return flags;
 }
+*/
 
 // Protected methods
 
@@ -244,7 +248,7 @@ void Linux_Syscall_Record::print( ostream& s_out ) const{
             s_out << separator;
         }
 
-        s_out << get_flags();
+        s_out << get_trace_flags();
 
         needs_sep = true;
     }

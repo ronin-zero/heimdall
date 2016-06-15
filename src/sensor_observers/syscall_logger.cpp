@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 06-06-2016
  *
- *  Last Modified : Tue 14 Jun 2016 06:17:22 PM EDT
+ *  Last Modified : Wed 15 Jun 2016 05:48:44 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -11,22 +11,10 @@
 
 #include "sensor_observers/syscall_logger.h"
 
-// Here we do an OS check (like in the reader factory).
-// As this logger will be on the same machine as the sensors,
-// and we know it's a syscall logger,
-// we can define them to be <OS>_Syscall_Record where
-// <OS> is the operating system this is compiled on.
-// Currently, only Linux is defined, so the default behavior
-// will just dump the Data_Record's raw string.
-
-#ifdef __linux__
-#include "sensor_observers/data_records/linux/linux_syscall_record.h"
-typedef Linux_Syscall_Record Syscall_Record;
-#else
-typedef Data_Record Syscall_Record;
-#endif
-
 Syscall_Logger::Syscall_Logger(){
+
+    observing=false;
+    processing=false;
 
     set_observing ( true );
     set_processing( true );
@@ -34,7 +22,12 @@ Syscall_Logger::Syscall_Logger(){
 
 Syscall_Logger::~Syscall_Logger(){
 
+    std::cout << "Processing remaining queue..." << std::endl;
+    processing_thread = thread( &Syscall_Logger::process_remaining_queue, this );
 
+    processing_thread.join();
+
+    std::cout << "Finished." << std::endl;
 }
 
 void Syscall_Logger::update(){
@@ -130,11 +123,11 @@ void Syscall_Logger::remove_stream( Data_Stream * stream ){
     streams.erase( stream );
 }
 
-void Syscall_Logger::send_data( Data_Record record ){
+void Syscall_Logger::send_data( Syscall_Record record ){
 
     for ( auto stream_it = streams.begin(); stream_it != streams.end(); ++stream_it ){
 
-        (*stream_it)->process_data( record );
+        (*stream_it)->process_data( &record );
     }
 }
 

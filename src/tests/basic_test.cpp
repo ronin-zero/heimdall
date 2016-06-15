@@ -3,7 +3,7 @@
  *  
  *  Creation Date :
  *
- *  Last Modified : Tue 14 Jun 2016 05:59:37 PM EDT
+ *  Last Modified : Wed 15 Jun 2016 02:19:49 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -27,6 +27,7 @@ using std::cin;
 using std::string;
 using std::endl;
 
+/*
 uint_fast8_t PROCESS_NAME   =   0x80;
 uint_fast8_t PID            =   0x40;
 uint_fast8_t CPU            =   0x20;
@@ -34,6 +35,7 @@ uint_fast8_t TRACE_FLAGS    =   0x10;
 uint_fast8_t TIMESTAMP      =   0x08;
 uint_fast8_t SYSCALL_NUM    =   0X04;
 uint_fast8_t SYSCALL_ARGS   =   0x02;
+*/
 uint_fast8_t FLAGS =    TIMESTAMP | PROCESS_NAME | PID | SYSCALL_NUM ;
 
 int main(){

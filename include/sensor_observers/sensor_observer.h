@@ -17,7 +17,7 @@ class Sensor_Observer{
     public:
 
         Sensor_Observer() : data_queue( OBSERVER_QUEUE_SIZE ) {}
-        ~Sensor_Observer() {}
+        virtual ~Sensor_Observer() {}
 
         virtual void update()=0;
         virtual void update( Sensor_Data data )=0;

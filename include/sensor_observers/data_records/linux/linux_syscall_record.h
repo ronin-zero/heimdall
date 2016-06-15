@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 26-05-2016
  *
- *  Last Modified : Mon 13 Jun 2016 12:04:58 PM EDT
+ *  Last Modified : Wed 15 Jun 2016 01:41:07 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -85,10 +85,11 @@ const uint_fast8_t NUM_TFLAGS       = 4; // This is just to avoid magic numbers.
 class Linux_Syscall_Record : public Data_Record{
 
     public:
+        
         Linux_Syscall_Record( Sensor_Data data, uint_fast8_t settings_flags=ALL, string sep="," );
         ~Linux_Syscall_Record() {}
 
-        string raw_string() const;
+        //string raw_string() const;
 
         // Methods to get individual fields
         //
@@ -97,7 +98,7 @@ class Linux_Syscall_Record : public Data_Record{
         string get_task() const;
         string get_pid() const;
         string get_cpu() const;
-        string get_flags() const;
+        string get_trace_flags() const;
         string get_timestamp() const;
         string get_syscall() const;
         string get_syscall_args() const;
@@ -124,9 +125,9 @@ class Linux_Syscall_Record : public Data_Record{
                                     // UPDATE: I've made the decision to use a double.  If we want it to be a float, just
                                     // cast it.  I do not claim this is a perfect or permanent solution.
         
-        uint_fast8_t check_flags() const; // This should return the flags data member, not the flags portion of the raw_data.
+        //uint_fast8_t get_flags() const; // This should return the flags data member, not the flags portion of the raw_data.
 
     protected:
 
-        void print( ostream& s_out ) const;
+        virtual void print( ostream& s_out ) const;
 };

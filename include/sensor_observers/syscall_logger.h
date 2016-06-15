@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 31-05-2016
  *
- *  Last Modified : Mon 13 Jun 2016 06:32:02 PM EDT
+ *  Last Modified : Wed 15 Jun 2016 05:25:25 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -18,6 +18,22 @@
 #include "sensor_observers/sensor_observer.h"
 #include "sensor_observers/data_streams/data_stream.h"
 #include "sensor_observers/data_records/data_record.h"
+
+// Here we do an OS check (like in the reader factory).
+// As this logger will be on the same machine as the sensors,
+// and we know it's a syscall logger,
+// we can define them to be <OS>_Syscall_Record where
+// <OS> is the operating system this is compiled on.
+// Currently, only Linux is defined, so the default behavior
+// will just dump the Data_Record's raw string.
+
+#ifdef __linux__
+#include "sensor_observers/data_records/linux/linux_syscall_record.h"
+typedef Linux_Syscall_Record Syscall_Record;
+#else
+typedef Data_Record Syscall_Record;
+#endif
+
 
 class Syscall_Logger : public Sensor_Observer{
 
@@ -50,8 +66,9 @@ class Syscall_Logger : public Sensor_Observer{
 
     private:
 
-        void send_data( Data_Record record );
         void process();
+
+        void send_data( Syscall_Record record );
         void process_remaining_queue();
 
         std::unordered_set<Data_Stream *> streams;

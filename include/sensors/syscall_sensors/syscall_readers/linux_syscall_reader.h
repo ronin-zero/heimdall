@@ -13,6 +13,12 @@ static const string CURRENT_TRACER =    "current_tracer";
 static const string ENABLE =            "enable";
 static const string NO_TRACE =          "set_ftrace_notrace";
 
+static const uint_fast8_t MIN_LENGTH = 50;  // This is the FUNCTION_INDEX (see: linux_syscall_record.h lines 65 and 81).
+                                            // Sometimes a line like "CPU:13 [LOST 28120 EVENTS]" will appear in the trace pipe.
+                                            // Obviously, we can't parse this like a regular system call record.  A valid system call record
+                                            // will have a function in it, so there will be something at index 50 and beyond, so if it's less
+                                            // than 50 characters long, just ignore it.
+
 class Linux_Syscall_Reader:public Syscall_Reader{
 
     public:

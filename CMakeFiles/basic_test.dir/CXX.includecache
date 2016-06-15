@@ -29,8 +29,6 @@ sensor_observers/data_streams/output_stream.h
 /home/alex/drexel/research/heimdall/src/sensor_observers/syscall_logger.cpp
 sensor_observers/syscall_logger.h
 /home/alex/drexel/research/heimdall/src/sensor_observers/sensor_observers/syscall_logger.h
-sensor_observers/data_records/linux/linux_syscall_record.h
-/home/alex/drexel/research/heimdall/src/sensor_observers/sensor_observers/data_records/linux/linux_syscall_record.h
 
 /home/alex/drexel/research/heimdall/src/sensors/syscall_sensors/syscall_readers/linux_syscall_reader.cpp
 sstream
@@ -177,6 +175,8 @@ sensor_observers/data_streams/data_stream.h
 include/sensor_observers/sensor_observers/data_streams/data_stream.h
 sensor_observers/data_records/data_record.h
 include/sensor_observers/sensor_observers/data_records/data_record.h
+sensor_observers/data_records/linux/linux_syscall_record.h
+include/sensor_observers/sensor_observers/data_records/linux/linux_syscall_record.h
 
 include/sensors/sensor.h
 cstdint

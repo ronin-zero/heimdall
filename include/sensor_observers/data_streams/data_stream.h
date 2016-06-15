@@ -6,5 +6,5 @@ class Data_Stream{
 
     public:
         
-        virtual void process_data ( Data_Record record )=0;
+        virtual void process_data ( Data_Record * record )=0;
 };
