@@ -17,11 +17,10 @@ class Syscall_Sensor:public Sensor{
 
     public:
 
-        // As with the "get_instance" method of "syscall_reader," this is an ugly, ugly fix.
-        // See lines 24~32 of ./syscall_readers/syscall_reader.h for the rationale and if you know a better
-        // workaround, please let me know.
 
-        static Syscall_Sensor * get_instance( uint_fast8_t flags=SENSOR_DEFAULT );
+        static Syscall_Sensor * get_instance();
+        static Syscall_Sensor * get_instance( uint_fast8_t flags  );
+        
         virtual ~Syscall_Sensor();
 
         bool is_sensing();

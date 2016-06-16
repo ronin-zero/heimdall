@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 01-06-2016
  *
- *  Last Modified : Wed 15 Jun 2016 01:41:35 PM EDT
+ *  Last Modified : Thu 16 Jun 2016 10:57:12 AM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -87,7 +87,7 @@ string Linux_Syscall_Record::get_trace_flags() const{
 string Linux_Syscall_Record::get_timestamp() const{
 
     uint_fast8_t field_start    = raw_data.rfind( ' ', TIMESTAMP_INDEX ) + 1;
-    uint_fast8_t field_end      = raw_data.find( ' ', TIMESTAMP_INDEX );    // The last char in this field is
+    uint_fast8_t field_end      = raw_data.find( ':', TIMESTAMP_INDEX );    // The last char in this field is
     // actually one prior to this, but
     // as with get_cpu(), leaving it
     // like this makes the math for getting

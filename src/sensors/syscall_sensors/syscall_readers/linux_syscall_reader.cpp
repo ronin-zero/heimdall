@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 09-05-2016
  *
- *  Last Modified : Wed 15 Jun 2016 04:20:40 PM EDT
+ *  Last Modified : Thu 16 Jun 2016 04:29:08 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -17,17 +17,29 @@
 
 Linux_Syscall_Reader * Linux_Syscall_Reader::lsr_instance = NULL;
 
+Linux_Syscall_Reader * Linux_Syscall_Reader::get_instance(){
+
+    if ( !lsr_instance )
+    {
+        lsr_instance = new Linux_Syscall_Reader();
+    }
+
+    return lsr_instance;
+}
+
 Linux_Syscall_Reader * Linux_Syscall_Reader::get_instance( uint_fast8_t flags ){
 
-    if ( !lsr_instance ){
-        lsr_instance = new Linux_Syscall_Reader( flags );
-    }
+    lsr_instance = get_instance();
+
+    lsr_instance->configure( flags );
 
     return lsr_instance;
 }
 
 // Deconstructor
 Linux_Syscall_Reader::~Linux_Syscall_Reader(){
+
+    std::cout << "d'tor for Linux_Syscall_Reader called." << std::endl;
 
     stop_reading();
 }
@@ -56,6 +68,8 @@ uint_fast8_t Linux_Syscall_Reader::toggle_reading(){
 
 uint_fast8_t Linux_Syscall_Reader::start_reading(){
 
+    file_mtx.lock();
+
     if ( !is_reading() )
     {
         trace_pipe_stream.open( FTRACE_DIR + TRACE_PIPE );
@@ -72,10 +86,14 @@ uint_fast8_t Linux_Syscall_Reader::start_reading(){
         }
     }
 
+    file_mtx.unlock();
+
     return status;
 }
 
 uint_fast8_t Linux_Syscall_Reader::stop_reading(){
+
+    file_mtx.lock();
 
     if ( is_reading() )
     {
@@ -92,6 +110,8 @@ uint_fast8_t Linux_Syscall_Reader::stop_reading(){
             std::cerr << "Could not stop reading." << std::endl;
         }
     } 
+
+    file_mtx.unlock();
 
     return status;
 }
@@ -253,7 +273,9 @@ Sensor_Data * Linux_Syscall_Reader::read_syscall(){
     string tmp = "";
     Sensor_Data * data = NULL;
 
-    if ( is_reading() && !trace_pipe_stream.eof() )
+    file_mtx.lock();
+
+    if ( is_reading() && trace_pipe_stream.is_open() && !trace_pipe_stream.eof() )
     {
         getline( trace_pipe_stream, tmp );
    
@@ -262,8 +284,20 @@ Sensor_Data * Linux_Syscall_Reader::read_syscall(){
             data = new Sensor_Data( os, data_type, tmp, "" );
         }
     }
-    
+
+    file_mtx.unlock();
+
     return data; 
+}
+
+uint_fast8_t Linux_Syscall_Reader::configure( uint_fast8_t flags ){
+
+    set_self_filter( flags & FILTER_SELF );
+    set_exit( flags & SYS_EXIT );
+    set_enter( flags & SYS_ENTER );
+    set_reading( flags & READING_ON );
+
+    return status;
 }
 
 // Protected methods
@@ -271,24 +305,10 @@ Sensor_Data * Linux_Syscall_Reader::read_syscall(){
 Linux_Syscall_Reader::Linux_Syscall_Reader( uint_fast8_t flags ){
 
     //trace_pipe_stream = std::ifstream( FTRACE_DIR + TRACE_PIPE );
+    
+    status = flags;
 
-    if ( flags & READING_ON )
-    {
-        start_reading();
-    }
-    else
-    {
-        stop_reading();
-    }
-
-    if ( flags & FILTER_SELF )
-    {
-        set_self_filter( true );
-    }
-
-    set_enter( flags & SYS_ENTER );
-
-    set_exit ( flags & SYS_EXIT );
+    configure( flags );
 }
 
 bool Linux_Syscall_Reader::write_to_file( string filename, string output ){

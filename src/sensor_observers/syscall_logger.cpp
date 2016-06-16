@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 06-06-2016
  *
- *  Last Modified : Wed 15 Jun 2016 05:48:44 PM EDT
+ *  Last Modified : Thu 16 Jun 2016 04:26:41 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -21,13 +21,14 @@ Syscall_Logger::Syscall_Logger(){
 }
 
 Syscall_Logger::~Syscall_Logger(){
-
+/*
     std::cout << "Processing remaining queue..." << std::endl;
     processing_thread = thread( &Syscall_Logger::process_remaining_queue, this );
 
     processing_thread.join();
 
     std::cout << "Finished." << std::endl;
+    */
 }
 
 void Syscall_Logger::update(){

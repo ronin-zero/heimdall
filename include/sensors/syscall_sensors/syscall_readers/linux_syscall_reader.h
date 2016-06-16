@@ -1,5 +1,7 @@
 #pragma once
 
+#include <mutex>
+
 #include "sensors/syscall_sensors/syscall_readers/syscall_reader.h"
 
 static const string FTRACE_DIR =        "/sys/kernel/debug/tracing/";
@@ -23,7 +25,8 @@ class Linux_Syscall_Reader:public Syscall_Reader{
 
     public:
 
-        static Linux_Syscall_Reader * get_instance( uint_fast8_t flags=READER_DEFAULT );
+        static Linux_Syscall_Reader * get_instance();
+        static Linux_Syscall_Reader * get_instance( uint_fast8_t flags );
         ~Linux_Syscall_Reader();
 
         uint_fast8_t set_reading( bool on );
@@ -48,7 +51,7 @@ class Linux_Syscall_Reader:public Syscall_Reader{
 
         Sensor_Data * read_syscall();
 
-        void read();
+        uint_fast8_t configure( uint_fast8_t flags );
 
     protected:
 
@@ -59,6 +62,8 @@ class Linux_Syscall_Reader:public Syscall_Reader{
         bool write_to_file( string filename, string output );
         bool append_to_file( string filename, string output );
         bool file_write( string filename, string output, std::ios_base::openmode mode=std::ofstream::out );
+
+        std::mutex file_mtx;
 
         string os = "linux";
 };

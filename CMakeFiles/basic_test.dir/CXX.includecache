@@ -193,6 +193,8 @@ queues/readerwriterqueue.h
 include/sensors/queues/readerwriterqueue.h
 
 include/sensors/syscall_sensors/syscall_readers/linux_syscall_reader.h
+mutex
+-
 sensors/syscall_sensors/syscall_readers/syscall_reader.h
 include/sensors/syscall_sensors/syscall_readers/sensors/syscall_sensors/syscall_readers/syscall_reader.h
 

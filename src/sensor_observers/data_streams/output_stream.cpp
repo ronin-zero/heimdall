@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 06-06-2016
  *
- *  Last Modified : Wed 15 Jun 2016 04:23:50 PM EDT
+ *  Last Modified : Thu 16 Jun 2016 10:39:27 AM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -43,6 +43,9 @@ Output_Stream::~Output_Stream(){
 }
 
 void Output_Stream::process_data ( Data_Record * record ){
+
+    record->set_flags( flags );
+    record->set_separator( separator );
 
     *out << *record << std::endl;
 }

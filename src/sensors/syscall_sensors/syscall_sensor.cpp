@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 09-05-2016
  *
- *  Last Modified : Mon 13 Jun 2016 06:27:31 PM EDT
+ *  Last Modified : Thu 16 Jun 2016 04:25:56 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -20,13 +20,20 @@ Syscall_Sensor * Syscall_Sensor::ss_instance = NULL;
 
 Syscall_Sensor * Syscall_Sensor::get_instance( uint_fast8_t flags ){
 
-    if ( !ss_instance )
-    {
-        ss_instance = new Syscall_Sensor( flags );
-    }
-    
+    ss_instance = get_instance();
+
     ss_instance->configure( flags );
 
+    return ss_instance;
+}
+
+Syscall_Sensor * Syscall_Sensor::get_instance(){
+
+    if ( !ss_instance )
+    {
+        ss_instance = new Syscall_Sensor();
+    }
+    
     return ss_instance;
 }
 
@@ -195,12 +202,14 @@ uint_fast8_t Syscall_Sensor::stop_sensing(){
     // to make this controlled by a configuration option.
     // This is just how I decided for now.
 
-    notify_thread = thread( &Syscall_Sensor::process_remaining_queue, this );
+    // UPDATE: This was very undesirable.
+
+    // notify_thread = thread( &Syscall_Sensor::process_remaining_queue, this );
 
     // Wait until all remaining records are passed to
     // the observers...
 
-    notify_thread.join();
+    // notify_thread.join();
 
     return status;
 }

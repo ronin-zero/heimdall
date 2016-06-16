@@ -3,7 +3,7 @@
  *  
  *  Creation Date :
  *
- *  Last Modified : Wed 15 Jun 2016 02:19:49 PM EDT
+ *  Last Modified : Thu 16 Jun 2016 12:25:33 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -42,8 +42,8 @@ int main(){
 
 //    Syscall_Sensor *sensor = Syscall_Sensor::get_instance();
 
-    Syscall_Sensor * sensor;//->get_instance();
-    sensor = Syscall_Sensor::get_instance();
+    Syscall_Sensor * sensor = Syscall_Sensor::get_instance();//->get_instance();
+    //sensor = Syscall_Sensor::get_instance();
 
     Syscall_Logger logger;
 
@@ -68,6 +68,8 @@ int main(){
     string tmp;
 
     cin >> tmp;
+
+    delete( sensor );
 
     return 0;
 }
