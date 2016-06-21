@@ -1,2 +1,0 @@
-/home/alex/drexel/research/heimdall/src/tests/CMakeFiles/edit_cache.dir
-/home/alex/drexel/research/heimdall/src/tests/CMakeFiles/rebuild_cache.dir
