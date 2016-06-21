@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 31-05-2016
  *
- *  Last Modified : Wed 15 Jun 2016 02:32:49 PM EDT
+ *  Last Modified : Mon 20 Jun 2016 04:41:30 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -15,6 +15,7 @@
 #include <iostream>
 #include <string>
 #include <stdint.h>
+#include <mutex>
 
 #include "sensor_observers/data_streams/data_stream.h"
 #include "sensor_observers/data_records/data_record.h"

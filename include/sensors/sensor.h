@@ -39,9 +39,6 @@ class Sensor {
         virtual uint_fast8_t set_sensing( bool on ) = 0;
         virtual uint_fast8_t sensing_status() = 0;
 
-        // CHECK: Shawn thinks these toggle methods are
-        // unnecessary.  Commenting out for now.
-
         virtual uint_fast8_t start_sensing() = 0;
         virtual uint_fast8_t stop_sensing() = 0;
         virtual uint_fast8_t configure( uint_fast8_t flags ) = 0 ;
@@ -49,7 +46,7 @@ class Sensor {
         // These methods should be the same for all sensors.
 
         void attach_observer( Sensor_Observer * observer ) { observers.insert( observer ); }
-        void detatch_observer( Sensor_Observer * observer ) { observers.erase( observer ); }
+        void detach_observer( Sensor_Observer * observer ) { observers.erase( observer ); }
         uint_fast32_t observer_count() { return observers.size(); }
 
     protected:
@@ -72,21 +69,9 @@ class Sensor {
 
         virtual Sensor_Data * sense_data()=0;
         virtual void sense()=0;
-        virtual void notify_observers()=0; 
-};/*
+        virtual void notify_observers()=0;
 
-void Sensor::attach_observer( Sensor_Observer * observer ){
+        // This is so we detatch and delete all of the observers.
 
-    observers.insert( observer );
-}
-
-void Sensor::detatch_observer( Sensor_Observer * observer ){
-
-    observers.erase( observer );
-}
-
-uint_fast32_t Sensor::observer_count(){
-
-    return observers.size();
-}
-*/
+        void clear_observers() { observers.clear(); }
+};

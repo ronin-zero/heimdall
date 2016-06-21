@@ -1,6 +1,9 @@
 #pragma once
 
 #include <mutex>
+#include <vector>
+#include <sys/types.h>  // Needed for get_pid and pid_t
+#include <unistd.h>     // Needed for get_pid and pid_t
 
 #include "sensors/syscall_sensors/syscall_readers/syscall_reader.h"
 
@@ -14,6 +17,9 @@ static const string TRACE_PIPE =        "trace_pipe";
 static const string CURRENT_TRACER =    "current_tracer";
 static const string ENABLE =            "enable";
 static const string NO_TRACE =          "set_ftrace_notrace";
+static const string FILTER  =           "filter";
+static const string FILTER_SYS_ENTER =  FTRACE_DIR + EVENTS_DIR + RAW_SYSCALLS_DIR + SYS_ENTER_DIR + FILTER;
+static const string FILTER_SYS_EXIT =   FTRACE_DIR + EVENTS_DIR + RAW_SYSCALLS_DIR + SYS_EXIT_DIR + FILTER;
 
 static const uint_fast8_t MIN_LENGTH = 50;  // This is the FUNCTION_INDEX (see: linux_syscall_record.h lines 65 and 81).
                                             // Sometimes a line like "CPU:13 [LOST 28120 EVENTS]" will appear in the trace pipe.
@@ -63,6 +69,7 @@ class Linux_Syscall_Reader:public Syscall_Reader{
         bool append_to_file( string filename, string output );
         bool file_write( string filename, string output, std::ios_base::openmode mode=std::ofstream::out );
 
+        std::vector<string> filter_files = { FILTER_SYS_ENTER, FILTER_SYS_EXIT };
         std::mutex file_mtx;
 
         string os = "linux";

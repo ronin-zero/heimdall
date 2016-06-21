@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 09-05-2016
  *
- *  Last Modified : Thu 16 Jun 2016 04:25:56 PM EDT
+ *  Last Modified : Tue 21 Jun 2016 02:42:02 AM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -40,7 +40,12 @@ Syscall_Sensor * Syscall_Sensor::get_instance(){
 // Destructor.
 Syscall_Sensor::~Syscall_Sensor(){
 
+    std::cout << "Calling Syscall_Sensor d'tor" << std::endl;
     stop_sensing();
+
+    clear_observers();
+
+    delete( reader );
 }
 
 uint_fast8_t Syscall_Sensor::configure( uint_fast8_t flags ){
@@ -79,22 +84,26 @@ bool Syscall_Sensor::is_sensing(){
 
 void Syscall_Sensor::sense(){
 
+    std::cout << "Sense called!" << std::endl;
+
     while ( is_sensing() )
     {
-        Sensor_Data * data_point = sense_data();
+        Sensor_Data * tmp = sense_data();
 
         //std::cout << "I'M SENSIN, YO." << std::endl;
 
-        if ( data_point != NULL )
+        if ( tmp != NULL )
         {
-            data_queue.enqueue( *data_point );
+            Sensor_Data data_point( *tmp );
+            data_queue.enqueue( data_point );
+            delete ( tmp );
         }
     }
 }
 
 void Syscall_Sensor::notify_observers(){
 
-
+    std::cout << "notify_observers called!" << std::endl;
     while ( is_sensing() )
     {
 
@@ -180,13 +189,12 @@ uint_fast8_t Syscall_Sensor::start_sensing(){
     if ( !is_sensing() )
     {
         status = reader->start_reading();
+
+        sense_thread = thread( &Syscall_Sensor::sense, this );
+
+        notify_thread = thread( &Syscall_Sensor::notify_observers, this );
+
     }
-
-    sense_thread = thread( &Syscall_Sensor::sense, this );
-    notify_thread = thread( &Syscall_Sensor::notify_observers, this );
-
-    sense_thread.detach();
-    notify_thread.detach();
     
     return status;
 }
@@ -194,6 +202,9 @@ uint_fast8_t Syscall_Sensor::start_sensing(){
 uint_fast8_t Syscall_Sensor::stop_sensing(){
 
     status = reader->stop_reading();
+
+    sense_thread.join();
+    notify_thread.join();
 
     // NOTE: This is if we want to empty the remaining
     // data on the queue by passing them to the observers.

@@ -3,7 +3,7 @@
  *  
  *  Creation Date :
  *
- *  Last Modified : Thu 16 Jun 2016 12:25:33 PM EDT
+ *  Last Modified : Tue 21 Jun 2016 02:56:56 AM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -62,6 +62,8 @@ int main(){
     sensor->attach_observer( &logger );
 
     sensor->start_sensing();
+    logger.start_observing();
+    logger.start_processing();
 
     cout << "Enter anything to exit." << endl;
 
@@ -69,7 +71,20 @@ int main(){
 
     cin >> tmp;
 
+    //delete( &logger );
+
     delete( sensor );
 
+    //delete( &logger );
+    /*
+
+    //logger.remove_stream( &s_out );
+
+    //sensor->detach_observer( &logger );
+    
+    //delete( sensor );
+
+    //delete( &logger );
+*/
     return 0;
 }

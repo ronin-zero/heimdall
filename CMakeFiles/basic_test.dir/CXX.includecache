@@ -31,12 +31,6 @@ sensor_observers/syscall_logger.h
 /home/alex/drexel/research/heimdall/src/sensor_observers/sensor_observers/syscall_logger.h
 
 /home/alex/drexel/research/heimdall/src/sensors/syscall_sensors/syscall_readers/linux_syscall_reader.cpp
-sstream
--
-sys/types.h
--
-unistd.h
--
 sensors/syscall_sensors/syscall_readers/linux_syscall_reader.h
 /home/alex/drexel/research/heimdall/src/sensors/syscall_sensors/syscall_readers/sensors/syscall_sensors/syscall_readers/linux_syscall_reader.h
 
@@ -149,6 +143,8 @@ string
 -
 stdint.h
 -
+mutex
+-
 sensor_observers/data_streams/data_stream.h
 include/sensor_observers/data_streams/sensor_observers/data_streams/data_stream.h
 sensor_observers/data_records/data_record.h
@@ -168,6 +164,8 @@ string
 thread
 -
 unordered_set
+-
+mutex
 -
 sensor_observers/sensor_observer.h
 include/sensor_observers/sensor_observers/sensor_observer.h
@@ -194,6 +192,12 @@ include/sensors/queues/readerwriterqueue.h
 
 include/sensors/syscall_sensors/syscall_readers/linux_syscall_reader.h
 mutex
+-
+vector
+-
+sys/types.h
+-
+unistd.h
 -
 sensors/syscall_sensors/syscall_readers/syscall_reader.h
 include/sensors/syscall_sensors/syscall_readers/sensors/syscall_sensors/syscall_readers/syscall_reader.h

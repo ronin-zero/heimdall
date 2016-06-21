@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 06-06-2016
  *
- *  Last Modified : Thu 16 Jun 2016 10:39:27 AM EDT
+ *  Last Modified : Mon 20 Jun 2016 11:15:01 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -38,12 +38,15 @@ Output_Stream::Output_Stream( string file_name, uint_fast8_t out_flags, string s
 // Destructor
 
 Output_Stream::~Output_Stream(){
-    
-    out->flush();
+
+    std::cout << "Calling Output_Streams deconstructor" << std::endl;
+    //delete( out );
+   // out->flush();
 }
 
 void Output_Stream::process_data ( Data_Record * record ){
 
+    std::cout << "Output_Stream is processing data!" << std::endl;
     record->set_flags( flags );
     record->set_separator( separator );
 
