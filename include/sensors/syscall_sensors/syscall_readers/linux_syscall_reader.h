@@ -1,6 +1,5 @@
 #pragma once
 
-#include <mutex>
 #include <vector>
 #include <sys/types.h>  // Needed for get_pid and pid_t
 #include <unistd.h>     // Needed for get_pid and pid_t
@@ -70,7 +69,6 @@ class Linux_Syscall_Reader:public Syscall_Reader{
         bool file_write( string filename, string output, std::ios_base::openmode mode=std::ofstream::out );
 
         std::vector<string> filter_files = { FILTER_SYS_ENTER, FILTER_SYS_EXIT };
-        std::mutex file_mtx;
 
         string os = "linux";
 };

@@ -165,8 +165,6 @@ thread
 -
 unordered_set
 -
-mutex
--
 sensor_observers/sensor_observer.h
 include/sensor_observers/sensor_observers/sensor_observer.h
 sensor_observers/data_streams/data_stream.h
@@ -191,8 +189,6 @@ queues/readerwriterqueue.h
 include/sensors/queues/readerwriterqueue.h
 
 include/sensors/syscall_sensors/syscall_readers/linux_syscall_reader.h
-mutex
--
 vector
 -
 sys/types.h

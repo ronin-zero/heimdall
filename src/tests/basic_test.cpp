@@ -3,7 +3,7 @@
  *  
  *  Creation Date :
  *
- *  Last Modified : Tue 21 Jun 2016 02:56:56 AM EDT
+ *  Last Modified : Tue 21 Jun 2016 06:30:23 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -45,7 +45,7 @@ int main(){
     Syscall_Sensor * sensor = Syscall_Sensor::get_instance();//->get_instance();
     //sensor = Syscall_Sensor::get_instance();
 
-    Syscall_Logger logger;
+    Syscall_Logger * logger = new Syscall_Logger();
 
     string filename = "test.txt";
     cout << filename << endl;
@@ -55,15 +55,19 @@ int main(){
 
 //    cin >> filename;
 
-    Output_Stream s_out( filename, FLAGS, "\t" );
+    //Output_Stream s_out( filename, FLAGS, "\t" );
+    
+    //std::ofstream fout( filename );
 
-    logger.add_stream( &s_out );
+    Output_Stream s_out( FLAGS, "\t" );
 
-    sensor->attach_observer( &logger );
+    logger->add_stream( &s_out );
+
+    sensor->attach_observer( logger );
 
     sensor->start_sensing();
-    logger.start_observing();
-    logger.start_processing();
+    logger->start_observing();
+    logger->start_processing();
 
     cout << "Enter anything to exit." << endl;
 
@@ -75,7 +79,7 @@ int main(){
 
     delete( sensor );
 
-    //delete( &logger );
+    delete( logger );
     /*
 
     //logger.remove_stream( &s_out );

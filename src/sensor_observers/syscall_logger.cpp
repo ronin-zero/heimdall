@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 06-06-2016
  *
- *  Last Modified : Tue 21 Jun 2016 02:56:03 AM EDT
+ *  Last Modified : Tue 21 Jun 2016 06:37:36 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -13,32 +13,18 @@
 
 Syscall_Logger::Syscall_Logger(){
 
-    std::cout << "Syscall_Logger default constructor called." << std::endl;
-
     observing=false;
     processing=false;
-
-    /*
-    set_observing ( true );
-    set_processing( true );
-    */
 }
+
+// Deconstructor
 
 Syscall_Logger::~Syscall_Logger(){
 
-    std::cout << "Calling Syscall_Logger d'tor" << std::endl;
-    stop_observing();
     stop_processing();
+    stop_observing();
 
-    //clear_streams();
-    /*
-    std::cout << "Processing remaining queue..." << std::endl;
-    processing_thread = thread( &Syscall_Logger::process_remaining_queue, this );
-
-    processing_thread.join();
-
-    std::cout << "Finished." << std::endl;
-    */
+    clear_streams();
 }
 
 void Syscall_Logger::update(){
@@ -50,19 +36,13 @@ void Syscall_Logger::update(){
 
 void Syscall_Logger::update( Sensor_Data data ){
 
-    stream_mtx.lock();
-
     if ( observing )
     {
         data_queue.enqueue( data );
     }
-
-    stream_mtx.unlock();
 }
 
 void Syscall_Logger::set_observing( bool on ){
-
-    std::cout << "set_observing( " << on << " ) called." << std::endl;
 
     if ( on )
     {
@@ -75,8 +55,6 @@ void Syscall_Logger::set_observing( bool on ){
 }
 
 void Syscall_Logger::set_processing( bool on ){
-
-    std::cout << "set_processing( " << on << " ) called." << std::endl;
 
     if ( on )
     {
@@ -107,15 +85,9 @@ void Syscall_Logger::start_processing(){
 
     if ( !processing )
     {
-        std::cout << "Starting processing." << std::endl;
-
         processing = true;
 
         processing_thread = thread ( &Syscall_Logger::process, this );
-/*
-        std::cout << "detatching processing thread." << std::endl;
-        processing_thread.detach();
-        std::cout << "Process thread detached." << std::endl;*/
     }
 }
 
@@ -129,8 +101,6 @@ void Syscall_Logger::stop_processing(){
     if ( processing )
     {
         processing = false;
-
-        // processing_thread = thread ( &Syscall_Logger::process_remaining_queue, this );
 
         processing_thread.join();
     }
@@ -147,8 +117,6 @@ void Syscall_Logger::remove_stream( Data_Stream * stream ){
 }
 
 void Syscall_Logger::process(){
-
-    std::cout << "Processing Begins!" << std::endl;
 
     while ( processing )
     {
@@ -170,13 +138,9 @@ void Syscall_Logger::process(){
             send_data( syscall_record );
         }
     }
-
-    std::cout << "Done processing." << std::endl;
 }
 
 void Syscall_Logger::send_data( Syscall_Record record ){
-
-    std::cout << "Sending data!" << std::endl;
 
     for ( auto stream_it = streams.begin(); stream_it != streams.end(); ++stream_it ){
 
@@ -206,9 +170,5 @@ void Syscall_Logger::process_remaining_queue(){
 
 void Syscall_Logger::clear_streams(){
 
-    for ( auto stream_it = streams.begin(); stream_it != streams.end(); ++stream_it )
-    {
-        remove_stream( *stream_it );
-        delete( *stream_it );
-    }
+    streams.clear();
 }

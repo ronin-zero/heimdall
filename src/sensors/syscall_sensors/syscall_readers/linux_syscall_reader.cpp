@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 09-05-2016
  *
- *  Last Modified : Mon 20 Jun 2016 03:05:05 PM EDT
+ *  Last Modified : Tue 21 Jun 2016 06:41:06 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -35,10 +35,9 @@ Linux_Syscall_Reader * Linux_Syscall_Reader::get_instance( uint_fast8_t flags ){
 }
 
 // Deconstructor
+
 Linux_Syscall_Reader::~Linux_Syscall_Reader(){
 
-    std::cout << "d'tor for Linux_Syscall_Reader called." << std::endl;
-    
     stop_reading();
     set_self_filter( false );
     set_enter( false );
@@ -57,19 +56,7 @@ uint_fast8_t Linux_Syscall_Reader::set_reading( bool on ){
     }
 }
 
-// CHECK: Shawn feels these are unnecessary.
-// I agree, so commenting out for now.
-
-/*
-uint_fast8_t Linux_Syscall_Reader::toggle_reading(){
-
-    return set_reading( !is_reading() );
-}
-*/
-
 uint_fast8_t Linux_Syscall_Reader::start_reading(){
-
-    file_mtx.lock();
 
     if ( !is_reading() )
     {
@@ -78,8 +65,6 @@ uint_fast8_t Linux_Syscall_Reader::start_reading(){
         if ( write_to_file ( FTRACE_DIR + TRACING_ON, "1" ) && trace_pipe_stream.is_open() )
         {
             status |= READING_ON;
-
-            std::cout << "Opened File " << FTRACE_DIR + TRACE_PIPE << std::endl;
         }
         else
         {
@@ -87,14 +72,10 @@ uint_fast8_t Linux_Syscall_Reader::start_reading(){
         }
     }
 
-    file_mtx.unlock();
-
     return status;
 }
 
 uint_fast8_t Linux_Syscall_Reader::stop_reading(){
-
-    file_mtx.lock();
 
     if ( is_reading() )
     {
@@ -102,8 +83,6 @@ uint_fast8_t Linux_Syscall_Reader::stop_reading(){
 
         if( write_to_file ( FTRACE_DIR + TRACING_ON, "0" ) && !trace_pipe_stream.is_open() )
         {
-            std::cout << "Closed the trace pipe." << std::endl;
-
             status &= ~READING_ON;
         }
         else
@@ -111,8 +90,6 @@ uint_fast8_t Linux_Syscall_Reader::stop_reading(){
             std::cerr << "Could not stop reading." << std::endl;
         }
     } 
-
-    file_mtx.unlock();
 
     return status;
 }
@@ -133,8 +110,6 @@ uint_fast8_t Linux_Syscall_Reader::set_self_filter( bool filter ){
     if ( success )
     {
         filter ? status |= FILTER_SELF : status &= ~FILTER_SELF;
-
-        std::cout << "Succesfully wrote " << filter_content << " to filter files." << std::endl;
     }
     else
     {
@@ -193,7 +168,6 @@ uint_fast8_t Linux_Syscall_Reader::set_exit( bool on ){
 uint_fast8_t Linux_Syscall_Reader::reading_status(){
 
     return status;
-
 }
 
 bool Linux_Syscall_Reader::is_reading(){
@@ -206,8 +180,6 @@ Sensor_Data * Linux_Syscall_Reader::read_syscall(){
     string tmp = "";
     Sensor_Data * data = NULL;
 
-    file_mtx.lock();
-
     if ( is_reading() && trace_pipe_stream.is_open() && !trace_pipe_stream.eof() )
     {
         getline( trace_pipe_stream, tmp );
@@ -217,8 +189,6 @@ Sensor_Data * Linux_Syscall_Reader::read_syscall(){
             data = new Sensor_Data( os, data_type, tmp, "" );
         }
     }
-
-    file_mtx.unlock();
 
     return data; 
 }

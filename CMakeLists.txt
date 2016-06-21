@@ -45,14 +45,9 @@ add_subdirectory( ${SYSCALL_SENSORS} )
 add_subdirectory( ${SENSOR_OBSERVERS} )
 
 add_executable( basic_test "${SOURCE}" )
-#add_executable( basic_test src/tests/basic_test.cpp
-#    src/sensors/syscall_sensors/syscall_readers/reader_factory.cpp
-#    src/sensors/syscall_sensors/syscall_readers/linux_syscall_reader.cpp 
-#    src/sensor_data/sensor_data.cpp 
-#    src/sensors/syscall_sensors/syscall_sensor.cpp
-#    src/sensor_observers/syscall_logger.cpp
-#    src/sensor_observers/data_streams/output_stream.cpp )
 
 message( "Libs to Link: ${CMAKE_THREAD_LIBS_INIT}" )
 
 target_link_libraries( basic_test ${CMAKE_THREAD_LIBS_INIT} )
+
+install( TARGETS basic_test RUNTIME DESTINATION ./test/ )

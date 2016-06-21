@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 31-05-2016
  *
- *  Last Modified : Mon 20 Jun 2016 04:41:30 PM EDT
+ *  Last Modified : Tue 21 Jun 2016 07:01:16 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -44,6 +44,9 @@ class Output_Stream : public Data_Stream{
         string get_separator();
 
     private:
+
+        bool needs_delete;  // The constructor that takes a string as an argument allocates memory.  It sets this value to true.
+                            // The deconstructor checks if this is true and if it is, deletes "out."
 
         string separator;
         uint_fast8_t flags;

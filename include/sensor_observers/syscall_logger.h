@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 31-05-2016
  *
- *  Last Modified : Mon 20 Jun 2016 06:18:54 PM EDT
+ *  Last Modified : Tue 21 Jun 2016 01:36:02 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -14,7 +14,6 @@
 #include <string>
 #include <thread>
 #include <unordered_set>
-#include <mutex>
 
 #include "sensor_observers/sensor_observer.h"
 #include "sensor_observers/data_streams/data_stream.h"
@@ -74,6 +73,5 @@ class Syscall_Logger : public Sensor_Observer{
 
         void clear_streams();
 
-        std::mutex stream_mtx;
         std::unordered_set<Data_Stream *> streams;
 };
