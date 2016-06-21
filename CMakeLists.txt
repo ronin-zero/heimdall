@@ -50,4 +50,4 @@ message( "Libs to Link: ${CMAKE_THREAD_LIBS_INIT}" )
 
 target_link_libraries( basic_test ${CMAKE_THREAD_LIBS_INIT} )
 
-install( TARGETS basic_test RUNTIME DESTINATION ./test/ )
+install( TARGETS basic_test RUNTIME DESTINATION "${CMAKE_SOURCE_DIR}/test/" )

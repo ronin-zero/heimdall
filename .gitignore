@@ -4,6 +4,7 @@ lib/*
 
 # Ignore compiled targets
 bin/*
+basic_test
 
 # Ignore compiled tests
 test/*
@@ -16,3 +17,5 @@ test/*
 cmake_install.cmake
 CMakeCache.txt
 CMakeFiles
+Makefile
+install_manifest.txt
