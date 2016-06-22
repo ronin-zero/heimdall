@@ -7,6 +7,7 @@
 #include "sensors/syscall_sensors/syscall_readers/syscall_reader.h"
 
 static const string FTRACE_DIR =        "/sys/kernel/debug/tracing/";
+static const string TRACE =             "trace";
 static const string TRACING_ON =        "tracing_on";
 static const string RAW_SYSCALLS_DIR =  "raw_syscalls/";
 static const string SYS_ENTER_DIR =     "sys_enter/";
@@ -67,6 +68,8 @@ class Linux_Syscall_Reader:public Syscall_Reader{
         bool write_to_file( string filename, string output );
         bool append_to_file( string filename, string output );
         bool file_write( string filename, string output, std::ios_base::openmode mode=std::ofstream::out );
+
+        void clear_file( string file_name );
 
         std::vector<string> filter_files = { FILTER_SYS_ENTER, FILTER_SYS_EXIT };
 

@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 09-05-2016
  *
- *  Last Modified : Tue 21 Jun 2016 06:41:06 PM EDT
+ *  Last Modified : Tue 21 Jun 2016 08:46:01 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -39,6 +39,7 @@ Linux_Syscall_Reader * Linux_Syscall_Reader::get_instance( uint_fast8_t flags ){
 Linux_Syscall_Reader::~Linux_Syscall_Reader(){
 
     stop_reading();
+    clear_file( FTRACE_DIR + TRACE );   // Theoretically, this will clear trace_pipe
     set_self_filter( false );
     set_enter( false );
     set_exit( false );
@@ -100,7 +101,7 @@ uint_fast8_t Linux_Syscall_Reader::set_self_filter( bool filter ){
 
     bool success = true;
 
-    string filter_content = ( filter ? "common_pid != " + std::to_string( self_pid ) : "none" );
+    string filter_content = ( filter ? "common_pid != " + std::to_string( self_pid ) : "0" );
 
     for ( std::vector<string>::iterator it = filter_files.begin(); success && it != filter_files.end(); ++it )
     {
@@ -208,6 +209,7 @@ uint_fast8_t Linux_Syscall_Reader::configure( uint_fast8_t flags ){
 Linux_Syscall_Reader::Linux_Syscall_Reader( uint_fast8_t flags ){
 
     status = 0x00;
+    clear_file( FTRACE_DIR + TRACE ); // This should clear the trace file and thus trace_pipe.
     status = configure( flags );
 }
 
@@ -255,4 +257,15 @@ bool Linux_Syscall_Reader::file_write( string filename, string output, std::ios_
     }
 
     return true;
+}
+
+void Linux_Syscall_Reader::clear_file( string file_name ){
+
+    // This just opens a file for writing (NOT append)
+    // and then closes it to clear its contents.
+    
+    std::cout << "Clearing contents of " << file_name << "." << std::endl;
+    
+    std::ofstream tmp_file ( file_name, std::ios_base::out );
+    tmp_file.close();
 }
