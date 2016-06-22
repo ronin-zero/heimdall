@@ -3,12 +3,13 @@
  *  
  *  Creation Date : 09-05-2016
  *
- *  Last Modified : Mon 13 Jun 2016 11:55:34 AM EDT
+ *  Last Modified : Wed 22 Jun 2016 01:41:46 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
  */
-#include "sensors/syscall_sensors/syscall_readers/reader_factory.h"
+
+#include "reader_factory.h"
 
 Reader_Factory::Reader_Factory( uint_fast8_t flags ){
 

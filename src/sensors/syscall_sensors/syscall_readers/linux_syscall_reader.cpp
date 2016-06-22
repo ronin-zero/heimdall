@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 09-05-2016
  *
- *  Last Modified : Tue 21 Jun 2016 08:46:01 PM EDT
+ *  Last Modified : Wed 22 Jun 2016 01:41:23 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -11,7 +11,7 @@
 
 //#include <sstream>      // Probably not needed...
 
-#include "sensors/syscall_sensors/syscall_readers/linux_syscall_reader.h"
+#include "linux_syscall_reader.h"
 
 Linux_Syscall_Reader * Linux_Syscall_Reader::lsr_instance = NULL;
 

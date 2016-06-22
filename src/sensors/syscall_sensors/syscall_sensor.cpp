@@ -3,16 +3,18 @@
  *  
  *  Creation Date : 09-05-2016
  *
- *  Last Modified : Tue 21 Jun 2016 06:40:05 PM EDT
+ *  Last Modified : Wed 22 Jun 2016 01:39:21 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
  */
 
 #include <iostream>
+#include <sys/types.h>
+#include <sys/syscall.h>
 
-#include "sensors/syscall_sensors/syscall_readers/reader_factory.h"
-#include "sensors/syscall_sensors/syscall_sensor.h"
+#include "syscall_readers/reader_factory.h"
+#include "syscall_sensor.h"
 
 Syscall_Sensor * Syscall_Sensor::ss_instance = NULL;
 
@@ -84,6 +86,8 @@ bool Syscall_Sensor::is_sensing(){
 
 void Syscall_Sensor::sense(){
 
+    std::cout << "Sense thread id: " << syscall(SYS_gettid) << std::endl;
+
     while ( is_sensing() )
     {
         Sensor_Data * tmp = sense_data();
@@ -100,6 +104,8 @@ void Syscall_Sensor::sense(){
 }
 
 void Syscall_Sensor::notify_observers(){
+
+    std::cout << "Notify thread id: " << syscall(SYS_gettid) << std::endl;
 
     while ( is_sensing() )
     {
@@ -172,7 +178,6 @@ uint_fast8_t Syscall_Sensor::start_sensing(){
         status = reader->start_reading();
 
         sense_thread = thread( &Syscall_Sensor::sense, this );
-
         notify_thread = thread( &Syscall_Sensor::notify_observers, this );
     }
 

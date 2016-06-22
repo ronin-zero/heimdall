@@ -4,7 +4,7 @@
 #include <sys/types.h>  // Needed for get_pid and pid_t
 #include <unistd.h>     // Needed for get_pid and pid_t
 
-#include "sensors/syscall_sensors/syscall_readers/syscall_reader.h"
+#include "syscall_reader.h"
 
 static const string FTRACE_DIR =        "/sys/kernel/debug/tracing/";
 static const string TRACE =             "trace";

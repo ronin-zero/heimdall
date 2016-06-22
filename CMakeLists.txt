@@ -6,7 +6,7 @@ set( CMAKE_CXX_FLAGS "-Wall -Wextra -Werror -pedantic -std=c++11 -pthread" )
 
 #set( CMAKE_CXX_FLAGS_DEBUG "-ggdb3 -O0" )
 
-set( INCLUDE_DIR "${CMAKE_SOURCE_DIR}/include/" )
+set( INCLUDE_DIR "${CMAKE_SOURCE_DIR}/src/" )
 set( SOURCE_DIR "${CMAKE_SOURCE_DIR}/src/" )
 set( SENSORS "${SOURCE_DIR}sensors/" )
 set( SYSCALL_SENSORS "${SENSORS}syscall_sensors/" )

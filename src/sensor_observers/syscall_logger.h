@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 31-05-2016
  *
- *  Last Modified : Tue 21 Jun 2016 01:36:02 PM EDT
+ *  Last Modified : Wed 22 Jun 2016 01:36:51 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -15,9 +15,9 @@
 #include <thread>
 #include <unordered_set>
 
-#include "sensor_observers/sensor_observer.h"
-#include "sensor_observers/data_streams/data_stream.h"
-#include "sensor_observers/data_records/data_record.h"
+#include "sensor_observer.h"
+#include "data_streams/data_stream.h"
+#include "data_records/data_record.h"
 
 // Here we do an OS check (like in the reader factory).
 // As this logger will be on the same machine as the sensors,
@@ -28,7 +28,7 @@
 // will just dump the Data_Record's raw string.
 
 #ifdef __linux__
-#include "sensor_observers/data_records/linux/linux_syscall_record.h"
+#include "data_records/linux/linux_syscall_record.h"
 typedef Linux_Syscall_Record Syscall_Record;
 #else
 typedef Data_Record Syscall_Record;

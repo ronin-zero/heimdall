@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 31-05-2016
  *
- *  Last Modified : Tue 21 Jun 2016 07:01:16 PM EDT
+ *  Last Modified : Wed 22 Jun 2016 01:34:57 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -17,7 +17,7 @@
 #include <stdint.h>
 #include <mutex>
 
-#include "sensor_observers/data_streams/data_stream.h"
+#include "data_stream.h"
 #include "sensor_observers/data_records/data_record.h"
 
 using std::string;

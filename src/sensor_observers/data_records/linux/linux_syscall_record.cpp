@@ -3,13 +3,13 @@
  *  
  *  Creation Date : 01-06-2016
  *
- *  Last Modified : Thu 16 Jun 2016 10:57:12 AM EDT
+ *  Last Modified : Wed 22 Jun 2016 01:22:39 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
  */
 
-#include "sensor_observers/data_records/linux/linux_syscall_record.h"
+#include "linux_syscall_record.h"
 #include "utils/ascii_operations.h"
 
 

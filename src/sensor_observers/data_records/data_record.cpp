@@ -3,13 +3,13 @@
  *  
  *  Creation Date : 10-06-2016
  *
- *  Last Modified : Wed 15 Jun 2016 01:08:22 PM EDT
+ *  Last Modified : Wed 22 Jun 2016 01:22:04 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
  */
 
-#include "sensor_observers/data_records/data_record.h"
+#include "data_record.h"
 
 Data_Record::Data_Record( Sensor_Data data, uint_fast8_t setting_flags, string sep ){
 

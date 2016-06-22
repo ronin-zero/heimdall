@@ -3,13 +3,13 @@
  *  
  *  Creation Date : 06-06-2016
  *
- *  Last Modified : Tue 21 Jun 2016 06:35:52 PM EDT
+ *  Last Modified : Wed 22 Jun 2016 01:35:14 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
  */
 
-#include "sensor_observers/data_streams/output_stream.h"
+#include "output_stream.h"
 
 Output_Stream::Output_Stream( uint_fast8_t out_flags, string sep ){
 

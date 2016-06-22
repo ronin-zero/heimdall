@@ -3,7 +3,7 @@
 #include <cstdint>
 
 #include "sensors/sensor.h"
-#include "sensors/syscall_sensors/syscall_readers/syscall_reader.h"
+#include "syscall_readers/syscall_reader.h"
 #include "sensor_data/sensor_data.h"
 
 static const uint_fast8_t SENSOR_DEFAULT = READER_DEFAULT;

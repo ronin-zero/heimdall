@@ -5,10 +5,10 @@
 // Check for OS (Currently, only Linux is supported).
 
 #ifdef __linux__
-#include "sensors/syscall_sensors/syscall_readers/linux_syscall_reader.h"
+#include "linux_syscall_reader.h"
 typedef Linux_Syscall_Reader Reader;
 #else
-#include "sensors/syscall_sensors/syscall_readers/syscall_reader.h"
+#include "syscall_reader.h"
 typedef Syscall_Reader Reader;
 #endif
 

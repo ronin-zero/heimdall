@@ -3,13 +3,13 @@
  *  
  *  Creation Date : 01-06-2016
  *
- *  Last Modified : Fri 03 Jun 2016 09:20:33 PM EDT
+ *  Last Modified : Wed 22 Jun 2016 01:42:44 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
  */
 
-#include "utils/ascii_operations.h"
+#include "ascii_operations.h"
 
 // CHECK:  This whole class implementation might be a bottleneck with
 // the somewhat paranoid range checking and whatnot.
