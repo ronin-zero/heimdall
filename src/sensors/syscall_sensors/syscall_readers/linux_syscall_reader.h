@@ -5,6 +5,7 @@
 #include <unistd.h>     // Needed for get_pid and pid_t
 
 #include "syscall_reader.h"
+#include "utils/ascii_operations.h"
 
 static const string FTRACE_DIR =        "/sys/kernel/debug/tracing/";
 static const string TRACE =             "trace";
@@ -53,11 +54,15 @@ class Linux_Syscall_Reader:public Syscall_Reader{
 
         bool is_reading();
 
+        uint_fast8_t configure( uint_fast8_t flags );
+
+        void update_filter();
+
         // I need this to be a pointer to check for nullity.
 
         Sensor_Data * read_syscall();
 
-        uint_fast8_t configure( uint_fast8_t flags );
+        
 
     protected:
 
@@ -70,6 +75,8 @@ class Linux_Syscall_Reader:public Syscall_Reader{
         bool file_write( string filename, string output, std::ios_base::openmode mode=std::ofstream::out );
 
         void clear_file( string file_name );
+
+        string build_filter();
 
         std::vector<string> filter_files = { FILTER_SYS_ENTER, FILTER_SYS_EXIT };
 

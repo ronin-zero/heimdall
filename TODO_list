@@ -2,9 +2,8 @@ This is a list of pending tasks!
 
 TODO: 
 
-1) Write executable
-    1.a) Daemonize
-2) XML Writer/parser
-3) cmake
+1) Daemonize executable.
+2) Make a class that manages threads and updates the filters.
+3) XML Writer/parser.
 
 LOW PRIORITY) Update ./doc/uml/heimdall.[dia|png]

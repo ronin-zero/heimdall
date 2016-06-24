@@ -46,8 +46,9 @@ class Syscall_Reader{
 
         virtual uint_fast8_t configure( uint_fast8_t flags ) = 0;
 
-    protected:
+        virtual void update_filter() = 0;
 
+    protected:
 
         uint_fast8_t status;
 

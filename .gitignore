@@ -6,6 +6,9 @@ lib/*
 bin/*
 basic_test
 
+# Ignore dumb stuff that's just for me
+ALEX_README
+
 # Ignore compiled tests
 test/*
 

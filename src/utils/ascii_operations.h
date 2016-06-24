@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 01-06-2016
  *
- *  Last Modified : Fri 03 Jun 2016 09:17:02 PM EDT
+ *  Last Modified : Wed 22 Jun 2016 04:32:20 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -55,7 +55,7 @@ class ASCII_Operations{
 
         // Value of individual char
 
-        static uint_fast8_t char_val( char num );
+        static uint_fast8_t char_val( uint_fast8_t num );
 
         // Only convert numbers within a range (unsigned)
         
@@ -75,9 +75,9 @@ class ASCII_Operations{
 
         // range checking
 
-        static bool is_num( char c );
-        static bool is_caps( char c );
-        static bool is_lower( char c );
-        static bool is_alpha( char c );
-        static bool is_alphanum( char c );
+        static bool is_num( uint_fast8_t c );
+        static bool is_caps( uint_fast8_t c );
+        static bool is_lower( uint_fast8_t c );
+        static bool is_alpha( uint_fast8_t c );
+        static bool is_alphanum( uint_fast8_t c );
 };

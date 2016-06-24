@@ -3,7 +3,7 @@
  *  
  *  Creation Date :
  *
- *  Last Modified : Tue 21 Jun 2016 07:53:45 PM EDT
+ *  Last Modified : Wed 22 Jun 2016 04:13:48 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -59,9 +59,9 @@ int main(){
 
     sensor->attach_observer( logger );
 
-    sensor->start_sensing();
     logger->start_observing();
     logger->start_processing();
+    sensor->start_sensing();
 
     cout << "Enter anything to exit." << endl;
 

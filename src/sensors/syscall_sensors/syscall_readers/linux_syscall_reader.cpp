@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 09-05-2016
  *
- *  Last Modified : Wed 22 Jun 2016 01:41:23 PM EDT
+ *  Last Modified : Wed 22 Jun 2016 05:13:59 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -61,6 +61,8 @@ uint_fast8_t Linux_Syscall_Reader::start_reading(){
 
     if ( !is_reading() )
     {
+        update_filter();
+
         trace_pipe_stream.open( FTRACE_DIR + TRACE_PIPE );
 
         if ( write_to_file ( FTRACE_DIR + TRACING_ON, "1" ) && trace_pipe_stream.is_open() )
@@ -97,11 +99,9 @@ uint_fast8_t Linux_Syscall_Reader::stop_reading(){
 
 uint_fast8_t Linux_Syscall_Reader::set_self_filter( bool filter ){
 
-    pid_t self_pid = getpid();
-
     bool success = true;
 
-    string filter_content = ( filter ? "common_pid != " + std::to_string( self_pid ) : "0" );
+    string filter_content = ( filter ? build_filter() : "0" );
 
     for ( std::vector<string>::iterator it = filter_files.begin(); success && it != filter_files.end(); ++it )
     {
@@ -204,6 +204,17 @@ uint_fast8_t Linux_Syscall_Reader::configure( uint_fast8_t flags ){
     return status;
 }
 
+// This should be called whenever a thread is created.
+// The logic for whether or not a filter should actually be applied
+// is handled by the set_self_filter function.  It's of no concern
+// to the calling context whether it needs to be set.  Just call
+// the function.
+
+void Linux_Syscall_Reader::update_filter(){
+
+    set_self_filter( FILTER_SELF & status );
+}
+
 // Protected methods
 
 Linux_Syscall_Reader::Linux_Syscall_Reader( uint_fast8_t flags ){
@@ -268,4 +279,75 @@ void Linux_Syscall_Reader::clear_file( string file_name ){
     
     std::ofstream tmp_file ( file_name, std::ios_base::out );
     tmp_file.close();
+}
+
+//  This function gets the PIDs for this program and all the SPIDs (whatever those are)
+//  for the threads created by main.  It returns a string formatted such that it will
+//  cause ftrace to ignore the system calls made by this program and its threads
+//  when the FILTER_SELF flag is set.
+//
+//  I get these PIDs by getting calling the command 'ls /proc/<PID>/task' where
+//  <PID> is the PID of the calling program.  The contents of task will be directories
+//  named with the PIDs of this program and the threads associated with it.
+//  (Shoutout: Thanks, Bander)
+//  
+//  I call the command with popen.
+
+string Linux_Syscall_Reader::build_filter(){
+
+    pid_t pid = getpid();
+
+    string command = "ls /proc/" + std::to_string( pid ) + "/task";
+    string mode = "r";
+
+    // I can't believe I have to actually convert these strings with .c_str().
+    // I mean, it's [CURRENT_YEAR] for crying out loud!
+    FILE* pipe = popen( command.c_str(), mode.c_str() );
+
+    // Check if it's NULL
+    if ( !pipe )
+    {
+       return "0";
+    }
+
+    string filter = "common_pid != ";
+
+    // We need to remember to separate, but only if necessary.
+    bool multiple_pids = false;
+
+    string tmp_entry = "";
+
+    uint_fast8_t tmp_char = 0;
+
+    //char line[128];
+
+    while ( !feof( pipe ) )
+    {
+
+        tmp_char = fgetc ( pipe );
+
+        if ( tmp_char == '\n' )
+        {
+            if ( multiple_pids )
+            {
+                filter += " && common_pid != ";
+            }
+
+            filter += tmp_entry;
+
+            tmp_entry = "";
+
+            multiple_pids = true;
+        }
+
+        else if ( ASCII_Operations::is_num( tmp_char ) )
+        {
+            tmp_entry += tmp_char;
+        }
+    }
+
+    std::cout << "Filter is: " << filter << "." << std::endl;
+
+    pclose( pipe );
+    return filter;
 }

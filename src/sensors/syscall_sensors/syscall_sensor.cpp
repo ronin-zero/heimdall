@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 09-05-2016
  *
- *  Last Modified : Wed 22 Jun 2016 01:39:21 PM EDT
+ *  Last Modified : Wed 22 Jun 2016 07:48:40 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -86,7 +86,7 @@ bool Syscall_Sensor::is_sensing(){
 
 void Syscall_Sensor::sense(){
 
-    std::cout << "Sense thread id: " << syscall(SYS_gettid) << std::endl;
+    reader->update_filter();
 
     while ( is_sensing() )
     {
@@ -105,7 +105,7 @@ void Syscall_Sensor::sense(){
 
 void Syscall_Sensor::notify_observers(){
 
-    std::cout << "Notify thread id: " << syscall(SYS_gettid) << std::endl;
+    reader->update_filter();
 
     while ( is_sensing() )
     {

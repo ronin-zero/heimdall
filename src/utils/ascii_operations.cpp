@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 01-06-2016
  *
- *  Last Modified : Wed 22 Jun 2016 01:42:44 PM EDT
+ *  Last Modified : Wed 22 Jun 2016 04:32:52 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -43,7 +43,7 @@
  *  the two portions are added together and returned.
  */
 
-uint_fast8_t ASCII_Operations::char_val( char num ){
+uint_fast8_t ASCII_Operations::char_val( uint_fast8_t num ){
     
     return ( is_num( num ) ? num - INT_OFFSET : ERROR_VAL );
 }
@@ -81,7 +81,7 @@ int_fast64_t ASCII_Operations::to_int( string num ){
     uint_fast64_t start_index = 0;
     uint_fast64_t len = num.length();
 
-    uint_fast64_t sign = 1;  // We'll multiply the result by this.  It will be -1 if the first char is '-'
+    uint_fast64_t sign = 1;  // We'll multiply the result by this.  It will be -1 if the first uint_fast8_t is '-'
 
     if ( num[0] == '-' )
     {
@@ -140,27 +140,27 @@ double ASCII_Operations::to_floating_point( string num ){
     return string_val;
 }
 
-bool ASCII_Operations::is_num( char c ){
+bool ASCII_Operations::is_num( uint_fast8_t c ){
 
     return ( c >= INT_RANGE_START && c <= INT_RANGE_END );
 }
 
-bool ASCII_Operations::is_caps( char c ){
+bool ASCII_Operations::is_caps( uint_fast8_t c ){
 
     return ( c >= CAPS_RANGE_START && c <= CAPS_RANGE_END );
 }
 
-bool ASCII_Operations::is_lower( char c ){
+bool ASCII_Operations::is_lower( uint_fast8_t c ){
 
     return ( c >= LOWER_RANGE_START && c <= LOWER_RANGE_END );
 }
 
-bool ASCII_Operations::is_alpha( char c ){
+bool ASCII_Operations::is_alpha( uint_fast8_t c ){
 
     return ( is_lower( c ) || is_caps( c ) );
 }
 
-bool ASCII_Operations::is_alphanum( char c ){
+bool ASCII_Operations::is_alphanum( uint_fast8_t c ){
 
     return ( is_alpha( c ) || is_num( c ) );
 }
