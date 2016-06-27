@@ -3,6 +3,7 @@
 #include <cstdint>
 #include <fstream>
 #include <iostream>
+#include <iomanip>
 #include <string>
 
 #include "sensor_data/sensor_data.h"
