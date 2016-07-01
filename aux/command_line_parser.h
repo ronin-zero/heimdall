@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 27-06-2016
  *
- *  Last Modified : Wed 29 Jun 2016 10:24:04 PM PDT
+ *  Last Modified : Thu 30 Jun 2016 10:25:44 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -18,6 +18,8 @@
 #include <string>
 #include <iomanip>
 #include <vector>
+
+#include "ascii_operations.h"
 
 class Command_Line_Parser{
 
@@ -42,6 +44,17 @@ class Command_Line_Parser{
         //void parse_args( uint_fast32_t argc, char** argv );
 
     private:
+
+        // This is to check that quotation marks are properly closed
+        // if they are opened.  This could be used for any character
+        // as the user may specify any character value for 'q' at
+        // runtime, but the intention is that the user uses it to
+        // check for balanced quotes.
+
+        bool check_balance( std::string input, int_fast8_t q );
+
+        std::string sanitize_input( std::string input );
+        std::string strip_endpoints( std::string input );
 
         std::vector<std::string> arguments;
 

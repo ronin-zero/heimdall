@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 27-06-2016
  *
- *  Last Modified : Wed 29 Jun 2016 10:25:17 PM PDT
+ *  Last Modified : Thu 30 Jun 2016 10:25:35 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -83,38 +83,52 @@ int_fast32_t Command_Line_Parser::get_option_value( std::string arg ){
     // TODO: convert the value passed to this option to an unsigned int.
     // Accept both hex and base 10 values.
 
-    if ( arg == "yyyy")
-    {
-        return 0;
-    }
-    else
-    {
-        return -1;
-    }
+    int_fast32_t opt_val = -1;
+
+    std::string opt_arg = get_option_string( arg );
+
+
+
 }
 
 std::string Command_Line_Parser::get_option_string( std::string arg ){
 
     // TODO: Parse the argument to get the value of the option after
     // the '=' character.
-    return arg;
+
+    std::string opt_string = "";
+
+    int_fast32_t opt_start  = arg.find("=") + 1;
+    int_fast32_t opt_end    = arg.length();
+
+    string raw_opt_string = arg.substr( opt_start );
+
+    opt_string = sanitize_input( raw_opt_string );
+
+    if ( opt_string.length() < 1 )
+    {
+        std::cerr << "FAILURE - Invalid argument to option: " << arg.substr( 0, opt_start - 1 ) << std::endl;
+        std::cerr << "Argument was: " << raw_opt_string << std::endl;
+    }
+
+    return opt_string;
 }
 
 
 /*
-void Command_Line_Parser::parse_args( uint_fast32_t argc, char** argv ){
+   void Command_Line_Parser::parse_args( uint_fast32_t argc, char** argv ){
 
-    std::cout << "Number of arguments: " << argc << std::endl;
+   std::cout << "Number of arguments: " << argc << std::endl;
 
-    std::cout << "They are as follows: " << std::endl;
+   std::cout << "They are as follows: " << std::endl;
 
-    for ( uint_fast32_t i = 0; i < argc; i++ )
-    {
-        std::cout << "arg" << i << ": " << argv[i] << "  ";
-    }
+   for ( uint_fast32_t i = 0; i < argc; i++ )
+   {
+   std::cout << "arg" << i << ": " << argv[i] << "  ";
+   }
 
-    std::cout << std::endl;
-}*/
+   std::cout << std::endl;
+   }*/
 
 void Command_Line_Parser::print_help(){
 
@@ -396,4 +410,53 @@ void Command_Line_Parser::print_usage(){
 
     std::cout << "Run with flag -h to view the help documentation (it is recommended that you pipe it to a pager" << std::endl;
     std::cout << "such as \'less\' for ease of reading.  Example: \'syscall-sensor -h | less\')." << std::endl;
+}
+
+// This function is to make sure that pairs of quotes are balanced.
+// The user can specify any char at runtime, but the intention is
+// to check for quotes.
+bool Command_Line_Parser::check_balance( std::string input, int_fast8_t q ){
+
+    uint_fast32_t input_length = input.length();
+
+    // If it's only one character long, it can't be a quotation mark.
+    // If it's 0 characters long, it's not worth checking the rest.
+
+    if ( input_length > 1 )
+    {
+
+        int_fast32_t first_index = input.find( q );
+        int_fast32_t second_index = input.rfind( q );
+
+        return  ( first_index == 0 && second_index == input_length - 1 );
+    }
+
+    return false;
+}
+
+std::string Command_Line_Parser::strip_endpoints( std::string input ){
+
+    return input.substr( 1, input.length() - 2 );
+}
+
+std::string Command_Line_Parser::sanitize_input( std::string input ){
+
+    std::string sanitized = "";
+
+    if ( check_balance( input, '"' ) )
+    {
+        sanitized = strip_endpoints( input );
+    }
+    else if ( check_balance( input, '\'' ) )
+    {
+        sanitized = strip_endpoints( input );
+        
+        if ( sanitized.length() > 2 || (sanitized.length() == 2 && sanitized.at(0) != '\\' ) )
+        {
+            sanitized = "";
+        }
+        
+    }
+
+    return sanitized;
 }
