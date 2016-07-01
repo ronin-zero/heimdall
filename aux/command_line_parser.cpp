@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 27-06-2016
  *
- *  Last Modified : Thu 30 Jun 2016 10:25:35 PM EDT
+ *  Last Modified : Thu 30 Jun 2016 10:40:29 PM PDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -11,7 +11,7 @@
 
 #include "command_line_parser.h"
 
-Command_Line_Parser::Command_Line_Parser( int argc, char** argv ){
+Command_Line_Parser::Command_Line_Parser( int argc, char** argv, std::vector<std::string> opts ){
 
     for ( int i = 1; i < argc; i++ ){
 
@@ -21,6 +21,8 @@ Command_Line_Parser::Command_Line_Parser( int argc, char** argv ){
         // Store the std::string in a vector.
         arguments.push_back( tmp );
     }
+
+    options = opts;
 }
 
 bool Command_Line_Parser::contains_arg( std::string arg ){

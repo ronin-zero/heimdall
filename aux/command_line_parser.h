@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 27-06-2016
  *
- *  Last Modified : Thu 30 Jun 2016 10:25:44 PM EDT
+ *  Last Modified : Thu 30 Jun 2016 10:40:34 PM PDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -25,7 +25,7 @@ class Command_Line_Parser{
 
     public:
 
-        Command_Line_Parser( int argc, char** argv);
+        Command_Line_Parser( int argc, char** argv, std::vector<std::string> opts={} );
         ~Command_Line_Parser() {}
 
         bool contains_arg( std::string arg );
@@ -57,5 +57,7 @@ class Command_Line_Parser{
         std::string strip_endpoints( std::string input );
 
         std::vector<std::string> arguments;
+
+        std::vector<std::string> options;
 
 };
