@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 27-06-2016
  *
- *  Last Modified : Thu 30 Jun 2016 10:40:29 PM PDT
+ *  Last Modified : Fri 01 Jul 2016 09:30:41 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -11,7 +11,7 @@
 
 #include "command_line_parser.h"
 
-Command_Line_Parser::Command_Line_Parser( int argc, char** argv, std::vector<std::string> opts ){
+Command_Line_Parser::Command_Line_Parser( int argc, char** argv ){
 
     for ( int i = 1; i < argc; i++ ){
 
@@ -21,8 +21,6 @@ Command_Line_Parser::Command_Line_Parser( int argc, char** argv, std::vector<std
         // Store the std::string in a vector.
         arguments.push_back( tmp );
     }
-
-    options = opts;
 }
 
 bool Command_Line_Parser::contains_arg( std::string arg ){
@@ -111,6 +109,8 @@ std::string Command_Line_Parser::get_option_string( std::string arg ){
     {
         std::cerr << "FAILURE - Invalid argument to option: " << arg.substr( 0, opt_start - 1 ) << std::endl;
         std::cerr << "Argument was: " << raw_opt_string << std::endl;
+        std::cerr << "Full argument was: " << arg << std::endl;
+        std::cerr << "opt_string was: " << opt_string << std::endl;
     }
 
     return opt_string;
@@ -459,6 +459,10 @@ std::string Command_Line_Parser::sanitize_input( std::string input ){
         }
         
     }
-
+    else
+    {
+        sanitized = input;
+    }
+    std::cout << "Sanitized string is " << sanitized << std::endl;
     return sanitized;
 }

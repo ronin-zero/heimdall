@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 27-06-2016
  *
- *  Last Modified : Thu 30 Jun 2016 10:40:34 PM PDT
+ *  Last Modified : Fri 01 Jul 2016 09:12:16 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -25,12 +25,16 @@ class Command_Line_Parser{
 
     public:
 
-        Command_Line_Parser( int argc, char** argv, std::vector<std::string> opts={} );
+        Command_Line_Parser( int argc, char** argv );
         ~Command_Line_Parser() {}
 
         bool contains_arg( std::string arg );
         bool contains_option( std::string opt );
         bool contains_any( std::vector<std::string> args );
+
+        uint_fast32_t num_args() { return arguments.size(); }
+
+        std::string arg_at( uint_fast32_t index ) { return arguments.at( index ); }
 
         int_fast64_t arg_index( std::string arg, uint_fast32_t pos=0 );
         int_fast64_t option_index( std::string opt, uint_fast32_t pos=0 );
@@ -57,7 +61,4 @@ class Command_Line_Parser{
         std::string strip_endpoints( std::string input );
 
         std::vector<std::string> arguments;
-
-        std::vector<std::string> options;
-
 };
