@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 27-06-2016
  *
- *  Last Modified : Fri 01 Jul 2016 09:12:16 PM EDT
+ *  Last Modified : Mon 04 Jul 2016 04:11:08 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -45,6 +45,7 @@ class Command_Line_Parser{
         void print_help();
         void print_usage();
 
+        void print_args();
         //void parse_args( uint_fast32_t argc, char** argv );
 
     private:
@@ -59,6 +60,7 @@ class Command_Line_Parser{
 
         std::string sanitize_input( std::string input );
         std::string strip_endpoints( std::string input );
+
 
         std::vector<std::string> arguments;
 };

@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 27-06-2016
  *
- *  Last Modified : Fri 01 Jul 2016 09:30:04 PM EDT
+ *  Last Modified : Mon 04 Jul 2016 04:50:28 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -25,6 +25,9 @@ std::vector<string> opt_flags = { "-n", "-p", "-c", "-f", "-t", "-s", "-a", };
 int main( int argc, char** argv ){
 
     Command_Line_Parser parser( argc, argv );
+
+    std::cout << "Printing arguments." << std::endl << std::endl;
+    parser.print_args();
 
     uint_fast8_t flags = 0x00;
     std::string out_file_name = "trace.log";
@@ -88,6 +91,8 @@ int main( int argc, char** argv ){
     std::cout << "You chose to print to file: " << out_file_name << std::endl;
     std::cout << "You chose to use separator: " << separator << std::endl;
     std::cout << "You set your flags to be : " << (int)flags << std::endl;
+
+
 
     return 0;
 }

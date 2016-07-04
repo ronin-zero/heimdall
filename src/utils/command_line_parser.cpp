@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 27-06-2016
  *
- *  Last Modified : Wed 29 Jun 2016 10:11:01 PM EDT
+ *  Last Modified : Mon 04 Jul 2016 04:06:46 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -298,4 +298,12 @@ void Command_Line_Parser::print_help(){
     cout << string( 11, ' ' ) << "https://github.com/ronin-zero/heimdall" << endl << endl;
 
     cout << "Written by: 浪人ー無, 2016" << endl << endl;
+}
+
+void Command_Line_Parser::print_args(){
+
+    for ( int i = 0; i < args.size(); i++ )
+    {
+        std::cout << "Arg #" << i << ": " << args[i] << std::endl;
+    }
 }

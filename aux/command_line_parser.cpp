@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 27-06-2016
  *
- *  Last Modified : Fri 01 Jul 2016 09:30:41 PM EDT
+ *  Last Modified : Mon 04 Jul 2016 05:01:01 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -50,12 +50,11 @@ int_fast64_t Command_Line_Parser::arg_index( std::string arg, uint_fast32_t pos 
 
     int_fast64_t index = -1;
 
-    for ( uint_fast32_t i = pos + 1; i < arguments.size(); i++ )
+    for ( uint_fast32_t i = pos; i < arguments.size(); i++ )
     {
         if ( arguments[i] == arg )
         {
-            index = i;
-            break;
+            return i;
         }
     }
 
@@ -66,12 +65,11 @@ int_fast64_t Command_Line_Parser::option_index( std::string opt, uint_fast32_t p
 
     int_fast64_t index = -1;
 
-    for ( uint_fast32_t i = pos + 1; i < arguments.size(); i++ )
+    for ( uint_fast32_t i = pos; i < arguments.size(); i++ )
     {
         if ( arguments[i].find( opt ) != std::string::npos )
         {
-            index = i;
-            break;
+            return i;
         }
     }
 
@@ -103,7 +101,8 @@ std::string Command_Line_Parser::get_option_string( std::string arg ){
 
     string raw_opt_string = arg.substr( opt_start );
 
-    opt_string = sanitize_input( raw_opt_string );
+    //opt_string = sanitize_input( raw_opt_string );
+    opt_string += raw_opt_string;
 
     if ( opt_string.length() < 1 )
     {
@@ -424,7 +423,7 @@ bool Command_Line_Parser::check_balance( std::string input, int_fast8_t q ){
     // If it's only one character long, it can't be a quotation mark.
     // If it's 0 characters long, it's not worth checking the rest.
 
-    if ( input_length > 1 )
+    if ( input_length > 2 )
     {
 
         int_fast32_t first_index = input.find( q );
@@ -449,20 +448,28 @@ std::string Command_Line_Parser::sanitize_input( std::string input ){
     {
         sanitized = strip_endpoints( input );
     }
-    else if ( check_balance( input, '\'' ) )
+/*    else if ( check_balance( input, '\'' ) )
     {
         sanitized = strip_endpoints( input );
         
-        if ( sanitized.length() > 2 || (sanitized.length() == 2 && sanitized.at(0) != '\\' ) )
+        if ( sanitized.length() > 2 )
         {
             sanitized = "";
         }
         
-    }
+    }*/
     else
     {
         sanitized = input;
     }
     std::cout << "Sanitized string is " << sanitized << std::endl;
     return sanitized;
+}
+
+void Command_Line_Parser::print_args(){
+
+    for ( int i = 0; i < arguments.size(); i++ )
+    {
+        std::cout << "Arg #" << i << ": " << arguments[i] << std::endl;
+    }
 }
