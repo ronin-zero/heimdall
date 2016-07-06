@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 27-06-2016
  *
- *  Last Modified : Tue 05 Jul 2016 08:41:45 PM EDT
+ *  Last Modified : Tue 05 Jul 2016 10:41:35 PM PDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -544,9 +544,137 @@ void Command_Line_Parser::print_args(){
 bool Command_Line_Parser::check_args(){
 
     uint_fast32_t commands = 0;
+    uint_fast32_t errors = 0;
+
+    bool valid_args = true;
+
+    std::vector<uint_fast32_t> bad_args;
 
     for ( int i = 0; i < arguments.size(); i++ )
     {
-        if ( 
+        if ( valid_command( arguments[i] ) )
+        {
+            commands++;
+        }
+        else if ( !( valid_option( arguments[i] ) || valid_arg( arguments[i] ) ) )
+        {
+            if ( i > 0 && arguments[ i -1 ] != "-o" )
+            {
+                errors++;
+                bad_args.push_back(i);
+            }
+        }
     }
+
+    if ( commands != 1 )
+    {
+        errors++;
+    }
+
+    if ( errors > 0 )
+    {
+        valid_args = false;
+
+        std::cerr << "ERROR: " << errors << " errors in arguments." << std::endl;
+        
+        print_malformed_args( bad_args, commands );
+    }
+
+    return valid_args;
+}
+
+bool Command_Line_Parser::valid_command( std::string input ){
+
+    for ( int i = 0; i < commands.size(); i++ )
+    {
+        if ( input == commands[i] )
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+bool Command_Line_Parser::valid_option( std::string input ){
+
+    for ( int i = 0; i < opt_flags.size(); i++ )
+    {
+        if ( input.find( opt_flags[i] ) == 0 && opt_flags[i].length() < input.length() )
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+bool Command_Line_Parser::valid_arg( std::string input ) {
+
+    for ( int i = 0; i < arg_flags.size(); i++  )
+    {
+        if ( input == arg_flags[i] )
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+void Command_Line_Parser::print_malformed_args( std::vector<uint_fast32_t> malformed_args, uint_fast32_t num_cmds ){
+
+    if ( num_cmds == 0 )
+    {
+        std::cerr << "ERROR: No commands (start/status/stop) given." << std::endl;
+    }
+    
+    if ( num_cmds > 1 )
+    {
+        std::cerr << "ERROR: Too many commands. Only one start/status/stop command may be given." << std::endl;
+    }
+
+    for ( int i = 0; i < malformed_args.size(); i++ )
+    {
+        std::string tmp_arg = arguments[ malformed_args[i] ];
+
+        std::cerr << "ERROR - Bad argument #" << i << " as argument " << malformed_args[i] << std::endl;
+
+        if ( tmp_arg.length() <= 2 )
+        {
+            std::cerr << "Unrecognized argument \"" << tmp_arg << "\"" << std::endl;
+        }
+        else if ( tmp_arg.find( "--separator=" ) != std::string::npos )
+        {
+            std::string option = tmp_arg.substr( tmp_arg.find('=') + 1 );
+
+            if ( option.length() < 1 )
+            {
+                std::cerr << "--separator requires an argument." << std::endl;
+            }
+            else
+            {
+                std::cerr << option << " is not a valid argument for option --separator" << std::endl;
+            }
+        }
+        else if ( tmp_arg.find( "--flags=" ) != std::string::npos )
+        {
+            std::string option = tmp_arg.substr( tmp_arg.find('=') + 1 );
+
+            if ( option.length() < 1 || ( !ASCII_Operations::is_hex_byte( option ) && !ASCII_Operations::is_number( option ) ) )
+            {
+                std::cerr << "--flags requires an argument of either a decimal or hexidecimal number between 0 and 255 (inclusive)" << std::endl;
+            }
+            else
+            {
+                std::cerr << "Argument \"" << option << "\" to option --flags is malformed." << std::endl;
+            }
+        }
+        else
+        {
+            std::cerr << "Unspecified problem with argument " << tmp_arg << std::endl;
+        }
+    }
+
+    print_usage();
 }

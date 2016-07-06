@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 01-06-2016
  *
- *  Last Modified : Tue 05 Jul 2016 12:36:58 PM EDT
+ *  Last Modified : Tue 05 Jul 2016 10:40:42 PM PDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -183,7 +183,7 @@ uint_fast8_t ASCII_Operations::hex_digit_val( uint_fast8_t c ){
 
         else if ( is_caps( c ) )
         {
-            digit_val = CAPS_HEX_OFFSET;
+            digit_val = c - CAPS_HEX_OFFSET;
         }
 
         else if ( is_lower( c ) )
