@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 01-06-2016
  *
- *  Last Modified : Wed 22 Jun 2016 01:22:39 PM EDT
+ *  Last Modified : Tue 05 Jul 2016 08:45:34 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -60,7 +60,6 @@ string Linux_Syscall_Record::get_pid() const{
     string pid = raw_data.substr( PID_INDEX, field_size );
 
     return pid;
-
 }
 
 string Linux_Syscall_Record::get_cpu() const{

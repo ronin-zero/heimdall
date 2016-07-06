@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 27-06-2016
  *
- *  Last Modified : Mon 04 Jul 2016 04:50:28 PM EDT
+ *  Last Modified : Tue 05 Jul 2016 12:14:46 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -40,6 +40,14 @@ int main( int argc, char** argv ){
 
     else
     {
+        if ( parser.contains_option( "--flags=" ) )
+        {
+            uint_fast32_t flags_index = parser.option_index( "--flags=" );
+
+            string flags_arg = parser.arg_at( flags_index );
+
+            flags = parser.get_option_value( flags_arg );
+        }
         if ( parser.contains_arg( "-n" ) )
         {
             flags |= PROCESS_NAME;

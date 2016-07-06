@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 09-05-2016
  *
- *  Last Modified : Wed 22 Jun 2016 05:13:59 PM EDT
+ *  Last Modified : Tue 05 Jul 2016 09:25:07 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -302,9 +302,11 @@ string Linux_Syscall_Reader::build_filter(){
 
     // I can't believe I have to actually convert these strings with .c_str().
     // I mean, it's [CURRENT_YEAR] for crying out loud!
+
     FILE* pipe = popen( command.c_str(), mode.c_str() );
 
     // Check if it's NULL
+
     if ( !pipe )
     {
        return "0";
@@ -313,6 +315,7 @@ string Linux_Syscall_Reader::build_filter(){
     string filter = "common_pid != ";
 
     // We need to remember to separate, but only if necessary.
+
     bool multiple_pids = false;
 
     string tmp_entry = "";
@@ -323,7 +326,6 @@ string Linux_Syscall_Reader::build_filter(){
 
     while ( !feof( pipe ) )
     {
-
         tmp_char = fgetc ( pipe );
 
         if ( tmp_char == '\n' )

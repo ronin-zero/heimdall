@@ -6,7 +6,7 @@ CXXFLAGS=-std=c++11 -I ../src/
 default: main
 
 main:	main.cpp command_line_parser.o
-	$(CXX) $(CXXFLAGS) main.cpp command_line_parser.o -o $@
+	$(CXX) $(CXXFLAGS) main.cpp command_line_parser.o ascii_operations.o -o $@
 
 clean:
 	rm -f main *.o

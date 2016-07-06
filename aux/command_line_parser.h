@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 27-06-2016
  *
- *  Last Modified : Mon 04 Jul 2016 04:11:08 PM EDT
+ *  Last Modified : Tue 05 Jul 2016 09:32:47 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -12,6 +12,7 @@
 #pragma once
 
 #include <iostream>
+#include <sstream>
 #include <fstream>
 #include <cstdint>
 #include <cstring>
@@ -24,6 +25,8 @@
 class Command_Line_Parser{
 
     public:
+
+        
 
         Command_Line_Parser( int argc, char** argv );
         ~Command_Line_Parser() {}
@@ -46,6 +49,8 @@ class Command_Line_Parser{
         void print_usage();
 
         void print_args();
+
+        bool check_args();
         //void parse_args( uint_fast32_t argc, char** argv );
 
     private:
@@ -60,7 +65,11 @@ class Command_Line_Parser{
 
         std::string sanitize_input( std::string input );
         std::string strip_endpoints( std::string input );
-
+        std::string replace_tab_char( std::string input );
 
         std::vector<std::string> arguments;
+
+        std::vector<std::string> arg_flags = { "-o", "-n", "-p", "-c", "-f", "-t", "-s", "-a", "-h" };
+        std::vector<std::string> opt_flags = { "--separator=", "--flags=" };
+        std::vecotr<std::string> commands = { "start", "stop", "status" };
 };

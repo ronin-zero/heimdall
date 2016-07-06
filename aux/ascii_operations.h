@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 01-06-2016
  *
- *  Last Modified : Thu 30 Jun 2016 10:25:45 PM EDT
+ *  Last Modified : Tue 05 Jul 2016 12:27:10 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -49,9 +49,11 @@ static const uint_fast8_t LOWER_RANGE_END   = 'z';
 
 static const uint_fast8_t LOWER_HEX_START   = 'a';
 static const uint_fast8_t LOWER_HEX_END     = 'f';
+static const uint_fast8_t LOWER_HEX_OFFSET  = 87;
 
 static const uint_fast8_t CAPS_HEX_START    = 'A';
 static const uint_fast8_t CAPS_HEX_END      = 'F';
+static const uint_fast8_t CAPS_HEX_OFFSET   = 55;
 
 // Note that a single digit cannot possibly have this integer value.
 
@@ -96,4 +98,5 @@ class ASCII_Operations{
         static bool is_hex_digit( uint_fast8_t c );
 
         static bool is_hex_byte( string input );
+        static bool is_number( string input );
 };

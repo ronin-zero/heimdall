@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 01-06-2016
  *
- *  Last Modified : Thu 30 Jun 2016 10:24:30 PM EDT
+ *  Last Modified : Tue 05 Jul 2016 12:36:58 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -148,6 +148,8 @@ uint_fast8_t ASCII_Operations::hex_byte_val( string num ){
     {
         hex_val = hex_digit_val( num[2] );
 
+        std::cout << "Hex val is: " << (int)hex_val << std::endl;
+
         if ( num.length() > 3 )
         {
             hex_val = hex_val * 16 + hex_digit_val( num[3] );
@@ -181,12 +183,12 @@ uint_fast8_t ASCII_Operations::hex_digit_val( uint_fast8_t c ){
 
         else if ( is_caps( c ) )
         {
-            digit_val = c - CAPS_HEX_START;
+            digit_val = CAPS_HEX_OFFSET;
         }
 
         else if ( is_lower( c ) )
         {
-            digit_val = c - LOWER_HEX_START;
+            digit_val = c - LOWER_HEX_OFFSET;
         }
         else
         {
@@ -263,4 +265,16 @@ bool ASCII_Operations::is_hex_byte( string input ){
 
         return is_hex;
     }
+}
+
+bool ASCII_Operations::is_number( string input ){
+
+    bool is_a_number = input.length() > 0;
+
+    for ( int i = 0; i < input.length() && is_a_number; i++ )
+    {
+        is_a_number &= is_num( input[i] );
+    }
+
+    return is_a_number;
 }

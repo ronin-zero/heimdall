@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 27-06-2016
  *
- *  Last Modified : Mon 04 Jul 2016 05:01:01 PM EDT
+ *  Last Modified : Tue 05 Jul 2016 08:41:45 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -85,8 +85,16 @@ int_fast32_t Command_Line_Parser::get_option_value( std::string arg ){
 
     std::string opt_arg = get_option_string( arg );
 
+    if ( ASCII_Operations::is_hex_byte( opt_arg ) )
+    {
+        opt_val = ASCII_Operations::hex_byte_val( opt_arg );
+    }
+    else if ( ASCII_Operations::is_number( opt_arg ) )
+    {
+        opt_val = ASCII_Operations::to_int( opt_arg );
+    }
 
-
+    return opt_val;
 }
 
 std::string Command_Line_Parser::get_option_string( std::string arg ){
@@ -94,27 +102,22 @@ std::string Command_Line_Parser::get_option_string( std::string arg ){
     // TODO: Parse the argument to get the value of the option after
     // the '=' character.
 
-    std::string opt_string = "";
-
     int_fast32_t opt_start  = arg.find("=") + 1;
     int_fast32_t opt_end    = arg.length();
 
-    string raw_opt_string = arg.substr( opt_start );
+    std::string raw_opt_string = arg.substr( opt_start );
 
-    //opt_string = sanitize_input( raw_opt_string );
-    opt_string += raw_opt_string;
+    std::string opt_string = replace_tab_char( raw_opt_string ); 
 
     if ( opt_string.length() < 1 )
     {
         std::cerr << "FAILURE - Invalid argument to option: " << arg.substr( 0, opt_start - 1 ) << std::endl;
-        std::cerr << "Argument was: " << raw_opt_string << std::endl;
         std::cerr << "Full argument was: " << arg << std::endl;
         std::cerr << "opt_string was: " << opt_string << std::endl;
     }
 
     return opt_string;
 }
-
 
 /*
    void Command_Line_Parser::parse_args( uint_fast32_t argc, char** argv ){
@@ -409,6 +412,48 @@ void Command_Line_Parser::print_usage(){
     std::cout << std::endl << "USAGE:" << std::endl;
     std::cout << std::string( 8, ' ' ) << "syscall-sensor COMMAND [OPTIONS]" << std::endl << std::endl;
 
+    std::cout << std::string( 8, ' ' ) << "COMMANDs" << std::endl << std::endl;
+    std::cout << std::string( 11, ' ' ) << std::setw(40) << std::setfill(' ') << std::left << "start" << "start the sensor with [OPTIONS]" << std::endl;
+
+    std::cout << std::string( 11, ' ' ) << std::setw(40) << std::setfill(' ') << std::left << "stop" << "stop the sensor" << std::endl;
+
+    std::cout << std::string( 11, ' ' ) << std::setw(40) << std::setfill(' ') << std::left << "status" << "check sensor status (NOT IMPLEMENTED)" << std::endl;
+    std::cout << std::endl;
+
+    std::cout << std::string( 8, ' ' ) << "OPTIONS" << std::endl << std::endl;
+    
+    std::cout << std::string( 11, ' ' ) << std::setw(20) << std::setfill(' ') << std::left << "--flags=FLAGS";
+    std::cout << "run sensor with flags [FLAGS].  Accepts decimal values and hex of the form 0xXX (default: 204, or 0xCC)" << std::endl;
+
+    std::cout << std::string( 11, ' ' ) << std::setw(20) << std::setfill(' ') << std::left << "--separator=SEPARATOR";
+    std::cout << "separate fields in the log with [SEPARATOR] (default: ,)" << std::endl; 
+
+    std::cout << std::string( 11, ' ' ) << std::setw(20) << std::setfill(' ') << std::left << "-o output_file";
+    std::cout << "log output to output_file (default: trace.log)" << std::endl << std::endl;
+
+    std::cout << std::string( 11, ' ' ) << std::setw(20) << std::setfill(' ') << std::left << "-n";
+    std::cout << "Include the process\' name in the logged information" << std::endl;
+    
+    std::cout << std::string( 11, ' ' ) << std::setw(20) << std::setfill(' ') << std::left << "-p";
+    std::cout << "Include the process\' PID in the logged information" << std::endl;
+
+    std::cout << std::string( 11, ' ' ) << std::setw(20) << std::setfill(' ') << std::left << "-c";
+    std::cout << "Include the process\' CPU number in the logged information" << std::endl;
+
+    std::cout << std::string( 11, ' ' ) << std::setw(20) << std::setfill(' ') << std::left << "-f";
+    std::cout << "Include the process\' irq information in the log (see help)" << std::endl;
+
+    std::cout << std::string( 11, ' ' ) << std::setw(20) << std::setfill(' ') << std::left << "-t";
+    std::cout << "Include the timestamp of the syscall record in the logged information" << std::endl;
+
+    std::cout << std::string( 11, ' ' ) << std::setw(20) << std::setfill(' ') << std::left << "-s";
+    std::cout << "Include the syscall number in the logged information" << std::endl;
+
+    std::cout << std::string( 11, ' ' ) << std::setw(20) << std::setfill(' ') << std::left << "-a";
+    std::cout << "Include the syscall's arguments in the logged information" << std::endl;
+
+    std::cout << std::endl;
+
     std::cout << "Run with flag -h to view the help documentation (it is recommended that you pipe it to a pager" << std::endl;
     std::cout << "such as \'less\' for ease of reading.  Example: \'syscall-sensor -h | less\')." << std::endl;
 }
@@ -466,10 +511,42 @@ std::string Command_Line_Parser::sanitize_input( std::string input ){
     return sanitized;
 }
 
+std::string Command_Line_Parser::replace_tab_char( std::string input ){
+
+    std::string output = "";
+
+    std::string tab_char = "\\t";
+
+    int_fast32_t tab_index = input.find( "\\t" );
+
+    if ( tab_index == std::string::npos )
+    {
+        output = input;
+    }
+    else
+    {
+        output += input.substr( 0, tab_index );
+        output += '\t';
+        output += replace_tab_char( input.substr( tab_index + 2 ) );
+    }
+
+    return output;
+}
+
 void Command_Line_Parser::print_args(){
 
     for ( int i = 0; i < arguments.size(); i++ )
     {
         std::cout << "Arg #" << i << ": " << arguments[i] << std::endl;
+    }
+}
+
+bool Command_Line_Parser::check_args(){
+
+    uint_fast32_t commands = 0;
+
+    for ( int i = 0; i < arguments.size(); i++ )
+    {
+        if ( 
     }
 }
