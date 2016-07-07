@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 09-05-2016
  *
- *  Last Modified : Wed 22 Jun 2016 07:48:40 PM EDT
+ *  Last Modified : Wed 06 Jul 2016 07:51:42 PM PDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -177,8 +177,14 @@ uint_fast8_t Syscall_Sensor::start_sensing(){
     {
         status = reader->start_reading();
 
-        sense_thread = thread( &Syscall_Sensor::sense, this );
-        notify_thread = thread( &Syscall_Sensor::notify_observers, this );
+        // We only want to start these threads if "start_reading" was successful,
+        // which, if it was, will set status such that is_sensing() will now return true.
+
+        if ( is_sensing() )
+        {
+            sense_thread = thread( &Syscall_Sensor::sense, this );
+            notify_thread = thread( &Syscall_Sensor::notify_observers, this );
+        }
     }
 
     return status;

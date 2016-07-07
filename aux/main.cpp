@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 27-06-2016
  *
- *  Last Modified : Tue 05 Jul 2016 10:20:19 PM PDT
+ *  Last Modified : Wed 06 Jul 2016 10:24:10 PM PDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -22,18 +22,21 @@
 
 std::vector<string> opt_flags = { "-n", "-p", "-c", "-f", "-t", "-s", "-a", };
 
+std::string flag_string( uint_fast8_t flags );
+
 int main( int argc, char** argv ){
 
     Command_Line_Parser parser( argc, argv );
-
-    std::cout << "Printing arguments." << std::endl << std::endl;
-    parser.print_args();
 
     uint_fast8_t flags = 0x00;
     std::string out_file_name = "trace.log";
     std::string separator=",";
 
-    if ( parser.check_args() )
+    if ( parser.contains_arg( "-h" ) || parser.contains_option( "--help" ) )
+    {
+        parser.print_help();
+    }
+    else if ( parser.check_args() )
     {
         if (  !parser.contains_option( "--flags=" ) && !parser.contains_any( opt_flags ) )
         {
@@ -100,7 +103,7 @@ int main( int argc, char** argv ){
 
         std::cout << "You chose to print to file: " << out_file_name << std::endl;
         std::cout << "You chose to use separator: " << separator << std::endl;
-        std::cout << "You set your flags to be : " << (int)flags << std::endl;
+        std::cout << "You set your flags to be : " << (int)flags << " -- " << flag_string( flags ) << std::endl;
 
         return 0;
     }
@@ -109,4 +112,92 @@ int main( int argc, char** argv ){
     {
         return -1;
     }
+}
+
+std::string flag_string( uint_fast8_t flags ){
+
+    std::string string_flag = "";
+
+    uint_fast32_t flag_count = 0;
+
+    if ( flags & PROCESS_NAME )
+    {
+        string_flag += "PROCESS_NAME";
+
+        flag_count++;
+    }
+
+    if ( flags & PID )
+    {
+       if ( flag_count > 0 )
+       {
+            string_flag += " | ";
+       }
+
+       string_flag += "PID";
+
+       flag_count++;
+    }
+
+    if ( flags & CPU )
+    {
+        if ( flag_count > 0 )
+        {
+            string_flag += " | ";
+        }
+
+        string_flag += "CPU";
+
+        flag_count++;
+    }
+
+    if ( flags & TRACE_FLAGS )
+    {
+        if ( flag_count > 0 )
+        {
+            string_flag += " | ";
+        }
+
+        string_flag += "TRACE_FLAGS";
+
+        flag_count++;
+    }
+
+    if ( flags & TIMESTAMP )
+    {
+        if ( flag_count > 0 )
+        {
+            string_flag += " | ";
+        }
+
+        string_flag += "TIMESTAMP";
+
+        flag_count++;
+    }
+
+    if ( flags & SYSCALL_NUM )
+    {
+        if ( flag_count > 0 )
+        {
+            string_flag += " | ";
+        }
+
+        string_flag += "SYSCALL_NUM";
+
+        flag_count++;
+    }
+
+    if ( flags & SYSCALL_ARGS )
+    {
+        if ( flag_count > 0 )
+        {
+            string_flag += " | ";
+        }
+
+        string_flag += "SYSCALL_ARGS";
+
+        flag_count++;
+    }
+
+    return string_flag;
 }

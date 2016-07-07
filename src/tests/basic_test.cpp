@@ -3,7 +3,7 @@
  *  
  *  Creation Date :
  *
- *  Last Modified : Tue 05 Jul 2016 09:26:34 PM EDT
+ *  Last Modified : Wed 06 Jul 2016 07:44:41 PM PDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -24,6 +24,7 @@
 
 using std::cout;
 using std::cin;
+using std::cerr;
 using std::string;
 using std::endl;
 
@@ -62,7 +63,16 @@ int main(){
     logger->start_observing();
     logger->start_processing();
 
-    sensor->start_sensing();
+    if ( !( sensor->start_sensing() & SENSING_ON ) )
+    {
+        cerr << "ERROR: Could not start sensing." << endl;
+
+        delete ( sensor );
+        delete ( logger );
+        delete ( s_out );
+
+        exit ( -1 ) ;
+    }
 
     cout << "Enter anything to exit." << endl;
 
