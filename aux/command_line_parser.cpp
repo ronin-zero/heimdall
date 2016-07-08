@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 27-06-2016
  *
- *  Last Modified : Tue 05 Jul 2016 10:41:35 PM PDT
+ *  Last Modified : Fri 08 Jul 2016 06:17:52 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -103,7 +103,6 @@ std::string Command_Line_Parser::get_option_string( std::string arg ){
     // the '=' character.
 
     int_fast32_t opt_start  = arg.find("=") + 1;
-    int_fast32_t opt_end    = arg.length();
 
     std::string raw_opt_string = arg.substr( opt_start );
 
@@ -310,6 +309,13 @@ void Command_Line_Parser::print_help(){
     std::cout << std::string( 11, ' ' ) << "Still, this is an experimental program that is still in development, so no promises are made and no" << std::endl;
     std::cout << std::string( 11, ' ' ) << "guarantees are given." << std::endl << std::endl;
 
+    std::cout << std::string( 8, ' ' ) << "--daemon=[ON|OFF|0|1]" << std::endl;
+    std::cout << std::string( 11, ' ' ) << "Choose whether to run the sensor as a background, daemon-like process.  Options ON and 1 will set" << std::endl;
+    std::cout << std::string( 11, ' ' ) << "the sensor to launch as a daemonized, background process.  Options OFF and 0 will set the sensor to" << std::endl;
+    std::cout << std::string( 11, ' ' ) << "run in the forground like a regular application.  Options OFF and ON should be case-insensitive, but" << std::endl;
+    std::cout << std::string( 11, ' ' ) << "entering them in all caps will work." << std::endl << std::endl;
+    std::cout << std::string( 11, ' ' ) << "The sensor program runs as a daemon by default." << std::endl << std::endl;
+
     std::cout << std::string( 8, ' ' ) << "3.2 Table of Data Field Options" << std::endl << std::endl;
 
     std::cout << std::string( 8, ' ' ) << std::setw(20) << std::setfill(' ') << std::left << "Field Name";
@@ -425,8 +431,10 @@ void Command_Line_Parser::print_usage(){
     std::cout << std::string( 11, ' ' ) << std::setw(20) << std::setfill(' ') << std::left << "--flags=FLAGS";
     std::cout << "run sensor with flags [FLAGS].  Accepts decimal values and hex of the form 0xXX (default: 204, or 0xCC)" << std::endl;
 
-    std::cout << std::string( 11, ' ' ) << std::setw(20) << std::setfill(' ') << std::left << "--separator=SEPARATOR";
-    std::cout << "separate fields in the log with [SEPARATOR] (default: ,)" << std::endl; 
+    std::cout << std::string( 11, ' ' ) << std::setw(20) << std::setfill(' ') << std::left << "--separator=SEP";
+    std::cout << "separate fields in the log with [SEP] (default: ,)" << std::endl;
+    std::cout << std::string( 11, ' ' ) << std::setw(20) << std::setfill(' ') << std::left << "--daemon=[ON|OFF]";
+    std::cout << "run the sensor as a daemon-like background process (ON; the default) or as a regular application (OFF). (ADVANCED)" << std::endl << std::endl;
 
     std::cout << std::string( 11, ' ' ) << std::setw(20) << std::setfill(' ') << std::left << "-o output_file";
     std::cout << "log output to output_file (default: trace.log)" << std::endl << std::endl;
@@ -463,7 +471,7 @@ void Command_Line_Parser::print_usage(){
 // to check for quotes.
 bool Command_Line_Parser::check_balance( std::string input, int_fast8_t q ){
 
-    uint_fast32_t input_length = input.length();
+    int_fast32_t input_length = input.length();
 
     // If it's only one character long, it can't be a quotation mark.
     // If it's 0 characters long, it's not worth checking the rest.
@@ -517,7 +525,7 @@ std::string Command_Line_Parser::replace_tab_char( std::string input ){
 
     std::string tab_char = "\\t";
 
-    int_fast32_t tab_index = input.find( "\\t" );
+    uint_fast32_t tab_index = input.find( "\\t" );
 
     if ( tab_index == std::string::npos )
     {
@@ -535,7 +543,7 @@ std::string Command_Line_Parser::replace_tab_char( std::string input ){
 
 void Command_Line_Parser::print_args(){
 
-    for ( int i = 0; i < arguments.size(); i++ )
+    for ( uint_fast32_t i = 0; i < arguments.size(); i++ )
     {
         std::cout << "Arg #" << i << ": " << arguments[i] << std::endl;
     }
@@ -550,7 +558,7 @@ bool Command_Line_Parser::check_args(){
 
     std::vector<uint_fast32_t> bad_args;
 
-    for ( int i = 0; i < arguments.size(); i++ )
+    for ( uint_fast32_t i = 0; i < arguments.size(); i++ )
     {
         if ( valid_command( arguments[i] ) )
         {
@@ -585,7 +593,7 @@ bool Command_Line_Parser::check_args(){
 
 bool Command_Line_Parser::valid_command( std::string input ){
 
-    for ( int i = 0; i < commands.size(); i++ )
+    for ( uint_fast32_t i = 0; i < commands.size(); i++ )
     {
         if ( input == commands[i] )
         {
@@ -598,7 +606,7 @@ bool Command_Line_Parser::valid_command( std::string input ){
 
 bool Command_Line_Parser::valid_option( std::string input ){
 
-    for ( int i = 0; i < opt_flags.size(); i++ )
+    for ( uint_fast32_t i = 0; i < opt_flags.size(); i++ )
     {
         if ( input.find( opt_flags[i] ) == 0 && opt_flags[i].length() < input.length() )
         {
@@ -611,7 +619,7 @@ bool Command_Line_Parser::valid_option( std::string input ){
 
 bool Command_Line_Parser::valid_arg( std::string input ) {
 
-    for ( int i = 0; i < arg_flags.size(); i++  )
+    for ( uint_fast32_t i = 0; i < arg_flags.size(); i++  )
     {
         if ( input == arg_flags[i] )
         {
@@ -634,7 +642,7 @@ void Command_Line_Parser::print_malformed_args( std::vector<uint_fast32_t> malfo
         std::cerr << "ERROR: Too many commands. Only one start/status/stop command may be given." << std::endl;
     }
 
-    for ( int i = 0; i < malformed_args.size(); i++ )
+    for ( uint_fast32_t i = 0; i < malformed_args.size(); i++ )
     {
         std::string tmp_arg = arguments[ malformed_args[i] ];
 

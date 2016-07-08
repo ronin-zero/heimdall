@@ -1,12 +1,12 @@
 CXX=g++
-CXXFLAGS=-std=c++11 -I ../src/
+CXXFLAGS=-std=c++11 -I ../src/ -Werror -Wall -Wextra -pedantic -pthread
 
 .PHONY: all clean default
 
 default: main
 
-main:	main.cpp command_line_parser.o
-	$(CXX) $(CXXFLAGS) main.cpp command_line_parser.o ascii_operations.o -o $@
+main:	launcher.cpp command_line_parser.o ascii_operations.o
+	$(CXX) $(CXXFLAGS) launcher.cpp command_line_parser.o ascii_operations.o -o $@
 
 clean:
 	rm -f main *.o

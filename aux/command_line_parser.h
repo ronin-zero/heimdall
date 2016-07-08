@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 27-06-2016
  *
- *  Last Modified : Tue 05 Jul 2016 09:19:41 PM PDT
+ *  Last Modified : Fri 08 Jul 2016 11:20:00 AM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -70,7 +70,7 @@ class Command_Line_Parser{
         std::vector<std::string> arguments;
 
         std::vector<std::string> arg_flags = { "-o", "-n", "-p", "-c", "-f", "-t", "-s", "-a", "-h" };
-        std::vector<std::string> opt_flags = { "--separator=", "--flags=" };
+        std::vector<std::string> opt_flags = { "--separator=", "--flags=", "--daemon=" };
         std::vector<std::string> commands = { "start", "stop", "status" };
 
         bool valid_command ( std::string input );

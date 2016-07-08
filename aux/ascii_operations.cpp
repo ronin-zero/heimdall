@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 01-06-2016
  *
- *  Last Modified : Tue 05 Jul 2016 10:40:42 PM PDT
+ *  Last Modified : Fri 08 Jul 2016 04:29:55 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -271,7 +271,7 @@ bool ASCII_Operations::is_number( string input ){
 
     bool is_a_number = input.length() > 0;
 
-    for ( int i = 0; i < input.length() && is_a_number; i++ )
+    for ( uint_fast32_t i = 0; i < input.length() && is_a_number; i++ )
     {
         is_a_number &= is_num( input[i] );
     }
