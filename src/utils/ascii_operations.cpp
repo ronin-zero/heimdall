@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 01-06-2016
  *
- *  Last Modified : Wed 22 Jun 2016 04:32:52 PM EDT
+ *  Last Modified : Fri 08 Jul 2016 04:29:55 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -140,6 +140,78 @@ double ASCII_Operations::to_floating_point( string num ){
     return string_val;
 }
 
+uint_fast8_t ASCII_Operations::hex_byte_val( string num ){
+
+    uint_fast8_t hex_val = 0;
+
+    if ( is_hex_byte( num ) )
+    {
+        hex_val = hex_digit_val( num[2] );
+
+        std::cout << "Hex val is: " << (int)hex_val << std::endl;
+
+        if ( num.length() > 3 )
+        {
+            hex_val = hex_val * 16 + hex_digit_val( num[3] );
+        }
+    }
+    else
+    {
+        std::cerr << "ERROR: Argument is not a valid hexidecimal number." << std::endl;
+        std::cerr << "Argument was: " << num << std::endl;
+        std::cerr << "A hexidecimal value is of the form 0xNM where N and M are either numbers in the range 0-9, inclusive," << std::endl;
+        std::cerr << "or letters in the ranges a-f or A-F, inclusive." << std::endl;
+        std::cerr << "The return value of this function call will be " << ERROR_VAL << " (" << (uint_fast32_t)ERROR_VAL << "), but this" << std::endl;
+        std::cerr << "is not an accurate value and should not be used." << std::endl;
+
+        hex_val = ERROR_VAL;
+    }
+
+    return hex_val;
+}
+
+uint_fast8_t ASCII_Operations::hex_digit_val( uint_fast8_t c ){
+
+    uint_fast8_t digit_val = 0;
+
+    if ( is_hex_digit( c ) )
+    {
+        if ( is_num( c ) )
+        {
+            digit_val = c - INT_OFFSET; 
+        }
+
+        else if ( is_caps( c ) )
+        {
+            digit_val = c - CAPS_HEX_OFFSET;
+        }
+
+        else if ( is_lower( c ) )
+        {
+            digit_val = c - LOWER_HEX_OFFSET;
+        }
+        else
+        {
+            std::cerr << "ERROR: Argument is not a valid hex digit, but passed the check \"is_hex_digit( c )\"." << std::endl;
+            std::cerr << "Argument was: " << c << std::endl;
+            std::cerr << "Please report this bug to the code maintainers." << std::endl;
+
+            digit_val = ERROR_VAL;
+        }
+    }
+    else
+    {
+        std::cerr << "ERROR: Argument is not a valid hexidecimal digit." << std::endl;
+        std::cerr << "Argument is: " << c << std::endl;
+        std::cerr << "Valid hexidecimal digits are characters in the range 0-9, a-f, or A-F (inclusive for all)" << std::endl;
+        std::cerr << "A value of " << ERROR_VAL << " (" << (uint_fast32_t)ERROR_VAL << ") will be returned, but this value should not be used." << std::endl;
+
+        digit_val = ERROR_VAL;
+    }
+
+    return digit_val;
+}
+
 bool ASCII_Operations::is_num( uint_fast8_t c ){
 
     return ( c >= INT_RANGE_START && c <= INT_RANGE_END );
@@ -163,4 +235,46 @@ bool ASCII_Operations::is_alpha( uint_fast8_t c ){
 bool ASCII_Operations::is_alphanum( uint_fast8_t c ){
 
     return ( is_alpha( c ) || is_num( c ) );
+}
+
+bool ASCII_Operations::is_hex_digit( uint_fast8_t c ){
+
+    return (    ( c >= INT_RANGE_START && c <= INT_RANGE_END ) ||
+                ( c >= LOWER_HEX_START && c <= LOWER_HEX_END ) ||
+                ( c >= CAPS_HEX_START && c <= CAPS_HEX_END )    );
+}
+
+bool ASCII_Operations::is_hex_byte( string input ){
+
+    if ( input.length() > 4 || input.length() < 3 )
+    {
+        return false;
+    }
+    else if ( input[0] != '0' || ( input[1] != 'x' && input[1] != 'X' ) )
+    {
+        return false;
+    }
+    else
+    {
+        bool is_hex = is_hex_digit( input[2] );
+
+        if ( is_hex && input.length() > 3 )
+        {
+            is_hex = is_hex_digit( input[3] );
+        }
+
+        return is_hex;
+    }
+}
+
+bool ASCII_Operations::is_number( string input ){
+
+    bool is_a_number = input.length() > 0;
+
+    for ( uint_fast32_t i = 0; i < input.length() && is_a_number; i++ )
+    {
+        is_a_number &= is_num( input[i] );
+    }
+
+    return is_a_number;
 }

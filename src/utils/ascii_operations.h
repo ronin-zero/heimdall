@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 01-06-2016
  *
- *  Last Modified : Wed 22 Jun 2016 04:32:20 PM EDT
+ *  Last Modified : Tue 05 Jul 2016 12:27:10 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -22,6 +22,8 @@
 
 #include <cstdint>
 #include <string>
+#include <iostream>
+#include <fstream>
 #include <cmath> 
 
 using std::string;
@@ -44,6 +46,14 @@ static const uint_fast8_t CAPS_RANGE_END    = 'Z';
 
 static const uint_fast8_t LOWER_RANGE_START = 'a';
 static const uint_fast8_t LOWER_RANGE_END   = 'z';
+
+static const uint_fast8_t LOWER_HEX_START   = 'a';
+static const uint_fast8_t LOWER_HEX_END     = 'f';
+static const uint_fast8_t LOWER_HEX_OFFSET  = 87;
+
+static const uint_fast8_t CAPS_HEX_START    = 'A';
+static const uint_fast8_t CAPS_HEX_END      = 'F';
+static const uint_fast8_t CAPS_HEX_OFFSET   = 55;
 
 // Note that a single digit cannot possibly have this integer value.
 
@@ -73,6 +83,11 @@ class ASCII_Operations{
 
         static double to_floating_point( string num );
 
+        // Hexidecimal conversions
+
+        static uint_fast8_t hex_byte_val( string num );
+        static uint_fast8_t hex_digit_val( uint_fast8_t c );
+
         // range checking
 
         static bool is_num( uint_fast8_t c );
@@ -80,4 +95,8 @@ class ASCII_Operations{
         static bool is_lower( uint_fast8_t c );
         static bool is_alpha( uint_fast8_t c );
         static bool is_alphanum( uint_fast8_t c );
+        static bool is_hex_digit( uint_fast8_t c );
+
+        static bool is_hex_byte( string input );
+        static bool is_number( string input );
 };
