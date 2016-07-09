@@ -5,8 +5,8 @@ CXXFLAGS=-std=c++11 -I ../src/ -Werror -Wall -Wextra -pedantic -pthread
 
 default: main
 
-main:	launcher.cpp command_line_parser.o ascii_operations.o
-	$(CXX) $(CXXFLAGS) launcher.cpp command_line_parser.o ascii_operations.o -o $@
+main:	launcher.cpp command_line_parser.o ascii_operations.o sensor_manager.o
+	$(CXX) $(CXXFLAGS) launcher.cpp command_line_parser.o ascii_operations.o sensor_manager.o -o $@
 
 clean:
 	rm -f main *.o
@@ -16,3 +16,6 @@ command_line_parser.o:	command_line_parser.cpp command_line_parser.h ascii_opera
 
 ascii_operations.o:	ascii_operations.cpp ascii_operations.h
 	$(CXX) $(CXXFLAGS) -c ascii_operations.cpp
+
+sensor_manager.o: sensor_manager.cpp sensor_manager.h
+	$(CXX) $(CXXFLAGS) -c sensor_manager.cpp

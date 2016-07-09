@@ -5,7 +5,7 @@
  *  
  *  Creation Date : 08-07-2016
  *
- *  Last Modified : Fri 08 Jul 2016 06:24:18 PM EDT
+ *  Last Modified : Sat 09 Jul 2016 02:38:39 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -29,8 +29,10 @@ class Sensor_Manager{
 
     public:
 
-        Sensor_Manager( uint_fast8_t sensor_flags, std::string file_name, std::string separator, bool daemon_on );
+        Sensor_Manager( uint_fast8_t sensor_flags, std::string file_name, std::string separator );
         ~Sensor_Manager();
+
+        void run_sensor( bool daemon_on=true );
 
     private:
 
@@ -38,9 +40,11 @@ class Sensor_Manager{
         Syscall_Logger * logger;
         Output_Stream * s_out;
 
+        
+        bool running;
         bool daemonized;
         
         // TODO: Determine if we need variables for the pipe name, pid, etc.
 
         // TODO: Determine what methods/functions are needed (start? stop? report status? etc?)
-}
+};

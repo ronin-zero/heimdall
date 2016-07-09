@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 27-06-2016
  *
- *  Last Modified : Fri 08 Jul 2016 06:07:50 PM EDT
+ *  Last Modified : Sat 09 Jul 2016 02:34:55 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -19,6 +19,7 @@
 #include "sensor_observers/data_records/linux/linux_syscall_record.h"
 
 #include "command_line_parser.h"
+#include "sensor_manager.h"
 
 std::vector<string> opt_flags = { "-n", "-p", "-c", "-f", "-t", "-s", "-a", };
 std::string flag_string( uint_fast8_t flags );
@@ -113,7 +114,7 @@ int main( int argc, char** argv ){
             {
                 run_daemon = false;
             }
-            else if ( daemon_option == "1" || daemon_option == "ON" || daemon_option == "on" || daemon_option == "oN" )
+            else if ( daemon_option == "1" || daemon_option == "ON" || daemon_option == "on" || daemon_option == "oN" || daemon_option == "On" )
             {
                 run_daemon = true;
             }
@@ -138,6 +139,10 @@ int main( int argc, char** argv ){
         {
             std::cout << "Daemonization disabled.  Sensor will be run as a regular application." << std::endl;
         }
+
+        Sensor_Manager manager( flags, out_file_name, separator );
+
+        manager.run_sensor( run_daemon );
 
         return 0;
     }
