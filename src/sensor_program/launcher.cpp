@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 27-06-2016
  *
- *  Last Modified : Mon 11 Jul 2016 08:46:04 PM EDT
+ *  Last Modified : Tue 12 Jul 2016 03:44:23 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -22,6 +22,8 @@
 #include "sensor_manager/sensor_manager.h"
 
 std::vector<std::string> opt_flags = { "-n", "-p", "-c", "-f", "-t", "-s", "-a", };
+
+const std::string pipe_name = "/var/run/sensor.pipe";
 
 std::string flag_string( uint_fast8_t flags );
 //std::string get_program_name( char* arg );
@@ -184,6 +186,8 @@ void start ( Command_Line_Parser parser ){
     }
     else
     {
+        mkfifo ( pipe_name.c_str(), 0666 );
+
         uint_fast8_t flags = 0x00;
         std::string out_file_name = "trace.log";
         std::string separator=",";
@@ -315,12 +319,6 @@ void stop ( Command_Line_Parser parser ){
     }
     else
     {
-        std::string pipe_name = "/tmp/syscall_sensor.fifo";
-
-        std::cout << "pipe_name = " << pipe_name << std::endl;
-
-        mkfifo( pipe_name.c_str(), 0666 );
-
         int32_t fd;
 
         fd = open( pipe_name.c_str(), O_WRONLY );
@@ -329,12 +327,18 @@ void stop ( Command_Line_Parser parser ){
 
         const char* c_stop = stop.c_str();
 
-        write( fd, c_stop, sizeof( c_stop ) );
+        if ( !write( fd, c_stop, sizeof( c_stop ) ) )
+        {
+            std::cerr << "ERROR: Couldn't write to " << pipe_name << " -- perhaps you need root/sudo?" << std::endl;
+        }
+        else
+        {
+            close( fd );
 
-        close( fd );
+            unlink( pipe_name.c_str() );
 
-        Daemonizer::remove_daemon_pid( parser.get_program_name() );
-
+            Daemonizer::remove_daemon_pid( parser.get_program_name() );
+        }
     }
 }
 

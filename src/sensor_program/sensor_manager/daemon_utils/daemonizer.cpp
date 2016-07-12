@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 24-06-2016
  *
- *  Last Modified : Mon 11 Jul 2016 08:50:40 PM EDT
+ *  Last Modified : Tue 12 Jul 2016 03:54:06 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -35,16 +35,7 @@ void Daemonizer::launch_daemon( const std::string daemon_name, const std::string
 
     if ( pid > 0 )
     {   
-        std::cout << "pid is " << pid << std::endl;
-        std::cout << "We are the parent process because the pid is " << pid << std::endl;
-        std::cout << "Except when we call getpid(), it's " << getpid() << std::endl;
         exit( EXIT_SUCCESS );
-    }
-    else
-    {
-        std::cout << "Allegedly, this is the child." << std::endl;
-        std::cout << "and the pid is " << pid << std::endl;
-        std::cout << "Except when we call getpid() of course then it's: " << getpid() << std::endl;
     }
 
     /* Change the file mode mask */
@@ -78,16 +69,13 @@ void Daemonizer::launch_daemon( const std::string daemon_name, const std::string
      * Alex's note: I'm still not clear on why 
      * I need to do this.
      */
-    /*
+    
     close( STDIN_FILENO );
     close( STDOUT_FILENO );
-    close( STDERR_FILENO );
-    */
+    close( STDERR_FILENO ); 
 }
 
 void Daemonizer::write_log( const std::string file_name, const std::string contents ){
-
-    std::cout << "Logging info " << contents << " to file " << file_name << std::endl;
 
     std::ofstream process_file( file_name );
 
@@ -117,8 +105,6 @@ pid_t Daemonizer::get_daemon_pid( const std::string daemon_name, const std::stri
         daemon_file >> pid;
         daemon_file.close();
     }
-
-    std::cout << "PID is : " << pid << std::endl;
 
     return pid;
 }

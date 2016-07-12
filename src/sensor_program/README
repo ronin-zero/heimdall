@@ -1,0 +1,12 @@
+TODO: Redesign and reimplement the program defined by the files in this directory
+and all its subdirectories.
+
+Explanation:
+
+This program is the sloppiest part of the project, but I needed to write something we could
+use to get results.  At present, it is just a basic program to log system call information.
+It should DEFINITELY be redesigned and cleaned up.
+
+The files in question are everything in this directory and all its subdirectories.
+
+浪人ー無
