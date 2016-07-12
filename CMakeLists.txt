@@ -27,7 +27,7 @@ message( "CMake Shared Linker Flags: ${CMAKE_SHARED_LINKER_FLAGS}" )
 
 set( BIN_DIR "${CMAKE_SOURCE_DIR}/bin/" )
 
-set( TESTS "${SOURCE_DIR}tests/")
+set( SENSOR_PROGRAM "${SOURCE_DIR}sensor_program/")
 
 find_package( Threads )
 
@@ -39,15 +39,14 @@ set( SOURCE "" )
 
 add_subdirectory( ${SENSOR_DATA} )
 add_subdirectory( ${UTILS} )
-
-add_subdirectory( ${TESTS} ${BIN_DIR} )
+add_subdirectory( ${SENSOR_PROGRAM} )
 add_subdirectory( ${SYSCALL_SENSORS} )
 add_subdirectory( ${SENSOR_OBSERVERS} )
 
-add_executable( basic_test "${SOURCE}" )
-
 message( "Libs to Link: ${CMAKE_THREAD_LIBS_INIT}" )
 
-target_link_libraries( basic_test ${CMAKE_THREAD_LIBS_INIT} )
+add_executable( syscall-sensor "${SOURCE}" )
 
-install( TARGETS basic_test RUNTIME DESTINATION "${CMAKE_SOURCE_DIR}/test/" )
+target_link_libraries( syscall-sensor ${CMAKE_THREAD_LIBS_INIT} )
+
+install( TARGETS syscall-sensor RUNTIME DESTINATION "${BIN_DIR}" )

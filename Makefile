@@ -155,17 +155,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named basic_test
+# Target rules for targets named syscall-sensor
 
 # Build rule for target.
-basic_test: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 basic_test
-.PHONY : basic_test
+syscall-sensor: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 syscall-sensor
+.PHONY : syscall-sensor
 
 # fast build rule for target.
-basic_test/fast:
-	$(MAKE) -f CMakeFiles/basic_test.dir/build.make CMakeFiles/basic_test.dir/build
-.PHONY : basic_test/fast
+syscall-sensor/fast:
+	$(MAKE) -f CMakeFiles/syscall-sensor.dir/build.make CMakeFiles/syscall-sensor.dir/build
+.PHONY : syscall-sensor/fast
 
 src/sensor_data/sensor_data.o: src/sensor_data/sensor_data.cpp.o
 
@@ -173,7 +173,7 @@ src/sensor_data/sensor_data.o: src/sensor_data/sensor_data.cpp.o
 
 # target to build an object file
 src/sensor_data/sensor_data.cpp.o:
-	$(MAKE) -f CMakeFiles/basic_test.dir/build.make CMakeFiles/basic_test.dir/src/sensor_data/sensor_data.cpp.o
+	$(MAKE) -f CMakeFiles/syscall-sensor.dir/build.make CMakeFiles/syscall-sensor.dir/src/sensor_data/sensor_data.cpp.o
 .PHONY : src/sensor_data/sensor_data.cpp.o
 
 src/sensor_data/sensor_data.i: src/sensor_data/sensor_data.cpp.i
@@ -182,7 +182,7 @@ src/sensor_data/sensor_data.i: src/sensor_data/sensor_data.cpp.i
 
 # target to preprocess a source file
 src/sensor_data/sensor_data.cpp.i:
-	$(MAKE) -f CMakeFiles/basic_test.dir/build.make CMakeFiles/basic_test.dir/src/sensor_data/sensor_data.cpp.i
+	$(MAKE) -f CMakeFiles/syscall-sensor.dir/build.make CMakeFiles/syscall-sensor.dir/src/sensor_data/sensor_data.cpp.i
 .PHONY : src/sensor_data/sensor_data.cpp.i
 
 src/sensor_data/sensor_data.s: src/sensor_data/sensor_data.cpp.s
@@ -191,7 +191,7 @@ src/sensor_data/sensor_data.s: src/sensor_data/sensor_data.cpp.s
 
 # target to generate assembly for a file
 src/sensor_data/sensor_data.cpp.s:
-	$(MAKE) -f CMakeFiles/basic_test.dir/build.make CMakeFiles/basic_test.dir/src/sensor_data/sensor_data.cpp.s
+	$(MAKE) -f CMakeFiles/syscall-sensor.dir/build.make CMakeFiles/syscall-sensor.dir/src/sensor_data/sensor_data.cpp.s
 .PHONY : src/sensor_data/sensor_data.cpp.s
 
 src/sensor_observers/data_records/data_record.o: src/sensor_observers/data_records/data_record.cpp.o
@@ -200,7 +200,7 @@ src/sensor_observers/data_records/data_record.o: src/sensor_observers/data_recor
 
 # target to build an object file
 src/sensor_observers/data_records/data_record.cpp.o:
-	$(MAKE) -f CMakeFiles/basic_test.dir/build.make CMakeFiles/basic_test.dir/src/sensor_observers/data_records/data_record.cpp.o
+	$(MAKE) -f CMakeFiles/syscall-sensor.dir/build.make CMakeFiles/syscall-sensor.dir/src/sensor_observers/data_records/data_record.cpp.o
 .PHONY : src/sensor_observers/data_records/data_record.cpp.o
 
 src/sensor_observers/data_records/data_record.i: src/sensor_observers/data_records/data_record.cpp.i
@@ -209,7 +209,7 @@ src/sensor_observers/data_records/data_record.i: src/sensor_observers/data_recor
 
 # target to preprocess a source file
 src/sensor_observers/data_records/data_record.cpp.i:
-	$(MAKE) -f CMakeFiles/basic_test.dir/build.make CMakeFiles/basic_test.dir/src/sensor_observers/data_records/data_record.cpp.i
+	$(MAKE) -f CMakeFiles/syscall-sensor.dir/build.make CMakeFiles/syscall-sensor.dir/src/sensor_observers/data_records/data_record.cpp.i
 .PHONY : src/sensor_observers/data_records/data_record.cpp.i
 
 src/sensor_observers/data_records/data_record.s: src/sensor_observers/data_records/data_record.cpp.s
@@ -218,7 +218,7 @@ src/sensor_observers/data_records/data_record.s: src/sensor_observers/data_recor
 
 # target to generate assembly for a file
 src/sensor_observers/data_records/data_record.cpp.s:
-	$(MAKE) -f CMakeFiles/basic_test.dir/build.make CMakeFiles/basic_test.dir/src/sensor_observers/data_records/data_record.cpp.s
+	$(MAKE) -f CMakeFiles/syscall-sensor.dir/build.make CMakeFiles/syscall-sensor.dir/src/sensor_observers/data_records/data_record.cpp.s
 .PHONY : src/sensor_observers/data_records/data_record.cpp.s
 
 src/sensor_observers/data_records/linux/linux_syscall_record.o: src/sensor_observers/data_records/linux/linux_syscall_record.cpp.o
@@ -227,7 +227,7 @@ src/sensor_observers/data_records/linux/linux_syscall_record.o: src/sensor_obser
 
 # target to build an object file
 src/sensor_observers/data_records/linux/linux_syscall_record.cpp.o:
-	$(MAKE) -f CMakeFiles/basic_test.dir/build.make CMakeFiles/basic_test.dir/src/sensor_observers/data_records/linux/linux_syscall_record.cpp.o
+	$(MAKE) -f CMakeFiles/syscall-sensor.dir/build.make CMakeFiles/syscall-sensor.dir/src/sensor_observers/data_records/linux/linux_syscall_record.cpp.o
 .PHONY : src/sensor_observers/data_records/linux/linux_syscall_record.cpp.o
 
 src/sensor_observers/data_records/linux/linux_syscall_record.i: src/sensor_observers/data_records/linux/linux_syscall_record.cpp.i
@@ -236,7 +236,7 @@ src/sensor_observers/data_records/linux/linux_syscall_record.i: src/sensor_obser
 
 # target to preprocess a source file
 src/sensor_observers/data_records/linux/linux_syscall_record.cpp.i:
-	$(MAKE) -f CMakeFiles/basic_test.dir/build.make CMakeFiles/basic_test.dir/src/sensor_observers/data_records/linux/linux_syscall_record.cpp.i
+	$(MAKE) -f CMakeFiles/syscall-sensor.dir/build.make CMakeFiles/syscall-sensor.dir/src/sensor_observers/data_records/linux/linux_syscall_record.cpp.i
 .PHONY : src/sensor_observers/data_records/linux/linux_syscall_record.cpp.i
 
 src/sensor_observers/data_records/linux/linux_syscall_record.s: src/sensor_observers/data_records/linux/linux_syscall_record.cpp.s
@@ -245,7 +245,7 @@ src/sensor_observers/data_records/linux/linux_syscall_record.s: src/sensor_obser
 
 # target to generate assembly for a file
 src/sensor_observers/data_records/linux/linux_syscall_record.cpp.s:
-	$(MAKE) -f CMakeFiles/basic_test.dir/build.make CMakeFiles/basic_test.dir/src/sensor_observers/data_records/linux/linux_syscall_record.cpp.s
+	$(MAKE) -f CMakeFiles/syscall-sensor.dir/build.make CMakeFiles/syscall-sensor.dir/src/sensor_observers/data_records/linux/linux_syscall_record.cpp.s
 .PHONY : src/sensor_observers/data_records/linux/linux_syscall_record.cpp.s
 
 src/sensor_observers/data_streams/output_stream.o: src/sensor_observers/data_streams/output_stream.cpp.o
@@ -254,7 +254,7 @@ src/sensor_observers/data_streams/output_stream.o: src/sensor_observers/data_str
 
 # target to build an object file
 src/sensor_observers/data_streams/output_stream.cpp.o:
-	$(MAKE) -f CMakeFiles/basic_test.dir/build.make CMakeFiles/basic_test.dir/src/sensor_observers/data_streams/output_stream.cpp.o
+	$(MAKE) -f CMakeFiles/syscall-sensor.dir/build.make CMakeFiles/syscall-sensor.dir/src/sensor_observers/data_streams/output_stream.cpp.o
 .PHONY : src/sensor_observers/data_streams/output_stream.cpp.o
 
 src/sensor_observers/data_streams/output_stream.i: src/sensor_observers/data_streams/output_stream.cpp.i
@@ -263,7 +263,7 @@ src/sensor_observers/data_streams/output_stream.i: src/sensor_observers/data_str
 
 # target to preprocess a source file
 src/sensor_observers/data_streams/output_stream.cpp.i:
-	$(MAKE) -f CMakeFiles/basic_test.dir/build.make CMakeFiles/basic_test.dir/src/sensor_observers/data_streams/output_stream.cpp.i
+	$(MAKE) -f CMakeFiles/syscall-sensor.dir/build.make CMakeFiles/syscall-sensor.dir/src/sensor_observers/data_streams/output_stream.cpp.i
 .PHONY : src/sensor_observers/data_streams/output_stream.cpp.i
 
 src/sensor_observers/data_streams/output_stream.s: src/sensor_observers/data_streams/output_stream.cpp.s
@@ -272,7 +272,7 @@ src/sensor_observers/data_streams/output_stream.s: src/sensor_observers/data_str
 
 # target to generate assembly for a file
 src/sensor_observers/data_streams/output_stream.cpp.s:
-	$(MAKE) -f CMakeFiles/basic_test.dir/build.make CMakeFiles/basic_test.dir/src/sensor_observers/data_streams/output_stream.cpp.s
+	$(MAKE) -f CMakeFiles/syscall-sensor.dir/build.make CMakeFiles/syscall-sensor.dir/src/sensor_observers/data_streams/output_stream.cpp.s
 .PHONY : src/sensor_observers/data_streams/output_stream.cpp.s
 
 src/sensor_observers/syscall_logger.o: src/sensor_observers/syscall_logger.cpp.o
@@ -281,7 +281,7 @@ src/sensor_observers/syscall_logger.o: src/sensor_observers/syscall_logger.cpp.o
 
 # target to build an object file
 src/sensor_observers/syscall_logger.cpp.o:
-	$(MAKE) -f CMakeFiles/basic_test.dir/build.make CMakeFiles/basic_test.dir/src/sensor_observers/syscall_logger.cpp.o
+	$(MAKE) -f CMakeFiles/syscall-sensor.dir/build.make CMakeFiles/syscall-sensor.dir/src/sensor_observers/syscall_logger.cpp.o
 .PHONY : src/sensor_observers/syscall_logger.cpp.o
 
 src/sensor_observers/syscall_logger.i: src/sensor_observers/syscall_logger.cpp.i
@@ -290,7 +290,7 @@ src/sensor_observers/syscall_logger.i: src/sensor_observers/syscall_logger.cpp.i
 
 # target to preprocess a source file
 src/sensor_observers/syscall_logger.cpp.i:
-	$(MAKE) -f CMakeFiles/basic_test.dir/build.make CMakeFiles/basic_test.dir/src/sensor_observers/syscall_logger.cpp.i
+	$(MAKE) -f CMakeFiles/syscall-sensor.dir/build.make CMakeFiles/syscall-sensor.dir/src/sensor_observers/syscall_logger.cpp.i
 .PHONY : src/sensor_observers/syscall_logger.cpp.i
 
 src/sensor_observers/syscall_logger.s: src/sensor_observers/syscall_logger.cpp.s
@@ -299,8 +299,116 @@ src/sensor_observers/syscall_logger.s: src/sensor_observers/syscall_logger.cpp.s
 
 # target to generate assembly for a file
 src/sensor_observers/syscall_logger.cpp.s:
-	$(MAKE) -f CMakeFiles/basic_test.dir/build.make CMakeFiles/basic_test.dir/src/sensor_observers/syscall_logger.cpp.s
+	$(MAKE) -f CMakeFiles/syscall-sensor.dir/build.make CMakeFiles/syscall-sensor.dir/src/sensor_observers/syscall_logger.cpp.s
 .PHONY : src/sensor_observers/syscall_logger.cpp.s
+
+src/sensor_program/command_line_utils/command_line_parser.o: src/sensor_program/command_line_utils/command_line_parser.cpp.o
+
+.PHONY : src/sensor_program/command_line_utils/command_line_parser.o
+
+# target to build an object file
+src/sensor_program/command_line_utils/command_line_parser.cpp.o:
+	$(MAKE) -f CMakeFiles/syscall-sensor.dir/build.make CMakeFiles/syscall-sensor.dir/src/sensor_program/command_line_utils/command_line_parser.cpp.o
+.PHONY : src/sensor_program/command_line_utils/command_line_parser.cpp.o
+
+src/sensor_program/command_line_utils/command_line_parser.i: src/sensor_program/command_line_utils/command_line_parser.cpp.i
+
+.PHONY : src/sensor_program/command_line_utils/command_line_parser.i
+
+# target to preprocess a source file
+src/sensor_program/command_line_utils/command_line_parser.cpp.i:
+	$(MAKE) -f CMakeFiles/syscall-sensor.dir/build.make CMakeFiles/syscall-sensor.dir/src/sensor_program/command_line_utils/command_line_parser.cpp.i
+.PHONY : src/sensor_program/command_line_utils/command_line_parser.cpp.i
+
+src/sensor_program/command_line_utils/command_line_parser.s: src/sensor_program/command_line_utils/command_line_parser.cpp.s
+
+.PHONY : src/sensor_program/command_line_utils/command_line_parser.s
+
+# target to generate assembly for a file
+src/sensor_program/command_line_utils/command_line_parser.cpp.s:
+	$(MAKE) -f CMakeFiles/syscall-sensor.dir/build.make CMakeFiles/syscall-sensor.dir/src/sensor_program/command_line_utils/command_line_parser.cpp.s
+.PHONY : src/sensor_program/command_line_utils/command_line_parser.cpp.s
+
+src/sensor_program/launcher.o: src/sensor_program/launcher.cpp.o
+
+.PHONY : src/sensor_program/launcher.o
+
+# target to build an object file
+src/sensor_program/launcher.cpp.o:
+	$(MAKE) -f CMakeFiles/syscall-sensor.dir/build.make CMakeFiles/syscall-sensor.dir/src/sensor_program/launcher.cpp.o
+.PHONY : src/sensor_program/launcher.cpp.o
+
+src/sensor_program/launcher.i: src/sensor_program/launcher.cpp.i
+
+.PHONY : src/sensor_program/launcher.i
+
+# target to preprocess a source file
+src/sensor_program/launcher.cpp.i:
+	$(MAKE) -f CMakeFiles/syscall-sensor.dir/build.make CMakeFiles/syscall-sensor.dir/src/sensor_program/launcher.cpp.i
+.PHONY : src/sensor_program/launcher.cpp.i
+
+src/sensor_program/launcher.s: src/sensor_program/launcher.cpp.s
+
+.PHONY : src/sensor_program/launcher.s
+
+# target to generate assembly for a file
+src/sensor_program/launcher.cpp.s:
+	$(MAKE) -f CMakeFiles/syscall-sensor.dir/build.make CMakeFiles/syscall-sensor.dir/src/sensor_program/launcher.cpp.s
+.PHONY : src/sensor_program/launcher.cpp.s
+
+src/sensor_program/sensor_manager/daemon_utils/daemonizer.o: src/sensor_program/sensor_manager/daemon_utils/daemonizer.cpp.o
+
+.PHONY : src/sensor_program/sensor_manager/daemon_utils/daemonizer.o
+
+# target to build an object file
+src/sensor_program/sensor_manager/daemon_utils/daemonizer.cpp.o:
+	$(MAKE) -f CMakeFiles/syscall-sensor.dir/build.make CMakeFiles/syscall-sensor.dir/src/sensor_program/sensor_manager/daemon_utils/daemonizer.cpp.o
+.PHONY : src/sensor_program/sensor_manager/daemon_utils/daemonizer.cpp.o
+
+src/sensor_program/sensor_manager/daemon_utils/daemonizer.i: src/sensor_program/sensor_manager/daemon_utils/daemonizer.cpp.i
+
+.PHONY : src/sensor_program/sensor_manager/daemon_utils/daemonizer.i
+
+# target to preprocess a source file
+src/sensor_program/sensor_manager/daemon_utils/daemonizer.cpp.i:
+	$(MAKE) -f CMakeFiles/syscall-sensor.dir/build.make CMakeFiles/syscall-sensor.dir/src/sensor_program/sensor_manager/daemon_utils/daemonizer.cpp.i
+.PHONY : src/sensor_program/sensor_manager/daemon_utils/daemonizer.cpp.i
+
+src/sensor_program/sensor_manager/daemon_utils/daemonizer.s: src/sensor_program/sensor_manager/daemon_utils/daemonizer.cpp.s
+
+.PHONY : src/sensor_program/sensor_manager/daemon_utils/daemonizer.s
+
+# target to generate assembly for a file
+src/sensor_program/sensor_manager/daemon_utils/daemonizer.cpp.s:
+	$(MAKE) -f CMakeFiles/syscall-sensor.dir/build.make CMakeFiles/syscall-sensor.dir/src/sensor_program/sensor_manager/daemon_utils/daemonizer.cpp.s
+.PHONY : src/sensor_program/sensor_manager/daemon_utils/daemonizer.cpp.s
+
+src/sensor_program/sensor_manager/sensor_manager.o: src/sensor_program/sensor_manager/sensor_manager.cpp.o
+
+.PHONY : src/sensor_program/sensor_manager/sensor_manager.o
+
+# target to build an object file
+src/sensor_program/sensor_manager/sensor_manager.cpp.o:
+	$(MAKE) -f CMakeFiles/syscall-sensor.dir/build.make CMakeFiles/syscall-sensor.dir/src/sensor_program/sensor_manager/sensor_manager.cpp.o
+.PHONY : src/sensor_program/sensor_manager/sensor_manager.cpp.o
+
+src/sensor_program/sensor_manager/sensor_manager.i: src/sensor_program/sensor_manager/sensor_manager.cpp.i
+
+.PHONY : src/sensor_program/sensor_manager/sensor_manager.i
+
+# target to preprocess a source file
+src/sensor_program/sensor_manager/sensor_manager.cpp.i:
+	$(MAKE) -f CMakeFiles/syscall-sensor.dir/build.make CMakeFiles/syscall-sensor.dir/src/sensor_program/sensor_manager/sensor_manager.cpp.i
+.PHONY : src/sensor_program/sensor_manager/sensor_manager.cpp.i
+
+src/sensor_program/sensor_manager/sensor_manager.s: src/sensor_program/sensor_manager/sensor_manager.cpp.s
+
+.PHONY : src/sensor_program/sensor_manager/sensor_manager.s
+
+# target to generate assembly for a file
+src/sensor_program/sensor_manager/sensor_manager.cpp.s:
+	$(MAKE) -f CMakeFiles/syscall-sensor.dir/build.make CMakeFiles/syscall-sensor.dir/src/sensor_program/sensor_manager/sensor_manager.cpp.s
+.PHONY : src/sensor_program/sensor_manager/sensor_manager.cpp.s
 
 src/sensors/syscall_sensors/syscall_readers/linux_syscall_reader.o: src/sensors/syscall_sensors/syscall_readers/linux_syscall_reader.cpp.o
 
@@ -308,7 +416,7 @@ src/sensors/syscall_sensors/syscall_readers/linux_syscall_reader.o: src/sensors/
 
 # target to build an object file
 src/sensors/syscall_sensors/syscall_readers/linux_syscall_reader.cpp.o:
-	$(MAKE) -f CMakeFiles/basic_test.dir/build.make CMakeFiles/basic_test.dir/src/sensors/syscall_sensors/syscall_readers/linux_syscall_reader.cpp.o
+	$(MAKE) -f CMakeFiles/syscall-sensor.dir/build.make CMakeFiles/syscall-sensor.dir/src/sensors/syscall_sensors/syscall_readers/linux_syscall_reader.cpp.o
 .PHONY : src/sensors/syscall_sensors/syscall_readers/linux_syscall_reader.cpp.o
 
 src/sensors/syscall_sensors/syscall_readers/linux_syscall_reader.i: src/sensors/syscall_sensors/syscall_readers/linux_syscall_reader.cpp.i
@@ -317,7 +425,7 @@ src/sensors/syscall_sensors/syscall_readers/linux_syscall_reader.i: src/sensors/
 
 # target to preprocess a source file
 src/sensors/syscall_sensors/syscall_readers/linux_syscall_reader.cpp.i:
-	$(MAKE) -f CMakeFiles/basic_test.dir/build.make CMakeFiles/basic_test.dir/src/sensors/syscall_sensors/syscall_readers/linux_syscall_reader.cpp.i
+	$(MAKE) -f CMakeFiles/syscall-sensor.dir/build.make CMakeFiles/syscall-sensor.dir/src/sensors/syscall_sensors/syscall_readers/linux_syscall_reader.cpp.i
 .PHONY : src/sensors/syscall_sensors/syscall_readers/linux_syscall_reader.cpp.i
 
 src/sensors/syscall_sensors/syscall_readers/linux_syscall_reader.s: src/sensors/syscall_sensors/syscall_readers/linux_syscall_reader.cpp.s
@@ -326,7 +434,7 @@ src/sensors/syscall_sensors/syscall_readers/linux_syscall_reader.s: src/sensors/
 
 # target to generate assembly for a file
 src/sensors/syscall_sensors/syscall_readers/linux_syscall_reader.cpp.s:
-	$(MAKE) -f CMakeFiles/basic_test.dir/build.make CMakeFiles/basic_test.dir/src/sensors/syscall_sensors/syscall_readers/linux_syscall_reader.cpp.s
+	$(MAKE) -f CMakeFiles/syscall-sensor.dir/build.make CMakeFiles/syscall-sensor.dir/src/sensors/syscall_sensors/syscall_readers/linux_syscall_reader.cpp.s
 .PHONY : src/sensors/syscall_sensors/syscall_readers/linux_syscall_reader.cpp.s
 
 src/sensors/syscall_sensors/syscall_readers/reader_factory.o: src/sensors/syscall_sensors/syscall_readers/reader_factory.cpp.o
@@ -335,7 +443,7 @@ src/sensors/syscall_sensors/syscall_readers/reader_factory.o: src/sensors/syscal
 
 # target to build an object file
 src/sensors/syscall_sensors/syscall_readers/reader_factory.cpp.o:
-	$(MAKE) -f CMakeFiles/basic_test.dir/build.make CMakeFiles/basic_test.dir/src/sensors/syscall_sensors/syscall_readers/reader_factory.cpp.o
+	$(MAKE) -f CMakeFiles/syscall-sensor.dir/build.make CMakeFiles/syscall-sensor.dir/src/sensors/syscall_sensors/syscall_readers/reader_factory.cpp.o
 .PHONY : src/sensors/syscall_sensors/syscall_readers/reader_factory.cpp.o
 
 src/sensors/syscall_sensors/syscall_readers/reader_factory.i: src/sensors/syscall_sensors/syscall_readers/reader_factory.cpp.i
@@ -344,7 +452,7 @@ src/sensors/syscall_sensors/syscall_readers/reader_factory.i: src/sensors/syscal
 
 # target to preprocess a source file
 src/sensors/syscall_sensors/syscall_readers/reader_factory.cpp.i:
-	$(MAKE) -f CMakeFiles/basic_test.dir/build.make CMakeFiles/basic_test.dir/src/sensors/syscall_sensors/syscall_readers/reader_factory.cpp.i
+	$(MAKE) -f CMakeFiles/syscall-sensor.dir/build.make CMakeFiles/syscall-sensor.dir/src/sensors/syscall_sensors/syscall_readers/reader_factory.cpp.i
 .PHONY : src/sensors/syscall_sensors/syscall_readers/reader_factory.cpp.i
 
 src/sensors/syscall_sensors/syscall_readers/reader_factory.s: src/sensors/syscall_sensors/syscall_readers/reader_factory.cpp.s
@@ -353,7 +461,7 @@ src/sensors/syscall_sensors/syscall_readers/reader_factory.s: src/sensors/syscal
 
 # target to generate assembly for a file
 src/sensors/syscall_sensors/syscall_readers/reader_factory.cpp.s:
-	$(MAKE) -f CMakeFiles/basic_test.dir/build.make CMakeFiles/basic_test.dir/src/sensors/syscall_sensors/syscall_readers/reader_factory.cpp.s
+	$(MAKE) -f CMakeFiles/syscall-sensor.dir/build.make CMakeFiles/syscall-sensor.dir/src/sensors/syscall_sensors/syscall_readers/reader_factory.cpp.s
 .PHONY : src/sensors/syscall_sensors/syscall_readers/reader_factory.cpp.s
 
 src/sensors/syscall_sensors/syscall_sensor.o: src/sensors/syscall_sensors/syscall_sensor.cpp.o
@@ -362,7 +470,7 @@ src/sensors/syscall_sensors/syscall_sensor.o: src/sensors/syscall_sensors/syscal
 
 # target to build an object file
 src/sensors/syscall_sensors/syscall_sensor.cpp.o:
-	$(MAKE) -f CMakeFiles/basic_test.dir/build.make CMakeFiles/basic_test.dir/src/sensors/syscall_sensors/syscall_sensor.cpp.o
+	$(MAKE) -f CMakeFiles/syscall-sensor.dir/build.make CMakeFiles/syscall-sensor.dir/src/sensors/syscall_sensors/syscall_sensor.cpp.o
 .PHONY : src/sensors/syscall_sensors/syscall_sensor.cpp.o
 
 src/sensors/syscall_sensors/syscall_sensor.i: src/sensors/syscall_sensors/syscall_sensor.cpp.i
@@ -371,7 +479,7 @@ src/sensors/syscall_sensors/syscall_sensor.i: src/sensors/syscall_sensors/syscal
 
 # target to preprocess a source file
 src/sensors/syscall_sensors/syscall_sensor.cpp.i:
-	$(MAKE) -f CMakeFiles/basic_test.dir/build.make CMakeFiles/basic_test.dir/src/sensors/syscall_sensors/syscall_sensor.cpp.i
+	$(MAKE) -f CMakeFiles/syscall-sensor.dir/build.make CMakeFiles/syscall-sensor.dir/src/sensors/syscall_sensors/syscall_sensor.cpp.i
 .PHONY : src/sensors/syscall_sensors/syscall_sensor.cpp.i
 
 src/sensors/syscall_sensors/syscall_sensor.s: src/sensors/syscall_sensors/syscall_sensor.cpp.s
@@ -380,35 +488,8 @@ src/sensors/syscall_sensors/syscall_sensor.s: src/sensors/syscall_sensors/syscal
 
 # target to generate assembly for a file
 src/sensors/syscall_sensors/syscall_sensor.cpp.s:
-	$(MAKE) -f CMakeFiles/basic_test.dir/build.make CMakeFiles/basic_test.dir/src/sensors/syscall_sensors/syscall_sensor.cpp.s
+	$(MAKE) -f CMakeFiles/syscall-sensor.dir/build.make CMakeFiles/syscall-sensor.dir/src/sensors/syscall_sensors/syscall_sensor.cpp.s
 .PHONY : src/sensors/syscall_sensors/syscall_sensor.cpp.s
-
-src/tests/basic_test.o: src/tests/basic_test.cpp.o
-
-.PHONY : src/tests/basic_test.o
-
-# target to build an object file
-src/tests/basic_test.cpp.o:
-	$(MAKE) -f CMakeFiles/basic_test.dir/build.make CMakeFiles/basic_test.dir/src/tests/basic_test.cpp.o
-.PHONY : src/tests/basic_test.cpp.o
-
-src/tests/basic_test.i: src/tests/basic_test.cpp.i
-
-.PHONY : src/tests/basic_test.i
-
-# target to preprocess a source file
-src/tests/basic_test.cpp.i:
-	$(MAKE) -f CMakeFiles/basic_test.dir/build.make CMakeFiles/basic_test.dir/src/tests/basic_test.cpp.i
-.PHONY : src/tests/basic_test.cpp.i
-
-src/tests/basic_test.s: src/tests/basic_test.cpp.s
-
-.PHONY : src/tests/basic_test.s
-
-# target to generate assembly for a file
-src/tests/basic_test.cpp.s:
-	$(MAKE) -f CMakeFiles/basic_test.dir/build.make CMakeFiles/basic_test.dir/src/tests/basic_test.cpp.s
-.PHONY : src/tests/basic_test.cpp.s
 
 src/utils/ascii_operations.o: src/utils/ascii_operations.cpp.o
 
@@ -416,7 +497,7 @@ src/utils/ascii_operations.o: src/utils/ascii_operations.cpp.o
 
 # target to build an object file
 src/utils/ascii_operations.cpp.o:
-	$(MAKE) -f CMakeFiles/basic_test.dir/build.make CMakeFiles/basic_test.dir/src/utils/ascii_operations.cpp.o
+	$(MAKE) -f CMakeFiles/syscall-sensor.dir/build.make CMakeFiles/syscall-sensor.dir/src/utils/ascii_operations.cpp.o
 .PHONY : src/utils/ascii_operations.cpp.o
 
 src/utils/ascii_operations.i: src/utils/ascii_operations.cpp.i
@@ -425,7 +506,7 @@ src/utils/ascii_operations.i: src/utils/ascii_operations.cpp.i
 
 # target to preprocess a source file
 src/utils/ascii_operations.cpp.i:
-	$(MAKE) -f CMakeFiles/basic_test.dir/build.make CMakeFiles/basic_test.dir/src/utils/ascii_operations.cpp.i
+	$(MAKE) -f CMakeFiles/syscall-sensor.dir/build.make CMakeFiles/syscall-sensor.dir/src/utils/ascii_operations.cpp.i
 .PHONY : src/utils/ascii_operations.cpp.i
 
 src/utils/ascii_operations.s: src/utils/ascii_operations.cpp.s
@@ -434,7 +515,7 @@ src/utils/ascii_operations.s: src/utils/ascii_operations.cpp.s
 
 # target to generate assembly for a file
 src/utils/ascii_operations.cpp.s:
-	$(MAKE) -f CMakeFiles/basic_test.dir/build.make CMakeFiles/basic_test.dir/src/utils/ascii_operations.cpp.s
+	$(MAKE) -f CMakeFiles/syscall-sensor.dir/build.make CMakeFiles/syscall-sensor.dir/src/utils/ascii_operations.cpp.s
 .PHONY : src/utils/ascii_operations.cpp.s
 
 # Help Target
@@ -446,7 +527,7 @@ help:
 	@echo "... install"
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
-	@echo "... basic_test"
+	@echo "... syscall-sensor"
 	@echo "... install/strip"
 	@echo "... install/local"
 	@echo "... edit_cache"
@@ -465,6 +546,18 @@ help:
 	@echo "... src/sensor_observers/syscall_logger.o"
 	@echo "... src/sensor_observers/syscall_logger.i"
 	@echo "... src/sensor_observers/syscall_logger.s"
+	@echo "... src/sensor_program/command_line_utils/command_line_parser.o"
+	@echo "... src/sensor_program/command_line_utils/command_line_parser.i"
+	@echo "... src/sensor_program/command_line_utils/command_line_parser.s"
+	@echo "... src/sensor_program/launcher.o"
+	@echo "... src/sensor_program/launcher.i"
+	@echo "... src/sensor_program/launcher.s"
+	@echo "... src/sensor_program/sensor_manager/daemon_utils/daemonizer.o"
+	@echo "... src/sensor_program/sensor_manager/daemon_utils/daemonizer.i"
+	@echo "... src/sensor_program/sensor_manager/daemon_utils/daemonizer.s"
+	@echo "... src/sensor_program/sensor_manager/sensor_manager.o"
+	@echo "... src/sensor_program/sensor_manager/sensor_manager.i"
+	@echo "... src/sensor_program/sensor_manager/sensor_manager.s"
 	@echo "... src/sensors/syscall_sensors/syscall_readers/linux_syscall_reader.o"
 	@echo "... src/sensors/syscall_sensors/syscall_readers/linux_syscall_reader.i"
 	@echo "... src/sensors/syscall_sensors/syscall_readers/linux_syscall_reader.s"
@@ -474,9 +567,6 @@ help:
 	@echo "... src/sensors/syscall_sensors/syscall_sensor.o"
 	@echo "... src/sensors/syscall_sensors/syscall_sensor.i"
 	@echo "... src/sensors/syscall_sensors/syscall_sensor.s"
-	@echo "... src/tests/basic_test.o"
-	@echo "... src/tests/basic_test.i"
-	@echo "... src/tests/basic_test.s"
 	@echo "... src/utils/ascii_operations.o"
 	@echo "... src/utils/ascii_operations.i"
 	@echo "... src/utils/ascii_operations.s"
