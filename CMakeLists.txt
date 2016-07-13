@@ -49,4 +49,4 @@ add_executable( syscall-sensor "${SOURCE}" )
 
 target_link_libraries( syscall-sensor ${CMAKE_THREAD_LIBS_INIT} )
 
-install( TARGETS syscall-sensor RUNTIME DESTINATION "${BIN_DIR}" )
+install( TARGETS syscall-sensor RUNTIME DESTINATION /usr/sbin/ )

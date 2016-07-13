@@ -1,9 +1,0 @@
-This is a list of pending tasks!
-
-TODO: 
-
-1) Daemonize executable.
-2) Make a class that manages threads and updates the filters.
-3) XML Writer/parser.
-
-LOW PRIORITY) Update ./doc/uml/heimdall.[dia|png]

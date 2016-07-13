@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 27-06-2016
  *
- *  Last Modified : Tue 12 Jul 2016 03:44:23 PM EDT
+ *  Last Modified : Wed 13 Jul 2016 05:01:27 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -303,7 +303,7 @@ void status ( Command_Line_Parser parser ){
 
     if ( is_running( parser.get_program_name() ) )
     {
-        std::cout << "The sensor is running with PID " << Daemonizer::get_daemon_pid( parser.get_program_name() );
+        std::cout << "The sensor is running with PID " << Daemonizer::get_daemon_pid( parser.get_program_name() ) << std::endl;
     }
     else
     {
