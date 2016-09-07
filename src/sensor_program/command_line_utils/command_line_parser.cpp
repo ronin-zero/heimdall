@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 27-06-2016
  *
- *  Last Modified : Mon 11 Jul 2016 08:01:04 PM EDT
+ *  Last Modified : Wed 07 Sep 2016 03:50:39 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -116,7 +116,7 @@ std::string Command_Line_Parser::get_option_string( std::string arg ){
     // TODO: Parse the argument to get the value of the option after
     // the '=' character.
 
-    int_fast32_t opt_start  = arg.find("=") + 1;
+    std::size_t opt_start = arg.find("=") + 1;
 
     std::string raw_opt_string = arg.substr( opt_start );
 
@@ -209,7 +209,7 @@ void Command_Line_Parser::print_help(){
     std::cout << std::string( 11, ' ' ) << "the command to run the sensor was called.  The filename cannot contain white space." << std::endl;
     std::cout << std::string( 11, ' ' ) << "WARNING: This program should be considered a rough beta.  It strongly recommended that you avoid using" << std::endl;
     std::cout << std::string( 11, ' ' ) << "meta characters or characters with special significance to the terminal.  The input is not guaranteed to" << std::endl;
-    std::cout << std::string( 11, ' ' ) << "sanitized and any such behavior is undefined AT BEST.  The user assumes all risk for using this program." << std::endl << std::endl;
+    std::cout << std::string( 11, ' ' ) << "be sanitized and any such behavior is undefined AT BEST.  The user assumes all risk for using this program." << std::endl << std::endl;
 
     std::cout << std::string( 8, ' ' ) << "2. SYSTEM CALLS" << std::endl << std::endl;
 
@@ -539,7 +539,7 @@ std::string Command_Line_Parser::replace_tab_char( std::string input ){
 
     std::string tab_char = "\\t";
 
-    uint_fast32_t tab_index = input.find( "\\t" );
+    std::size_t tab_index = input.find( "\\t" );
 
     if ( tab_index == std::string::npos )
     {

@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 01-06-2016
  *
- *  Last Modified : Wed 07 Sep 2016 12:12:36 PM EDT
+ *  Last Modified : Wed 07 Sep 2016 03:36:46 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -118,9 +118,7 @@ double ASCII_Operations::to_floating_point( string num ){
     // uint_fast32_t len = num.length();
     int_digits = num.length();
 
-    // This has to be a signed int or the check for string::npos is always true.
-    int_fast32_t decimal_index = num.find('.');
-
+    std::size_t decimal_index = num.find('.');
 
     if ( decimal_index != string::npos )
     {
