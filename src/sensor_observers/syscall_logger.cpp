@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 06-06-2016
  *
- *  Last Modified : Wed 22 Jun 2016 01:21:48 PM EDT
+ *  Last Modified : Tue 04 Oct 2016 10:23:43 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -140,6 +140,8 @@ void Syscall_Logger::process(){
     }
 }
 
+// CHECK: I'm a bit worried about passing a reference, here. So far, there is only a single observer,
+// so I don't know if deep/shallow copy will be an issue.
 void Syscall_Logger::send_data( Syscall_Record record ){
 
     for ( auto stream_it = streams.begin(); stream_it != streams.end(); ++stream_it ){
