@@ -4,6 +4,8 @@
 
 #pragma once
 
+#include <iostream>
+
 #include "atomicops.h"
 #include <type_traits>
 #include <utility>
@@ -158,8 +160,9 @@ public:
 			
 			auto rawBlock = block->rawThis;
 			block->~Block();
+            std::cout << "Free memory at " << rawBlock << std::endl;
 			std::free(rawBlock);
-			block = nextBlock;
+            block = nextBlock;
 		} while (block != frontBlock_);
 	}
 
@@ -618,7 +621,9 @@ private:
 		if (newBlockRaw == nullptr) {
 			return nullptr;
 		}
-		
+	    
+        std::cout << "Reserve memory size: " << size << " at " << newBlockRaw << std::endl;
+
 		auto newBlockAligned = align_for<Block>(newBlockRaw);
 		auto newBlockData = align_for<T>(newBlockAligned + sizeof(Block));
 		return new (newBlockAligned) Block(capacity, newBlockRaw, newBlockData);

@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 09-05-2016
  *
- *  Last Modified : Wed 06 Jul 2016 07:51:42 PM PDT
+ *  Last Modified : Tue 18 Oct 2016 07:24:34 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -96,8 +96,9 @@ void Syscall_Sensor::sense(){
         {
             Sensor_Data data_point( *tmp );
             data_queue.enqueue( data_point );
-            delete ( tmp );
         }
+
+        delete ( tmp );
     }
 
     status = reader->stop_reading();

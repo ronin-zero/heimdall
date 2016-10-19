@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 27-06-2016
  *
- *  Last Modified : Wed 13 Jul 2016 05:01:27 PM EDT
+ *  Last Modified : Tue 18 Oct 2016 05:05:16 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -333,11 +333,42 @@ void stop ( Command_Line_Parser parser ){
         }
         else
         {
-            close( fd );
+            // FIXME: This error checking was hacked in QUICKLY, hence the bad variable names
+            // like "tmp_result" and the magic numbers and things.
 
-            unlink( pipe_name.c_str() );
+            int32_t tmp_result = close( fd );
 
-            Daemonizer::remove_daemon_pid( parser.get_program_name() );
+
+            if ( tmp_result != 0 )
+            {
+                std::cerr << "ERROR: Could not close the file descriptor for pipe: " << pipe_name << std::endl;
+            }
+            else
+            {
+                std::cout << "File descriptor for " << pipe_name << " closed successfully." << std::endl;
+            }
+
+            tmp_result = unlink( pipe_name.c_str() );
+
+            if ( tmp_result != 0 )
+            {
+                std::cerr << "ERROR: Could not unlink file " << pipe_name << std::endl;
+            }
+            else
+            {
+                std::cout << "File " << pipe_name << " unlinked successfully." << std::endl;
+            }
+
+            tmp_result = Daemonizer::remove_daemon_pid( parser.get_program_name() );
+
+            if ( tmp_result != 0 )
+            {
+                std::cerr << "ERROR: Could not remove pid for program " << parser.get_program_name() << std::endl;
+            }
+            else
+            {
+                std::cout << "Program " << parser.get_program_name() << " pid removed." << std::endl;
+            }
         }
     }
 }

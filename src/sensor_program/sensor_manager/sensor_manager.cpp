@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 08-07-2016
  *
- *  Last Modified : Tue 12 Jul 2016 03:50:12 PM EDT
+ *  Last Modified : Tue 18 Oct 2016 06:39:32 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -26,6 +26,8 @@ Sensor_Manager::Sensor_Manager( uint_fast8_t sensor_flags, std::string file_name
 }
 
 Sensor_Manager::~Sensor_Manager(){
+
+    std::cout << "Sensor_Manager destructor called!" << std::endl;
 
     delete ( sensor );
     delete ( logger );
@@ -56,6 +58,8 @@ void Sensor_Manager::run_sensor( bool daemon_on ){
 
 void Sensor_Manager::run_loop( bool daemon_on ){
 
+    std::cout << "Entering Sensor_Manager::run_loop's \"while ( running ) \" loop..." << std::endl;
+
     while ( running )
     {
         if ( daemon_on )
@@ -72,6 +76,8 @@ void Sensor_Manager::run_loop( bool daemon_on ){
             running = !( input == "STOP" || input == "stop" || input == "Stop" );
         }
     }
+
+    std::cout << "Sensor_Manager::run_loop's \"while ( running ) \" loop has ended." << std::endl;
 }
 
 void Sensor_Manager::handle_pipe(){
