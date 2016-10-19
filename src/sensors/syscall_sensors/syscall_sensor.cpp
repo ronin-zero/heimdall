@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 09-05-2016
  *
- *  Last Modified : Tue 18 Oct 2016 11:39:59 PM PDT
+ *  Last Modified : Wed 19 Oct 2016 03:22:45 AM PDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -131,7 +131,7 @@ void Syscall_Sensor::notify_observers(){
         if ( data_queue.try_dequeue( data_point ) )
         {
             // Iterate through our set of observers and
-            // pass data_queue to them.  It is passed
+            // pass data_point to them.  It is passed
             // as an object and a copy constructor exists
             // for the Sensor_Data class.  Each observer
             // should have a copy of the data point.
@@ -165,12 +165,17 @@ void Syscall_Sensor::push_data( Sensor_Data data ){
 
 void Syscall_Sensor::process_remaining_queue(){
 
+    std::cout << "(THREAD " << gettid() << ") Syscall Sensor is processing the remaining queue..." << std::endl;
+
     Sensor_Data data_point;
 
     while ( data_queue.try_dequeue( data_point ) )
     {
         push_data( data_point );
     }
+
+    std::cout << "(THREAD " << gettid() << ") Syscall Sensor is done processing the remaining queue." << std::endl;
+
 }
 
 uint_fast8_t Syscall_Sensor::set_sensing( bool on ){
@@ -221,13 +226,15 @@ uint_fast8_t Syscall_Sensor::stop_sensing(){
         // This is just how I decided for now.
 
         // UPDATE: This was very undesirable.
+        // UPDATE 2: Stupid me didn't say *why* this was undesirable, and I think
+        // I might actually need it.
 
-        // notify_thread = thread( &Syscall_Sensor::process_remaining_queue, this );
+        notify_thread = thread( &Syscall_Sensor::process_remaining_queue, this );
 
         // Wait until all remaining records are passed to
         // the observers...
 
-        // notify_thread.join();
+        notify_thread.join();
     }
     return status;
 }

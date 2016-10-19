@@ -1,514 +1,514 @@
-==18166== Memcheck, a memory error detector
-==18166== Copyright (C) 2002-2015, and GNU GPL'd, by Julian Seward et al.
-==18166== Using Valgrind-3.11.0 and LibVEX; rerun with -h for copyright info
-==18166== Command: /bin/ls /proc/18162/task
-==18166== Parent PID: 18165
-==18166== 
---18166-- 
---18166-- Valgrind options:
---18166--    --tool=memcheck
---18166--    --leak-check=full
---18166--    --show-leak-kinds=all
---18166--    --trace-children=yes
---18166--    --log-file=meminfo.log
---18166--    -v
---18166-- Contents of /proc/version:
---18166--   Linux version 4.4.0-42-generic (buildd@lgw01-13) (gcc version 5.4.0 20160609 (Ubuntu 5.4.0-6ubuntu1~16.04.2) ) #62-Ubuntu SMP Fri Oct 7 23:11:45 UTC 2016
---18166-- 
---18166-- Arch and hwcaps: AMD64, LittleEndian, amd64-cx16-lzcnt-rdtscp-sse3-avx-avx2-bmi
---18166-- Page sizes: currently 4096, max supported 4096
---18166-- Valgrind library directory: /usr/lib/valgrind
---18166-- Reading syms from /bin/ls
---18166--    object doesn't have a symbol table
---18166-- Reading syms from /lib/x86_64-linux-gnu/ld-2.23.so
---18166--   Considering /lib/x86_64-linux-gnu/ld-2.23.so ..
---18166--   .. CRC mismatch (computed d3da0723 wanted a1c29704)
---18166--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/ld-2.23.so ..
---18166--   .. CRC is valid
---18166-- Reading syms from /usr/lib/valgrind/memcheck-amd64-linux
---18166--   Considering /usr/lib/valgrind/memcheck-amd64-linux ..
---18166--   .. CRC mismatch (computed 5529a2c7 wanted 5bd23904)
---18166--    object doesn't have a symbol table
---18166--    object doesn't have a dynamic symbol table
---18166-- Scheduler: using generic scheduler lock implementation.
---18166-- Reading suppressions file: /usr/lib/valgrind/default.supp
-==18166== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-18166-by-root-on-???
-==18166== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-18166-by-root-on-???
-==18166== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-18166-by-root-on-???
-==18166== 
-==18166== TO CONTROL THIS PROCESS USING vgdb (which you probably
-==18166== don't want to do, unless you know exactly what you're doing,
-==18166== or are doing some strange experiment):
-==18166==   /usr/lib/valgrind/../../bin/vgdb --pid=18166 ...command...
-==18166== 
-==18166== TO DEBUG THIS PROCESS USING GDB: start GDB like this
-==18166==   /path/to/gdb /bin/ls
-==18166== and then give GDB the following command
-==18166==   target remote | /usr/lib/valgrind/../../bin/vgdb --pid=18166
-==18166== --pid is optional if only one valgrind process is running
-==18166== 
---18166-- REDIR: 0x401cdc0 (ld-linux-x86-64.so.2:strlen) redirected to 0x3809e181 (???)
---18166-- Reading syms from /usr/lib/valgrind/vgpreload_core-amd64-linux.so
---18166--   Considering /usr/lib/valgrind/vgpreload_core-amd64-linux.so ..
---18166--   .. CRC mismatch (computed a30c8eaa wanted 7ae2fed4)
---18166--    object doesn't have a symbol table
---18166-- Reading syms from /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so
---18166--   Considering /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so ..
---18166--   .. CRC mismatch (computed 402c2ab5 wanted 745f25ae)
---18166--    object doesn't have a symbol table
-==18166== WARNING: new redirection conflicts with existing -- ignoring it
---18166--     old: 0x0401cdc0 (strlen              ) R-> (0000.0) 0x3809e181 ???
---18166--     new: 0x0401cdc0 (strlen              ) R-> (2007.0) 0x04c31020 strlen
---18166-- REDIR: 0x401b710 (ld-linux-x86-64.so.2:index) redirected to 0x4c30bc0 (index)
---18166-- REDIR: 0x401b930 (ld-linux-x86-64.so.2:strcmp) redirected to 0x4c320d0 (strcmp)
---18166-- REDIR: 0x401db20 (ld-linux-x86-64.so.2:mempcpy) redirected to 0x4c35270 (mempcpy)
---18166-- Reading syms from /lib/x86_64-linux-gnu/libselinux.so.1
---18166--    object doesn't have a symbol table
---18166-- Reading syms from /lib/x86_64-linux-gnu/libc-2.23.so
---18166--   Considering /lib/x86_64-linux-gnu/libc-2.23.so ..
---18166--   .. CRC mismatch (computed 2adb2e50 wanted 9b73f606)
---18166--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/libc-2.23.so ..
---18166--   .. CRC is valid
---18166-- Reading syms from /lib/x86_64-linux-gnu/libpcre.so.3.13.2
---18166--   Considering /lib/x86_64-linux-gnu/libpcre.so.3.13.2 ..
---18166--   .. CRC mismatch (computed 276b70fd wanted 22183252)
---18166--    object doesn't have a symbol table
---18166-- Reading syms from /lib/x86_64-linux-gnu/libdl-2.23.so
---18166--   Considering /lib/x86_64-linux-gnu/libdl-2.23.so ..
---18166--   .. CRC mismatch (computed b7ff3c20 wanted 623a46c3)
---18166--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/libdl-2.23.so ..
---18166--   .. CRC is valid
---18166-- Reading syms from /lib/x86_64-linux-gnu/libpthread-2.23.so
---18166--   Considering /usr/lib/debug/.build-id/b7/7847cc9cacbca3b5753d0d25a32e5795afe75b.debug ..
---18166--   .. build-id is valid
---18166-- REDIR: 0x50eafd0 (libc.so.6:strcasecmp) redirected to 0x4a286f0 (_vgnU_ifunc_wrapper)
---18166-- REDIR: 0x50e6850 (libc.so.6:strcspn) redirected to 0x4a286f0 (_vgnU_ifunc_wrapper)
---18166-- REDIR: 0x50ed2c0 (libc.so.6:strncasecmp) redirected to 0x4a286f0 (_vgnU_ifunc_wrapper)
---18166-- REDIR: 0x50e8cc0 (libc.so.6:strpbrk) redirected to 0x4a286f0 (_vgnU_ifunc_wrapper)
---18166-- REDIR: 0x50e9050 (libc.so.6:strspn) redirected to 0x4a286f0 (_vgnU_ifunc_wrapper)
---18166-- REDIR: 0x50ea71b (libc.so.6:memcpy@GLIBC_2.2.5) redirected to 0x4a286f0 (_vgnU_ifunc_wrapper)
---18166-- REDIR: 0x50e70f0 (libc.so.6:strncmp) redirected to 0x4a286f0 (_vgnU_ifunc_wrapper)
---18166-- REDIR: 0x50e5050 (libc.so.6:index) redirected to 0x4a286f0 (_vgnU_ifunc_wrapper)
---18166-- REDIR: 0x50ea780 (libc.so.6:memset) redirected to 0x4a286f0 (_vgnU_ifunc_wrapper)
---18166-- REDIR: 0x50ea180 (libc.so.6:bcmp) redirected to 0x4a286f0 (_vgnU_ifunc_wrapper)
---18166-- REDIR: 0x50e52a0 (libc.so.6:strcmp) redirected to 0x4a286f0 (_vgnU_ifunc_wrapper)
---18166-- REDIR: 0x5171950 (libc.so.6:__memcpy_chk) redirected to 0x4a286f0 (_vgnU_ifunc_wrapper)
---18166-- REDIR: 0x50ef9c0 (libc.so.6:memcpy@@GLIBC_2.14) redirected to 0x4a286f0 (_vgnU_ifunc_wrapper)
---18166-- REDIR: 0x50e89d0 (libc.so.6:rindex) redirected to 0x4c308a0 (rindex)
---18166-- REDIR: 0x50df550 (libc.so.6:malloc) redirected to 0x4c2db20 (malloc)
---18166-- REDIR: 0x50e9630 (libc.so.6:__GI_strstr) redirected to 0x4c354d0 (__strstr_sse2)
---18166-- REDIR: 0x50e9e30 (libc.so.6:memchr) redirected to 0x4c32170 (memchr)
---18166-- REDIR: 0x50efa40 (libc.so.6:__GI_memcpy) redirected to 0x4c32b00 (__GI_memcpy)
---18166-- REDIR: 0x50e9c00 (libc.so.6:strstr) redirected to 0x4a286f0 (_vgnU_ifunc_wrapper)
---18166-- REDIR: 0x5105640 (libc.so.6:__strstr_sse2_unaligned) redirected to 0x4c35460 (strstr)
---18166-- REDIR: 0x50dfa70 (libc.so.6:free) redirected to 0x4c2ed80 (free)
---18166-- REDIR: 0x50e52e0 (libc.so.6:__GI_strcmp) redirected to 0x4c31fe0 (__GI_strcmp)
---18166-- REDIR: 0x50e6cf0 (libc.so.6:strlen) redirected to 0x4c30f60 (strlen)
---18166-- REDIR: 0x50e7140 (libc.so.6:__GI_strncmp) redirected to 0x4c31710 (__GI_strncmp)
---18166-- REDIR: 0x50e5080 (libc.so.6:__GI_strchr) redirected to 0x4c30a00 (__GI_strchr)
---18166-- REDIR: 0x50f1d30 (libc.so.6:strchrnul) redirected to 0x4c34da0 (strchrnul)
---18166-- REDIR: 0x50ea980 (libc.so.6:__GI_mempcpy) redirected to 0x4c34fa0 (__GI_mempcpy)
---18166-- REDIR: 0x51a96d0 (libc.so.6:__memcpy_avx_unaligned) redirected to 0x4c324a0 (memcpy@@GLIBC_2.14)
---18166-- --18165-- REDIR: 0x4ebda70 (libc.so.6:free) redirected to 0x4c2ed80 (free)
-==18165== 
-==18165== HEAP SUMMARY:
-==18165==     in use at exit: 1,243 bytes in 35 blocks
-==18165==   total heap usage: 37 allocs, 2 frees, 1,347 bytes allocated
-==18165== 
-==18165== Searching for pointers to 35 not-freed blocks
-==18165== Checked 73,776 bytes
-==18165== 
-==18165== 9 bytes in 1 blocks are still reachable in loss record 1 of 7
-==18165==    at 0x4C2DB8F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==18165==    by 0x11C178: ??? (in /bin/dash)
-==18165==    by 0x11FB45: ??? (in /bin/dash)
-==18165==    by 0x124137: ??? (in /bin/dash)
-==18165==    by 0x124409: ??? (in /bin/dash)
-==18165==    by 0x1169DB: ??? (in /bin/dash)
-==18165==    by 0x4E5A82F: (below main) (libc-start.c:291)
-==18165== 
-==18165== 26 bytes in 1 blocks are still reachable in loss record 2 of 7
-==18165==    at 0x4C2DB8F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==18165==    by 0x11C178: ??? (in /bin/dash)
-==18165==    by 0x10E713: ??? (in /bin/dash)
-==18165==    by 0x1186C9: ??? (in /bin/dash)
-==18165==    by 0x1170D2: ??? (in /bin/dash)
-==18165==    by 0x116BB4: ??? (in /bin/dash)
-==18165==    by 0x117FDF: ??? (in /bin/dash)
-==18165==    by 0x1117CD: ??? (in /bin/dash)
-==18165==    by 0x4E5A82F: (below main) (libc-start.c:291)
-==18165== 
-==18165== 32 bytes in 1 blocks are still reachable in loss record 3 of 7
-==18165==    at 0x4C2DB8F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==18165==    by 0x11C178: ??? (in /bin/dash)
-==18165==    by 0x11FAB6: ??? (in /bin/dash)
-==18165==    by 0x12443C: ??? (in /bin/dash)
-==18165==    by 0x1169DB: ??? (in /bin/dash)
-==18165==    by 0x4E5A82F: (below main) (libc-start.c:291)
-==18165== 
-==18165== 42 bytes in 1 blocks are still reachable in--18162-- REDIR: 0x5986780 (libc.so.6:memset) redirected to 0x4a286f0 (_vgnU_ifunc_wrapper)
---18162-- REDIR: 0x5a6a1a0 (libc.so.6:__memset_avx2) redirected to 0x4c344c0 (memset)
-==18168== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-18168-by-root-on-???
-==18168== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-18168-by-root-on-???
-==18168== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-18168-by-root-on-???
-==18168== 
-==18168== TO CONTROL THIS PROCESS USING vgdb (which you probably
-==18168== don't want to do, unless you know exactly what you're doing,
-==18168== or are doing some strange experiment):
-==18168==   /usr/lib/valgrind/../../bin/vgdb --pid=18168 ...command...
-==18168== 
-==18168== TO DEBUG THIS PROCESS USING GDB: start GDB like this
-==18168==   /path/to/gdb ../syscall-sensor
-==18168== and then give GDB the following command
-==18168==   target remote | /usr/lib/valgrind/../../bin/vgdb --pid=18168
-==18168== --pid is optional if only one valgrind process is running
-==18168== 
-==18162== 
-==18162== HEAP SUMMARY:
-==18162==     in use at exit: 88,753 bytes in 25 blocks
-==18162==   total heap usage: 121 allocs, 96 frees, 182,606 bytes allocated
-==18162== 
-==18162== Searching for pointers to 25 not-freed blocks
-==18162== Checked 137,520 bytes
-==18162== 
-==18162== 16 bytes in 1 blocks are still reachable in loss record 1 of 24
-==18162==    at 0x4C2E0EF: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==18162==    by 0x449A45: __gnu_cxx::new_allocator<std::__detail::_Hash_node<Data_Stream*, false> >::allocate(unsigned long, void const*) (new_allocator.h:104)
-==18162==    by 0x4495BB: std::allocator_traits<std::allocator<std::__detail::_Hash_node<Data_Stream*, false> > >::allocate(std::allocator<std::__detail::_Hash_node<Data_Stream*, false> >&, unsigned long) (alloc_traits.h:491)
-==18162==    by 0x449050: std::__detail::_Hash_node<Data_Stream*, false>* std::__detail::_Hashtable_alloc<std::allocator<std::__detail::_Hash_node<Data_Stream*, false> > >::_M_allocate_node<Data_Stream* const&>(Data_Stream* const&) (hashtable_policy.h:1949)
-==18162==    by 0x448A22: std::__detail::_Hash_node<Data_Stream*, false>* std::__detail::_AllocNode<std::allocator<std::__detail::_Hash_node<Data_Stream*, false> > >::operator()<Data_Stream* const&>(Data_Stream* const&) const (hashtable_policy.h:180)
-==18162==    by 0x448517: std::pair<std::__detail::_Node_iterator<Data_Stream*, true, false>, bool> std::_Hashtable<Data_Stream*, Data_Stream*, std::allocator<Data_Stream*>, std::__detail::_Identity, std::equal_to<Data_Stream*>, std::hash<Data_Stream*>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, true, true> >::_M_insert<Data_Stream* const&, std::__detail::_AllocNode<std::allocator<std::__detail::_Hash_node<Data_Stream*, false> > > >(Data_Stream* const&, std::__detail::_AllocNode<std::allocator<std::__detail::_Hash_node<Data_Stream*, false> > > const&, std::integral_constant<bool, true>) (hashtable.h:1703)
-==18162==    by 0x447E9C: std::__detail::_Insert_base<Data_Stream*, Data_Stream*, std::allocator<Data_Stream*>, std::__detail::_Identity, std::equal_to<Data_Stream*>, std::hash<Data_Stream*>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, true, true> >::insert(Data_Stream* const&) (hashtable_policy.h:715)
-==18162==    by 0x4479BA: std::unordered_set<Data_Stream*, std::hash<Data_Stream*>, std::equal_to<Data_Stream*>, std::allocator<Data_Stream*> >::insert(Data_Stream* const&) (unordered_set.h:413)
-==18162==    by 0x446D38: Syscall_Logger::add_stream(Data_Stream*) (syscall_logger.cpp:118)
-==18162==    by 0x4391D6: Sensor_Manager::Sensor_Manager(unsigned char, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) (sensor_manager.cpp:24)
-==18162==    by 0x43C53F: start(Command_Line_Parser) (launcher.cpp:296)
-==18162==    by 0x43B094: main (launcher.cpp:49)
-==18162== 
-==18162== 16 bytes in 1 blocks are still reachable in loss record 2 of 24
-==18162==    at 0x4C2E0EF: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==18162==    by 0x43AE4F: __gnu_cxx::new_allocator<std::__detail::_Hash_node_base*>::allocate(unsigned long, void const*) (new_allocator.h:104)
-==18162==    by 0x43ADF3: std::allocator_traits<std::allocator<std::__detail::_Hash_node_base*> >::allocate(std::allocator<std::__detail::_Hash_node_base*>&, unsigned long) (alloc_traits.h:491)
-==18162==    by 0x449DCC: std::__detail::_Hashtable_alloc<std::allocator<std::__detail::_Hash_node<Data_Stream*, false> > >::_M_allocate_buckets(unsigned long) (hashtable_policy.h:1996)
-==18162==    by 0x449AD6: std::_Hashtable<Data_Stream*, Data_Stream*, std::allocator<Data_Stream*>, std::__detail::_Identity, std::equal_to<Data_Stream*>, std::hash<Data_Stream*>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, true, true> >::_M_allocate_buckets(unsigned long) (hashtable.h:347)
-==18162==    by 0x449628: std::_Hashtable<Data_Stream*, Data_Stream*, std::allocator<Data_Stream*>, std::__detail::_Identity, std::equal_to<Data_Stream*>, std::hash<Data_Stream*>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, true, true> >::_M_rehash_aux(unsigned long, std::integral_constant<bool, true>) (hashtable.h:1974)
-==18162==    by 0x449191: std::_Hashtable<Data_Stream*, Data_Stream*, std::allocator<Data_Stream*>, std::__detail::_Identity, std::equal_to<Data_Stream*>, std::hash<Data_Stream*>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, true, true> >::_M_rehash(unsigned long, unsigned long const&) (hashtable.h:1953)
-==18162==    by 0x448AB9: std::_Hashtable<Data_Stream*, Data_Stream*, std::allocator<Data_Stream*>, std::__detail::_Identity, std::equal_to<Data_Stream*>, std::hash<Data_Stream*>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, true, true> >::_M_insert_unique_node(unsigned long, unsigned long, std::__detail::_Hash_node<Data_Stream*, false>*) (hashtable.h:1600)
-==18162==    by 0x448537: std::pair<std::__detail::_Node_iterator<Data_Stream*, true, false>, bool> std::_Hashtable<Data_Stream*, Data_Stream*, std::allocator<Data_Stream*>, std::__detail::_Identity, std::equal_to<Data_Stream*>, std::hash<Data_Stream*>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, true, true> >::_M_insert<Data_Stream* const&, std::__detail::_AllocNode<std::allocator<std::__detail::_Hash_node<Data_Stream*, false> > > >(Data_Stream* const&, std::__detail::_AllocNode<std::allocator<std::__detail::_Hash_node<Data_Stream*, false> > > const&, std::integral_constant<bool, true>) (hashtable.h:1704)
-==18162==    by 0x447E9C: std::__detail::_Insert_base<Data_Stream*, Data_Stream*, std::allocator<Data_Stream*>, std::__detail::_Identity, std::equal_to<Data_Stream*>, std::hash<Data_Stream*>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, true, true> >::insert(Data_Stream* const&) (hashtable_policy.h:715)
-==18162==    by 0x4479BA: std::unordered_set<Data_Stream*, std::hash<Data_Stream*>, std::equal_to<Data_Stream*>, std::allocator<Data_Stream*> >::insert(Data_Stream* const&) (unordered_set.h:413)
-==18162==    by 0x446D38: Syscall_Logger::add_stream(Data_Stream*) (syscall_logger.cpp:118)
-==18162== 
-==18162== 16 bytes in 1 blocks are still reachable in loss record 3 of 24
-==18162==    at 0x4C2E0EF: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==18162==    by 0x43ABDD: __gnu_cxx::new_allocator<std::__detail::_Hash_node<Sensor_Observer*, false> >::allocate(unsigned long, void const*) (new_allocator.h:104)
-==18162==    by 0x43A8AD: std::allocator_traits<std::allocator<std::__detail::_Hash_node<Sensor_Observer*, false> > >::allocate(std::allocator<std::__detail::_Hash_node<Sensor_Observer*, false> >&, unsigned long) (alloc_traits.h:491)
-==18162==    by 0x43A40C: std::__detail::_Hash_node<Sensor_Observer*, false>* std::__detail::_Hashtable_alloc<std::allocator<std::__detail::_Hash_node<Sensor_Observer*, false> > >::_M_allocate_node<Sensor_Observer* const&>(Sensor_Observer* const&) (hashtable_policy.h:1949)
-==18162==    by 0x439F1A: std::__detail::_Hash_node<Sensor_Observer*, false>* std::__detail::_AllocNode<std::allocator<std::__detail::_Hash_node<Sensor_Observer*, false> > >::operator()<Sensor_Observer* const&>(Sensor_Observer* const&) const (hashtable_policy.h:180)
-==18162==    by 0x439BCF: std::pair<std::__detail::_Node_iterator<Sensor_Observer*, true, false>, bool> std::_Hashtable<Sensor_Observer*, Sensor_Observer*, std::allocator<Sensor_Observer*>, std::__detail::_Identity, std::equal_to<Sensor_Observer*>, std::hash<Sensor_Observer*>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, true, true> >::_M_insert<Sensor_Observer* const&, std::__detail::_AllocNode<std::allocator<std::__detail::_Hash_node<Sensor_Observer*, false> > > >(Sensor_Observer* const&, std::__detail::_AllocNode<std::allocator<std::__detail::_Hash_node<Sensor_Observer*, false> > > const&, std::integral_constant<bool, true>) (hashtable.h:1703)
-==18162==    by 0x439966: std::__detail::_Insert_base<Sensor_Observer*, Sensor_Observer*, std::allocator<Sensor_Observer*>, std::__detail::_Identity, std::equal_to<Sensor_Observer*>, std::hash<Sensor_Observer*>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, true, true> >::insert(Sensor_Observer* const&) (hashtable_policy.h:715)
-==18162==    by 0x4398D6: std::unordered_set<Sensor_Observer*, std::hash<Sensor_Observer*>, std::equal_to<Sensor_Observer*>, std::allocator<Sensor_Observer*> >::insert(Sensor_Observer* const&) (unordered_set.h:413)
-==18162==    by 0x4398B0: Sensor::attach_observer(Sensor_Observer*) (sensor.h:48)
-==18162==    by 0x4391F0: Sensor_Manager::Sensor_Manager(unsigned char, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) (sensor_manager.cpp:25)
-==18162==    by 0x43C53F: start(Command_Line_Parser) (launcher.cpp:296)
-==18162==    by 0x43B094: main (launcher.cpp:49)
-==18162== 
-==18162== 16 bytes in 1 blocks are still reachable in loss record 4 of 24
-==18162==    at 0x4C2E0EF: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==18162==    by 0x43AE4F: __gnu_cxx::new_allocator<std::__detail::_Hash_node_base*>::allocate(unsigned long, void const*) (new_allocator.h:104)
-==18162==    by 0x43ADF3: std::allocator_traits<std::allocator<std::__detail::_Hash_node_base*> >::allocate(std::allocator<std::__detail::_Hash_node_base*>&, unsigned long) (alloc_traits.h:491)
-==18162==    by 0x43AD32: std::__detail::_Hashtable_alloc<std::allocator<std::__detail::_Hash_node<Sensor_Observer*, false> > >::_M_allocate_buckets(unsigned long) (hashtable_policy.h:1996)
-==18162==    by 0x43AC6E: std::_Hashtable<Sensor_Observer*, Sensor_Observer*, std::allocator<Sensor_Observer*>, std::__detail::_Identity, std::equal_to<Sensor_Observer*>, std::hash<Sensor_Observer*>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, true, true> >::_M_allocate_buckets(unsigned long) (hashtable.h:347)
-==18162==    by 0x43A91A: std::_Hashtable<Sensor_Observer*, Sensor_Observer*, std::allocator<Sensor_Observer*>, std::__detail::_Identity, std::equal_to<Sensor_Observer*>, std::hash<Sensor_Observer*>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, true, true> >::_M_rehash_aux(unsigned long, std::integral_constant<bool, true>) (hashtable.h:1974)
-==18162==    by 0x43A54D: std::_Hashtable<Sensor_Observer*, Sensor_Observer*, std::allocator<Sensor_Observer*>, std::__detail::_Identity, std::equal_to<Sensor_Observer*>, std::hash<Sensor_Observer*>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, true, true> >::_M_rehash(unsigned long, unsigned long const&) (hashtable.h:1953)
-==18162==    by 0x439FB1: std::_Hashtable<Sensor_Observer*, Sensor_Observer*, std::allocator<Sensor_Observer*>, std::__detail::_Identity, std::equal_to<Sensor_Observer*>, std::hash<Sensor_Observer*>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, true, true> >::_M_insert_unique_node(unsigned long, unsigned long, std::__detail::_Hash_node<Sensor_Observer*, false>*) (hashtable.h:1600)
-==18162==    by 0x439BEF: std::pair<std::__detail::_Node_iterator<Sensor_Observer*, true, false>, bool> std::_Hashtable<Sensor_Observer*, Sensor_Observer*, std::allocator<Sensor_Observer*>, std::__detail::_Identity, std::equal_to<Sensor_Observer*>, std::hash<Sensor_Observer*>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, true, true> >::_M_insert<Sensor_Observer* const&, std::__detail::_AllocNode<std::allocator<std::__detail::_Hash_node<Sensor_Observer*, false> > > >(Sensor_Observer* const&, std::__detail::_AllocNode<std::allocator<std::__detail::_Hash_node<Sensor_Observer*, false> > > const&, std::integral_constant<bool, true>) (hashtable.h:1704)
-==18162==    by 0x439966: std::__detail::_Insert_base<Sensor_Observer*, Sensor_Observer*, std::allocator<Sensor_Observer*>, std::__detail::_Identity, std::equal_to<Sensor_Observer*>, std::hash<Sensor_Observer*>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, true, true> >::insert(Sensor_Observer* const&) (hashtable_policy.h:715)
-==18162==    by 0x4398D6: std::unordered_set<Sensor_Observer*, std::hash<Sensor_Observer*>, std::equal_to<Sensor_Observer*>, std::allocator<Sensor_Observer*> >::insert(Sensor_Observer* const&) (unordered_set.h:413)
-==18162==    by 0x4398B0: Sensor::attach_observer(Sensor_Observer*) (sensor.h:48)
-==18162== 
-==18162== 32 bytes in 1 blocks are still reachable in loss record 5 of 24
-==18162==    at 0x4C2E0EF: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==18162==    by 0x437709: __gnu_cxx::new_allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::allocate(unsigned long, void const*) (new_allocator.h:104)
-==18162==    by 0x4373D9: std::allocator_traits<std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::allocate(std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >&, unsigned long) (alloc_traits.h:491)
-==18162==    by 0x436CF5: std::_Vector_base<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::_M_allocate(unsigned long) (stl_vector.h:170)
-==18162==    by 0x436567: void std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::_M_emplace_back_aux<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (vector.tcc:412)
-==18162==    by 0x436030: std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::push_back(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (stl_vector.h:923)
-==18162==    by 0x42C60B: Command_Line_Parser::Command_Line_Parser(int, char**) (command_line_parser.cpp:30)
-==18162==    by 0x43AEC1: main (launcher.cpp:39)
-==18162== 
-==18162== 32 bytes in 1 blocks are still reachable in loss record 6 of 24
-==18162==    at 0x4C2E0EF: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==18162==    by 0x437709: __gnu_cxx::new_allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::allocate(unsigned long, void const*) (new_allocator.h:104)
-==18162==    by 0x4373D9: std::allocator_traits<std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::allocate(std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >&, unsigned long) (alloc_traits.h:491)
-==18162==    by 0x436CF5: std::_Vector_base<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::_M_allocate(unsigned long) (stl_vector.h:170)
-==18162==    by 0x43DA58: std::_Vector_base<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::_M_create_storage(unsigned long) (stl_vector.h:185)
-==18162==    by 0x43D910: std::_Vector_base<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::_Vector_base(unsigned long, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > const&) (stl_vector.h:136)
-==18162==    by 0x43D789: std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::vector(std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > const&) (stl_vector.h:320)
-==18162==    by 0x43D61F: Command_Line_Parser::Command_Line_Parser(Command_Line_Parser const&) (in /home/alex/drexel/research/heimdall/syscall-sensor)
-==18162==    by 0x43B085: main (launcher.cpp:49)
-==18162== 
-==18162== 64 bytes in 1 blocks are still reachable in loss record 7 of 24
-==18162==    at 0x4C2E0EF: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==18162==    by 0x437709: __gnu_cxx::new_allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::allocate(unsigned long, void const*) (new_allocator.h:104)
-==18162==    by 0x4373D9: std::allocator_traits<std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::allocate(std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >&, unsigned long) (alloc_traits.h:491)
-==18162==    by 0x436CF5: std::_Vector_base<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::_M_allocate(unsigned long) (stl_vector.h:170)
-==18162==    by 0x436437: void std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::_M_range_initialize<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*, std::forward_iterator_tag) (stl_vector.h:1287)
-==18162==    by 0x435F03: std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::vector(std::initializer_list<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > const&) (stl_vector.h:377)
-==18162==    by 0x43EE92: Linux_Syscall_Reader::Linux_Syscall_Reader(unsigned char) (linux_syscall_reader.cpp:220)
-==18162==    by 0x43DC34: Linux_Syscall_Reader::get_instance() (linux_syscall_reader.cpp:22)
-==18162==    by 0x43DC71: Linux_Syscall_Reader::get_instance(unsigned char) (linux_syscall_reader.cpp:30)
-==18162==    by 0x440344: Reader_Factory::create_reader() (reader_factory.cpp:27)
-==18162==    by 0x44171A: Syscall_Sensor::Syscall_Sensor(unsigned char) (syscall_sensor.cpp:262)
-==18162==    by 0x440BA4: Syscall_Sensor::get_instance() (syscall_sensor.cpp:40)
-==18162== 
-==18162== 64 bytes in 1 blocks are still reachable in loss record 8 of 24
-==18162==    at 0x4C2E0EF: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==18162==    by 0x439184: Sensor_Manager::Sensor_Manager(unsigned char, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) (sensor_manager.cpp:22)
-==18162==    by 0x43C53F: start(Command_Line_Parser) (launcher.cpp:296)
-==18162==    by 0x43B094: main (launcher.cpp:49)
-==18162== 
-==18162== 96 bytes in 1 blocks are still reachable in loss record 9 of 24
-==18162==    at 0x4C2E0EF: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==18162==    by 0x437709: __gnu_cxx::new_allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::allocate(unsigned long, void const*) (new_allocator.h:104)
-==18162==    by 0x4373D9: std::allocator_traits<std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::allocate(std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >&, unsigned long) (alloc_traits.h:491)
-==18162==    by 0x436CF5: std::_Vector_base<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::_M_allocate(unsigned long) (stl_vector.h:170)
-==18162==    by 0x436437: void std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::_M_range_initialize<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*, std::forward_iterator_tag) (stl_vector.h:1287)
-==18162==    by 0x435F03: std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::vector(std::initializer_list<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > const&) (stl_vector.h:377)
-==18162==    by 0x42C370: Command_Line_Parser::Command_Line_Parser(int, char**) (command_line_parser.cpp:14)
-==18162==    by 0x43AEC1: main (launcher.cpp:39)
-==18162== 
-==18162== 96 bytes in 1 blocks are still reachable in loss record 10 of 24
-==18162==    at 0x4C2E0EF: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==18162==    by 0x437709: __gnu_cxx::new_allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::allocate(unsigned long, void const*) (new_allocator.h:104)
-==18162==    by 0x4373D9: std::allocator_traits<std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::allocate(std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >&, unsigned long) (alloc_traits.h:491)
-==18162==    by 0x436CF5: std::_Vector_base<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::_M_allocate(unsigned long) (stl_vector.h:170)
-==18162==    by 0x436437: void std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::_M_range_initialize<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*, std::forward_iterator_tag) (stl_vector.h:1287)
-==18162==    by 0x435F03: std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::vector(std::initializer_list<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > const&) (stl_vector.h:377)
-==18162==    by 0x42C4A8: Command_Line_Parser::Command_Line_Parser(int, char**) (command_line_parser.cpp:14)
-==18162==    by 0x43AEC1: main (launcher.cpp:39)
-==18162== 
-==18162== 96 bytes in 1 blocks are still reachable in loss record 11 of 24
-==18162==    at 0x4C2E0EF: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==18162==    by 0x437709: __gnu_cxx::new_allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::allocate(unsigned long, void const*) (new_allocator.h:104)
-==18162==    by 0x4373D9: std::allocator_traits<std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::allocate(std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >&, unsigned long) (alloc_traits.h:491)
-==18162==    by 0x436CF5: std::_Vector_base<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::_M_allocate(unsigned long) (stl_vector.h:170)
-==18162==    by 0x43DA58: std::_Vector_base<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::_M_create_storage(unsigned long) (stl_vector.h:185)
-==18162==    by 0x43D910: std::_Vector_base<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::_Vector_base(unsigned long, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > const&) (stl_vector.h:136)
-==18162==    by 0x43D789: std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::vector(std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > const&) (stl_vector.h:320)
-==18162==    by 0x43D670: Command_Line_Parser::Command_Line_Parser(Command_Line_Parser const&) (in /home/alex/drexel/research/heimdall/syscall-sensor)
-==18162==    by 0x43B085: main (launcher.cpp:49)
-==18162== 
-==18162== 96 bytes in 1 blocks are still reachable in loss record 12 of 24
-==18162==    at 0x4C2E0EF: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==18162==    by 0x437709: __gnu_cxx::new_allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::allocate(unsigned long, void const*) (new_allocator.h:104)
-==18162==    by 0x4373D9: std::allocator_traits<std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::allocate(std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >&, unsigned long) (alloc_traits.h:491)
-==18162==    by 0x436CF5: std::_Vector_base<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::_M_allocate(unsigned long) (stl_vector.h:170)
-==18162==    by 0x43DA58: std::_Vector_base<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::_M_create_storage(unsigned long) (stl_vector.h:185)
-==18162==    by 0x43D910: std::_Vector_base<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::_Vector_base(unsigned long, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > const&) (stl_vector.h:136)
-==18162==    by 0x43D789: std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::vector(std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > const&) (stl_vector.h:320)
-==18162==    by 0x43D68B: Command_Line_Parser::Command_Line_Parser(Command_Line_Parser const&) (in /home/alex/drexel/research/heimdall/syscall-sensor)
-==18162==    by 0x43B085: main (launcher.cpp:49)
-==18162== 
-==18162== 125 bytes in 2 blocks are still reachable in loss record 13 of 24
-==18162==    at 0x4C2E0EF: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==18162==    by 0x438F74: void std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_construct<char*>(char*, char*, std::forward_iterator_tag) (basic_string.tcc:223)
-==18162==    by 0x51789CE: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.21)
-==18162==    by 0x4379B9: void std::_Construct<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (in /home/alex/drexel/research/heimdall/syscall-sensor)
-==18162==    by 0x437750: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >* std::__uninitialized_copy<false>::__uninit_copy<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >*>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >*) (stl_uninitialized.h:75)
-==18162==    by 0x43740A: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >* std::uninitialized_copy<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >*>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >*) (stl_uninitialized.h:126)
-==18162==    by 0x436D2D: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >* std::__uninitialized_copy_a<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >*, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >&) (stl_uninitialized.h:281)
-==18162==    by 0x436481: void std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::_M_range_initialize<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*, std::forward_iterator_tag) (stl_vector.h:1290)
-==18162==    by 0x435F03: std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::vector(std::initializer_list<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > const&) (stl_vector.h:377)
-==18162==    by 0x43EE92: Linux_Syscall_Reader::Linux_Syscall_Reader(unsigned char) (linux_syscall_reader.cpp:220)
-==18162==    by 0x43DC34: Linux_Syscall_Reader::get_instance() (linux_syscall_reader.cpp:22)
-==18162==    by 0x43DC71: Linux_Syscall_Reader::get_instance(unsigned char) (linux_syscall_reader.cpp:30)
-==18162== 
-==18162== 168 bytes in 1 blocks are still reachable in loss record 14 of 24
-==18162==    at 0x4C2E0EF: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==18162==    by 0x439133: Sensor_Manager::Sensor_Manager(unsigned char, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) (sensor_manager.cpp:20)
-==18162==    by 0x43C53F: start(Command_Line_Parser) (launcher.cpp:296)
-==18162==    by 0x43B094: main (launcher.cpp:49)
-==18162== 
-==18162== 184 bytes in 1 blocks are still reachable in loss record 15 of 24
-==18162==    at 0x4C2E0EF: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==18162==    by 0x440B94: Syscall_Sensor::get_instance() (syscall_sensor.cpp:40)
-==18162==    by 0x439105: Sensor_Manager::Sensor_Manager(unsigned char, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) (sensor_manager.cpp:16)
-==18162==    by 0x43C53F: start(Command_Line_Parser) (launcher.cpp:296)
-==18162==    by 0x43B094: main (launcher.cpp:49)
-==18162== 
-==18162== 288 bytes in 1 blocks are still reachable in loss record 16 of 24
-==18162==    at 0x4C2E0EF: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==18162==    by 0x437709: __gnu_cxx::new_allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::allocate(unsigned long, void const*) (new_allocator.h:104)
-==18162==    by 0x4373D9: std::allocator_traits<std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::allocate(std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >&, unsigned long) (alloc_traits.h:491)
-==18162==    by 0x436CF5: std::_Vector_base<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::_M_allocate(unsigned long) (stl_vector.h:170)
-==18162==    by 0x436437: void std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::_M_range_initialize<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*, std::forward_iterator_tag) (stl_vector.h:1287)
-==18162==    by 0x435F03: std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::vector(std::initializer_list<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > const&) (stl_vector.h:377)
-==18162==    by 0x42C1DB: Command_Line_Parser::Command_Line_Parser(int, char**) (command_line_parser.cpp:14)
-==18162==    by 0x43AEC1: main (launcher.cpp:39)
-==18162== 
-==18162== 288 bytes in 1 blocks are still reachable in loss record 17 of 24
-==18162==    at 0x4C2E0EF: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==18162==    by 0x437709: __gnu_cxx::new_allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::allocate(unsigned long, void const*) (new_allocator.h:104)
-==18162==    by 0x4373D9: std::allocator_traits<std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::allocate(std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >&, unsigned long) (alloc_traits.h:491)
-==18162==    by 0x436CF5: std::_Vector_base<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::_M_allocate(unsigned long) (stl_vector.h:170)
-==18162==    by 0x43DA58: std::_Vector_base<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::_M_create_storage(unsigned long) (stl_vector.h:185)
-==18162==    by 0x43D910: std::_Vector_base<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::_Vector_base(unsigned long, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > const&) (stl_vector.h:136)
-==18162==    by 0x43D789: std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::vector(std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > const&) (stl_vector.h:320)
-==18162==    by 0x43D655: Command_Line_Parser::Command_Line_Parser(Command_Line_Parser const&) (in /home/alex/drexel/research/heimdall/syscall-sensor)
-==18162==    by 0x43B085: main (launcher.cpp:49)
-==18162== 
-==18162== 512 bytes in 1 blocks are still reachable in loss record 18 of 24
-==18162==    at 0x4C2E0EF: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==18162==    by 0x4465DF: Output_Stream::Output_Stream(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, unsigned char, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) (output_stream.cpp:45)
-==18162==    by 0x43919B: Sensor_Manager::Sensor_Manager(unsigned char, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) (sensor_manager.cpp:22)
-==18162==    by 0x43C53F: start(Command_Line_Parser) (launcher.cpp:296)
-==18162==    by 0x43B094: main (launcher.cpp:49)
-==18162== 
-==18162== 552 bytes in 1 blocks are still reachable in loss record 19 of 24
-==18162==    at 0x4C2DB8F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==18162==    by 0x5965C8C: __fopen_internal (iofopen.c:69)
-==18162==    by 0x510711F: std::__basic_file<char>::open(char const*, std::_Ios_Openmode, int) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.21)
-==18162==    by 0x5147699: std::basic_filebuf<char, std::char_traits<char> >::open(char const*, std::_Ios_Openmode) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.21)
-==18162==    by 0x51482A7: std::basic_ofstream<char, std::char_traits<char> >::basic_ofstream(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::_Ios_Openmode) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.21)
-==18162==    by 0x4465F4: Output_Stream::Output_Stream(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, unsigned char, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) (output_stream.cpp:45)
-==18162==    by 0x43919B: Sensor_Manager::Sensor_Manager(unsigned char, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) (sensor_manager.cpp:22)
-==18162==    by 0x43C53F: start(Command_Line_Parser) (launcher.cpp:296)
-==18162==    by 0x43B094: main (launcher.cpp:49)
-==18162== 
-==18162== 656 bytes in 1 blocks are still reachable in loss record 20 of 24
-==18162==    at 0x4C2E0EF: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==18162==    by 0x43DC24: Linux_Syscall_Reader::get_instance() (linux_syscall_reader.cpp:22)
-==18162==    by 0x43DC71: Linux_Syscall_Reader::get_instance(unsigned char) (linux_syscall_reader.cpp:30)
-==18162==    by 0x440344: Reader_Factory::create_reader() (reader_factory.cpp:27)
-==18162==    by 0x44171A: Syscall_Sensor::Syscall_Sensor(unsigned char) (syscall_sensor.cpp:262)
-==18162==    by 0x440BA4: Syscall_Sensor::get_instance() (syscall_sensor.cpp:40)
-==18162==    by 0x439105: Sensor_Manager::Sensor_Manager(unsigned char, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) (sensor_manager.cpp:16)
-==18162==    by 0x43C53F: start(Command_Line_Parser) (launcher.cpp:296)
-==18162==    by 0x43B094: main (launcher.cpp:49)
-==18162== 
-==18162== 2,222 bytes in 1 blocks are still reachable in loss record 21 of 24
-==18162==    at 0x4C2DB8F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==18162==    by 0x443471: moodycamel::ReaderWriterQueue<Sensor_Data, 512ul>::make_block(unsigned long) (readerwriterqueue.h:625)
-==18162==    by 0x442A27: moodycamel::ReaderWriterQueue<Sensor_Data, 512ul>::ReaderWriterQueue(unsigned long) (readerwriterqueue.h:127)
-==18162==    by 0x442687: Sensor::Sensor() (sensor.h:29)
-==18162==    by 0x4416F0: Syscall_Sensor::Syscall_Sensor(unsigned char) (syscall_sensor.cpp:258)
-==18162==    by 0x440BA4: Syscall_Sensor::get_instance() (syscall_sensor.cpp:40)
-==18162==    by 0x439105: Sensor_Manager::Sensor_Manager(unsigned char, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) (sensor_manager.cpp:16)
-==18162==    by 0x43C53F: start(Command_Line_Parser) (launcher.cpp:296)
-==18162==    by 0x43B094: main (launcher.cpp:49)
-==18162== 
-==18162== 2,222 bytes in 1 blocks are still reachable in loss record 22 of 24
-==18162==    at 0x4C2DB8F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==18162==    by 0x443471: moodycamel::ReaderWriterQueue<Sensor_Data, 512ul>::make_block(unsigned long) (readerwriterqueue.h:625)
-==18162==    by 0x442A27: moodycamel::ReaderWriterQueue<Sensor_Data, 512ul>::ReaderWriterQueue(unsigned long) (readerwriterqueue.h:127)
-==18162==    by 0x4473EA: Sensor_Observer::Sensor_Observer() (sensor_observer.h:19)
-==18162==    by 0x446A3B: Syscall_Logger::Syscall_Logger() (syscall_logger.cpp:20)
-==18162==    by 0x43913E: Sensor_Manager::Sensor_Manager(unsigned char, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) (sensor_manager.cpp:20)
-==18162==    by 0x43C53F: start(Command_Line_Parser) (launcher.cpp:296)
-==18162==    by 0x43B094: main (launcher.cpp:49)
-==18162== 
-==18162== 8,192 bytes in 1 blocks are still reachable in loss record 23 of 24
-==18162==    at 0x4C2E80F: operator new[](unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==18162==    by 0x5143467: std::basic_filebuf<char, std::char_traits<char> >::_M_allocate_internal_buffer() (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.21)
-==18162==    by 0x51476B1: std::basic_filebuf<char, std::char_traits<char> >::open(char const*, std::_Ios_Openmode) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.21)
-==18162==    by 0x51482A7: std::basic_ofstream<char, std::char_traits<char> >::basic_ofstream(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::_Ios_Openmode) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.21)
-==18162==    by 0x4465F4: Output_Stream::Output_Stream(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, unsigned char, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) (output_stream.cpp:45)
-==18162==    by 0x43919B: Sensor_Manager::Sensor_Manager(unsigned char, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) (sensor_manager.cpp:22)
-==18162==    by 0x43C53F: start(Command_Line_Parser) (launcher.cpp:296)
-==18162==    by 0x43B094: main (launcher.cpp:49)
-==18162== 
-==18162== 72,704 bytes in 1 blocks are still reachable in loss record 24 of 24
-==18162==    at 0x4C2DB8F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==18162==    by 0x50E0EFF: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.21)
-==18162==    by 0x40104E9: call_init.part.0 (dl-init.c:72)
-==18162==    by 0x40105FA: call_init (dl-init.c:30)
-==18162==    by 0x40105FA: _dl_init (dl-init.c:120)
-==18162==    by 0x4000CF9: ??? (in /lib/x86_64-linux-gnu/ld-2.23.so)
-==18162==    by 0x1: ???
-==18162==    by 0xFFF00074E: ???
-==18162==    by 0xFFF000760: ???
-==18162== 
-==18162== LEAK SUMMARY:
-==18162==    definitely lost: 0 bytes in 0 blocks
-==18162==    indirectly lost: 0 bytes in 0 blocks
-==18162==      possibly lost: 0 bytes in 0 blocks
-==18162==    still reachable: 88,753 bytes in 25 blocks
-==18162==         suppressed: 0 bytes in 0 blocks
-==18162== 
-==18162== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
-==18162== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
-==18170== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-18170-by-root-on-???
-==18170== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-18170-by-root-on-???
-==18170== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-18170-by-root-on-???
-==18170== 
-==18170== TO CONTROL THIS PROCESS USING vgdb (which you probably
-==18170== don't want to do, unless you know exactly what you're doing,
-==18170== or are doing some strange experiment):
-==18170==   /usr/lib/valgrind/../../bin/vgdb --pid=18170 ...command...
-==18170== 
-==18170== TO DEBUG THIS PROCESS USING GDB: start GDB like this
-==18170==   /path/to/gdb ../syscall-sensor
-==18170== and then give GDB the following command
-==18170==   target remote | /usr/lib/valgrind/../../bin/vgdb --pid=18170
-==18170== --pid is optional if only one valgrind process is running
-==18170== 
-==18174== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-18174-by-root-on-???
-==18174== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-18174-by-root-on-???
-==18174== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-18174-by-root-on-???
-==18174== 
-==18174== TO CONTROL THIS PROCESS USING vgdb (which you probably
-==18174== don't want to do, unless you know exactly what you're doing,
-==18174== or are doing some strange experiment):
-==18174==   /usr/lib/valgrind/../../bin/vgdb --pid=18174 ...command...
-==18174== 
-==18174== TO DEBUG THIS PROCESS USING GDB: start GDB like this
-==18174==   /path/to/gdb ../syscall-sensor
-==18174== and then give GDB the following command
-==18174==   target remote | /usr/lib/valgrind/../../bin/vgdb --pid=18174
-==18174== --pid is optional if only one valgrind process is running
-==18174== 
-==18175== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-18175-by-root-on-???
-==18175== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-18175-by-root-on-???
-==18175== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-18175-by-root-on-???
-==18175== 
-==18175== TO CONTROL THIS PROCESS USING vgdb (which you probably
-==18175== don't want to do, unless you know exactly what you're doing,
-==18175== or are doing some strange experiment):
-==18175==   /usr/lib/valgrind/../../bin/vgdb --pid=18175 ...command...
-==18175== 
-==18175== TO DEBUG THIS PROCESS USING GDB: start GDB like this
-==18175==   /path/to/gdb ../syscall-sensor
-==18175== and then give GDB the following command
-==18175==   target remote | /usr/lib/valgrind/../../bin/vgdb --pid=18175
-==18175== --pid is optional if only one valgrind process is running
-==18175== 
---18168-- REDIR: 0x5985e30 (libc.so.6:memchr) redirected to 0x4c32170 (memchr)
-==18168== 
-==18168== HEAP SUMMARY:
-==18168==     in use at exit: 72,704 bytes in 1 blocks
-==18168==   total heap usage: 702,999 allocs, 702,998 frees, 48,162,848 bytes allocated
-==18168== 
-==18168== Searching for pointers to 1 not-freed blocks
-==18168== Checked 134,200 bytes
-==18168== 
-==18168== 72,704 bytes in 1 blocks are still reachable in loss record 1 of 1
-==18168==    at 0x4C2DB8F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==18168==    by 0x50E0EFF: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.21)
-==18168==    by 0x40104E9: call_init.part.0 (dl-init.c:72)
-==18168==    by 0x40105FA: call_init (dl-init.c:30)
-==18168==    by 0x40105FA: _dl_init (dl-init.c:120)
-==18168==    by 0x4000CF9: ??? (in /lib/x86_64-linux-gnu/ld-2.23.so)
-==18168==    by 0x1: ???
-==18168==    by 0xFFF00074E: ???
-==18168==    by 0xFFF000760: ???
-==18168== 
-==18168== LEAK SUMMARY:
-==18168==    definitely lost: 0 bytes in 0 blocks
-==18168==    indirectly lost: 0 bytes in 0 blocks
-==18168==      possibly lost: 0 bytes in 0 blocks
-==18168==    still reachable: 72,704 bytes in 1 blocks
-==18168==         suppressed: 0 bytes in 0 blocks
-==18168== 
-==18168== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
-==18168== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==22133== Memcheck, a memory error detector
+==22133== Copyright (C) 2002-2015, and GNU GPL'd, by Julian Seward et al.
+==22133== Using Valgrind-3.11.0 and LibVEX; rerun with -h for copyright info
+==22133== Command: /bin/ls /proc/22129/task
+==22133== Parent PID: 22132
+==22133== 
+--22133-- 
+--22133-- Valgrind options:
+--22133--    --tool=memcheck
+--22133--    --leak-check=full
+--22133--    --show-leak-kinds=all
+--22133--    --trace-children=yes
+--22133--    --log-file=meminfo.log
+--22133--    -v
+--22133-- Contents of /proc/version:
+--22133--   Linux version 4.4.0-42-generic (buildd@lgw01-13) (gcc version 5.4.0 20160609 (Ubuntu 5.4.0-6ubuntu1~16.04.2) ) #62-Ubuntu SMP Fri Oct 7 23:11:45 UTC 2016
+--22133-- 
+--22133-- Arch and hwcaps: AMD64, LittleEndian, amd64-cx16-lzcnt-rdtscp-sse3-avx-avx2-bmi
+--22133-- Page sizes: currently 4096, max supported 4096
+--22133-- Valgrind library directory: /usr/lib/valgrind
+--22133-- Reading syms from /bin/ls
+--22133--    object doesn't have a symbol table
+--22133-- Reading syms from /lib/x86_64-linux-gnu/ld-2.23.so
+--22133--   Considering /lib/x86_64-linux-gnu/ld-2.23.so ..
+--22133--   .. CRC mismatch (computed d3da0723 wanted a1c29704)
+--22133--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/ld-2.23.so ..
+--22133--   .. CRC is valid
+--22133-- Reading syms from /usr/lib/valgrind/memcheck-amd64-linux
+--22133--   Considering /usr/lib/valgrind/memcheck-amd64-linux ..
+--22133--   .. CRC mismatch (computed 5529a2c7 wanted 5bd23904)
+--22133--    object doesn't have a symbol table
+--22133--    object doesn't have a dynamic symbol table
+--22133-- Scheduler: using generic scheduler lock implementation.
+--22133-- Reading suppressions file: /usr/lib/valgrind/default.supp
+==22133== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-22133-by-root-on-???
+==22133== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-22133-by-root-on-???
+==22133== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-22133-by-root-on-???
+==22133== 
+==22133== TO CONTROL THIS PROCESS USING vgdb (which you probably
+==22133== don't want to do, unless you know exactly what you're doing,
+==22133== or are doing some strange experiment):
+==22133==   /usr/lib/valgrind/../../bin/vgdb --pid=22133 ...command...
+==22133== 
+==22133== TO DEBUG THIS PROCESS USING GDB: start GDB like this
+==22133==   /path/to/gdb /bin/ls
+==22133== and then give GDB the following command
+==22133==   target remote | /usr/lib/valgrind/../../bin/vgdb --pid=22133
+==22133== --pid is optional if only one valgrind process is running
+==22133== 
+--22133-- REDIR: 0x401cdc0 (ld-linux-x86-64.so.2:strlen) redirected to 0x3809e181 (???)
+--22133-- Reading syms from /usr/lib/valgrind/vgpreload_core-amd64-linux.so
+--22133--   Considering /usr/lib/valgrind/vgpreload_core-amd64-linux.so ..
+--22133--   .. CRC mismatch (computed a30c8eaa wanted 7ae2fed4)
+--22133--    object doesn't have a symbol table
+--22133-- Reading syms from /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so
+--22133--   Considering /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so ..
+--22133--   .. CRC mismatch (computed 402c2ab5 wanted 745f25ae)
+--22133--    object doesn't have a symbol table
+==22133== WARNING: new redirection conflicts with existing -- ignoring it
+--22133--     old: 0x0401cdc0 (strlen              ) R-> (0000.0) 0x3809e181 ???
+--22133--     new: 0x0401cdc0 (strlen              ) R-> (2007.0) 0x04c31020 strlen
+--22133-- REDIR: 0x401b710 (ld-linux-x86-64.so.2:index) redirected to 0x4c30bc0 (index)
+--22133-- REDIR: 0x401b930 (ld-linux-x86-64.so.2:strcmp) redirected to 0x4c320d0 (strcmp)
+--22133-- REDIR: 0x401db20 (ld-linux-x86-64.so.2:mempcpy) redirected to 0x4c35270 (mempcpy)
+--22133-- Reading syms from /lib/x86_64-linux-gnu/libselinux.so.1
+--22133--    object doesn't have a symbol table
+--22133-- Reading syms from /lib/x86_64-linux-gnu/libc-2.23.so
+--22133--   Considering /lib/x86_64-linux-gnu/libc-2.23.so ..
+--22133--   .. CRC mismatch (computed 2adb2e50 wanted 9b73f606)
+--22133--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/libc-2.23.so ..
+--22133--   .. CRC is valid
+--22133-- Reading syms from /lib/x86_64-linux-gnu/libpcre.so.3.13.2
+--22133--   Considering /lib/x86_64-linux-gnu/libpcre.so.3.13.2 ..
+--22133--   .. CRC mismatch (computed 276b70fd wanted 22183252)
+--22133--    object doesn't have a symbol table
+--22133-- Reading syms from /lib/x86_64-linux-gnu/libdl-2.23.so
+--22133--   Considering /lib/x86_64-linux-gnu/libdl-2.23.so ..
+--22133--   .. CRC mismatch (computed b7ff3c20 wanted 623a46c3)
+--22133--   Considering /usr/lib/debug/lib/x86_64-linux-gnu/libdl-2.23.so ..
+--22133--   .. CRC is valid
+--22133-- Reading syms from /lib/x86_64-linux-gnu/libpthread-2.23.so
+--22133--   Considering /usr/lib/debug/.build-id/b7/7847cc9cacbca3b5753d0d25a32e5795afe75b.debug ..
+--22133--   .. build-id is valid
+--22133-- REDIR: 0x50eafd0 (libc.so.6:strcasecmp) redirected to 0x4a286f0 (_vgnU_ifunc_wrapper)
+--22133-- REDIR: 0x50e6850 (libc.so.6:strcspn) redirected to 0x4a286f0 (_vgnU_ifunc_wrapper)
+--22133-- REDIR: 0x50ed2c0 (libc.so.6:strncasecmp) redirected to 0x4a286f0 (_vgnU_ifunc_wrapper)
+--22133-- REDIR: 0x50e8cc0 (libc.so.6:strpbrk) redirected to 0x4a286f0 (_vgnU_ifunc_wrapper)
+--22133-- REDIR: 0x50e9050 (libc.so.6:strspn) redirected to 0x4a286f0 (_vgnU_ifunc_wrapper)
+--22133-- REDIR: 0x50ea71b (libc.so.6:memcpy@GLIBC_2.2.5) redirected to 0x4a286f0 (_vgnU_ifunc_wrapper)
+--22133-- REDIR: 0x50e70f0 (libc.so.6:strncmp) redirected to 0x4a286f0 (_vgnU_ifunc_wrapper)
+--22133-- REDIR: 0x50e5050 (libc.so.6:index) redirected to 0x4a286f0 (_vgnU_ifunc_wrapper)
+--22133-- REDIR: 0x50ea780 (libc.so.6:memset) redirected to 0x4a286f0 (_vgnU_ifunc_wrapper)
+--22133-- REDIR: 0x50ea180 (libc.so.6:bcmp) redirected to 0x4a286f0 (_vgnU_ifunc_wrapper)
+--22133-- REDIR: 0x50e52a0 (libc.so.6:strcmp) redirected to 0x4a286f0 (_vgnU_ifunc_wrapper)
+--22133-- REDIR: 0x5171950 (libc.so.6:__memcpy_chk) redirected to 0x4a286f0 (_vgnU_ifunc_wrapper)
+--22133-- REDIR: 0x50ef9c0 (libc.so.6:memcpy@@GLIBC_2.14) redirected to 0x4a286f0 (_vgnU_ifunc_wrapper)
+--22133-- REDIR: 0x50e89d0 (libc.so.6:rindex) redirected to 0x4c308a0 (rindex)
+--22133-- REDIR: 0x50df550 (libc.so.6:malloc) redirected to 0x4c2db20 (malloc)
+--22133-- REDIR: 0x50e9630 (libc.so.6:__GI_strstr) redirected to 0x4c354d0 (__strstr_sse2)
+--22133-- REDIR: 0x50e9e30 (libc.so.6:memchr) redirected to 0x4c32170 (memchr)
+--22133-- REDIR: 0x50efa40 (libc.so.6:__GI_memcpy) redirected to 0x4c32b00 (__GI_memcpy)
+--22133-- REDIR: 0x50e9c00 (libc.so.6:strstr) redirected to 0x4a286f0 (_vgnU_ifunc_wrapper)
+--22133-- REDIR: 0x5105640 (libc.so.6:__strstr_sse2_unaligned) redirected to 0x4c35460 (strstr)
+--22133-- REDIR: 0x50dfa70 (libc.so.6:free) redirected to 0x4c2ed80 (free)
+--22133-- REDIR: 0x50e52e0 (libc.so.6:__GI_strcmp) redirected to 0x4c31fe0 (__GI_strcmp)
+--22133-- REDIR: 0x50e6cf0 (libc.so.6:strlen) redirected to 0x4c30f60 (strlen)
+--22133-- REDIR: 0x50e7140 (libc.so.6:__GI_strncmp) redirected to 0x4c31710 (__GI_strncmp)
+--22133-- REDIR: 0x50e5080 (libc.so.6:__GI_strchr) redirected to 0x4c30a00 (__GI_strchr)
+--22133-- REDIR: 0x50f1d30 (libc.so.6:strchrnul) redirected to 0x4c34da0 (strchrnul)
+--22133-- REDIR: 0x50ea980 (libc.so.6:__GI_mempcpy) redirected to 0x4c34fa0 (__GI_mempcpy)
+--22133-- REDIR: 0x51a96d0 (libc.so.6:__memcpy_avx_unaligned) redirected to 0x4c324a0 (memcpy@@GLIBC_2.14)
+--22133-- --22132-- REDIR: 0x4ebda70 (libc.so.6:free) redirected to 0x4c2ed80 (free)
+==22132== 
+==22132== HEAP SUMMARY:
+==22132==     in use at exit: 1,243 bytes in 35 blocks
+==22132==   total heap usage: 37 allocs, 2 frees, 1,347 bytes allocated
+==22132== 
+==22132== Searching for pointers to 35 not-freed blocks
+==22132== Checked 73,744 bytes
+==22132== 
+==22132== 9 bytes in 1 blocks are still reachable in loss record 1 of 7
+==22132==    at 0x4C2DB8F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==22132==    by 0x11C178: ??? (in /bin/dash)
+==22132==    by 0x11FB45: ??? (in /bin/dash)
+==22132==    by 0x124137: ??? (in /bin/dash)
+==22132==    by 0x124409: ??? (in /bin/dash)
+==22132==    by 0x1169DB: ??? (in /bin/dash)
+==22132==    by 0x4E5A82F: (below main) (libc-start.c:291)
+==22132== 
+==22132== 26 bytes in 1 blocks are still reachable in loss record 2 of 7
+==22132==    at 0x4C2DB8F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==22132==    by 0x11C178: ??? (in /bin/dash)
+==22132==    by 0x10E713: ??? (in /bin/dash)
+==22132==    by 0x1186C9: ??? (in /bin/dash)
+==22132==    by 0x1170D2: ??? (in /bin/dash)
+==22132==    by 0x116BB4: ??? (in /bin/dash)
+==22132==    by 0x117FDF: ??? (in /bin/dash)
+==22132==    by 0x1117CD: ??? (in /bin/dash)
+==22132==    by 0x4E5A82F: (below main) (libc-start.c:291)
+==22132== 
+==22132== 32 bytes in 1 blocks are still reachable in loss record 3 of 7
+==22132==    at 0x4C2DB8F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==22132==    by 0x11C178: ??? (in /bin/dash)
+==22132==    by 0x11FAB6: ??? (in /bin/dash)
+==22132==    by 0x12443C: ??? (in /bin/dash)
+==22132==    by 0x1169DB: ??? (in /bin/dash)
+==22132==    by 0x4E5A82F: (below main) (libc-start.c:291)
+==22132== 
+==22132== 42 bytes in 1 blocks are still reachable in--22129-- REDIR: 0x5986780 (libc.so.6:memset) redirected to 0x4a286f0 (_vgnU_ifunc_wrapper)
+--22129-- REDIR: 0x5a6a1a0 (libc.so.6:__memset_avx2) redirected to 0x4c344c0 (memset)
+==22134== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-22134-by-root-on-???
+==22134== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-22134-by-root-on-???
+==22134== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-22134-by-root-on-???
+==22134== 
+==22134== TO CONTROL THIS PROCESS USING vgdb (which you probably
+==22134== don't want to do, unless you know exactly what you're doing,
+==22134== or are doing some strange experiment):
+==22134==   /usr/lib/valgrind/../../bin/vgdb --pid=22134 ...command...
+==22134== 
+==22134== TO DEBUG THIS PROCESS USING GDB: start GDB like this
+==22134==   /path/to/gdb ../syscall-sensor
+==22134== and then give GDB the following command
+==22134==   target remote | /usr/lib/valgrind/../../bin/vgdb --pid=22134
+==22134== --pid is optional if only one valgrind process is running
+==22134== 
+==22129== 
+==22129== HEAP SUMMARY:
+==22129==     in use at exit: 88,753 bytes in 25 blocks
+==22129==   total heap usage: 121 allocs, 96 frees, 182,606 bytes allocated
+==22129== 
+==22129== Searching for pointers to 25 not-freed blocks
+==22129== Checked 137,512 bytes
+==22129== 
+==22129== 16 bytes in 1 blocks are still reachable in loss record 1 of 24
+==22129==    at 0x4C2E0EF: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==22129==    by 0x449B21: __gnu_cxx::new_allocator<std::__detail::_Hash_node<Data_Stream*, false> >::allocate(unsigned long, void const*) (new_allocator.h:104)
+==22129==    by 0x449697: std::allocator_traits<std::allocator<std::__detail::_Hash_node<Data_Stream*, false> > >::allocate(std::allocator<std::__detail::_Hash_node<Data_Stream*, false> >&, unsigned long) (alloc_traits.h:491)
+==22129==    by 0x44912C: std::__detail::_Hash_node<Data_Stream*, false>* std::__detail::_Hashtable_alloc<std::allocator<std::__detail::_Hash_node<Data_Stream*, false> > >::_M_allocate_node<Data_Stream* const&>(Data_Stream* const&) (hashtable_policy.h:1949)
+==22129==    by 0x448AFE: std::__detail::_Hash_node<Data_Stream*, false>* std::__detail::_AllocNode<std::allocator<std::__detail::_Hash_node<Data_Stream*, false> > >::operator()<Data_Stream* const&>(Data_Stream* const&) const (hashtable_policy.h:180)
+==22129==    by 0x4485F3: std::pair<std::__detail::_Node_iterator<Data_Stream*, true, false>, bool> std::_Hashtable<Data_Stream*, Data_Stream*, std::allocator<Data_Stream*>, std::__detail::_Identity, std::equal_to<Data_Stream*>, std::hash<Data_Stream*>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, true, true> >::_M_insert<Data_Stream* const&, std::__detail::_AllocNode<std::allocator<std::__detail::_Hash_node<Data_Stream*, false> > > >(Data_Stream* const&, std::__detail::_AllocNode<std::allocator<std::__detail::_Hash_node<Data_Stream*, false> > > const&, std::integral_constant<bool, true>) (hashtable.h:1703)
+==22129==    by 0x447F78: std::__detail::_Insert_base<Data_Stream*, Data_Stream*, std::allocator<Data_Stream*>, std::__detail::_Identity, std::equal_to<Data_Stream*>, std::hash<Data_Stream*>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, true, true> >::insert(Data_Stream* const&) (hashtable_policy.h:715)
+==22129==    by 0x447A96: std::unordered_set<Data_Stream*, std::hash<Data_Stream*>, std::equal_to<Data_Stream*>, std::allocator<Data_Stream*> >::insert(Data_Stream* const&) (unordered_set.h:413)
+==22129==    by 0x446E5E: Syscall_Logger::add_stream(Data_Stream*) (syscall_logger.cpp:117)
+==22129==    by 0x4391D6: Sensor_Manager::Sensor_Manager(unsigned char, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) (sensor_manager.cpp:24)
+==22129==    by 0x43C53F: start(Command_Line_Parser) (launcher.cpp:296)
+==22129==    by 0x43B094: main (launcher.cpp:49)
+==22129== 
+==22129== 16 bytes in 1 blocks are still reachable in loss record 2 of 24
+==22129==    at 0x4C2E0EF: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==22129==    by 0x43AE4F: __gnu_cxx::new_allocator<std::__detail::_Hash_node_base*>::allocate(unsigned long, void const*) (new_allocator.h:104)
+==22129==    by 0x43ADF3: std::allocator_traits<std::allocator<std::__detail::_Hash_node_base*> >::allocate(std::allocator<std::__detail::_Hash_node_base*>&, unsigned long) (alloc_traits.h:491)
+==22129==    by 0x449EA8: std::__detail::_Hashtable_alloc<std::allocator<std::__detail::_Hash_node<Data_Stream*, false> > >::_M_allocate_buckets(unsigned long) (hashtable_policy.h:1996)
+==22129==    by 0x449BB2: std::_Hashtable<Data_Stream*, Data_Stream*, std::allocator<Data_Stream*>, std::__detail::_Identity, std::equal_to<Data_Stream*>, std::hash<Data_Stream*>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, true, true> >::_M_allocate_buckets(unsigned long) (hashtable.h:347)
+==22129==    by 0x449704: std::_Hashtable<Data_Stream*, Data_Stream*, std::allocator<Data_Stream*>, std::__detail::_Identity, std::equal_to<Data_Stream*>, std::hash<Data_Stream*>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, true, true> >::_M_rehash_aux(unsigned long, std::integral_constant<bool, true>) (hashtable.h:1974)
+==22129==    by 0x44926D: std::_Hashtable<Data_Stream*, Data_Stream*, std::allocator<Data_Stream*>, std::__detail::_Identity, std::equal_to<Data_Stream*>, std::hash<Data_Stream*>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, true, true> >::_M_rehash(unsigned long, unsigned long const&) (hashtable.h:1953)
+==22129==    by 0x448B95: std::_Hashtable<Data_Stream*, Data_Stream*, std::allocator<Data_Stream*>, std::__detail::_Identity, std::equal_to<Data_Stream*>, std::hash<Data_Stream*>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, true, true> >::_M_insert_unique_node(unsigned long, unsigned long, std::__detail::_Hash_node<Data_Stream*, false>*) (hashtable.h:1600)
+==22129==    by 0x448613: std::pair<std::__detail::_Node_iterator<Data_Stream*, true, false>, bool> std::_Hashtable<Data_Stream*, Data_Stream*, std::allocator<Data_Stream*>, std::__detail::_Identity, std::equal_to<Data_Stream*>, std::hash<Data_Stream*>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, true, true> >::_M_insert<Data_Stream* const&, std::__detail::_AllocNode<std::allocator<std::__detail::_Hash_node<Data_Stream*, false> > > >(Data_Stream* const&, std::__detail::_AllocNode<std::allocator<std::__detail::_Hash_node<Data_Stream*, false> > > const&, std::integral_constant<bool, true>) (hashtable.h:1704)
+==22129==    by 0x447F78: std::__detail::_Insert_base<Data_Stream*, Data_Stream*, std::allocator<Data_Stream*>, std::__detail::_Identity, std::equal_to<Data_Stream*>, std::hash<Data_Stream*>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, true, true> >::insert(Data_Stream* const&) (hashtable_policy.h:715)
+==22129==    by 0x447A96: std::unordered_set<Data_Stream*, std::hash<Data_Stream*>, std::equal_to<Data_Stream*>, std::allocator<Data_Stream*> >::insert(Data_Stream* const&) (unordered_set.h:413)
+==22129==    by 0x446E5E: Syscall_Logger::add_stream(Data_Stream*) (syscall_logger.cpp:117)
+==22129== 
+==22129== 16 bytes in 1 blocks are still reachable in loss record 3 of 24
+==22129==    at 0x4C2E0EF: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==22129==    by 0x43ABDD: __gnu_cxx::new_allocator<std::__detail::_Hash_node<Sensor_Observer*, false> >::allocate(unsigned long, void const*) (new_allocator.h:104)
+==22129==    by 0x43A8AD: std::allocator_traits<std::allocator<std::__detail::_Hash_node<Sensor_Observer*, false> > >::allocate(std::allocator<std::__detail::_Hash_node<Sensor_Observer*, false> >&, unsigned long) (alloc_traits.h:491)
+==22129==    by 0x43A40C: std::__detail::_Hash_node<Sensor_Observer*, false>* std::__detail::_Hashtable_alloc<std::allocator<std::__detail::_Hash_node<Sensor_Observer*, false> > >::_M_allocate_node<Sensor_Observer* const&>(Sensor_Observer* const&) (hashtable_policy.h:1949)
+==22129==    by 0x439F1A: std::__detail::_Hash_node<Sensor_Observer*, false>* std::__detail::_AllocNode<std::allocator<std::__detail::_Hash_node<Sensor_Observer*, false> > >::operator()<Sensor_Observer* const&>(Sensor_Observer* const&) const (hashtable_policy.h:180)
+==22129==    by 0x439BCF: std::pair<std::__detail::_Node_iterator<Sensor_Observer*, true, false>, bool> std::_Hashtable<Sensor_Observer*, Sensor_Observer*, std::allocator<Sensor_Observer*>, std::__detail::_Identity, std::equal_to<Sensor_Observer*>, std::hash<Sensor_Observer*>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, true, true> >::_M_insert<Sensor_Observer* const&, std::__detail::_AllocNode<std::allocator<std::__detail::_Hash_node<Sensor_Observer*, false> > > >(Sensor_Observer* const&, std::__detail::_AllocNode<std::allocator<std::__detail::_Hash_node<Sensor_Observer*, false> > > const&, std::integral_constant<bool, true>) (hashtable.h:1703)
+==22129==    by 0x439966: std::__detail::_Insert_base<Sensor_Observer*, Sensor_Observer*, std::allocator<Sensor_Observer*>, std::__detail::_Identity, std::equal_to<Sensor_Observer*>, std::hash<Sensor_Observer*>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, true, true> >::insert(Sensor_Observer* const&) (hashtable_policy.h:715)
+==22129==    by 0x4398D6: std::unordered_set<Sensor_Observer*, std::hash<Sensor_Observer*>, std::equal_to<Sensor_Observer*>, std::allocator<Sensor_Observer*> >::insert(Sensor_Observer* const&) (unordered_set.h:413)
+==22129==    by 0x4398B0: Sensor::attach_observer(Sensor_Observer*) (sensor.h:48)
+==22129==    by 0x4391F0: Sensor_Manager::Sensor_Manager(unsigned char, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) (sensor_manager.cpp:25)
+==22129==    by 0x43C53F: start(Command_Line_Parser) (launcher.cpp:296)
+==22129==    by 0x43B094: main (launcher.cpp:49)
+==22129== 
+==22129== 16 bytes in 1 blocks are still reachable in loss record 4 of 24
+==22129==    at 0x4C2E0EF: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==22129==    by 0x43AE4F: __gnu_cxx::new_allocator<std::__detail::_Hash_node_base*>::allocate(unsigned long, void const*) (new_allocator.h:104)
+==22129==    by 0x43ADF3: std::allocator_traits<std::allocator<std::__detail::_Hash_node_base*> >::allocate(std::allocator<std::__detail::_Hash_node_base*>&, unsigned long) (alloc_traits.h:491)
+==22129==    by 0x43AD32: std::__detail::_Hashtable_alloc<std::allocator<std::__detail::_Hash_node<Sensor_Observer*, false> > >::_M_allocate_buckets(unsigned long) (hashtable_policy.h:1996)
+==22129==    by 0x43AC6E: std::_Hashtable<Sensor_Observer*, Sensor_Observer*, std::allocator<Sensor_Observer*>, std::__detail::_Identity, std::equal_to<Sensor_Observer*>, std::hash<Sensor_Observer*>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, true, true> >::_M_allocate_buckets(unsigned long) (hashtable.h:347)
+==22129==    by 0x43A91A: std::_Hashtable<Sensor_Observer*, Sensor_Observer*, std::allocator<Sensor_Observer*>, std::__detail::_Identity, std::equal_to<Sensor_Observer*>, std::hash<Sensor_Observer*>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, true, true> >::_M_rehash_aux(unsigned long, std::integral_constant<bool, true>) (hashtable.h:1974)
+==22129==    by 0x43A54D: std::_Hashtable<Sensor_Observer*, Sensor_Observer*, std::allocator<Sensor_Observer*>, std::__detail::_Identity, std::equal_to<Sensor_Observer*>, std::hash<Sensor_Observer*>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, true, true> >::_M_rehash(unsigned long, unsigned long const&) (hashtable.h:1953)
+==22129==    by 0x439FB1: std::_Hashtable<Sensor_Observer*, Sensor_Observer*, std::allocator<Sensor_Observer*>, std::__detail::_Identity, std::equal_to<Sensor_Observer*>, std::hash<Sensor_Observer*>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, true, true> >::_M_insert_unique_node(unsigned long, unsigned long, std::__detail::_Hash_node<Sensor_Observer*, false>*) (hashtable.h:1600)
+==22129==    by 0x439BEF: std::pair<std::__detail::_Node_iterator<Sensor_Observer*, true, false>, bool> std::_Hashtable<Sensor_Observer*, Sensor_Observer*, std::allocator<Sensor_Observer*>, std::__detail::_Identity, std::equal_to<Sensor_Observer*>, std::hash<Sensor_Observer*>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, true, true> >::_M_insert<Sensor_Observer* const&, std::__detail::_AllocNode<std::allocator<std::__detail::_Hash_node<Sensor_Observer*, false> > > >(Sensor_Observer* const&, std::__detail::_AllocNode<std::allocator<std::__detail::_Hash_node<Sensor_Observer*, false> > > const&, std::integral_constant<bool, true>) (hashtable.h:1704)
+==22129==    by 0x439966: std::__detail::_Insert_base<Sensor_Observer*, Sensor_Observer*, std::allocator<Sensor_Observer*>, std::__detail::_Identity, std::equal_to<Sensor_Observer*>, std::hash<Sensor_Observer*>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, true, true> >::insert(Sensor_Observer* const&) (hashtable_policy.h:715)
+==22129==    by 0x4398D6: std::unordered_set<Sensor_Observer*, std::hash<Sensor_Observer*>, std::equal_to<Sensor_Observer*>, std::allocator<Sensor_Observer*> >::insert(Sensor_Observer* const&) (unordered_set.h:413)
+==22129==    by 0x4398B0: Sensor::attach_observer(Sensor_Observer*) (sensor.h:48)
+==22129== 
+==22129== 32 bytes in 1 blocks are still reachable in loss record 5 of 24
+==22129==    at 0x4C2E0EF: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==22129==    by 0x437709: __gnu_cxx::new_allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::allocate(unsigned long, void const*) (new_allocator.h:104)
+==22129==    by 0x4373D9: std::allocator_traits<std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::allocate(std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >&, unsigned long) (alloc_traits.h:491)
+==22129==    by 0x436CF5: std::_Vector_base<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::_M_allocate(unsigned long) (stl_vector.h:170)
+==22129==    by 0x436567: void std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::_M_emplace_back_aux<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (vector.tcc:412)
+==22129==    by 0x436030: std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::push_back(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (stl_vector.h:923)
+==22129==    by 0x42C60B: Command_Line_Parser::Command_Line_Parser(int, char**) (command_line_parser.cpp:30)
+==22129==    by 0x43AEC1: main (launcher.cpp:39)
+==22129== 
+==22129== 32 bytes in 1 blocks are still reachable in loss record 6 of 24
+==22129==    at 0x4C2E0EF: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==22129==    by 0x437709: __gnu_cxx::new_allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::allocate(unsigned long, void const*) (new_allocator.h:104)
+==22129==    by 0x4373D9: std::allocator_traits<std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::allocate(std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >&, unsigned long) (alloc_traits.h:491)
+==22129==    by 0x436CF5: std::_Vector_base<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::_M_allocate(unsigned long) (stl_vector.h:170)
+==22129==    by 0x43DA74: std::_Vector_base<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::_M_create_storage(unsigned long) (stl_vector.h:185)
+==22129==    by 0x43D92C: std::_Vector_base<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::_Vector_base(unsigned long, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > const&) (stl_vector.h:136)
+==22129==    by 0x43D7A5: std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::vector(std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > const&) (stl_vector.h:320)
+==22129==    by 0x43D63B: Command_Line_Parser::Command_Line_Parser(Command_Line_Parser const&) (in /home/alex/drexel/research/heimdall/syscall-sensor)
+==22129==    by 0x43B085: main (launcher.cpp:49)
+==22129== 
+==22129== 64 bytes in 1 blocks are still reachable in loss record 7 of 24
+==22129==    at 0x4C2E0EF: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==22129==    by 0x437709: __gnu_cxx::new_allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::allocate(unsigned long, void const*) (new_allocator.h:104)
+==22129==    by 0x4373D9: std::allocator_traits<std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::allocate(std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >&, unsigned long) (alloc_traits.h:491)
+==22129==    by 0x436CF5: std::_Vector_base<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::_M_allocate(unsigned long) (stl_vector.h:170)
+==22129==    by 0x436437: void std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::_M_range_initialize<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*, std::forward_iterator_tag) (stl_vector.h:1287)
+==22129==    by 0x435F03: std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::vector(std::initializer_list<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > const&) (stl_vector.h:377)
+==22129==    by 0x43EEAE: Linux_Syscall_Reader::Linux_Syscall_Reader(unsigned char) (linux_syscall_reader.cpp:220)
+==22129==    by 0x43DC50: Linux_Syscall_Reader::get_instance() (linux_syscall_reader.cpp:22)
+==22129==    by 0x43DC8D: Linux_Syscall_Reader::get_instance(unsigned char) (linux_syscall_reader.cpp:30)
+==22129==    by 0x440360: Reader_Factory::create_reader() (reader_factory.cpp:27)
+==22129==    by 0x44185C: Syscall_Sensor::Syscall_Sensor(unsigned char) (syscall_sensor.cpp:269)
+==22129==    by 0x440BC0: Syscall_Sensor::get_instance() (syscall_sensor.cpp:40)
+==22129== 
+==22129== 64 bytes in 1 blocks are still reachable in loss record 8 of 24
+==22129==    at 0x4C2E0EF: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==22129==    by 0x439184: Sensor_Manager::Sensor_Manager(unsigned char, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) (sensor_manager.cpp:22)
+==22129==    by 0x43C53F: start(Command_Line_Parser) (launcher.cpp:296)
+==22129==    by 0x43B094: main (launcher.cpp:49)
+==22129== 
+==22129== 96 bytes in 1 blocks are still reachable in loss record 9 of 24
+==22129==    at 0x4C2E0EF: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==22129==    by 0x437709: __gnu_cxx::new_allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::allocate(unsigned long, void const*) (new_allocator.h:104)
+==22129==    by 0x4373D9: std::allocator_traits<std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::allocate(std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >&, unsigned long) (alloc_traits.h:491)
+==22129==    by 0x436CF5: std::_Vector_base<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::_M_allocate(unsigned long) (stl_vector.h:170)
+==22129==    by 0x436437: void std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::_M_range_initialize<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*, std::forward_iterator_tag) (stl_vector.h:1287)
+==22129==    by 0x435F03: std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::vector(std::initializer_list<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > const&) (stl_vector.h:377)
+==22129==    by 0x42C370: Command_Line_Parser::Command_Line_Parser(int, char**) (command_line_parser.cpp:14)
+==22129==    by 0x43AEC1: main (launcher.cpp:39)
+==22129== 
+==22129== 96 bytes in 1 blocks are still reachable in loss record 10 of 24
+==22129==    at 0x4C2E0EF: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==22129==    by 0x437709: __gnu_cxx::new_allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::allocate(unsigned long, void const*) (new_allocator.h:104)
+==22129==    by 0x4373D9: std::allocator_traits<std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::allocate(std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >&, unsigned long) (alloc_traits.h:491)
+==22129==    by 0x436CF5: std::_Vector_base<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::_M_allocate(unsigned long) (stl_vector.h:170)
+==22129==    by 0x436437: void std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::_M_range_initialize<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*, std::forward_iterator_tag) (stl_vector.h:1287)
+==22129==    by 0x435F03: std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::vector(std::initializer_list<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > const&) (stl_vector.h:377)
+==22129==    by 0x42C4A8: Command_Line_Parser::Command_Line_Parser(int, char**) (command_line_parser.cpp:14)
+==22129==    by 0x43AEC1: main (launcher.cpp:39)
+==22129== 
+==22129== 96 bytes in 1 blocks are still reachable in loss record 11 of 24
+==22129==    at 0x4C2E0EF: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==22129==    by 0x437709: __gnu_cxx::new_allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::allocate(unsigned long, void const*) (new_allocator.h:104)
+==22129==    by 0x4373D9: std::allocator_traits<std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::allocate(std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >&, unsigned long) (alloc_traits.h:491)
+==22129==    by 0x436CF5: std::_Vector_base<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::_M_allocate(unsigned long) (stl_vector.h:170)
+==22129==    by 0x43DA74: std::_Vector_base<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::_M_create_storage(unsigned long) (stl_vector.h:185)
+==22129==    by 0x43D92C: std::_Vector_base<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::_Vector_base(unsigned long, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > const&) (stl_vector.h:136)
+==22129==    by 0x43D7A5: std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::vector(std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > const&) (stl_vector.h:320)
+==22129==    by 0x43D68C: Command_Line_Parser::Command_Line_Parser(Command_Line_Parser const&) (in /home/alex/drexel/research/heimdall/syscall-sensor)
+==22129==    by 0x43B085: main (launcher.cpp:49)
+==22129== 
+==22129== 96 bytes in 1 blocks are still reachable in loss record 12 of 24
+==22129==    at 0x4C2E0EF: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==22129==    by 0x437709: __gnu_cxx::new_allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::allocate(unsigned long, void const*) (new_allocator.h:104)
+==22129==    by 0x4373D9: std::allocator_traits<std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::allocate(std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >&, unsigned long) (alloc_traits.h:491)
+==22129==    by 0x436CF5: std::_Vector_base<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::_M_allocate(unsigned long) (stl_vector.h:170)
+==22129==    by 0x43DA74: std::_Vector_base<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::_M_create_storage(unsigned long) (stl_vector.h:185)
+==22129==    by 0x43D92C: std::_Vector_base<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::_Vector_base(unsigned long, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > const&) (stl_vector.h:136)
+==22129==    by 0x43D7A5: std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::vector(std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > const&) (stl_vector.h:320)
+==22129==    by 0x43D6A7: Command_Line_Parser::Command_Line_Parser(Command_Line_Parser const&) (in /home/alex/drexel/research/heimdall/syscall-sensor)
+==22129==    by 0x43B085: main (launcher.cpp:49)
+==22129== 
+==22129== 125 bytes in 2 blocks are still reachable in loss record 13 of 24
+==22129==    at 0x4C2E0EF: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==22129==    by 0x438F74: void std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_construct<char*>(char*, char*, std::forward_iterator_tag) (basic_string.tcc:223)
+==22129==    by 0x51789CE: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.21)
+==22129==    by 0x4379B9: void std::_Construct<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (in /home/alex/drexel/research/heimdall/syscall-sensor)
+==22129==    by 0x437750: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >* std::__uninitialized_copy<false>::__uninit_copy<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >*>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >*) (stl_uninitialized.h:75)
+==22129==    by 0x43740A: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >* std::uninitialized_copy<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >*>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >*) (stl_uninitialized.h:126)
+==22129==    by 0x436D2D: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >* std::__uninitialized_copy_a<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >*, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >&) (stl_uninitialized.h:281)
+==22129==    by 0x436481: void std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::_M_range_initialize<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*, std::forward_iterator_tag) (stl_vector.h:1290)
+==22129==    by 0x435F03: std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::vector(std::initializer_list<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > const&) (stl_vector.h:377)
+==22129==    by 0x43EEAE: Linux_Syscall_Reader::Linux_Syscall_Reader(unsigned char) (linux_syscall_reader.cpp:220)
+==22129==    by 0x43DC50: Linux_Syscall_Reader::get_instance() (linux_syscall_reader.cpp:22)
+==22129==    by 0x43DC8D: Linux_Syscall_Reader::get_instance(unsigned char) (linux_syscall_reader.cpp:30)
+==22129== 
+==22129== 168 bytes in 1 blocks are still reachable in loss record 14 of 24
+==22129==    at 0x4C2E0EF: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==22129==    by 0x439133: Sensor_Manager::Sensor_Manager(unsigned char, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) (sensor_manager.cpp:20)
+==22129==    by 0x43C53F: start(Command_Line_Parser) (launcher.cpp:296)
+==22129==    by 0x43B094: main (launcher.cpp:49)
+==22129== 
+==22129== 184 bytes in 1 blocks are still reachable in loss record 15 of 24
+==22129==    at 0x4C2E0EF: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==22129==    by 0x440BB0: Syscall_Sensor::get_instance() (syscall_sensor.cpp:40)
+==22129==    by 0x439105: Sensor_Manager::Sensor_Manager(unsigned char, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) (sensor_manager.cpp:16)
+==22129==    by 0x43C53F: start(Command_Line_Parser) (launcher.cpp:296)
+==22129==    by 0x43B094: main (launcher.cpp:49)
+==22129== 
+==22129== 288 bytes in 1 blocks are still reachable in loss record 16 of 24
+==22129==    at 0x4C2E0EF: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==22129==    by 0x437709: __gnu_cxx::new_allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::allocate(unsigned long, void const*) (new_allocator.h:104)
+==22129==    by 0x4373D9: std::allocator_traits<std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::allocate(std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >&, unsigned long) (alloc_traits.h:491)
+==22129==    by 0x436CF5: std::_Vector_base<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::_M_allocate(unsigned long) (stl_vector.h:170)
+==22129==    by 0x436437: void std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::_M_range_initialize<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const*, std::forward_iterator_tag) (stl_vector.h:1287)
+==22129==    by 0x435F03: std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::vector(std::initializer_list<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > const&) (stl_vector.h:377)
+==22129==    by 0x42C1DB: Command_Line_Parser::Command_Line_Parser(int, char**) (command_line_parser.cpp:14)
+==22129==    by 0x43AEC1: main (launcher.cpp:39)
+==22129== 
+==22129== 288 bytes in 1 blocks are still reachable in loss record 17 of 24
+==22129==    at 0x4C2E0EF: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==22129==    by 0x437709: __gnu_cxx::new_allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::allocate(unsigned long, void const*) (new_allocator.h:104)
+==22129==    by 0x4373D9: std::allocator_traits<std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::allocate(std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >&, unsigned long) (alloc_traits.h:491)
+==22129==    by 0x436CF5: std::_Vector_base<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::_M_allocate(unsigned long) (stl_vector.h:170)
+==22129==    by 0x43DA74: std::_Vector_base<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::_M_create_storage(unsigned long) (stl_vector.h:185)
+==22129==    by 0x43D92C: std::_Vector_base<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::_Vector_base(unsigned long, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > const&) (stl_vector.h:136)
+==22129==    by 0x43D7A5: std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::vector(std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > const&) (stl_vector.h:320)
+==22129==    by 0x43D671: Command_Line_Parser::Command_Line_Parser(Command_Line_Parser const&) (in /home/alex/drexel/research/heimdall/syscall-sensor)
+==22129==    by 0x43B085: main (launcher.cpp:49)
+==22129== 
+==22129== 512 bytes in 1 blocks are still reachable in loss record 18 of 24
+==22129==    at 0x4C2E0EF: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==22129==    by 0x446721: Output_Stream::Output_Stream(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, unsigned char, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) (output_stream.cpp:45)
+==22129==    by 0x43919B: Sensor_Manager::Sensor_Manager(unsigned char, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) (sensor_manager.cpp:22)
+==22129==    by 0x43C53F: start(Command_Line_Parser) (launcher.cpp:296)
+==22129==    by 0x43B094: main (launcher.cpp:49)
+==22129== 
+==22129== 552 bytes in 1 blocks are still reachable in loss record 19 of 24
+==22129==    at 0x4C2DB8F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==22129==    by 0x5965C8C: __fopen_internal (iofopen.c:69)
+==22129==    by 0x510711F: std::__basic_file<char>::open(char const*, std::_Ios_Openmode, int) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.21)
+==22129==    by 0x5147699: std::basic_filebuf<char, std::char_traits<char> >::open(char const*, std::_Ios_Openmode) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.21)
+==22129==    by 0x51482A7: std::basic_ofstream<char, std::char_traits<char> >::basic_ofstream(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::_Ios_Openmode) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.21)
+==22129==    by 0x446736: Output_Stream::Output_Stream(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, unsigned char, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) (output_stream.cpp:45)
+==22129==    by 0x43919B: Sensor_Manager::Sensor_Manager(unsigned char, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) (sensor_manager.cpp:22)
+==22129==    by 0x43C53F: start(Command_Line_Parser) (launcher.cpp:296)
+==22129==    by 0x43B094: main (launcher.cpp:49)
+==22129== 
+==22129== 656 bytes in 1 blocks are still reachable in loss record 20 of 24
+==22129==    at 0x4C2E0EF: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==22129==    by 0x43DC40: Linux_Syscall_Reader::get_instance() (linux_syscall_reader.cpp:22)
+==22129==    by 0x43DC8D: Linux_Syscall_Reader::get_instance(unsigned char) (linux_syscall_reader.cpp:30)
+==22129==    by 0x440360: Reader_Factory::create_reader() (reader_factory.cpp:27)
+==22129==    by 0x44185C: Syscall_Sensor::Syscall_Sensor(unsigned char) (syscall_sensor.cpp:269)
+==22129==    by 0x440BC0: Syscall_Sensor::get_instance() (syscall_sensor.cpp:40)
+==22129==    by 0x439105: Sensor_Manager::Sensor_Manager(unsigned char, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) (sensor_manager.cpp:16)
+==22129==    by 0x43C53F: start(Command_Line_Parser) (launcher.cpp:296)
+==22129==    by 0x43B094: main (launcher.cpp:49)
+==22129== 
+==22129== 2,222 bytes in 1 blocks are still reachable in loss record 21 of 24
+==22129==    at 0x4C2DB8F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==22129==    by 0x4435B3: moodycamel::ReaderWriterQueue<Sensor_Data, 512ul>::make_block(unsigned long) (readerwriterqueue.h:625)
+==22129==    by 0x442B69: moodycamel::ReaderWriterQueue<Sensor_Data, 512ul>::ReaderWriterQueue(unsigned long) (readerwriterqueue.h:127)
+==22129==    by 0x4427C9: Sensor::Sensor() (sensor.h:29)
+==22129==    by 0x441832: Syscall_Sensor::Syscall_Sensor(unsigned char) (syscall_sensor.cpp:265)
+==22129==    by 0x440BC0: Syscall_Sensor::get_instance() (syscall_sensor.cpp:40)
+==22129==    by 0x439105: Sensor_Manager::Sensor_Manager(unsigned char, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) (sensor_manager.cpp:16)
+==22129==    by 0x43C53F: start(Command_Line_Parser) (launcher.cpp:296)
+==22129==    by 0x43B094: main (launcher.cpp:49)
+==22129== 
+==22129== 2,222 bytes in 1 blocks are still reachable in loss record 22 of 24
+==22129==    at 0x4C2DB8F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==22129==    by 0x4435B3: moodycamel::ReaderWriterQueue<Sensor_Data, 512ul>::make_block(unsigned long) (readerwriterqueue.h:625)
+==22129==    by 0x442B69: moodycamel::ReaderWriterQueue<Sensor_Data, 512ul>::ReaderWriterQueue(unsigned long) (readerwriterqueue.h:127)
+==22129==    by 0x4474C6: Sensor_Observer::Sensor_Observer() (sensor_observer.h:19)
+==22129==    by 0x446B7D: Syscall_Logger::Syscall_Logger() (syscall_logger.cpp:20)
+==22129==    by 0x43913E: Sensor_Manager::Sensor_Manager(unsigned char, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) (sensor_manager.cpp:20)
+==22129==    by 0x43C53F: start(Command_Line_Parser) (launcher.cpp:296)
+==22129==    by 0x43B094: main (launcher.cpp:49)
+==22129== 
+==22129== 8,192 bytes in 1 blocks are still reachable in loss record 23 of 24
+==22129==    at 0x4C2E80F: operator new[](unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==22129==    by 0x5143467: std::basic_filebuf<char, std::char_traits<char> >::_M_allocate_internal_buffer() (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.21)
+==22129==    by 0x51476B1: std::basic_filebuf<char, std::char_traits<char> >::open(char const*, std::_Ios_Openmode) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.21)
+==22129==    by 0x51482A7: std::basic_ofstream<char, std::char_traits<char> >::basic_ofstream(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::_Ios_Openmode) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.21)
+==22129==    by 0x446736: Output_Stream::Output_Stream(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, unsigned char, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) (output_stream.cpp:45)
+==22129==    by 0x43919B: Sensor_Manager::Sensor_Manager(unsigned char, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) (sensor_manager.cpp:22)
+==22129==    by 0x43C53F: start(Command_Line_Parser) (launcher.cpp:296)
+==22129==    by 0x43B094: main (launcher.cpp:49)
+==22129== 
+==22129== 72,704 bytes in 1 blocks are still reachable in loss record 24 of 24
+==22129==    at 0x4C2DB8F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==22129==    by 0x50E0EFF: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.21)
+==22129==    by 0x40104E9: call_init.part.0 (dl-init.c:72)
+==22129==    by 0x40105FA: call_init (dl-init.c:30)
+==22129==    by 0x40105FA: _dl_init (dl-init.c:120)
+==22129==    by 0x4000CF9: ??? (in /lib/x86_64-linux-gnu/ld-2.23.so)
+==22129==    by 0x1: ???
+==22129==    by 0xFFF00076A: ???
+==22129==    by 0xFFF00077C: ???
+==22129== 
+==22129== LEAK SUMMARY:
+==22129==    definitely lost: 0 bytes in 0 blocks
+==22129==    indirectly lost: 0 bytes in 0 blocks
+==22129==      possibly lost: 0 bytes in 0 blocks
+==22129==    still reachable: 88,753 bytes in 25 blocks
+==22129==         suppressed: 0 bytes in 0 blocks
+==22129== 
+==22129== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==22129== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==22136== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-22136-by-root-on-???
+==22136== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-22136-by-root-on-???
+==22136== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-22136-by-root-on-???
+==22136== 
+==22136== TO CONTROL THIS PROCESS USING vgdb (which you probably
+==22136== don't want to do, unless you know exactly what you're doing,
+==22136== or are doing some strange experiment):
+==22136==   /usr/lib/valgrind/../../bin/vgdb --pid=22136 ...command...
+==22136== 
+==22136== TO DEBUG THIS PROCESS USING GDB: start GDB like this
+==22136==   /path/to/gdb ../syscall-sensor
+==22136== and then give GDB the following command
+==22136==   target remote | /usr/lib/valgrind/../../bin/vgdb --pid=22136
+==22136== --pid is optional if only one valgrind process is running
+==22136== 
+==22140== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-22140-by-root-on-???
+==22140== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-22140-by-root-on-???
+==22140== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-22140-by-root-on-???
+==22140== 
+==22140== TO CONTROL THIS PROCESS USING vgdb (which you probably
+==22140== don't want to do, unless you know exactly what you're doing,
+==22140== or are doing some strange experiment):
+==22140==   /usr/lib/valgrind/../../bin/vgdb --pid=22140 ...command...
+==22140== 
+==22140== TO DEBUG THIS PROCESS USING GDB: start GDB like this
+==22140==   /path/to/gdb ../syscall-sensor
+==22140== and then give GDB the following command
+==22140==   target remote | /usr/lib/valgrind/../../bin/vgdb --pid=22140
+==22140== --pid is optional if only one valgrind process is running
+==22140== 
+==22142== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-22142-by-root-on-???
+==22142== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-22142-by-root-on-???
+==22142== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-22142-by-root-on-???
+==22142== 
+==22142== TO CONTROL THIS PROCESS USING vgdb (which you probably
+==22142== don't want to do, unless you know exactly what you're doing,
+==22142== or are doing some strange experiment):
+==22142==   /usr/lib/valgrind/../../bin/vgdb --pid=22142 ...command...
+==22142== 
+==22142== TO DEBUG THIS PROCESS USING GDB: start GDB like this
+==22142==   /path/to/gdb ../syscall-sensor
+==22142== and then give GDB the following command
+==22142==   target remote | /usr/lib/valgrind/../../bin/vgdb --pid=22142
+==22142== --pid is optional if only one valgrind process is running
+==22142== 
+--22134-- REDIR: 0x5985e30 (libc.so.6:memchr) redirected to 0x4c32170 (memchr)
+==22134== 
+==22134== HEAP SUMMARY:
+==22134==     in use at exit: 72,704 bytes in 1 blocks
+==22134==   total heap usage: 8,180,418 allocs, 8,180,417 frees, 737,463,860 bytes allocated
+==22134== 
+==22134== Searching for pointers to 1 not-freed blocks
+==22134== Checked 134,192 bytes
+==22134== 
+==22134== 72,704 bytes in 1 blocks are still reachable in loss record 1 of 1
+==22134==    at 0x4C2DB8F: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==22134==    by 0x50E0EFF: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.21)
+==22134==    by 0x40104E9: call_init.part.0 (dl-init.c:72)
+==22134==    by 0x40105FA: call_init (dl-init.c:30)
+==22134==    by 0x40105FA: _dl_init (dl-init.c:120)
+==22134==    by 0x4000CF9: ??? (in /lib/x86_64-linux-gnu/ld-2.23.so)
+==22134==    by 0x1: ???
+==22134==    by 0xFFF00076A: ???
+==22134==    by 0xFFF00077C: ???
+==22134== 
+==22134== LEAK SUMMARY:
+==22134==    definitely lost: 0 bytes in 0 blocks
+==22134==    indirectly lost: 0 bytes in 0 blocks
+==22134==      possibly lost: 0 bytes in 0 blocks
+==22134==    still reachable: 72,704 bytes in 1 blocks
+==22134==         suppressed: 0 bytes in 0 blocks
+==22134== 
+==22134== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==22134== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)

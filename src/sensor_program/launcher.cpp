@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 27-06-2016
  *
- *  Last Modified : Tue 18 Oct 2016 05:05:16 PM EDT
+ *  Last Modified : Wed 19 Oct 2016 03:04:50 AM PDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -296,6 +296,8 @@ void start ( Command_Line_Parser parser ){
         Sensor_Manager manager( flags, out_file_name, separator, prog_name );
 
         manager.run_sensor( run_daemon );
+
+        std::cout << "From launcher, manager has finished run_sensor." << std::endl;
     }
 }
 

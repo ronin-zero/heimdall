@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 06-06-2016
  *
- *  Last Modified : Wed 19 Oct 2016 12:15:19 AM PDT
+ *  Last Modified : Wed 19 Oct 2016 02:43:49 AM PDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -44,7 +44,6 @@ void Syscall_Logger::update( Sensor_Data data ){
 
     if ( observing )
     {
-        std::cout << "SYSCALL LOGGER update called." << std::endl;
         data_queue.enqueue( data );
     }
 }
