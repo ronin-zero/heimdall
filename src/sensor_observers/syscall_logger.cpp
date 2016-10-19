@@ -3,13 +3,19 @@
  *  
  *  Creation Date : 06-06-2016
  *
- *  Last Modified : Tue 04 Oct 2016 10:23:43 PM EDT
+ *  Last Modified : Wed 19 Oct 2016 12:15:19 AM PDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
  */
 
 #include "syscall_logger.h"
+
+// Debug stuff
+#include <sys/types.h>
+#include <sys/syscall.h>
+#include <unistd.h>
+#define gettid() syscall(SYS_gettid)
 
 Syscall_Logger::Syscall_Logger(){
 
@@ -38,6 +44,7 @@ void Syscall_Logger::update( Sensor_Data data ){
 
     if ( observing )
     {
+        std::cout << "SYSCALL LOGGER update called." << std::endl;
         data_queue.enqueue( data );
     }
 }
@@ -118,6 +125,9 @@ void Syscall_Logger::remove_stream( Data_Stream * stream ){
 
 void Syscall_Logger::process(){
 
+    std::cout << "(THREAD " << gettid() << ") Syscall_Logger beginning \"process()\" thread..." << std::endl;
+
+
     while ( processing )
     {
         Sensor_Data data_point;
@@ -138,6 +148,8 @@ void Syscall_Logger::process(){
             send_data( syscall_record );
         }
     }
+
+    std::cout << "(THREAD " << gettid() << ") Syscall_Logger process() thread ending." << std::endl;
 }
 
 // CHECK: I'm a bit worried about passing a reference, here. So far, there is only a single observer,
@@ -146,7 +158,7 @@ void Syscall_Logger::send_data( Syscall_Record record ){
 
     for ( auto stream_it = streams.begin(); stream_it != streams.end(); ++stream_it ){
 
-        (*stream_it)->process_data( &record );
+        (*stream_it)->process_data( record );
     }
 }
 

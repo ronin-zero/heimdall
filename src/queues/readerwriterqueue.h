@@ -5,6 +5,10 @@
 #pragma once
 
 #include <iostream>
+#include <sys/types.h>
+#include <unistd.h>
+#include <sys/syscall.h>
+#define gettid() syscall(SYS_gettid)
 
 #include "atomicops.h"
 #include <type_traits>
@@ -141,6 +145,7 @@ public:
 	// being deleted. It's up to the user to synchronize this.
 	~ReaderWriterQueue()
 	{
+        std::cout << "(THREAD: " << gettid() << ") Calling readerwriterqueue destroctor." << std::endl;
 		// Make sure we get the latest version of all variables from other CPUs:
 		fence(memory_order_sync);
 
@@ -160,7 +165,7 @@ public:
 			
 			auto rawBlock = block->rawThis;
 			block->~Block();
-            std::cout << "Free memory at " << rawBlock << std::endl;
+            std::cout << "(THREAD: " << std::to_string( gettid() ) << ") Free memory at " << &rawBlock << std::endl;
 			std::free(rawBlock);
             block = nextBlock;
 		} while (block != frontBlock_);
@@ -622,7 +627,7 @@ private:
 			return nullptr;
 		}
 	    
-        std::cout << "Reserve memory size: " << size << " at " << newBlockRaw << std::endl;
+        std::cout << "(THREAD: " << std::to_string( gettid() ) << ") Reserve memory size: " << size << " at " << &newBlockRaw << std::endl;
 
 		auto newBlockAligned = align_for<Block>(newBlockRaw);
 		auto newBlockData = align_for<T>(newBlockAligned + sizeof(Block));

@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 31-05-2016
  *
- *  Last Modified : Wed 22 Jun 2016 01:34:57 PM EDT
+ *  Last Modified : Tue 18 Oct 2016 10:12:17 PM PDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -35,7 +35,7 @@ class Output_Stream : public Data_Stream{
 
         ~Output_Stream();
 
-        void process_data( Data_Record * record );
+        void process_data( Data_Record record );
 
         void set_flags( uint_fast8_t new_flags );
         uint_fast8_t get_flags();

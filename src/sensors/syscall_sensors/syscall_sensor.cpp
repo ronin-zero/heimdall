@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 09-05-2016
  *
- *  Last Modified : Tue 18 Oct 2016 07:24:34 PM EDT
+ *  Last Modified : Tue 18 Oct 2016 11:39:59 PM PDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -12,6 +12,10 @@
 #include <iostream>
 #include <sys/types.h>
 #include <sys/syscall.h>
+
+//Debugging stuff...
+#include <unistd.h>
+#define gettid() syscall(SYS_gettid)
 
 #include "syscall_readers/reader_factory.h"
 #include "syscall_sensor.h"
@@ -88,6 +92,8 @@ void Syscall_Sensor::sense(){
 
     reader->update_filter();
 
+    std::cout << "Sense thread (Thread id: " << gettid() << ") is starting." << std::endl;
+
     while ( is_sensing() )
     {
         Sensor_Data * tmp = sense_data();
@@ -102,11 +108,16 @@ void Syscall_Sensor::sense(){
     }
 
     status = reader->stop_reading();
+
+    std::cout << "Sense thread (Thread id: " << gettid() << ") is stopping." << std::endl;
+
 }
 
 void Syscall_Sensor::notify_observers(){
 
     reader->update_filter();
+
+    std::cout << "Notify thread (Thread id: " << gettid() << ") is starting." << std::endl;
 
     while ( is_sensing() )
     {
@@ -127,7 +138,9 @@ void Syscall_Sensor::notify_observers(){
 
             push_data( data_point );
         }
-    } 
+    }
+
+    std::cout << "Notify thread (Thread id: " << gettid() << ") is stopping." << std::endl;
 }
 
 // This method takes a Sensor_Data object and pushes it

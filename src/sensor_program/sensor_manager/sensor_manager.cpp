@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 08-07-2016
  *
- *  Last Modified : Tue 18 Oct 2016 06:39:32 PM EDT
+ *  Last Modified : Tue 18 Oct 2016 08:43:16 PM PDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -100,6 +100,7 @@ void Sensor_Manager::handle_pipe(){
         running = ( input != "STOP" );
 
         close (fd);
-        free (buf);
     }
+
+    delete[] buf;
 }
