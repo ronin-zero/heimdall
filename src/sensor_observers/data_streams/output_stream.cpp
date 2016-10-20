@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 06-06-2016
  *
- *  Last Modified : Wed 19 Oct 2016 12:15:15 AM PDT
+ *  Last Modified : Wed 19 Oct 2016 12:55:13 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -65,12 +65,12 @@ Output_Stream::~Output_Stream(){
 // CHECK: I think this might be a problem.  I'm not sure why this is a pointer.
 // I'm going to try to pass it by value...
 
-void Output_Stream::process_data ( Data_Record record ){
+void Output_Stream::process_data ( Data_Record* record ){
 
-    record.set_flags( flags );
-    record.set_separator( separator );
+    record->set_flags( flags );
+    record->set_separator( separator );
 
-    *out << record << std::endl;
+    *out << *record << std::endl;
 }
 
 void Output_Stream::set_flags( uint_fast8_t new_flags ){

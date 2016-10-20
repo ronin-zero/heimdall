@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 09-05-2016
  *
- *  Last Modified : Wed 19 Oct 2016 03:22:45 AM PDT
+ *  Last Modified : Wed 19 Oct 2016 12:18:16 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -100,8 +100,18 @@ void Syscall_Sensor::sense(){
 
         if ( tmp != NULL )
         {
+            // CHECK: I have an idea.
+            // I think that "data_point" keeps getting recreated on the stack.
+            // It only goes out of scope when the while loop ends maybe?
+            // So let's just... comment this out and then try to just pass
+            // "*tmp" into "enqueue."  Who knows?
+
+            /*
             Sensor_Data data_point( *tmp );
             data_queue.enqueue( data_point );
+            */
+
+            data_queue.enqueue( *tmp );
         }
 
         delete ( tmp );

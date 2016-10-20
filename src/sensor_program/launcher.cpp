@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 27-06-2016
  *
- *  Last Modified : Wed 19 Oct 2016 03:04:50 AM PDT
+ *  Last Modified : Wed 19 Oct 2016 11:15:11 AM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -28,9 +28,9 @@ const std::string pipe_name = "/var/run/sensor.pipe";
 std::string flag_string( uint_fast8_t flags );
 //std::string get_program_name( char* arg );
 
-void start( Command_Line_Parser parser );
-void stop( Command_Line_Parser parser );
-void status( Command_Line_Parser parser );
+void start( Command_Line_Parser & parser );
+void stop( Command_Line_Parser & parser );
+void status( Command_Line_Parser & parser );
 bool is_running( std::string program_name );
 
 
@@ -172,7 +172,7 @@ std::string get_program_name( char* arg ){
     }
 }
 
-void start ( Command_Line_Parser parser ){
+void start ( Command_Line_Parser & parser ){
 
     std::string prog_name = parser.get_program_name();
 
@@ -301,7 +301,7 @@ void start ( Command_Line_Parser parser ){
     }
 }
 
-void status ( Command_Line_Parser parser ){
+void status ( Command_Line_Parser & parser ){
 
     if ( is_running( parser.get_program_name() ) )
     {
@@ -313,7 +313,7 @@ void status ( Command_Line_Parser parser ){
     }
 }
 
-void stop ( Command_Line_Parser parser ){
+void stop ( Command_Line_Parser & parser ){
 
     if ( !is_running( parser.get_program_name() ) )
     {

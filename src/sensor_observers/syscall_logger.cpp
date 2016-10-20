@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 06-06-2016
  *
- *  Last Modified : Wed 19 Oct 2016 02:43:49 AM PDT
+ *  Last Modified : Wed 19 Oct 2016 08:19:25 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -157,7 +157,7 @@ void Syscall_Logger::send_data( Syscall_Record record ){
 
     for ( auto stream_it = streams.begin(); stream_it != streams.end(); ++stream_it ){
 
-        (*stream_it)->process_data( record );
+        (*stream_it)->process_data( &record );
     }
 }
 

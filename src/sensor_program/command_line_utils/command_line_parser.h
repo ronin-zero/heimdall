@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 27-06-2016
  *
- *  Last Modified : Mon 11 Jul 2016 03:49:07 PM EDT
+ *  Last Modified : Wed 19 Oct 2016 12:55:21 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -27,7 +27,7 @@ class Command_Line_Parser{
     public:
 
         Command_Line_Parser( int argc, char** argv );
-        ~Command_Line_Parser() {}
+        ~Command_Line_Parser() {};
 
         bool contains_arg( std::string arg );
         bool contains_option( std::string opt );

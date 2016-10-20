@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 08-07-2016
  *
- *  Last Modified : Wed 19 Oct 2016 03:04:47 AM PDT
+ *  Last Modified : Wed 19 Oct 2016 12:33:10 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -23,13 +23,16 @@ Sensor_Manager::Sensor_Manager( uint_fast8_t sensor_flags, std::string file_name
 
     logger->add_stream( s_out );
     sensor->attach_observer( logger );
+
+    std::cout << "The code forces me to use these variables because I'm overly pedantic.  It's from -Werror=unused-parameter. ";
+    std::cout << "So anyway here they are: " << sensor_flags << " " << file_name << " " << separator << std::endl;
 }
 
 Sensor_Manager::~Sensor_Manager(){
 
     std::cout << "Sensor_Manager destructor called!" << std::endl;
 
-    delete ( sensor );
+    delete ( sensor ); 
     delete ( logger );
     delete ( s_out );
 }
