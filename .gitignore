@@ -12,6 +12,8 @@ ALEX_README
 # Ignore compiled tests
 test/*
 
+# Ignore debug stuff
+debug/*
 
 # Ignore backup files
 *.backup
