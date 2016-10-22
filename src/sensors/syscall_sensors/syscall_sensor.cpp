@@ -1,9 +1,9 @@
 /*
- *  File Name : syscall_sensor.cpp
+ * File Name : syscall_sensor.cpp
  *  
  *  Creation Date : 09-05-2016
  *
- *  Last Modified : Wed 19 Oct 2016 12:18:16 PM EDT
+ *  Last Modified : Sat 22 Oct 2016 10:14:47 AM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -12,10 +12,6 @@
 #include <iostream>
 #include <sys/types.h>
 #include <sys/syscall.h>
-
-//Debugging stuff...
-#include <unistd.h>
-#define gettid() syscall(SYS_gettid)
 
 #include "syscall_readers/reader_factory.h"
 #include "syscall_sensor.h"
@@ -92,8 +88,6 @@ void Syscall_Sensor::sense(){
 
     reader->update_filter();
 
-    std::cout << "Sense thread (Thread id: " << gettid() << ") is starting." << std::endl;
-
     while ( is_sensing() )
     {
         Sensor_Data * tmp = sense_data();
@@ -119,15 +113,11 @@ void Syscall_Sensor::sense(){
 
     status = reader->stop_reading();
 
-    std::cout << "Sense thread (Thread id: " << gettid() << ") is stopping." << std::endl;
-
 }
 
 void Syscall_Sensor::notify_observers(){
 
     reader->update_filter();
-
-    std::cout << "Notify thread (Thread id: " << gettid() << ") is starting." << std::endl;
 
     while ( is_sensing() )
     {
@@ -149,8 +139,6 @@ void Syscall_Sensor::notify_observers(){
             push_data( data_point );
         }
     }
-
-    std::cout << "Notify thread (Thread id: " << gettid() << ") is stopping." << std::endl;
 }
 
 // This method takes a Sensor_Data object and pushes it
@@ -175,16 +163,12 @@ void Syscall_Sensor::push_data( Sensor_Data data ){
 
 void Syscall_Sensor::process_remaining_queue(){
 
-    std::cout << "(THREAD " << gettid() << ") Syscall Sensor is processing the remaining queue..." << std::endl;
-
     Sensor_Data data_point;
 
     while ( data_queue.try_dequeue( data_point ) )
     {
         push_data( data_point );
     }
-
-    std::cout << "(THREAD " << gettid() << ") Syscall Sensor is done processing the remaining queue." << std::endl;
 
 }
 

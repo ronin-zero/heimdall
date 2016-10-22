@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 06-06-2016
  *
- *  Last Modified : Wed 19 Oct 2016 08:19:25 PM EDT
+ *  Last Modified : Sat 22 Oct 2016 10:21:30 AM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -124,8 +124,6 @@ void Syscall_Logger::remove_stream( Data_Stream * stream ){
 
 void Syscall_Logger::process(){
 
-    std::cout << "(THREAD " << gettid() << ") Syscall_Logger beginning \"process()\" thread..." << std::endl;
-
 
     while ( processing )
     {
@@ -147,8 +145,6 @@ void Syscall_Logger::process(){
             send_data( syscall_record );
         }
     }
-
-    std::cout << "(THREAD " << gettid() << ") Syscall_Logger process() thread ending." << std::endl;
 }
 
 // CHECK: I'm a bit worried about passing a reference, here. So far, there is only a single observer,

@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 06-06-2016
  *
- *  Last Modified : Wed 19 Oct 2016 12:55:13 PM EDT
+ *  Last Modified : Sat 22 Oct 2016 10:22:27 AM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -51,15 +51,10 @@ Output_Stream::Output_Stream( string file_name, uint_fast8_t out_flags, string s
 
 Output_Stream::~Output_Stream(){
 
-    std::cout << "(THREAD: " << gettid() << ") Calling destructor on Output_Stream...";
-
     if ( needs_delete )
     {
-        std::cout << " and calling delete on \"out.\""; 
         delete ( out );
     }
-
-    std::cout << std::endl;
 }
 
 // CHECK: I think this might be a problem.  I'm not sure why this is a pointer.
