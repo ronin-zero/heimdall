@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 09-05-2016
  *
- *  Last Modified : Sat 22 Oct 2016 10:14:47 AM EDT
+ *  Last Modified : Tue 25 Oct 2016 03:28:49 AM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -88,8 +88,19 @@ void Syscall_Sensor::sense(){
 
     reader->update_filter();
 
+    string os_buf;
+    string data_label_buf;
+    string data_buf;
+    
     while ( is_sensing() )
     {
+        if ( reader->read_syscall_data( os_buf, data_label_buf, data_buf ) )
+        {
+            Sensor_Data * tmp = new Sensor_Data ( os_buf, data_label_buf, data_buf, "" );
+            data_queue.enqueue( *tmp );
+            delete tmp;
+        }
+        /*
         Sensor_Data * tmp = sense_data();
 
         if ( tmp != NULL )
@@ -100,19 +111,17 @@ void Syscall_Sensor::sense(){
             // So let's just... comment this out and then try to just pass
             // "*tmp" into "enqueue."  Who knows?
 
-            /*
-            Sensor_Data data_point( *tmp );
-            data_queue.enqueue( data_point );
-            */
+            //Sensor_Data data_point( *tmp );
+            //data_queue.enqueue( data_point );
 
             data_queue.enqueue( *tmp );
         }
 
         delete ( tmp );
+        */
     }
 
     status = reader->stop_reading();
-
 }
 
 void Syscall_Sensor::notify_observers(){
@@ -169,7 +178,6 @@ void Syscall_Sensor::process_remaining_queue(){
     {
         push_data( data_point );
     }
-
 }
 
 uint_fast8_t Syscall_Sensor::set_sensing( bool on ){

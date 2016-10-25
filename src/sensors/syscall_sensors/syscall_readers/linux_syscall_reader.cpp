@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 09-05-2016
  *
- *  Last Modified : Tue 05 Jul 2016 09:25:07 PM EDT
+ *  Last Modified : Tue 25 Oct 2016 03:27:37 AM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -193,6 +193,37 @@ Sensor_Data * Linux_Syscall_Reader::read_syscall(){
 
     return data; 
 }
+
+// This function seems inelegant. 
+// Consider refactoring.
+
+bool Linux_Syscall_Reader::read_syscall_data( string & os_label, string & data_label, string & data ){
+
+    string tmp = "";
+
+    if ( is_reading() && trace_pipe_stream.is_open() && !trace_pipe_stream.eof() )
+    {
+        getline( trace_pipe_stream, tmp );
+
+        if ( tmp.length() > MIN_LENGTH )
+        {
+            os_label = os;
+            data_label = data_type;
+            data = tmp;
+
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    else
+    {
+        return false;
+    }
+}
+
 
 uint_fast8_t Linux_Syscall_Reader::configure( uint_fast8_t flags ){
 

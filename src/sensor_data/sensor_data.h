@@ -11,14 +11,6 @@
 #include <cstdint>
 #include <string>
 
-#include <sys/types.h>
-#include <sys/syscall.h>
-
-//Debugging stuff...
-#include <iostream>
-#include <unistd.h>
-#define gettid() syscall(SYS_gettid)
-
 using std::string;
 
 class Sensor_Data{
@@ -47,7 +39,7 @@ class Sensor_Data{
          *  Destructor
          */
 
-        ~Sensor_Data() { std::cout << "Sensor_Data destructor called (THREAD " << gettid() << ")" << std::endl; }
+        ~Sensor_Data() {}
 
         /*
          * Accessors/Inspectors

@@ -44,6 +44,7 @@ class Syscall_Reader{
         virtual bool is_reading() = 0;
 
         virtual Sensor_Data * read_syscall() = 0;
+        virtual bool read_syscall_data( string & os_label, string & data_label, string & data ) = 0;
 
         virtual uint_fast8_t configure( uint_fast8_t flags ) = 0;
 

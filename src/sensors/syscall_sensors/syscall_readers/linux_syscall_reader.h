@@ -62,7 +62,12 @@ class Linux_Syscall_Reader:public Syscall_Reader{
 
         Sensor_Data * read_syscall();
 
-        
+        // This is a new idea I have... maybe a syscall reader
+        // should populate references to the necessary data if there
+        // is some and also return true, but return false and
+        // leave them empty otherwise.
+
+        bool read_syscall_data( string & os_label, string & data_label, string & data );
 
     protected:
 

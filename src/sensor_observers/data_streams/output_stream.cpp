@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 06-06-2016
  *
- *  Last Modified : Sat 22 Oct 2016 10:22:27 AM EDT
+ *  Last Modified : Sat 22 Oct 2016 07:13:43 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -57,8 +57,10 @@ Output_Stream::~Output_Stream(){
     }
 }
 
-// CHECK: I think this might be a problem.  I'm not sure why this is a pointer.
-// I'm going to try to pass it by value...
+// This function takes a pointer to a Data_Record so that
+// applying the << operator (which calls print) will allow
+// derived types of Data_Record to use their own appropriate
+// extensions to this operator.
 
 void Output_Stream::process_data ( Data_Record* record ){
 

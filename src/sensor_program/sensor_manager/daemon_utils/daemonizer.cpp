@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 24-06-2016
  *
- *  Last Modified : Tue 18 Oct 2016 06:42:08 PM EDT
+ *  Last Modified : Sat 22 Oct 2016 06:45:33 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -70,9 +70,9 @@ void Daemonizer::launch_daemon( const std::string daemon_name, const std::string
      * I need to do this.
      */
     
-//    close( STDIN_FILENO );
-//    close( STDOUT_FILENO );
-//    close( STDERR_FILENO ); 
+    close( STDIN_FILENO );
+    close( STDOUT_FILENO );
+    close( STDERR_FILENO ); 
 }
 
 void Daemonizer::write_log( const std::string file_name, const std::string contents ){
