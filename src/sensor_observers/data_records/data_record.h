@@ -16,7 +16,7 @@ class Data_Record{
 
     public:
 
-        Data_Record( Sensor_Data data, uint_fast8_t setting_flags=ALL, string sep="," );
+        Data_Record( const Sensor_Data& data, uint_fast8_t setting_flags=ALL, string sep="," );
         virtual ~Data_Record() {}
 
         string raw_string() const;
@@ -33,7 +33,7 @@ class Data_Record{
         // 
         // Below is the "friend" declaration of the << operator.  I think this should be OK.
 
-        friend ostream& operator<<( ostream& s_out, Data_Record const& record );
+        friend ostream& operator<<( ostream& s_out, const Data_Record& record );
 
     protected:
         

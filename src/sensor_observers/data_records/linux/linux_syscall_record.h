@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 26-05-2016
  *
- *  Last Modified : Wed 22 Jun 2016 01:24:15 PM EDT
+ *  Last Modified : Sat 29 Oct 2016 06:05:45 AM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -86,7 +86,7 @@ class Linux_Syscall_Record : public Data_Record{
 
     public:
         
-        Linux_Syscall_Record( Sensor_Data data, uint_fast8_t settings_flags=ALL, string sep="," );
+        Linux_Syscall_Record( const Sensor_Data& data, uint_fast8_t settings_flags=ALL, string sep="," );
         ~Linux_Syscall_Record() {}
 
         //string raw_string() const;

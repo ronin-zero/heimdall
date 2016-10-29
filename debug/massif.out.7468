@@ -1,0 +1,779 @@
+desc: --time-unit=ms
+cmd: ../syscall-sensor start
+time_unit: ms
+#-----------
+snapshot=0
+#-----------
+time=0
+mem_heap_B=0
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=1
+#-----------
+time=267
+mem_heap_B=72704
+mem_heap_extra_B=8
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=2
+#-----------
+time=286
+mem_heap_B=72928
+mem_heap_extra_B=16
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=3
+#-----------
+time=289
+mem_heap_B=72949
+mem_heap_extra_B=35
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=4
+#-----------
+time=290
+mem_heap_B=73048
+mem_heap_extra_B=88
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=5
+#-----------
+time=291
+mem_heap_B=73232
+mem_heap_extra_B=112
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=6
+#-----------
+time=292
+mem_heap_B=74396
+mem_heap_extra_B=156
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=7
+#-----------
+time=293
+mem_heap_B=74574
+mem_heap_extra_B=218
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=8
+#-----------
+time=294
+mem_heap_B=74757
+mem_heap_extra_B=235
+mem_stacks_B=0
+heap_tree=detailed
+n3: 74757 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 72704 0x50D7EFE: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.21)
+  n1: 72704 0x40104E8: call_init.part.0 (dl-init.c:72)
+   n1: 72704 0x40105F9: _dl_init (dl-init.c:30)
+    n1: 72704 0x4000CF8: ??? (in /lib/x86_64-linux-gnu/ld-2.23.so)
+     n1: 72704 0x0: ???
+      n1: 72704 0xFFF00076D: ???
+       n0: 72704 0xFFF00077F: ???
+ n1: 1040 0x59291DE: __new_exitfn (cxa_atexit.c:101)
+  n1: 1040 0x5929287: __cxa_atexit (cxa_atexit.c:35)
+   n1: 1040 0x440358: __static_initialization_and_destruction_0(int, int) (linux_syscall_reader.h:12)
+    n1: 1040 0x440933: _GLOBAL__sub_I__ZN14Reader_FactoryC2Eh (reader_factory.cpp:29)
+     n1: 1040 0x44A28B: __libc_csu_init (in /home/alex/drexel/research/heimdall/syscall-sensor)
+      n0: 1040 0x590F7BD: (below main) (libc-start.c:247)
+ n0: 1013 in 4 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=9
+#-----------
+time=296
+mem_heap_B=75045
+mem_heap_extra_B=243
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=10
+#-----------
+time=297
+mem_heap_B=75255
+mem_heap_extra_B=281
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=11
+#-----------
+time=298
+mem_heap_B=75237
+mem_heap_extra_B=259
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=12
+#-----------
+time=299
+mem_heap_B=75269
+mem_heap_extra_B=267
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=13
+#-----------
+time=303
+mem_heap_B=75300
+mem_heap_extra_B=276
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=14
+#-----------
+time=304
+mem_heap_B=75852
+mem_heap_extra_B=292
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=15
+#-----------
+time=307
+mem_heap_B=75300
+mem_heap_extra_B=276
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=16
+#-----------
+time=307
+mem_heap_B=75269
+mem_heap_extra_B=267
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=17
+#-----------
+time=309
+mem_heap_B=75493
+mem_heap_extra_B=275
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=18
+#-----------
+time=311
+mem_heap_B=75269
+mem_heap_extra_B=267
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=19
+#-----------
+time=312
+mem_heap_B=76293
+mem_heap_extra_B=275
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=20
+#-----------
+time=317
+mem_heap_B=76324
+mem_heap_extra_B=284
+mem_stacks_B=0
+heap_tree=detailed
+n4: 76324 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 72704 0x50D7EFE: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.21)
+  n1: 72704 0x40104E8: call_init.part.0 (dl-init.c:72)
+   n1: 72704 0x40105F9: _dl_init (dl-init.c:30)
+    n1: 72704 0x4000CF8: ??? (in /lib/x86_64-linux-gnu/ld-2.23.so)
+     n1: 72704 0x0: ???
+      n1: 72704 0xFFF00076D: ???
+       n0: 72704 0xFFF00077F: ???
+ n0: 1556 in 5 places, all below massif's threshold (1.00%)
+ n1: 1040 0x59291DE: __new_exitfn (cxa_atexit.c:101)
+  n1: 1040 0x5929287: __cxa_atexit (cxa_atexit.c:35)
+   n1: 1040 0x440358: __static_initialization_and_destruction_0(int, int) (linux_syscall_reader.h:12)
+    n1: 1040 0x440933: _GLOBAL__sub_I__ZN14Reader_FactoryC2Eh (reader_factory.cpp:29)
+     n1: 1040 0x44A28B: __libc_csu_init (in /home/alex/drexel/research/heimdall/syscall-sensor)
+      n0: 1040 0x590F7BD: (below main) (libc-start.c:247)
+ n1: 1024 0x595C183: _IO_file_doallocate (filedoalloc.c:127)
+  n1: 1024 0x596A4C2: _IO_doallocbuf (genops.c:398)
+   n1: 1024 0x5969826: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:820)
+    n1: 1024 0x59681BB: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1331)
+     n1: 1024 0x595D6F9: fwrite (iofwrite.c:39)
+      n1: 1024 0x515CEC4: std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.21)
+       n1: 1024 0x515D235: std::basic_ostream<char, std::char_traits<char> >& std::operator<< <std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.21)
+        n1: 1024 0x43C35A: start(Command_Line_Parser&) (launcher.cpp:283)
+         n0: 1024 0x43B0D8: main (launcher.cpp:49)
+#-----------
+snapshot=21
+#-----------
+time=317
+mem_heap_B=76354
+mem_heap_extra_B=286
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=22
+#-----------
+time=319
+mem_heap_B=76293
+mem_heap_extra_B=275
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=23
+#-----------
+time=319
+mem_heap_B=76477
+mem_heap_extra_B=291
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=24
+#-----------
+time=321
+mem_heap_B=78699
+mem_heap_extra_B=301
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=25
+#-----------
+time=329
+mem_heap_B=79355
+mem_heap_extra_B=309
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=26
+#-----------
+time=330
+mem_heap_B=79544
+mem_heap_extra_B=336
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=27
+#-----------
+time=331
+mem_heap_B=80149
+mem_heap_extra_B=371
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=28
+#-----------
+time=332
+mem_heap_B=88341
+mem_heap_extra_B=379
+mem_stacks_B=0
+heap_tree=detailed
+n6: 88341 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 72704 0x50D7EFE: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.21)
+  n1: 72704 0x40104E8: call_init.part.0 (dl-init.c:72)
+   n1: 72704 0x40105F9: _dl_init (dl-init.c:30)
+    n1: 72704 0x4000CF8: ??? (in /lib/x86_64-linux-gnu/ld-2.23.so)
+     n1: 72704 0x0: ???
+      n1: 72704 0xFFF00076D: ???
+       n0: 72704 0xFFF00077F: ???
+ n1: 8192 0x513A466: std::basic_filebuf<char, std::char_traits<char> >::_M_allocate_internal_buffer() (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.21)
+  n1: 8192 0x513E6B0: std::basic_filebuf<char, std::char_traits<char> >::open(char const*, std::_Ios_Openmode) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.21)
+   n1: 8192 0x513F2A6: std::basic_ofstream<char, std::char_traits<char> >::basic_ofstream(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::_Ios_Openmode) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.21)
+    n1: 8192 0x43F329: Linux_Syscall_Reader::clear_file(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) (linux_syscall_reader.cpp:280)
+     n1: 8192 0x43EE07: Linux_Syscall_Reader::Linux_Syscall_Reader(unsigned char) (linux_syscall_reader.cpp:223)
+      n1: 8192 0x43DAFB: Linux_Syscall_Reader::get_instance() (linux_syscall_reader.cpp:22)
+       n1: 8192 0x43DB38: Linux_Syscall_Reader::get_instance(unsigned char) (linux_syscall_reader.cpp:30)
+        n1: 8192 0x44020B: Reader_Factory::create_reader() (reader_factory.cpp:27)
+         n1: 8192 0x4415DF: Syscall_Sensor::Syscall_Sensor(unsigned char) (syscall_sensor.cpp:282)
+          n1: 8192 0x440A6B: Syscall_Sensor::get_instance() (syscall_sensor.cpp:40)
+           n1: 8192 0x4390E6: Sensor_Manager::Sensor_Manager(unsigned char, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) (sensor_manager.cpp:16)
+            n1: 8192 0x43C4DC: start(Command_Line_Parser&) (launcher.cpp:296)
+             n0: 8192 0x43B0D8: main (launcher.cpp:49)
+ n0: 3159 in 7 places, all below massif's threshold (1.00%)
+ n1: 2222 0x443366: moodycamel::ReaderWriterQueue<Sensor_Data, 512ul>::make_block(unsigned long) (readerwriterqueue.h:625)
+  n1: 2222 0x44291C: moodycamel::ReaderWriterQueue<Sensor_Data, 512ul>::ReaderWriterQueue(unsigned long) (readerwriterqueue.h:127)
+   n1: 2222 0x442598: Sensor::Sensor() (sensor.h:29)
+    n1: 2222 0x4415B5: Syscall_Sensor::Syscall_Sensor(unsigned char) (syscall_sensor.cpp:278)
+     n1: 2222 0x440A6B: Syscall_Sensor::get_instance() (syscall_sensor.cpp:40)
+      n1: 2222 0x4390E6: Sensor_Manager::Sensor_Manager(unsigned char, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) (sensor_manager.cpp:16)
+       n1: 2222 0x43C4DC: start(Command_Line_Parser&) (launcher.cpp:296)
+        n0: 2222 0x43B0D8: main (launcher.cpp:49)
+ n1: 1040 0x59291DE: __new_exitfn (cxa_atexit.c:101)
+  n1: 1040 0x5929287: __cxa_atexit (cxa_atexit.c:35)
+   n1: 1040 0x440358: __static_initialization_and_destruction_0(int, int) (linux_syscall_reader.h:12)
+    n1: 1040 0x440933: _GLOBAL__sub_I__ZN14Reader_FactoryC2Eh (reader_factory.cpp:29)
+     n1: 1040 0x44A28B: __libc_csu_init (in /home/alex/drexel/research/heimdall/syscall-sensor)
+      n0: 1040 0x590F7BD: (below main) (libc-start.c:247)
+ n1: 1024 0x595C183: _IO_file_doallocate (filedoalloc.c:127)
+  n1: 1024 0x596A4C2: _IO_doallocbuf (genops.c:398)
+   n1: 1024 0x5969826: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:820)
+    n1: 1024 0x59681BB: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1331)
+     n1: 1024 0x595D6F9: fwrite (iofwrite.c:39)
+      n1: 1024 0x515CEC4: std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.21)
+       n1: 1024 0x515D235: std::basic_ostream<char, std::char_traits<char> >& std::operator<< <std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.21)
+        n1: 1024 0x43C35A: start(Command_Line_Parser&) (launcher.cpp:283)
+         n0: 1024 0x43B0D8: main (launcher.cpp:49)
+#-----------
+snapshot=29
+#-----------
+time=333
+mem_heap_B=79597
+mem_heap_extra_B=355
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=30
+#-----------
+time=334
+mem_heap_B=79544
+mem_heap_extra_B=336
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=31
+#-----------
+time=335
+mem_heap_B=79831
+mem_heap_extra_B=353
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=32
+#-----------
+time=340
+mem_heap_B=83927
+mem_heap_extra_B=361
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=33
+#-----------
+time=351
+mem_heap_B=83958
+mem_heap_extra_B=370
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=34
+#-----------
+time=355
+mem_heap_B=79862
+mem_heap_extra_B=362
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=35
+#-----------
+time=356
+mem_heap_B=88483
+mem_heap_extra_B=429
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=36
+#-----------
+time=358
+mem_heap_B=80291
+mem_heap_extra_B=421
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=37
+#-----------
+time=359
+mem_heap_B=79544
+mem_heap_extra_B=336
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=38
+#-----------
+time=360
+mem_heap_B=88456
+mem_heap_extra_B=384
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=39
+#-----------
+time=362
+mem_heap_B=80264
+mem_heap_extra_B=376
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=40
+#-----------
+time=363
+mem_heap_B=79831
+mem_heap_extra_B=353
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=41
+#-----------
+time=365
+mem_heap_B=83927
+mem_heap_extra_B=361
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=42
+#-----------
+time=369
+mem_heap_B=83958
+mem_heap_extra_B=370
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=43
+#-----------
+time=370
+mem_heap_B=79862
+mem_heap_extra_B=362
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=44
+#-----------
+time=370
+mem_heap_B=79544
+mem_heap_extra_B=336
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=45
+#-----------
+time=371
+mem_heap_B=79712
+mem_heap_extra_B=352
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=46
+#-----------
+time=371
+mem_heap_B=81934
+mem_heap_extra_B=362
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=47
+#-----------
+time=372
+mem_heap_B=81998
+mem_heap_extra_B=370
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=48
+#-----------
+time=372
+mem_heap_B=83062
+mem_heap_extra_B=394
+mem_stacks_B=0
+heap_tree=detailed
+n5: 83062 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 72704 0x50D7EFE: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.21)
+  n1: 72704 0x40104E8: call_init.part.0 (dl-init.c:72)
+   n1: 72704 0x40105F9: _dl_init (dl-init.c:30)
+    n1: 72704 0x4000CF8: ??? (in /lib/x86_64-linux-gnu/ld-2.23.so)
+     n1: 72704 0x0: ???
+      n1: 72704 0xFFF00076D: ???
+       n0: 72704 0xFFF00077F: ???
+ n1: 4444 0x443366: moodycamel::ReaderWriterQueue<Sensor_Data, 512ul>::make_block(unsigned long) (readerwriterqueue.h:625)
+  n2: 4444 0x44291C: moodycamel::ReaderWriterQueue<Sensor_Data, 512ul>::ReaderWriterQueue(unsigned long) (readerwriterqueue.h:127)
+   n1: 2222 0x442598: Sensor::Sensor() (sensor.h:29)
+    n1: 2222 0x4415B5: Syscall_Sensor::Syscall_Sensor(unsigned char) (syscall_sensor.cpp:278)
+     n1: 2222 0x440A6B: Syscall_Sensor::get_instance() (syscall_sensor.cpp:40)
+      n1: 2222 0x4390E6: Sensor_Manager::Sensor_Manager(unsigned char, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) (sensor_manager.cpp:16)
+       n1: 2222 0x43C4DC: start(Command_Line_Parser&) (launcher.cpp:296)
+        n0: 2222 0x43B0D8: main (launcher.cpp:49)
+   n1: 2222 0x44711D: Sensor_Observer::Sensor_Observer() (sensor_observer.h:19)
+    n1: 2222 0x4468C2: Syscall_Logger::Syscall_Logger() (syscall_logger.cpp:20)
+     n1: 2222 0x43911F: Sensor_Manager::Sensor_Manager(unsigned char, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) (sensor_manager.cpp:20)
+      n1: 2222 0x43C4DC: start(Command_Line_Parser&) (launcher.cpp:296)
+       n0: 2222 0x43B0D8: main (launcher.cpp:49)
+ n0: 3850 in 12 places, all below massif's threshold (1.00%)
+ n1: 1040 0x59291DE: __new_exitfn (cxa_atexit.c:101)
+  n1: 1040 0x5929287: __cxa_atexit (cxa_atexit.c:35)
+   n1: 1040 0x440358: __static_initialization_and_destruction_0(int, int) (linux_syscall_reader.h:12)
+    n1: 1040 0x440933: _GLOBAL__sub_I__ZN14Reader_FactoryC2Eh (reader_factory.cpp:29)
+     n1: 1040 0x44A28B: __libc_csu_init (in /home/alex/drexel/research/heimdall/syscall-sensor)
+      n0: 1040 0x590F7BD: (below main) (libc-start.c:247)
+ n1: 1024 0x595C183: _IO_file_doallocate (filedoalloc.c:127)
+  n2: 1024 0x596A4C2: _IO_doallocbuf (genops.c:398)
+   n1: 1024 0x5969826: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:820)
+    n1: 1024 0x59681BB: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1331)
+     n1: 1024 0x595D6F9: fwrite (iofwrite.c:39)
+      n1: 1024 0x515CEC4: std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.21)
+       n1: 1024 0x515D235: std::basic_ostream<char, std::char_traits<char> >& std::operator<< <std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.21)
+        n1: 1024 0x43C35A: start(Command_Line_Parser&) (launcher.cpp:283)
+         n0: 1024 0x43B0D8: main (launcher.cpp:49)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+#-----------
+snapshot=49
+#-----------
+time=376
+mem_heap_B=91254
+mem_heap_extra_B=402
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=50
+#-----------
+time=378
+mem_heap_B=91270
+mem_heap_extra_B=410
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=51
+#-----------
+time=380
+mem_heap_B=91286
+mem_heap_extra_B=418
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=52
+#-----------
+time=388
+mem_heap_B=91302
+mem_heap_extra_B=426
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=53
+#-----------
+time=400
+mem_heap_B=91318
+mem_heap_extra_B=434
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=54
+#-----------
+time=413
+mem_heap_B=91318
+mem_heap_extra_B=434
+mem_stacks_B=0
+heap_tree=peak
+n6: 91318 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 72704 0x50D7EFE: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.21)
+  n1: 72704 0x40104E8: call_init.part.0 (dl-init.c:72)
+   n1: 72704 0x40105F9: _dl_init (dl-init.c:30)
+    n1: 72704 0x4000CF8: ??? (in /lib/x86_64-linux-gnu/ld-2.23.so)
+     n1: 72704 0x0: ???
+      n1: 72704 0xFFF00076D: ???
+       n0: 72704 0xFFF00077F: ???
+ n1: 8192 0x513A466: std::basic_filebuf<char, std::char_traits<char> >::_M_allocate_internal_buffer() (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.21)
+  n1: 8192 0x513E6B0: std::basic_filebuf<char, std::char_traits<char> >::open(char const*, std::_Ios_Openmode) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.21)
+   n2: 8192 0x513F2A6: std::basic_ofstream<char, std::char_traits<char> >::basic_ofstream(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::_Ios_Openmode) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.21)
+    n1: 8192 0x44647B: Output_Stream::Output_Stream(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, unsigned char, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) (output_stream.cpp:45)
+     n1: 8192 0x43917C: Sensor_Manager::Sensor_Manager(unsigned char, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) (sensor_manager.cpp:22)
+      n1: 8192 0x43C4DC: start(Command_Line_Parser&) (launcher.cpp:296)
+       n0: 8192 0x43B0D8: main (launcher.cpp:49)
+    n0: 0 in 2 places, all below massif's threshold (1.00%)
+ n1: 4444 0x443366: moodycamel::ReaderWriterQueue<Sensor_Data, 512ul>::make_block(unsigned long) (readerwriterqueue.h:625)
+  n2: 4444 0x44291C: moodycamel::ReaderWriterQueue<Sensor_Data, 512ul>::ReaderWriterQueue(unsigned long) (readerwriterqueue.h:127)
+   n1: 2222 0x442598: Sensor::Sensor() (sensor.h:29)
+    n1: 2222 0x4415B5: Syscall_Sensor::Syscall_Sensor(unsigned char) (syscall_sensor.cpp:278)
+     n1: 2222 0x440A6B: Syscall_Sensor::get_instance() (syscall_sensor.cpp:40)
+      n1: 2222 0x4390E6: Sensor_Manager::Sensor_Manager(unsigned char, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) (sensor_manager.cpp:16)
+       n1: 2222 0x43C4DC: start(Command_Line_Parser&) (launcher.cpp:296)
+        n0: 2222 0x43B0D8: main (launcher.cpp:49)
+   n1: 2222 0x44711D: Sensor_Observer::Sensor_Observer() (sensor_observer.h:19)
+    n1: 2222 0x4468C2: Syscall_Logger::Syscall_Logger() (syscall_logger.cpp:20)
+     n1: 2222 0x43911F: Sensor_Manager::Sensor_Manager(unsigned char, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) (sensor_manager.cpp:20)
+      n1: 2222 0x43C4DC: start(Command_Line_Parser&) (launcher.cpp:296)
+       n0: 2222 0x43B0D8: main (launcher.cpp:49)
+ n0: 3914 in 14 places, all below massif's threshold (1.00%)
+ n1: 1040 0x59291DE: __new_exitfn (cxa_atexit.c:101)
+  n1: 1040 0x5929287: __cxa_atexit (cxa_atexit.c:35)
+   n1: 1040 0x440358: __static_initialization_and_destruction_0(int, int) (linux_syscall_reader.h:12)
+    n1: 1040 0x440933: _GLOBAL__sub_I__ZN14Reader_FactoryC2Eh (reader_factory.cpp:29)
+     n1: 1040 0x44A28B: __libc_csu_init (in /home/alex/drexel/research/heimdall/syscall-sensor)
+      n0: 1040 0x590F7BD: (below main) (libc-start.c:247)
+ n1: 1024 0x595C183: _IO_file_doallocate (filedoalloc.c:127)
+  n2: 1024 0x596A4C2: _IO_doallocbuf (genops.c:398)
+   n1: 1024 0x5969826: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:820)
+    n1: 1024 0x59681BB: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1331)
+     n1: 1024 0x595D6F9: fwrite (iofwrite.c:39)
+      n1: 1024 0x515CEC4: std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.21)
+       n1: 1024 0x515D235: std::basic_ostream<char, std::char_traits<char> >& std::operator<< <std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.21)
+        n1: 1024 0x43C35A: start(Command_Line_Parser&) (launcher.cpp:283)
+         n0: 1024 0x43B0D8: main (launcher.cpp:49)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+#-----------
+snapshot=55
+#-----------
+time=413
+mem_heap_B=91213
+mem_heap_extra_B=419
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=56
+#-----------
+time=413
+mem_heap_B=91108
+mem_heap_extra_B=404
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=57
+#-----------
+time=413
+mem_heap_B=91089
+mem_heap_extra_B=383
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=58
+#-----------
+time=413
+mem_heap_B=91062
+mem_heap_extra_B=370
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=59
+#-----------
+time=413
+mem_heap_B=90957
+mem_heap_extra_B=355
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=60
+#-----------
+time=413
+mem_heap_B=90852
+mem_heap_extra_B=340
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=61
+#-----------
+time=413
+mem_heap_B=90833
+mem_heap_extra_B=319
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=62
+#-----------
+time=414
+mem_heap_B=89793
+mem_heap_extra_B=311
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=63
+#-----------
+time=415
+mem_heap_B=89766
+mem_heap_extra_B=298
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=64
+#-----------
+time=415
+mem_heap_B=89661
+mem_heap_extra_B=283
+mem_stacks_B=0
+heap_tree=detailed
+n5: 89661 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n1: 72704 0x50D7EFE: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.21)
+  n1: 72704 0x40104E8: call_init.part.0 (dl-init.c:72)
+   n1: 72704 0x40105F9: _dl_init (dl-init.c:30)
+    n1: 72704 0x4000CF8: ??? (in /lib/x86_64-linux-gnu/ld-2.23.so)
+     n1: 72704 0x0: ???
+      n1: 72704 0xFFF00076D: ???
+       n0: 72704 0xFFF00077F: ???
+ n1: 8192 0x513A466: std::basic_filebuf<char, std::char_traits<char> >::_M_allocate_internal_buffer() (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.21)
+  n1: 8192 0x513E6B0: std::basic_filebuf<char, std::char_traits<char> >::open(char const*, std::_Ios_Openmode) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.21)
+   n2: 8192 0x513F2A6: std::basic_ofstream<char, std::char_traits<char> >::basic_ofstream(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::_Ios_Openmode) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.21)
+    n1: 8192 0x44647B: Output_Stream::Output_Stream(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, unsigned char, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) (output_stream.cpp:45)
+     n1: 8192 0x43917C: Sensor_Manager::Sensor_Manager(unsigned char, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) (sensor_manager.cpp:22)
+      n1: 8192 0x43C4DC: start(Command_Line_Parser&) (launcher.cpp:296)
+       n0: 8192 0x43B0D8: main (launcher.cpp:49)
+    n0: 0 in 2 places, all below massif's threshold (1.00%)
+ n1: 4444 0x443366: moodycamel::ReaderWriterQueue<Sensor_Data, 512ul>::make_block(unsigned long) (readerwriterqueue.h:625)
+  n2: 4444 0x44291C: moodycamel::ReaderWriterQueue<Sensor_Data, 512ul>::ReaderWriterQueue(unsigned long) (readerwriterqueue.h:127)
+   n1: 2222 0x442598: Sensor::Sensor() (sensor.h:29)
+    n1: 2222 0x4415B5: Syscall_Sensor::Syscall_Sensor(unsigned char) (syscall_sensor.cpp:278)
+     n1: 2222 0x440A6B: Syscall_Sensor::get_instance() (syscall_sensor.cpp:40)
+      n1: 2222 0x4390E6: Sensor_Manager::Sensor_Manager(unsigned char, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) (sensor_manager.cpp:16)
+       n1: 2222 0x43C4DC: start(Command_Line_Parser&) (launcher.cpp:296)
+        n0: 2222 0x43B0D8: main (launcher.cpp:49)
+   n1: 2222 0x44711D: Sensor_Observer::Sensor_Observer() (sensor_observer.h:19)
+    n1: 2222 0x4468C2: Syscall_Logger::Syscall_Logger() (syscall_logger.cpp:20)
+     n1: 2222 0x43911F: Sensor_Manager::Sensor_Manager(unsigned char, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) (sensor_manager.cpp:20)
+      n1: 2222 0x43C4DC: start(Command_Line_Parser&) (launcher.cpp:296)
+       n0: 2222 0x43B0D8: main (launcher.cpp:49)
+ n0: 3297 in 15 places, all below massif's threshold (1.00%)
+ n1: 1024 0x595C183: _IO_file_doallocate (filedoalloc.c:127)
+  n2: 1024 0x596A4C2: _IO_doallocbuf (genops.c:398)
+   n1: 1024 0x5969826: _IO_file_overflow@@GLIBC_2.2.5 (fileops.c:820)
+    n1: 1024 0x59681BB: _IO_file_xsputn@@GLIBC_2.2.5 (fileops.c:1331)
+     n1: 1024 0x595D6F9: fwrite (iofwrite.c:39)
+      n1: 1024 0x515CEC4: std::basic_ostream<char, std::char_traits<char> >& std::__ostream_insert<char, std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*, long) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.21)
+       n1: 1024 0x515D235: std::basic_ostream<char, std::char_traits<char> >& std::operator<< <std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.21)
+        n1: 1024 0x43C35A: start(Command_Line_Parser&) (launcher.cpp:283)
+         n0: 1024 0x43B0D8: main (launcher.cpp:49)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+#-----------
+snapshot=65
+#-----------
+time=415
+mem_heap_B=89556
+mem_heap_extra_B=268
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=66
+#-----------
+time=415
+mem_heap_B=89537
+mem_heap_extra_B=247
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=67
+#-----------
+time=415
+mem_heap_B=89510
+mem_heap_extra_B=234
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=68
+#-----------
+time=415
+mem_heap_B=89489
+mem_heap_extra_B=215
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=69
+#-----------
+time=415
+mem_heap_B=89265
+mem_heap_extra_B=207
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=70
+#-----------
+time=431
+mem_heap_B=88241
+mem_heap_extra_B=199
+mem_stacks_B=0
+heap_tree=empty

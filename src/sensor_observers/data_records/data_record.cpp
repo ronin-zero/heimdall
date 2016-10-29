@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 10-06-2016
  *
- *  Last Modified : Wed 22 Jun 2016 01:22:04 PM EDT
+ *  Last Modified : Sat 29 Oct 2016 06:06:33 AM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -11,7 +11,7 @@
 
 #include "data_record.h"
 
-Data_Record::Data_Record( Sensor_Data data, uint_fast8_t setting_flags, string sep ){
+Data_Record::Data_Record( const Sensor_Data& data, uint_fast8_t setting_flags, string sep ){
 
     raw_data = data.get_data();
     flags = setting_flags;
@@ -45,7 +45,7 @@ string Data_Record::get_separator(){
 
 // This must be defined like this in order to have polymorphic behavior of <<
 
-ostream& operator<<( ostream& s_out, Data_Record const& record ){
+ostream& operator<<( ostream& s_out, const Data_Record& record ){
 
         record.print( s_out );
         return s_out;
