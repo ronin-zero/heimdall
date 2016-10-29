@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 06-06-2016
  *
- *  Last Modified : Wed 19 Oct 2016 08:19:25 PM EDT
+ *  Last Modified : Fri 28 Oct 2016 10:39:23 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -93,7 +93,7 @@ void Syscall_Logger::start_processing(){
     {
         processing = true;
 
-        processing_thread = thread ( &Syscall_Logger::process, this );
+        //processing_thread = thread ( &Syscall_Logger::process, this );
     }
 }
 
@@ -108,7 +108,7 @@ void Syscall_Logger::stop_processing(){
     {
         processing = false;
 
-        processing_thread.join();
+        //processing_thread.join();
     }
 }
 
@@ -129,6 +129,7 @@ void Syscall_Logger::process(){
 
     while ( processing )
     {
+/*
         Sensor_Data data_point;
 
         // try_dequeue attempts to remove the next
@@ -145,7 +146,7 @@ void Syscall_Logger::process(){
             Syscall_Record syscall_record( data_point );
 
             send_data( syscall_record );
-        }
+        }*/
     }
 
     std::cout << "(THREAD " << gettid() << ") Syscall_Logger process() thread ending." << std::endl;

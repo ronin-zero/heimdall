@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 09-05-2016
  *
- *  Last Modified : Wed 19 Oct 2016 12:18:16 PM EDT
+ *  Last Modified : Fri 28 Oct 2016 10:50:24 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -146,7 +146,7 @@ void Syscall_Sensor::notify_observers(){
             // for the Sensor_Data class.  Each observer
             // should have a copy of the data point.
 
-            push_data( data_point );
+            //push_data( data_point );
         }
     }
 
@@ -239,12 +239,12 @@ uint_fast8_t Syscall_Sensor::stop_sensing(){
         // UPDATE 2: Stupid me didn't say *why* this was undesirable, and I think
         // I might actually need it.
 
-        notify_thread = thread( &Syscall_Sensor::process_remaining_queue, this );
+        //notify_thread = thread( &Syscall_Sensor::process_remaining_queue, this );
 
         // Wait until all remaining records are passed to
         // the observers...
 
-        notify_thread.join();
+        //notify_thread.join();
     }
     return status;
 }
