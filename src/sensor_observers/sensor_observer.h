@@ -16,7 +16,7 @@ class Sensor_Observer{
 
     public:
 
-        Sensor_Observer() : data_queue( ) {}
+        Sensor_Observer() : data_queue() {}
         virtual ~Sensor_Observer() { std::cout << "Sensor_Observer destructor called" << std::endl; }
 
         virtual void update()=0;

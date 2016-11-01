@@ -16,7 +16,7 @@ class Data_Record{
 
     public:
 
-        Data_Record( Sensor_Data data, uint_fast8_t setting_flags=ALL, string sep="," );
+        Data_Record( const Sensor_Data& data, uint_fast8_t setting_flags=ALL, string sep="," );
         virtual ~Data_Record() {}
 
         string raw_string() const;

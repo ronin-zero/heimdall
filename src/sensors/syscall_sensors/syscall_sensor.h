@@ -52,6 +52,6 @@ class Syscall_Sensor:public Sensor{
 
         void sense();
         void notify_observers();
-        void push_data( Sensor_Data data );
+        void push_data( const Sensor_Data& data );
         void process_remaining_queue();
 };

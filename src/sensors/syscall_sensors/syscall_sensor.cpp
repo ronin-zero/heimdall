@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 09-05-2016
  *
- *  Last Modified : Fri 28 Oct 2016 10:50:24 PM EDT
+ *  Last Modified : Mon 31 Oct 2016 08:31:55 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -146,7 +146,7 @@ void Syscall_Sensor::notify_observers(){
             // for the Sensor_Data class.  Each observer
             // should have a copy of the data point.
 
-            //push_data( data_point );
+            push_data( data_point );
         }
     }
 
@@ -156,7 +156,7 @@ void Syscall_Sensor::notify_observers(){
 // This method takes a Sensor_Data object and pushes it
 // to all observers attached to this sensor.
 
-void Syscall_Sensor::push_data( Sensor_Data data ){
+void Syscall_Sensor::push_data( const Sensor_Data& data ){
 
     for ( auto obs_it = observers.begin(); obs_it != observers.end(); ++obs_it )
     {
