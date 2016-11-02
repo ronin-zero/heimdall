@@ -16,6 +16,7 @@ set( UTILS "${SOURCE_DIR}utils/" )
 
 if( CMAKE_BUILD_TYPE STREQUAL "Debug" )
     message( "===DEBUG MODE===" )
+    set( CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wno-unused-parameter -Wno-unused-variable" )
 elseif( CMAKE_BUILD_TYPE STREQUAL "Release" )
     message( "===RELEASE MODE===" )
 endif( CMAKE_BUILD_TYPE STREQUAL "Debug" )

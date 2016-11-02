@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 06-06-2016
  *
- *  Last Modified : Mon 31 Oct 2016 08:33:22 PM EDT
+ *  Last Modified : Wed 02 Nov 2016 09:07:16 AM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -40,7 +40,7 @@ void Syscall_Logger::update(){
     // arguments to do anything.
 }
 
-void Syscall_Logger::update( Sensor_Data data ){
+void Syscall_Logger::update( const Sensor_Data& data ){
 
     if ( observing )
     {
@@ -108,7 +108,7 @@ void Syscall_Logger::stop_processing(){
     {
         processing = false;
 
-        processing_thread.join();
+       processing_thread.join();
     }
 }
 
@@ -130,7 +130,7 @@ void Syscall_Logger::process(){
     while ( processing )
     {
 
-        Sensor_Data data_point;
+        Sensor_Data* data_point = new Sensor_Data();
 
         // try_dequeue attempts to remove the next
         // item on the queue and assigns it to the
@@ -141,11 +141,12 @@ void Syscall_Logger::process(){
         // the notify_observers method in
         // Syscall_Sensor.cpp.
 
-        if ( data_queue.try_dequeue( data_point ) )
+        if ( data_queue.try_dequeue( *data_point ) )
         {
-            //Syscall_Record syscall_record( data_point );
+            //data_point.~Sensor_Data();
+           //Syscall_Record syscall_record( data_point );
 
-            //send_data( syscall_record );
+           //send_data( syscall_record );
         }
     }
 
@@ -158,7 +159,7 @@ void Syscall_Logger::send_data( Syscall_Record record ){
 
     for ( auto stream_it = streams.begin(); stream_it != streams.end(); ++stream_it ){
 
-        (*stream_it)->process_data( &record );
+       // (*stream_it)->process_data( &record );
     }
 }
 

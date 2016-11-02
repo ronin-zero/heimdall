@@ -20,7 +20,7 @@ class Sensor_Observer{
         virtual ~Sensor_Observer() { std::cout << "Sensor_Observer destructor called" << std::endl; }
 
         virtual void update()=0;
-        virtual void update( Sensor_Data data )=0;
+        virtual void update( const Sensor_Data& data )=0;
 
         // This will be similar to the methods that set, toggle, and
         // check the sensing and reading status of the sensors and

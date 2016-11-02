@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 09-05-2016
  *
- *  Last Modified : Mon 31 Oct 2016 08:31:55 PM EDT
+ *  Last Modified : Wed 02 Nov 2016 09:07:11 AM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -160,7 +160,7 @@ void Syscall_Sensor::push_data( const Sensor_Data& data ){
 
     for ( auto obs_it = observers.begin(); obs_it != observers.end(); ++obs_it )
     {
-        (*obs_it)->update( data );
+       (*obs_it)->update( data );
     }
 }
 
