@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 31-05-2016
  *
- *  Last Modified : Wed 02 Nov 2016 07:39:38 AM EDT
+ *  Last Modified : Wed 02 Nov 2016 12:42:45 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -68,7 +68,7 @@ class Syscall_Logger : public Sensor_Observer{
 
         void process();
 
-        void send_data( Syscall_Record record );
+        void send_data( Syscall_Record& record );
         void process_remaining_queue();
 
         void clear_streams();

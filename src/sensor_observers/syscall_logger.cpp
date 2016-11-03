@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 06-06-2016
  *
- *  Last Modified : Wed 02 Nov 2016 09:07:16 AM EDT
+ *  Last Modified : Wed 02 Nov 2016 12:41:31 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -108,7 +108,7 @@ void Syscall_Logger::stop_processing(){
     {
         processing = false;
 
-       processing_thread.join();
+        processing_thread.join();
     }
 }
 
@@ -130,7 +130,7 @@ void Syscall_Logger::process(){
     while ( processing )
     {
 
-        Sensor_Data* data_point = new Sensor_Data();
+        Sensor_Data data_point;
 
         // try_dequeue attempts to remove the next
         // item on the queue and assigns it to the
@@ -141,12 +141,18 @@ void Syscall_Logger::process(){
         // the notify_observers method in
         // Syscall_Sensor.cpp.
 
-        if ( data_queue.try_dequeue( *data_point ) )
+        if ( data_queue.try_dequeue( data_point ) )
         {
-            //data_point.~Sensor_Data();
-           //Syscall_Record syscall_record( data_point );
+            // The line below is OK, but no logging happens.
+            Syscall_Record syscall_record ( data_point );
+            send_data( syscall_record );
+            //
+            //I'm trying this next line and the one after "send_data."
 
-           //send_data( syscall_record );
+            /*
+            Syscall_Record* syscall_record = new Syscall_Record ( data_point );
+            send_data( syscall_record );
+            delete( syscall_record );*/
         }
     }
 
@@ -155,11 +161,12 @@ void Syscall_Logger::process(){
 
 // CHECK: I'm a bit worried about passing a reference, here. So far, there is only a single observer,
 // so I don't know if deep/shallow copy will be an issue.
-void Syscall_Logger::send_data( Syscall_Record record ){
+void Syscall_Logger::send_data( Syscall_Record& record ){
 
     for ( auto stream_it = streams.begin(); stream_it != streams.end(); ++stream_it ){
 
-       // (*stream_it)->process_data( &record );
+        (*stream_it)->process_data( record );
+        //(*stream_it)->process_data( &record );
     }
 }
 
@@ -172,7 +179,7 @@ void Syscall_Logger::process_remaining_queue(){
     // objects on the queue when processing ends.
     // This is a somewhat arbitrary decision,
     // and in the future, we may wish to disable this.
-
+/*
     Sensor_Data data_point;
 
     while ( data_queue.try_dequeue( data_point ) )
@@ -180,7 +187,7 @@ void Syscall_Logger::process_remaining_queue(){
         Syscall_Record syscall_record( data_point );
 
         send_data( syscall_record );
-    }
+    }*/
 }
 
 void Syscall_Logger::clear_streams(){
