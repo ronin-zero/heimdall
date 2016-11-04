@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 10-06-2016
  *
- *  Last Modified : Wed 02 Nov 2016 02:03:19 PM EDT
+ *  Last Modified : Thu 03 Nov 2016 07:53:44 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -47,7 +47,7 @@ string Data_Record::get_separator(){
 
 ostream& operator<<( ostream& s_out, Data_Record const& record ){
 
-        //record.print( s_out );
+        record.print( s_out );
         return s_out;
 }
 
