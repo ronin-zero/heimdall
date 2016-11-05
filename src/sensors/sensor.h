@@ -27,7 +27,7 @@ class Sensor {
         // should have a queue like this.
 
         Sensor() : data_queue () {}
-        virtual ~Sensor() { std::cout << "Sensor destructor called" << std::endl; } // CHECK: I had to define this one in the header.
+        virtual ~Sensor() {} // CHECK: I had to define this one in the header.
 
        
         // These methods will vary from sensor to sensor.

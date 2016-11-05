@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 01-06-2016
  *
- *  Last Modified : Wed 19 Oct 2016 08:19:28 PM EDT
+ *  Last Modified : Mon 31 Oct 2016 08:31:47 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -13,7 +13,7 @@
 #include "utils/ascii_operations.h"
 
 
-Linux_Syscall_Record::Linux_Syscall_Record( Sensor_Data data, uint_fast8_t settings_flags, string sep )
+Linux_Syscall_Record::Linux_Syscall_Record( const Sensor_Data& data, uint_fast8_t settings_flags, string sep )
 : Data_Record( data, settings_flags, sep ){
 
 }

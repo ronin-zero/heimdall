@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 31-05-2016
  *
- *  Last Modified : Wed 19 Oct 2016 12:55:27 PM EDT
+ *  Last Modified : Wed 02 Nov 2016 12:42:45 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -45,7 +45,7 @@ class Syscall_Logger : public Sensor_Observer{
         // Overridden from Sensor_Observer (sensor_observer.h)
 
         void update();
-        void update( Sensor_Data data );
+        void update( const Sensor_Data& data );
 
         void set_observing( bool on );
         void set_processing( bool on );
@@ -68,7 +68,7 @@ class Syscall_Logger : public Sensor_Observer{
 
         void process();
 
-        void send_data( Syscall_Record record );
+        void send_data( Syscall_Record& record );
         void process_remaining_queue();
 
         void clear_streams();

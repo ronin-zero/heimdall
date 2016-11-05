@@ -47,7 +47,7 @@ class Sensor_Data{
          *  Destructor
          */
 
-        ~Sensor_Data() { std::cout << "Sensor_Data destructor called (THREAD " << gettid() << ")" << std::endl; }
+        ~Sensor_Data() {}
 
         /*
          * Accessors/Inspectors

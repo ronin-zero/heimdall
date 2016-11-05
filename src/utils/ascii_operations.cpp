@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 01-06-2016
  *
- *  Last Modified : Wed 07 Sep 2016 03:36:46 PM EDT
+ *  Last Modified : Fri 04 Nov 2016 11:44:35 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -147,8 +147,6 @@ uint_fast8_t ASCII_Operations::hex_byte_val( string num ){
     if ( is_hex_byte( num ) )
     {
         hex_val = hex_digit_val( num[2] );
-
-        std::cout << "Hex val is: " << (int)hex_val << std::endl;
 
         if ( num.length() > 3 )
         {

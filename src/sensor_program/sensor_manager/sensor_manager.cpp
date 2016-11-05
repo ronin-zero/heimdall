@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 08-07-2016
  *
- *  Last Modified : Wed 19 Oct 2016 12:33:10 PM EDT
+ *  Last Modified : Fri 04 Nov 2016 11:43:00 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -23,14 +23,9 @@ Sensor_Manager::Sensor_Manager( uint_fast8_t sensor_flags, std::string file_name
 
     logger->add_stream( s_out );
     sensor->attach_observer( logger );
-
-    std::cout << "The code forces me to use these variables because I'm overly pedantic.  It's from -Werror=unused-parameter. ";
-    std::cout << "So anyway here they are: " << sensor_flags << " " << file_name << " " << separator << std::endl;
 }
 
 Sensor_Manager::~Sensor_Manager(){
-
-    std::cout << "Sensor_Manager destructor called!" << std::endl;
 
     delete ( sensor ); 
     delete ( logger );
@@ -45,9 +40,10 @@ void Sensor_Manager::run_sensor( bool daemon_on ){
     }
 
     logger->start_observing();
-    logger->start_processing();
 
     running = ( sensor->start_sensing() & SENSING_ON );
+    
+    logger->start_processing();
 
     if ( !running )
     {
@@ -60,8 +56,6 @@ void Sensor_Manager::run_sensor( bool daemon_on ){
 }
 
 void Sensor_Manager::run_loop( bool daemon_on ){
-
-    std::cout << "Entering Sensor_Manager::run_loop's \"while ( running ) \" loop..." << std::endl;
 
     while ( running )
     {
@@ -79,8 +73,6 @@ void Sensor_Manager::run_loop( bool daemon_on ){
             running = !( input == "STOP" || input == "stop" || input == "Stop" );
         }
     }
-
-    std::cout << "Sensor_Manager::run_loop's \"while ( running ) \" loop has ended." << std::endl;
 }
 
 void Sensor_Manager::handle_pipe(){

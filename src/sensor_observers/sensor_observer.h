@@ -16,11 +16,11 @@ class Sensor_Observer{
 
     public:
 
-        Sensor_Observer() : data_queue( ) {}
-        virtual ~Sensor_Observer() { std::cout << "Sensor_Observer destructor called" << std::endl; }
+        Sensor_Observer() : data_queue() {}
+        virtual ~Sensor_Observer() {}
 
         virtual void update()=0;
-        virtual void update( Sensor_Data data )=0;
+        virtual void update( const Sensor_Data& data )=0;
 
         // This will be similar to the methods that set, toggle, and
         // check the sensing and reading status of the sensors and
