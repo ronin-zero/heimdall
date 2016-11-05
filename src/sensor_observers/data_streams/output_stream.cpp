@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 06-06-2016
  *
- *  Last Modified : Fri 04 Nov 2016 11:48:38 PM EDT
+ *  Last Modified : Sat 05 Nov 2016 02:48:07 AM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -62,21 +62,10 @@ Output_Stream::~Output_Stream(){
 
 void Output_Stream::process_data ( Data_Record& record ){
 
-    static int flushcount = 0;
-
     record.set_flags( flags );
     record.set_separator( separator );
 
-    //*out << record << std::endl;
     *out << record << '\n';
-    //*out << '\n';
-    flushcount++;
-
-    if ( flushcount > 100 )
-    {   
-//        out->flush();
-//        flushcount = 0;
-    }
 }
 
 void Output_Stream::set_flags( uint_fast8_t new_flags ){

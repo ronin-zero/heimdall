@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 06-06-2016
  *
- *  Last Modified : Fri 04 Nov 2016 11:47:59 PM EDT
+ *  Last Modified : Sat 05 Nov 2016 02:27:52 AM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -40,7 +40,7 @@ void Syscall_Logger::update(){
     // arguments to do anything.
 }
 
-void Syscall_Logger::update( const Sensor_Data& data ){
+void Syscall_Logger::update( Sensor_Data data ){
 
     if ( observing )
     {

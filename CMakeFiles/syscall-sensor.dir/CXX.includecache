@@ -319,14 +319,6 @@ semaphore.h
 -
 
 src/queues/readerwriterqueue.h
-iostream
--
-sys/types.h
--
-unistd.h
--
-sys/syscall.h
--
 atomicops.h
 src/queues/atomicops.h
 type_traits
