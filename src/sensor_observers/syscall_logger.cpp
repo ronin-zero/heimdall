@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 06-06-2016
  *
- *  Last Modified : Wed 02 Nov 2016 12:41:31 PM EDT
+ *  Last Modified : Fri 04 Nov 2016 11:47:59 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -124,12 +124,8 @@ void Syscall_Logger::remove_stream( Data_Stream * stream ){
 
 void Syscall_Logger::process(){
 
-    std::cout << "(THREAD " << gettid() << ") Syscall_Logger beginning \"process()\" thread..." << std::endl;
-
-
     while ( processing )
     {
-
         Sensor_Data data_point;
 
         // try_dequeue attempts to remove the next
@@ -154,9 +150,11 @@ void Syscall_Logger::process(){
             send_data( syscall_record );
             delete( syscall_record );*/
         }
+        else
+        {
+            std::this_thread::yield();
+        }
     }
-
-    std::cout << "(THREAD " << gettid() << ") Syscall_Logger process() thread ending." << std::endl;
 }
 
 // CHECK: I'm a bit worried about passing a reference, here. So far, there is only a single observer,

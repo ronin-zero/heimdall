@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 06-06-2016
  *
- *  Last Modified : Wed 02 Nov 2016 02:57:40 PM EDT
+ *  Last Modified : Fri 04 Nov 2016 11:48:38 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -51,15 +51,10 @@ Output_Stream::Output_Stream( string file_name, uint_fast8_t out_flags, string s
 
 Output_Stream::~Output_Stream(){
 
-    std::cout << "(THREAD: " << gettid() << ") Calling destructor on Output_Stream...";
-
     if ( needs_delete )
     {
-        std::cout << " and calling delete on \"out.\""; 
         delete ( out );
     }
-
-    std::cout << std::endl;
 }
 
 // CHECK: I think this might be a problem.  I'm not sure why this is a pointer.
@@ -73,14 +68,14 @@ void Output_Stream::process_data ( Data_Record& record ){
     record.set_separator( separator );
 
     //*out << record << std::endl;
-    *out << record;
-    *out << '\n';
+    *out << record << '\n';
+    //*out << '\n';
     flushcount++;
 
     if ( flushcount > 100 )
-    {
-        out->flush();
-        flushcount = 0;
+    {   
+//        out->flush();
+//        flushcount = 0;
     }
 }
 

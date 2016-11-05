@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 09-05-2016
  *
- *  Last Modified : Tue 05 Jul 2016 09:25:07 PM EDT
+ *  Last Modified : Fri 04 Nov 2016 11:46:59 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -275,8 +275,6 @@ void Linux_Syscall_Reader::clear_file( string file_name ){
     // This just opens a file for writing (NOT append)
     // and then closes it to clear its contents.
     
-    std::cout << "Clearing contents of " << file_name << "." << std::endl;
-    
     std::ofstream tmp_file ( file_name, std::ios_base::out );
     tmp_file.close();
 }
@@ -347,8 +345,6 @@ string Linux_Syscall_Reader::build_filter(){
             tmp_entry += tmp_char;
         }
     }
-
-    std::cout << "Filter is: " << filter << "." << std::endl;
 
     pclose( pipe );
     return filter;
