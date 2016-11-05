@@ -1,19 +1,19 @@
 #ignore build directory and contents of lib
-build/*
-lib/*
+#build/*
+#lib/*
 
 # Ignore compiled targets
-bin/*
+#bin/*
 basic_test
 
 # Ignore dumb stuff that's just for me
 ALEX_README
 
 # Ignore compiled tests
-test/*
+#test/*
 
 # Ignore debug stuff.
-debug/*
+#debug/*
 
 # Ignore backup files
 *.backup
