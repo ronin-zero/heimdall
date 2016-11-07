@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 09-05-2016
  *
- *  Last Modified : Fri 04 Nov 2016 11:46:08 PM EDT
+ *  Last Modified : Mon 07 Nov 2016 11:20:42 AM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -233,12 +233,12 @@ uint_fast8_t Syscall_Sensor::stop_sensing(){
         // UPDATE 2: Stupid me didn't say *why* this was undesirable, and I think
         // I might actually need it.
 
-        //notify_thread = thread( &Syscall_Sensor::process_remaining_queue, this );
+        notify_thread = thread( &Syscall_Sensor::process_remaining_queue, this );
 
         // Wait until all remaining records are passed to
         // the observers...
 
-        //notify_thread.join();
+        notify_thread.join();
     }
     return status;
 }

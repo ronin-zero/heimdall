@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 06-06-2016
  *
- *  Last Modified : Sat 05 Nov 2016 02:27:52 AM EDT
+ *  Last Modified : Mon 07 Nov 2016 11:27:48 AM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -109,6 +109,10 @@ void Syscall_Logger::stop_processing(){
         processing = false;
 
         processing_thread.join();
+
+        processing_thread = thread ( &Syscall_Logger::process_remaining_queue, this );
+
+        processing_thread.join();
     }
 }
 
@@ -177,7 +181,7 @@ void Syscall_Logger::process_remaining_queue(){
     // objects on the queue when processing ends.
     // This is a somewhat arbitrary decision,
     // and in the future, we may wish to disable this.
-/*
+
     Sensor_Data data_point;
 
     while ( data_queue.try_dequeue( data_point ) )
@@ -185,7 +189,7 @@ void Syscall_Logger::process_remaining_queue(){
         Syscall_Record syscall_record( data_point );
 
         send_data( syscall_record );
-    }*/
+    }
 }
 
 void Syscall_Logger::clear_streams(){
