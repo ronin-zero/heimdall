@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 04-10-2016
  *
- *  Last Modified : Tue 11 Oct 2016 05:22:10 AM EDT
+ *  Last Modified : Tue 15 Nov 2016 02:10:01 AM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -67,6 +67,7 @@ typedef Data_Record Syscall_Record;
  * Start: 0
  * End: 377
  * Size: 345 (the spread is 377, not all numbers are implemented)
+ * NOTE: 983045 sometimes appears.  I can't seem to figure out why...
  *
  * ==================================
  *
