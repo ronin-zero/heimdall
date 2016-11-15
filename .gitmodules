@@ -1,0 +1,3 @@
+[submodule "src/libsvm"]
+	path = src/libsvm
+	url = https://github.com/ronin-zero/libsvm.git
