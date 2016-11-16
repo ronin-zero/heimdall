@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 04-10-2016
  *
- *  Last Modified : Tue 15 Nov 2016 02:10:01 AM EST
+ *  Last Modified : Tue 15 Nov 2016 08:02:52 PM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -14,12 +14,39 @@
 #include "sensor_observers/sensor_observer.h"
 #include "data_records/data_record.h"
 
+#include <ctime>
+
 #ifdef __linux__
 #include "data_records/linux/linux_syscall_record.h"
 typedef Linux_Syscall_Record Syscall_Record;
 #else
 typedef Data_Record Syscall_Record;
 #endif
+
+class Syscall_Detector : public Sensor_Observer{
+
+    public: 
+
+        void update();
+        void update( Sensor_Data );
+
+        void set_observing( bool on );
+        void set_processing( bool on );
+
+        bool observing_status();
+        bool processing_status();
+
+        void start_observing();
+        void start_processing();
+
+        void stop_observing();
+        void stop_processing();
+
+    private:
+
+        void process(); 
+
+};
 
 /*
  * This would be a good place to perhaps define the table sizes, starts, and ending points for various instruction sets.
