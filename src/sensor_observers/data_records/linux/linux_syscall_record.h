@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 26-05-2016
  *
- *  Last Modified : Mon 31 Oct 2016 08:31:16 PM EDT
+ *  Last Modified : Mon 19 Dec 2016 07:07:22 PM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -107,8 +107,14 @@ class Linux_Syscall_Record : public Data_Record{
         // numeric types:
 
         uint_fast32_t get_pid_num() const;
-        uint_fast16_t get_syscall_num() const; // The value will never be negative and 
-                                         // 16 bits is more than enough for any current linux instruction set.
+        uint_fast32_t get_syscall_num() const; // NOTE: Initially, I had this method return a uint_fast16_t reasoning that 16 bits was 
+                                                // "more than enough" for any system call number regardless of instruction set.
+                                                // This turns out not to be true.  For example, ARM Thumb-mode mostly has syscall numbers
+                                                // ranging from 0-377, but there is a syscall that appears occasionally with the number
+                                                // 983045.  Forcing this number into 16 bits results in a value of 5, which is already
+                                                // in use. Regular ARM mode ("Strong") has system calls ranging from 0x900000 to 
+                                                // 0x900179; none of its syscall numbers will fit in 16 bits.  Luckily, this method has not
+                                                // been used thus far, but will likely be needed for the detector.
 
         uint_fast16_t get_cpu_num() const;    // This will also be non-negative. As the CPU field is digits wide, the highest
                                         // possible value is 999 (theoretically).  8 bits is too few, but 16 bits is

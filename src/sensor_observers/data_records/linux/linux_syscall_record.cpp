@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 01-06-2016
  *
- *  Last Modified : Mon 31 Oct 2016 08:31:47 PM EDT
+ *  Last Modified : Mon 19 Dec 2016 07:09:09 PM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -171,7 +171,7 @@ uint_fast32_t Linux_Syscall_Record::get_pid_num() const{
     return ASCII_Operations::to_uint( get_pid() );
 }
 
-uint_fast16_t Linux_Syscall_Record::get_syscall_num() const{
+uint_fast32_t Linux_Syscall_Record::get_syscall_num() const{
 
     return ASCII_Operations::to_uint( get_syscall() );
 }
