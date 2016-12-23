@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 01-06-2016
  *
- *  Last Modified : Tue 05 Jul 2016 12:27:10 PM EDT
+ *  Last Modified : Thu 22 Dec 2016 06:28:39 PM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -71,7 +71,7 @@ class ASCII_Operations{
         
         static uint_fast64_t convert_range( string num, uint_fast64_t start, uint_fast64_t chars );
 
-        // Signed integrals values
+        // Signed integral values
 
         static int_fast64_t to_int( string num );
 

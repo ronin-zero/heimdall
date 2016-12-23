@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 04-10-2016
  *
- *  Last Modified : Tue 15 Nov 2016 08:02:52 PM EST
+ *  Last Modified : Thu 22 Dec 2016 06:14:17 PM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -113,8 +113,3 @@ class Syscall_Detector : public Sensor_Observer{
  * Size: 313
  * 
  */
-
-class Syscall_Detector : public Sensor_Observer {
-
-    // TODO: Write a VERY BASIC detector.  You'll have to get the libsvm code.
-}
