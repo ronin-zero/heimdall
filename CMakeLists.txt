@@ -4,11 +4,13 @@ project (Heimdall)
 
 set( targetname "syscall-sensor" )
 
-
+message( "At the start, our CMAKE_CXX_FLAGS are: ${CMAKE_CXX_FLAGS}" )
 
 set( CMAKE_CXX_FLAGS "-Wall -Wextra -Werror -pedantic -std=c++11 -pthread" )
 
-set( CMAKE_CXX_FLAGS_DEBUG "-ggdb3 -O0" )
+message( "At the start, our CMAKE_CXX_FLAGS_DEBUG are: ${CMAKE_CXX_FLAGS_DEBUG}" )
+
+set( CMAKE_CXX_FLAGS_DEBUG "-ggdb3 -O0 -DDEBUG_COUT" )
 
 set( INCLUDE_DIR "${CMAKE_SOURCE_DIR}/src/" )
 set( SOURCE_DIR "${CMAKE_SOURCE_DIR}/src/" )
@@ -43,6 +45,8 @@ message( "CXX Flags: ${CMAKE_CXX_FLAGS}" )
 message( "CXX Debug Flags: ${CMAKE_CXX_FLAGS_DEBUG}" )
 message( "CXX Release Flags: ${CMAKE_CXX_FLAGS_RELEASE}" )
 message( "CMake Shared Linker Flags: ${CMAKE_SHARED_LINKER_FLAGS}" )
+
+message( "Just seeing if this is a thing: ${CXX_FLAGS}" )
 
 set( SOURCE "" )
 

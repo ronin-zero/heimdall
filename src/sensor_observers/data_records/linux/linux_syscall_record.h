@@ -3,14 +3,16 @@
  *  
  *  Creation Date : 26-05-2016
  *
- *  Last Modified : Mon 19 Dec 2016 07:07:22 PM EST
+ *  Last Modified : Fri 23 Dec 2016 02:50:23 AM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
  */
+
 #pragma once
 
 #include "sensor_observers/data_records/data_record.h"
+#include "sensor_observers/data_records/system_call_record.h"
 
 // Each of these represents a field
 // in a line in trace_pipe.
@@ -82,7 +84,7 @@ const uint_fast8_t FUNCTION_INDEX   = 50;
 
 const uint_fast8_t NUM_TFLAGS       = 4; // This is just to avoid magic numbers.  There are 4 flags.
 
-class Linux_Syscall_Record : public Data_Record{
+class Linux_Syscall_Record : public Data_Record, public System_Call_Record{
 
     public:
         
@@ -105,6 +107,9 @@ class Linux_Syscall_Record : public Data_Record{
 
         // It might be handy to get some of the numeric fields as
         // numeric types:
+        //
+        // UPDATE: These functions are now inherited as pure virtual functions
+        // from the System_Call_Record abstract class to allow generalized behavior across platforms.
 
         uint_fast32_t get_pid_num() const;
         uint_fast32_t get_syscall_num() const; // NOTE: Initially, I had this method return a uint_fast16_t reasoning that 16 bits was 

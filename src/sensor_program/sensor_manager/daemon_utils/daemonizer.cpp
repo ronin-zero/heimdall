@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 24-06-2016
  *
- *  Last Modified : Sat 05 Nov 2016 01:11:59 AM EDT
+ *  Last Modified : Fri 23 Dec 2016 04:10:03 AM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -69,10 +69,12 @@ void Daemonizer::launch_daemon( const std::string daemon_name, const std::string
      * Alex's note: I'm still not clear on why 
      * I need to do this.
      */
-    
+
+#ifndef DEBUG_COUT
     close( STDIN_FILENO );
     close( STDOUT_FILENO );
-    close( STDERR_FILENO ); 
+    close( STDERR_FILENO );
+#endif
 }
 
 void Daemonizer::write_log( const std::string file_name, const std::string contents ){

@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 31-05-2016
  *
- *  Last Modified : Sat 05 Nov 2016 02:47:53 AM EDT
+ *  Last Modified : Fri 23 Dec 2016 01:30:20 AM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -14,7 +14,7 @@
 #include <fstream>
 #include <iostream>
 #include <string>
-#include <stdint.h>
+#include <cstdint>
 #include <mutex>
 
 #include "data_stream.h"
