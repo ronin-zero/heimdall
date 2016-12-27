@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 04-10-2016
  *
- *  Last Modified : Thu 22 Dec 2016 06:14:17 PM EST
+ *  Last Modified : Mon 26 Dec 2016 11:26:03 PM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -14,13 +14,11 @@
 #include "sensor_observers/sensor_observer.h"
 #include "data_records/data_record.h"
 
-#include <ctime>
-
 #ifdef __linux__
 #include "data_records/linux/linux_syscall_record.h"
 typedef Linux_Syscall_Record Syscall_Record;
 #else
-typedef Data_Record Syscall_Record;
+typedef System_Call_Record Syscall_Record;
 #endif
 
 class Syscall_Detector : public Sensor_Observer{
@@ -28,7 +26,7 @@ class Syscall_Detector : public Sensor_Observer{
     public: 
 
         void update();
-        void update( Sensor_Data );
+        void update( Sensor_Data data );
 
         void set_observing( bool on );
         void set_processing( bool on );
@@ -44,7 +42,9 @@ class Syscall_Detector : public Sensor_Observer{
 
     private:
 
-        void process(); 
+        void process();
+
+        //Syscall
 
 };
 
@@ -95,6 +95,7 @@ class Syscall_Detector : public Sensor_Observer{
  * End: 377
  * Size: 345 (the spread is 377, not all numbers are implemented)
  * NOTE: 983045 sometimes appears.  I can't seem to figure out why...
+ * That means the spread is really 378.
  *
  * ==================================
  *

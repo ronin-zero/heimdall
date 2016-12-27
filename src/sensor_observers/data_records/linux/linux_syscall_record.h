@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 26-05-2016
  *
- *  Last Modified : Fri 23 Dec 2016 02:50:23 AM EST
+ *  Last Modified : Mon 26 Dec 2016 02:54:40 PM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -118,8 +118,8 @@ class Linux_Syscall_Record : public Data_Record, public System_Call_Record{
                                                 // ranging from 0-377, but there is a syscall that appears occasionally with the number
                                                 // 983045.  Forcing this number into 16 bits results in a value of 5, which is already
                                                 // in use. Regular ARM mode ("Strong") has system calls ranging from 0x900000 to 
-                                                // 0x900179; none of its syscall numbers will fit in 16 bits.  Luckily, this method has not
-                                                // been used thus far, but will likely be needed for the detector.
+                                                // 0x900179; none of its syscall numbers will fit in 16 bits.  Luckily, this method 
+                                                // has not been used thus far, but will likely be needed for the detector.
 
         uint_fast16_t get_cpu_num() const;    // This will also be non-negative. As the CPU field is digits wide, the highest
                                         // possible value is 999 (theoretically).  8 bits is too few, but 16 bits is
