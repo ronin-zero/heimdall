@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 04-10-2016
  *
- *  Last Modified : Mon 26 Dec 2016 11:26:03 PM EST
+ *  Last Modified : Tue 27 Dec 2016 10:44:08 PM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -11,19 +11,40 @@
 
 #pragma once
 
+#include "sensor_data/sensor_data.h"
 #include "sensor_observers/sensor_observer.h"
-#include "data_records/data_record.h"
+#include "sensor_observers/data_records/data_record.h"
+#include "sensor_observers/data_records/system_call_record.h"
+
+/*  
+ *  For now, only Linux is supported.  If other operating systems are added later, handle 
+ *  them similarly.
+ */
 
 #ifdef __linux__
-#include "data_records/linux/linux_syscall_record.h"
+#include "sensor_observers/data_records/linux/linux_syscall_record.h"
 typedef Linux_Syscall_Record Syscall_Record;
 #else
 typedef System_Call_Record Syscall_Record;
 #endif
 
+#ifdef __arm__
+#include "sensor_observers/detectors/syscall_formatters/arch/arm/arm_syscall_formatter.h"
+typedef ARM_Syscall_Formatter System_Call_Formatter;
+#elif __mips__
+#include "sensor_observers/detectors/syscall_formatters/arch/mips/mips_syscall_formatter.h"
+typedef MIPS_Syscall_Formatter System_Call_Formatter;
+#else
+#include "sensor_observers/detectors/syscall_formatters/syscall_formatter.h"
+typedef Syscall_Formatter System_Call_Formatter;
+#endif
+
 class Syscall_Detector : public Sensor_Observer{
 
-    public: 
+    public:
+
+        Syscall_Detector();
+        ~Syscall_Detector();
 
         void update();
         void update( Sensor_Data data );
@@ -43,6 +64,8 @@ class Syscall_Detector : public Sensor_Observer{
     private:
 
         void process();
+
+        Syscall_Formatter * call_formatter;
 
         //Syscall
 

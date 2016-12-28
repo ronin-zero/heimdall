@@ -1,6 +1,8 @@
 #pragma once
 
 #include <cstdint>
+#include <string>
+#include <thread>
 
 #include "sensor_data/sensor_data.h"
 #include "queues/readerwriterqueue.h"
