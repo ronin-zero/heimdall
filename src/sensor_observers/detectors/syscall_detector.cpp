@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 27-12-2016
  *
- *  Last Modified : Tue 27 Dec 2016 10:44:21 PM EST
+ *  Last Modified : Mon 09 Jan 2017 01:20:01 AM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -35,4 +35,28 @@ void Syscall_Detector::update( Sensor_Data data ){
     {
         data_queue.enqueue( data );
     }
+}
+
+bool Syscall_Detector::observing_status(){
+
+    return observing;
+}
+
+bool Syscall_Detector::processing_status(){
+
+    return processing;
+}
+
+void Syscall_Detector::start_observing(){
+
+    // TODO: this method.
+}
+
+void Syscall_Detector::start_processing(){
+
+    // TODO: this method as well.
+}
+
+void Syscall_Detector::stop_observing(){
+
 }
