@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 08-01-2017
  *
- *  Last Modified : Mon 09 Jan 2017 01:16:53 AM EST
+ *  Last Modified : Fri 13 Jan 2017 01:04:51 AM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -33,6 +33,7 @@ Trace_Window::~Trace_Window(){
 //
 // TODO: Exception handling and bounds checking here.
 int_fast32_t Trace_Window::at( size_t index ){
+
     return _trace_window[ index ];
 }
 

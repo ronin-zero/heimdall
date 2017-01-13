@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 04-10-2016
  *
- *  Last Modified : Mon 09 Jan 2017 12:42:10 AM EST
+ *  Last Modified : Thu 12 Jan 2017 11:34:46 PM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -70,6 +70,8 @@ class Syscall_Detector : public Sensor_Observer{
         void process();
 
         Syscall_Formatter * call_formatter;
+
+        Trace_Window * trace_window;
 };
 
 /*

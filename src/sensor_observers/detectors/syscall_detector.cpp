@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 27-12-2016
  *
- *  Last Modified : Mon 09 Jan 2017 01:20:01 AM EST
+ *  Last Modified : Fri 13 Jan 2017 01:04:43 AM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -37,6 +37,30 @@ void Syscall_Detector::update( Sensor_Data data ){
     }
 }
 
+void Syscall_Detector::set_observing( bool on ){
+
+    if ( on )
+    {
+        start_observing();
+    }
+    else
+    {
+        stop_observing();
+    }
+}
+
+void Syscall_Detector::set_processing( bool on ){
+
+    if ( on )
+    {
+        start_processing();
+    }
+    else
+    {
+        stop_processing();
+    }
+}
+
 bool Syscall_Detector::observing_status(){
 
     return observing;
@@ -49,14 +73,34 @@ bool Syscall_Detector::processing_status(){
 
 void Syscall_Detector::start_observing(){
 
-    // TODO: this method.
+    observing = true;
 }
 
 void Syscall_Detector::start_processing(){
 
-    // TODO: this method as well.
+    if ( !processing )
+    {
+        processing = true;
+        
+        processing_thread = thread ( &Syscall_Detector::process, this );
+    }
 }
 
 void Syscall_Detector::stop_observing(){
 
+    observing = false;
+}
+
+void Syscall_Detector::stop_processing(){
+
+    // TODO: This method!
+}
+
+void Syscall_Detector::process(){
+
+    while ( processing )
+    {
+        if ( 
+
+    }
 }
