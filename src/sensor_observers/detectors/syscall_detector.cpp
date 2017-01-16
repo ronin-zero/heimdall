@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 27-12-2016
  *
- *  Last Modified : Fri 13 Jan 2017 01:04:43 AM EST
+ *  Last Modified : Sun 15 Jan 2017 07:18:24 PM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -100,7 +100,8 @@ void Syscall_Detector::process(){
 
     while ( processing )
     {
-        if ( 
-
+        if ( !trace_window->trace_window_full() )
+        {
+        }
     }
 }
