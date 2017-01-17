@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 04-10-2016
  *
- *  Last Modified : Thu 12 Jan 2017 11:34:46 PM EST
+ *  Last Modified : Mon 16 Jan 2017 09:58:05 PM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -13,12 +13,14 @@
 
 #include <string>
 #include <thread>
-#include <unordered_set>
+#include <map>
 
 #include "sensor_data/sensor_data.h"
 #include "sensor_observers/sensor_observer.h"
 #include "sensor_observers/data_records/data_record.h"
 #include "sensor_observers/data_records/system_call_record.h"
+#include "sensor_observers/detectors/trace_window.h"
+#include "sensor_observers/detectors/ngram_generator.h"
 
 /*  
  *  For now, only Linux is supported.  If other operating systems are added later, handle 
@@ -33,13 +35,13 @@ typedef System_Call_Record Syscall_Record;
 #endif
 
 #ifdef __arm__
-#include "sensor_observers/detectors/syscall_formatters/arch/arm/arm_syscall_formatter.h"
+#include "sensor_observers/detectors/linux/syscall_formatters/arch/arm/arm_syscall_formatter.h"
 typedef ARM_Syscall_Formatter System_Call_Formatter;
 #elif __mips__
-#include "sensor_observers/detectors/syscall_formatters/arch/mips/mips_syscall_formatter.h"
+#include "sensor_observers/detectors/linux/syscall_formatters/arch/mips/mips_syscall_formatter.h"
 typedef MIPS_Syscall_Formatter System_Call_Formatter;
 #else
-#include "sensor_observers/detectors/syscall_formatters/syscall_formatter.h"
+#include "sensor_observers/detectors/linux/syscall_formatters/syscall_formatter.h"
 typedef Syscall_Formatter System_Call_Formatter;
 #endif
 
@@ -65,13 +67,19 @@ class Syscall_Detector : public Sensor_Observer{
         void stop_observing();
         void stop_processing();
 
+        void set_trace_window( Trace_Window * window );
+        void set_generator( NGram_Generator * genenerator );
+
     private:
 
         void process();
 
-        Syscall_Formatter * call_formatter;
+        bool update_window();
+        bool generate_data();
 
-        Trace_Window * trace_window;
+        Syscall_Formatter * _call_formatter;
+        Trace_Window * _window;
+        NGram_Generator * _generator;
 };
 
 /*
