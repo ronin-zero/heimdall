@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 04-10-2016
  *
- *  Last Modified : Mon 16 Jan 2017 09:58:05 PM EST
+ *  Last Modified : Tue 17 Jan 2017 07:10:59 PM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -20,7 +20,7 @@
 #include "sensor_observers/data_records/data_record.h"
 #include "sensor_observers/data_records/system_call_record.h"
 #include "sensor_observers/detectors/trace_window.h"
-#include "sensor_observers/detectors/ngram_generator.h"
+#include "sensor_observers/detectors/data_point_generator.h"
 
 /*  
  *  For now, only Linux is supported.  If other operating systems are added later, handle 
@@ -68,7 +68,7 @@ class Syscall_Detector : public Sensor_Observer{
         void stop_processing();
 
         void set_trace_window( Trace_Window * window );
-        void set_generator( NGram_Generator * genenerator );
+        void set_generator( Data_Point_Generator * genenerator );
 
     private:
 
@@ -79,7 +79,7 @@ class Syscall_Detector : public Sensor_Observer{
 
         Syscall_Formatter * _call_formatter;
         Trace_Window * _window;
-        NGram_Generator * _generator;
+        Data_Point_Generator * _generator;
 };
 
 /*

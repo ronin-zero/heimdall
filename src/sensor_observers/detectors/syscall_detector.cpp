@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 27-12-2016
  *
- *  Last Modified : Mon 16 Jan 2017 11:16:04 PM EST
+ *  Last Modified : Tue 17 Jan 2017 07:16:47 PM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -21,7 +21,7 @@ Syscall_Detector::Syscall_Detector(){
 
 Syscall_Detector::~Syscall_Detector(){
 
-    delete ( call_formatter );
+    delete ( _call_formatter );
 }
 
 void Syscall_Detector::update(){
@@ -97,7 +97,7 @@ void Syscall_Detector::stop_processing(){
     // TODO: The rest of this method!
 }
 
-void Syscall_Detector::set_generator( NGram_Generator * generator ){
+void Syscall_Detector::set_generator( Data_Point_Generator * generator ){
 
     _generator = generator;
 }
@@ -139,7 +139,7 @@ bool Syscall_Detector::update_window(){
     }
     else if ( data_queue.try_dequeue( sensor_data ) )
     {
-        record = Syscall_Record( sensor_data );
+        Syscall_Record record( sensor_data );
 
         uint_fast32_t syscall_num = record.get_syscall_num();
 
@@ -153,7 +153,7 @@ bool Syscall_Detector::update_window(){
 
 bool Syscall_Detector::generate_data(){
 
-    if ( _generator->has_next() )
+    if ( _generator->has_next( _window ) )
     {
         return true;
     }
