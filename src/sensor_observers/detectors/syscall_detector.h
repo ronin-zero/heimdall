@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 04-10-2016
  *
- *  Last Modified : Tue 17 Jan 2017 07:10:59 PM EST
+ *  Last Modified : Wed 18 Jan 2017 02:56:30 AM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -130,6 +130,9 @@ class Syscall_Detector : public Sensor_Observer{
  * Size: 345 (the spread is 377, not all numbers are implemented)
  * NOTE: 983045 sometimes appears.  I can't seem to figure out why...
  * That means the spread is really 378.
+ *
+ * See the file arm_syscall_formatter.h for details, but there is a potential range of 390
+ * once the 983045 is adjusted to 389.  Note that 378 through 388 will be unused.
  *
  * ==================================
  *
