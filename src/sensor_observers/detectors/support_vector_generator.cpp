@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 18-01-2017
  *
- *  Last Modified : Wed 18 Jan 2017 03:25:42 AM EST
+ *  Last Modified : Fri 20 Jan 2017 06:31:34 AM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -39,6 +39,33 @@ void Support_Vector_Generator::add_data_point( uint_fast64_t data_point ){
 bool Support_Vector_Generator::full(){
 
     return _max_data_points == _data_point_count;
+}
+
+svm_node * Support_Vector_Generator::get_support_vector(){
+
+    svm_node * node_instance = NULL;
+
+    // FIXME: this method is giving me problems.  I need to concentrate on it later.
+    // It is imperative that it be fixed.
+/*
+    if ( call_table.size() > 0 )
+    {
+        node_instance = (svm_node *) malloc( sizeof( svm_node ) * ( call_table.size() + 1 ) );
+
+        for ( uint_fast64_t i = 0, std::map<uint_fast64_t, uint_fast32_t>::iterator it = call_table.begin(); it != call_table.end(); ++it, i++ )
+        {
+            node_instance[i]->index = it->first;
+            node_instance[i]->value = it->second / (double) _data_point_count;
+        }
+    }
+*/
+    return node_instance;
+}
+
+void Support_Vector_Generator::reset(){
+
+    _data_point_count = 0;
+    call_table.clear();
 }
 
 map<uint_fast64_t, uint_fast32_t> Support_Vector_Generator::get_table(){

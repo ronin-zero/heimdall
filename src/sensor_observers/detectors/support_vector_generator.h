@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 18-01-2017
  *
- *  Last Modified : Wed 18 Jan 2017 03:26:08 AM EST
+ *  Last Modified : Fri 20 Jan 2017 05:21:49 AM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -11,9 +11,11 @@
 
 #pragma once
 
-#include <cstdio>
+//#include <cstdio>
 #include <map>
 #include <vector>
+
+#include "libsvm/svm.h"
 
 using std::map;
 
@@ -26,6 +28,10 @@ class Support_Vector_Generator{
 
         void add_data_point( uint_fast64_t data_point );
         bool full();
+
+        svm_node * get_support_vector();
+
+        void reset();
 
         map<uint_fast64_t, uint_fast32_t> get_table();
 
