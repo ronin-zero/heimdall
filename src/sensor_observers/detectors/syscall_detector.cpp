@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 27-12-2016
  *
- *  Last Modified : Tue 17 Jan 2017 07:16:47 PM EST
+ *  Last Modified : Wed 25 Jan 2017 02:58:21 AM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -153,8 +153,11 @@ bool Syscall_Detector::update_window(){
 
 bool Syscall_Detector::generate_data(){
 
-    if ( _generator->has_next( _window ) )
+    if ( _generator->has_next( _window ) && !_call_formatter->full() )
     {
+        int_fast64_t tmp_data_point = _generator->( _window );
+
+        // tmp_data_point should be passed to the support vector generator, which is not included here.
         return true;
     }
 

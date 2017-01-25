@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 18-01-2017
  *
- *  Last Modified : Fri 20 Jan 2017 06:31:34 AM EST
+ *  Last Modified : Wed 25 Jan 2017 12:52:23 AM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -44,21 +44,32 @@ bool Support_Vector_Generator::full(){
 svm_node * Support_Vector_Generator::get_support_vector(){
 
     svm_node * node_instance = NULL;
+    
+    uint_fast32_t ngram_count = call_table.size();
 
-    // FIXME: this method is giving me problems.  I need to concentrate on it later.
-    // It is imperative that it be fixed.
-/*
-    if ( call_table.size() > 0 )
+    if ( ngram_count > 0 )
     {
-        node_instance = (svm_node *) malloc( sizeof( svm_node ) * ( call_table.size() + 1 ) );
+        node_instance = (svm_node *) malloc( sizeof( svm_node ) * ( ngram_count + 1 ) );
 
-        for ( uint_fast64_t i = 0, std::map<uint_fast64_t, uint_fast32_t>::iterator it = call_table.begin(); it != call_table.end(); ++it, i++ )
+        uint_fast32_t i = 0;
+
+        for ( std::map<uint_fast64_t, uint_fast32_t>::iterator it = call_table.begin(); it != call_table.end(); ++it )
         {
-            node_instance[i]->index = it->first;
-            node_instance[i]->value = it->second / (double) _data_point_count;
+            node_instance[i].index = it->first;
+            node_instance[i].value = it->second / (double) _data_point_count;
+
+            i++;
         }
+
+        // libsvm uses a sparse representation of matrices.
+        // The end of svm_nodes for a row is signified by an index of -1.
+        // The indices must be in ASCENDING ORDER.  The value of the last
+        // node is unimportant.
+
+        node_instance[i].index = -1;
+        node_instance[i].value = 0.0;  // "Mr. Bl--  ... Mr. Blutarsky... Zero. Point. Zero.
     }
-*/
+
     return node_instance;
 }
 
