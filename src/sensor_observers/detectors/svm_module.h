@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 25-01-2017
  *
- *  Last Modified : Wed 25 Jan 2017 05:26:22 PM EST
+ *  Last Modified : Fri 27 Jan 2017 02:59:36 AM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -20,16 +20,16 @@ class SVM_Module{
 
     public:
 
-        
+        SVM_Module();
 
-        
+        virtual void add_training_data( double label, struct svm_node * node )=0;
 
-    private:
+    protected:
 
-        bool training;
+        bool trained;
 
         struct svm_model * _model;
-        vector<svm_node *> _support_vectors;
+        vector<struct svm_node *> _support_vectors;
 
         struct svm_parameter * _parameters;
 
