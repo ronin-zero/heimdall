@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 25-01-2017
  *
- *  Last Modified : Fri 27 Jan 2017 02:59:36 AM EST
+ *  Last Modified : Mon 30 Jan 2017 02:40:44 PM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -22,7 +22,9 @@ class SVM_Module{
 
         SVM_Module();
 
-        virtual void add_training_data( double label, struct svm_node * node )=0;
+        virtual void add_training_data( double label, struct svm_node * node ) = 0;
+
+        virtual double predict( struct svm_node * node ) = 0;
 
     protected:
 

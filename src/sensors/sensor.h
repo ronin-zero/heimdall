@@ -41,7 +41,7 @@ class Sensor {
 
         virtual uint_fast8_t start_sensing() = 0;
         virtual uint_fast8_t stop_sensing() = 0;
-        virtual uint_fast8_t configure( uint_fast8_t flags ) = 0 ;
+        virtual uint_fast8_t configure( uint_fast8_t flags ) = 0;
 
         // These methods should be the same for all sensors.
 
@@ -67,9 +67,9 @@ class Sensor {
         // Thus, they are pure virtual and must be
         // defined in all derived classes.
 
-        virtual Sensor_Data * sense_data()=0;
-        virtual void sense()=0;
-        virtual void notify_observers()=0;
+        virtual Sensor_Data * sense_data() = 0;
+        virtual void sense() = 0;
+        virtual void notify_observers() = 0;
 
         // This is so we detatch and delete all of the observers.
 

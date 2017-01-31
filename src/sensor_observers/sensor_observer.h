@@ -21,8 +21,8 @@ class Sensor_Observer{
         Sensor_Observer() : data_queue() {}
         virtual ~Sensor_Observer() {}
 
-        virtual void update()=0;
-        virtual void update( Sensor_Data data )=0;
+        virtual void update() = 0;
+        virtual void update( Sensor_Data data ) = 0;
 
         // This will be similar to the methods that set, toggle, and
         // check the sensing and reading status of the sensors and
@@ -32,22 +32,22 @@ class Sensor_Observer{
         // may come a time when a method to set/toggle/check observing
         // and/or processing is more complicated than flipping a boolean.
 
-        virtual void set_observing( bool observe )=0;
-        virtual void set_processing( bool process )=0;
+        virtual void set_observing( bool observe ) = 0;
+        virtual void set_processing( bool process ) = 0;
 
-        virtual bool observing_status()=0;
-        virtual bool processing_status()=0;
+        virtual bool observing_status() = 0;
+        virtual bool processing_status() = 0;
         
-        virtual void start_observing()=0;
-        virtual void start_processing()=0;
+        virtual void start_observing() = 0;
+        virtual void start_processing() = 0;
 
-        virtual void stop_observing()=0;
-        virtual void stop_processing()=0;
+        virtual void stop_observing() = 0;
+        virtual void stop_processing() = 0;
 
 
     protected:
 
-        virtual void process()=0;
+        virtual void process() = 0;
 
         queue data_queue;
 

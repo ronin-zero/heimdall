@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 23-12-2016
  *
- *  Last Modified : Fri 23 Dec 2016 02:51:34 AM EST
+ *  Last Modified : Mon 30 Jan 2017 02:44:34 PM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -34,7 +34,7 @@ class System_Call_Record{
 
     public:
 
-       virtual uint_fast32_t get_pid_num() const =0;
-       virtual uint_fast32_t get_syscall_num() const =0;
+       virtual uint_fast32_t get_pid_num() const = 0;
+       virtual uint_fast32_t get_syscall_num() const = 0;
 
 };
