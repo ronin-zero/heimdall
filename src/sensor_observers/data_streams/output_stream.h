@@ -1,9 +1,9 @@
 /*
  *  File Name : output_stream.h
  *  
- *  Creation Date : 31-05-2016
+ *  Creation Date : 05-31-2016
  *
- *  Last Modified : Fri 23 Dec 2016 01:30:20 AM EST
+ *  Last Modified : Tue 31 Jan 2017 03:26:58 PM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *

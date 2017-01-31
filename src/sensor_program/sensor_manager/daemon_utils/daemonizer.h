@@ -1,9 +1,9 @@
 /*
  *  File Name : daemonizer.h
  *  
- *  Creation Date : 23-06-2016
+ *  Creation Date : 06-23-2016
  *
- *  Last Modified : Mon 11 Jul 2016 06:09:39 PM EDT
+ *  Last Modified : Tue 31 Jan 2017 03:49:06 PM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *

@@ -1,9 +1,9 @@
 /*
  *  File Name : sensor_manager.cpp
  *  
- *  Creation Date : 08-07-2016
+ *  Creation Date : 07-08-2016
  *
- *  Last Modified : Fri 04 Nov 2016 11:43:00 PM EDT
+ *  Last Modified : Tue 31 Jan 2017 03:48:52 PM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -47,7 +47,7 @@ void Sensor_Manager::run_sensor( bool daemon_on ){
 
     if ( !running )
     {
-        std::cerr << "ERROR: Could not start sensor (check your permissions -- you made need root/sudo)." << std::endl;
+        std::cerr << "ERROR: Could not start sensor (check your permissions -- you may need root/sudo)." << std::endl;
     }
     else
     {

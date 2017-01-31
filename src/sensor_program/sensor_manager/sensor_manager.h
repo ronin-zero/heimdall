@@ -3,9 +3,9 @@
 /*
  *  File Name : sensor_manager.h
  *  
- *  Creation Date : 08-07-2016
+ *  Creation Date : 07-08-2016
  *
- *  Last Modified : Mon 11 Jul 2016 07:42:28 PM EDT
+ *  Last Modified : Tue 31 Jan 2017 03:48:18 PM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *

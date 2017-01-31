@@ -1,9 +1,9 @@
 /*
  *  File Name : ascii_operations.h
  *  
- *  Creation Date : 01-06-2016
+ *  Creation Date : 06-01-2016
  *
- *  Last Modified : Thu 22 Dec 2016 06:28:39 PM EST
+ *  Last Modified : Tue 31 Jan 2017 03:40:58 PM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *

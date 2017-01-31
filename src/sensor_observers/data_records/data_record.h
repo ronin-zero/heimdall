@@ -1,3 +1,14 @@
+/*
+ *  File Name : data_record.h
+ *  
+ *  Creation Date : 05-20-2016
+ *
+ *  Last Modified : Tue 31 Jan 2017 03:24:48 PM EST
+ *
+ *  Created By : ronin-zero (浪人ー無)
+ *
+ */
+
 #pragma once
 
 #include <iostream>

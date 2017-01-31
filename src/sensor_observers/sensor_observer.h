@@ -1,3 +1,14 @@
+/*
+ *  File Name : sensor_observer.h
+ *  
+ *  Creation Date : 05-10-2016
+ *
+ *  Last Modified : Tue 31 Jan 2017 03:17:44 PM EST
+ *
+ *  Created By : ronin-zero (浪人ー無)
+ *
+ */
+
 #pragma once
 
 #include <cstdint>
