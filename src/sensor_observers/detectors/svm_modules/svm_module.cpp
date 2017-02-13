@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 01-31-2017
  *
- *  Last Modified : Wed 08 Feb 2017 10:20:00 PM EST
+ *  Last Modified : Sun 12 Feb 2017 08:39:07 PM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -67,20 +67,4 @@ int_fast32_t SVM_Module::save_model( const char * file_name ){
 int_fast32_t SVM_Module::save_model( const std::string file_name ){
 
     return save_model( file_name.c_str() );
-}
-
-// TODO:  These should be revised more and perhaps even left
-// as pure abstract.  They should set "trained" to true.
-
-struct svm_model * load_model( const char * file_name ){
-
-    return svm_load_model ( file_name );
-}
-
-// TODO:  These should be revised more and perhaps even left
-// as pure abstract.  They should set "trained" to true.
-
-struct svm_model * load_model( const std::string file_name ){
-
-    return load_model ( file_name.c_str() );
 }
