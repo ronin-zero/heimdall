@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 02-08-2017
  *
- *  Last Modified : Sun 12 Feb 2017 09:06:19 PM EST
+ *  Last Modified : Mon 13 Feb 2017 03:55:44 PM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -18,6 +18,9 @@ class One_Class_SVM: public SVM_Module{
     public:
 
         One_Class_SVM(); // TODO: Make constructors.
+
+        One_Class_SVM( const char * file_name );
+        One_Class_SVM( const std::string file_name );
         
         ~One_Class_SVM();   // TODO: also make destructors.
 
