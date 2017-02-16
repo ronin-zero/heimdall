@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 02-15-2017
  *
- *  Last Modified : Thu 16 Feb 2017 02:17:19 AM EST
+ *  Last Modified : Thu 16 Feb 2017 04:00:11 PM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -80,9 +80,28 @@ bool One_Class_SVM::load_model( const std::string file_name ){
     return load_model( file_name.c_str() );
 }
 
+// This effectively produces a deep copy of another svm_parameter into this class's _parameter member.
+
 void One_Class_SVM::set_parameters( const struct svm_parameter * parameters ){
 
-    // TODO: This.  Its purpose is a deep-copy of the values of another svm_parameter object into this one.
+    if ( parameters != NULL && parameters->svm_type == ONE_CLASS )
+    {
+        _parameters->svm_type       = parameters->svm_type;
+        _parameters->kernel_type    = parameters->kernel_type;
+        _parameters->degree         = parameters->degree;
+        _parameters->gamma          = parameters->gamma;
+        _parameters->coef0          = parameters->coef0;
+
+        _parameters->cache_size     = parameters->cache_size;
+        _parameters->eps            = parameters->eps;
+        _parameters->C              = parameters->C;
+        _parameters->nr_weight      = parameters->nr_weight;
+        _parameters->weight_label   = parameters->weight_lable;
+        _parameters->nu             = parameters->nu;
+        _parameters->p              = parameters->p;
+        _parameters->shrinking      = parameters->shrinking;
+        _parameters->probability    = parameters->probability;
+    }
 }
 
 // TODO: Put the magic numbers in the method below into meaningful constants.
