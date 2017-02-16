@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 02-15-2017
  *
- *  Last Modified : Wed 15 Feb 2017 03:52:18 AM EST
+ *  Last Modified : Thu 16 Feb 2017 02:17:19 AM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -13,37 +13,120 @@
 
 One_Class_SVM::One_Class_SVM(){
 
-    // TODO: Make this constructor do some things.
+    _parameters = malloc( sizeof(struct svm_parameter ) );
+
+    set_default_parameters();
+
+    trained = false;
 }
 
 One_Class_SVM::One_Class_SVM( const char * file_name ){
 
-    // TODO: Load the file name listed, check if it worked.    
+    trained = load_model( file_name );
 }
 
 One_Class_SVM::One_Class_SVM( const std::string file_name ){
 
-    // TODO: Same as the constructor that takes a const char *, but converts it to c_str.
+    trained = load_model( file_name );
 }
 
-bool One_Class_SVM::add_training_vector( struct svm_node * node ){
+bool One_Class_SVM::add_training_vector( double label, const struct svm_node * node ){
+
+    label = 0.0;
+
+    return SVM_Module::add_training_vector( label, node );
+}
+
+bool One_Class_SVM::add_training_vector( const struct svm_node * node ){
 
     return SVM_Module::add_training_vector( 0.0, node );
 }
 
 bool One_Class_SVM::load_model( const char * file_name ){
 
-    _model = svm_load_model( file_name );
+    struct svm_model * temp_model = svm_load_model( file_name );
 
-    if ( _model->param.kernel_type != ONE_CLASS )
+    // If load_model fails, this temp_model will be a null pointer.
+    // If it succeeds and the resulting model's kernel_type is not ONE_CLASS,
+    // it can't be used as a model for one_class_svm (for obvious reasons)
+    // and we should consider it a failure.
+
+    if ( temp_model == NULL )
     {
-        _model = NULL;
+        return false;
+    }
+    else if ( temp_model->param.kernel_type != ONE_CLASS )
+    {
+        // Memory was allocated as a result of the successful load_model function,
+        // but the kernel type is incompatible.  The pointer must be freed before
+        // the function returns false.
+
+        free ( temp_model );
+        return false;
     }
 
-    return ( _model != NULL );
+    // If the method hasn't returned false yet, temp_model is both non-NULL and
+    // has kernel_type ONE_CLASS.  Set _model to temp_model, set trained to true,
+    // and return trained.
+
+    _model = temp_model;
+    trained = true;
+
+    return trained;
 }
 
 bool One_Class_SVM::load_model( const std::string file_name ){
 
     return load_model( file_name.c_str() );
+}
+
+void One_Class_SVM::set_parameters( const struct svm_parameter * parameters ){
+
+    // TODO: This.  Its purpose is a deep-copy of the values of another svm_parameter object into this one.
+}
+
+// TODO: Put the magic numbers in the method below into meaningful constants.
+
+/* In order to avoid complications, the default parameters for a one_class_svm object
+ * will be set to the following values:
+ *
+ * int svm_type = ONE_CLASS;    -This is the one_class_svm svm_module class. 
+ * int kernel_type = LINEAR;    -The default kernel_type will be linear for now in the interest of simplicity.
+ * int degree = 1;              -It's a LINEAR kernel_type, so this value actually doesn't matter and this is just for redundancy should the kernel_type change to poly later.
+ * double gamma = 0.0;          -This is for poly/rbf/sigmoid kernels, so it's unused, and Bander has it set to 0 in his code (this is arbitrary).
+ * double coef0 = 0.0;          -Like the value for gamma, this is unused when kernel_type is LINEAR (it is only used for poly/sigmoid).  Likewise, Bander's code has it set to 0.
+ *
+ * double cache_size = 100.0;   -100 is the default value (in MB).  This may be too large for some embedded systems, so CHECK this.
+ * double eps = 1e-3;           -Full disclosure: This is what Bander used and my decision here is arbitrary.
+ * double C = 1.0;              -The documentation on this is bad, but it's only used for svm_types C_SVC, EPSILON_SVR, and NU_SVR (also Bander has it set to 1).
+ * int nr_weight = 0;           -This is used in C_SVC, so it will remain 0 as in Bander's code.
+ * int *weight_lable = NULL;    -This is used in C_SVC, so it will remain NULL as in Bander's code.
+ * double* weight = NULL;       -This is used in C_SVC, so it will remain NULL as in Bander's code.
+ * double nu = 0.005;           -Again, this is taken from Bander's code.  NU_SVC, ONE_CLASS, and NU_SVR require a nu value.  CHECK as this is arbitrary (more or less).
+ * double p = 0.1;              -This is used for EPSILON_SVR, not ONE_CLASS, so its value is the same as in Bander's code.
+ * int shrinking = 1;           -CHECK: I got this from Bander's code as well, but I'm not sure I fully understand the meaning of this parameter.
+ * int probability = 0;         -CHECK: Once again, I am using the value from Bander's code.
+ */
+
+void One_Class_SVM::set_default_parameters(){
+
+    if ( _parameters != NULL )
+    {
+        _parameters->svm_type = ONE_CLASS;
+        _parameters->kernel_type = LINEAR;
+        _parameters->degree = 1;
+        _parameters->gamma = 0.0;
+        _parameters->coef0 = 0.0;
+
+        _parameters->cache_size = 100.0;
+        _parameters->eps = 1e-3;
+        _parameters->C = 1.0;
+        _parameters->nr_weight = 0;
+        _parameters->weight_label = NULL;
+        _parameters->weight = NULL;
+        _parameters->nu = 0.005;
+        _parameters->p = 0.1;
+        _parameters->shrinking = 1;
+        _parameters->probability = 0;
+    }
 }

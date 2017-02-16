@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 01-25-2017
  *
- *  Last Modified : Sun 12 Feb 2017 08:43:19 PM EST
+ *  Last Modified : Thu 16 Feb 2017 02:15:13 AM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -25,7 +25,7 @@ class SVM_Module{
 
         virtual ~SVM_Module() = 0;
 
-        virtual bool add_training_vector( double label, struct svm_node * node ) = 0;
+        virtual bool add_training_vector( double label, const struct svm_node * node ) = 0;
 
         virtual bool predict( const struct svm_node * node, double & label ) = 0;
 
@@ -36,8 +36,12 @@ class SVM_Module{
 
         int_fast32_t save_model( const char * file_name );
         int_fast32_t save_model( const std::string file_name );
+
+        virtual void set_parameters( const struct svm_parameter * parameters ) = 0;
         
     protected:
+
+        virtual void set_default_parameters() = 0;
 
         virtual bool generate_model() = 0;
 

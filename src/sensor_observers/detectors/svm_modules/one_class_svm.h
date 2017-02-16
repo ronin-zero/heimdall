@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 02-08-2017
  *
- *  Last Modified : Wed 15 Feb 2017 03:51:59 AM EST
+ *  Last Modified : Thu 16 Feb 2017 02:15:38 AM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -24,9 +24,8 @@ class One_Class_SVM: public SVM_Module{
         
         ~One_Class_SVM();   // TODO: also make destructors.
 
-        //bool add_training_vector( double label=0.0, struct svm_node * node );
-        
-        bool add_training_vector( struct svm_node * node );
+        bool add_training_vector( double label, const struct svm_node * node );
+        bool add_training_vector( const struct svm_node * node );
 
         bool predict( const struct svm_node * node, double & label );
 
@@ -35,7 +34,11 @@ class One_Class_SVM: public SVM_Module{
         bool load_model( const char * file_name );
         bool load_model( const std::string file_name );
 
+        void set_parameters( const struct svm_parameter * parameters );
+
     private:
+
+        void set_default_parameters();
 
         bool generate_model();
 };
