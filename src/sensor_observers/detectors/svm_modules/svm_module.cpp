@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 01-31-2017
  *
- *  Last Modified : Thu 16 Feb 2017 12:58:51 AM EST
+ *  Last Modified : Sun 19 Feb 2017 03:51:19 PM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -20,7 +20,7 @@
 // method, which tells the sensor using this svm_node that it can now generate
 // a model and begin testing if so desired.
 
-bool SVM_Module::add_training_vector( double label, const struct svm_node * node ){
+bool SVM_Module::add_training_vector( const struct svm_node * node, double label ){
 
     _class_labels.push_back( label );
     _support_vectors.push_back( node );

@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 02-15-2017
  *
- *  Last Modified : Thu 16 Feb 2017 04:00:11 PM EST
+ *  Last Modified : Sun 19 Feb 2017 04:52:26 PM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -13,7 +13,7 @@
 
 One_Class_SVM::One_Class_SVM(){
 
-    _parameters = malloc( sizeof(struct svm_parameter ) );
+    _parameters = new svm_parameter();
 
     set_default_parameters();
 
@@ -30,16 +30,9 @@ One_Class_SVM::One_Class_SVM( const std::string file_name ){
     trained = load_model( file_name );
 }
 
-bool One_Class_SVM::add_training_vector( double label, const struct svm_node * node ){
+bool One_Class_SVM::add_training_vector( const struct svm_node * node, double label ){
 
-    label = 0.0;
-
-    return SVM_Module::add_training_vector( label, node );
-}
-
-bool One_Class_SVM::add_training_vector( const struct svm_node * node ){
-
-    return SVM_Module::add_training_vector( 0.0, node );
+    return SVM_Module::add_training_vector( node, label );
 }
 
 bool One_Class_SVM::load_model( const char * file_name ){
@@ -82,7 +75,7 @@ bool One_Class_SVM::load_model( const std::string file_name ){
 
 // This effectively produces a deep copy of another svm_parameter into this class's _parameter member.
 
-void One_Class_SVM::set_parameters( const struct svm_parameter * parameters ){
+bool One_Class_SVM::set_parameters( const struct svm_parameter * parameters ){
 
     if ( parameters != NULL && parameters->svm_type == ONE_CLASS )
     {
@@ -96,12 +89,16 @@ void One_Class_SVM::set_parameters( const struct svm_parameter * parameters ){
         _parameters->eps            = parameters->eps;
         _parameters->C              = parameters->C;
         _parameters->nr_weight      = parameters->nr_weight;
-        _parameters->weight_label   = parameters->weight_lable;
+        _parameters->weight_label   = parameters->weight_label;
         _parameters->nu             = parameters->nu;
         _parameters->p              = parameters->p;
         _parameters->shrinking      = parameters->shrinking;
         _parameters->probability    = parameters->probability;
+
+        return true;
     }
+
+    return false;
 }
 
 // TODO: Put the magic numbers in the method below into meaningful constants.
