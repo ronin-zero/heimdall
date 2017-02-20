@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 01-31-2017
  *
- *  Last Modified : Sun 19 Feb 2017 03:51:19 PM EST
+ *  Last Modified : Mon 20 Feb 2017 02:50:57 AM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -20,7 +20,7 @@
 // method, which tells the sensor using this svm_node that it can now generate
 // a model and begin testing if so desired.
 
-bool SVM_Module::add_training_vector( const struct svm_node * node, double label ){
+bool SVM_Module::add_training_vector( struct svm_node * node, double label ){
 
     _class_labels.push_back( label );
     _support_vectors.push_back( node );
@@ -37,7 +37,7 @@ bool SVM_Module::add_training_vector( const struct svm_node * node, double label
 // reference with the label predicted according to the model for the given
 // svm_node pointer input.
 
-bool SVM_Module::predict( const struct svm_node * node, double & label ){
+bool SVM_Module::predict( struct svm_node * node, double & label ){
 
     if ( !trained || _model == NULL )
     {
@@ -68,3 +68,36 @@ int_fast32_t SVM_Module::save_model( const std::string file_name ){
 
     return save_model( file_name.c_str() );
 }
+
+// an svm_problem a struct with the following members:
+//
+// int l                -   'l' is the number of training data
+// double *y            -   'y' is an array of doubles that serve as labels corresponding to...
+// struct svm_node **x  -   'x' is a two-dimensional array of training samples.
+
+void SVM_Module::make_problem(){
+
+    _problem = new svm_problem();
+
+    _problem->l = _problem_size;
+    _problem->y = &_class_labels[0];
+    _problem->x = &_support_vectors[0];
+}
+
+bool SVM_Module::generate_model(){
+
+    
+    if ( svm_check_parameter( _problem, _parameters ) != NULL )
+    {
+        _model = svm_train( _problem, _parameters );
+
+        trained = _model != NULL;
+    }
+    else
+    {
+        return false;
+    }
+
+    return trained;
+}
+

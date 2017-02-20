@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 01-25-2017
  *
- *  Last Modified : Sun 19 Feb 2017 04:51:53 PM EST
+ *  Last Modified : Mon 20 Feb 2017 02:51:18 AM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -25,9 +25,9 @@ class SVM_Module{
 
         virtual ~SVM_Module() = 0;
 
-        virtual bool add_training_vector( const struct svm_node * node, double label ) = 0;
+        virtual bool add_training_vector( struct svm_node * node, double label ) = 0;
 
-        virtual bool predict( const struct svm_node * node, double & label ) = 0;
+        virtual bool predict( struct svm_node * node, double & label ) = 0;
 
         virtual bool is_trained() = 0;
         
@@ -38,13 +38,18 @@ class SVM_Module{
         int_fast32_t save_model( const std::string file_name );
 
         virtual bool set_parameters( const struct svm_parameter * parameters ) = 0;
+
+        virtual bool train_model() = 0;
         
     protected:
 
         virtual void set_default_parameters() = 0;
 
+        virtual void make_problem() = 0;
+
         virtual bool generate_model() = 0;
 
+        struct svm_problem * _problem;
         struct svm_model * _model;
         struct svm_parameter * _parameters;
         Stopping_Criterion * _stopping_criterion;
