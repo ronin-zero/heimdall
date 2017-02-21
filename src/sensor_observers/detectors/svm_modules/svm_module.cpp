@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 01-31-2017
  *
- *  Last Modified : Mon 20 Feb 2017 02:50:57 AM EST
+ *  Last Modified : Tue 21 Feb 2017 01:44:59 AM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -20,14 +20,12 @@
 // method, which tells the sensor using this svm_node that it can now generate
 // a model and begin testing if so desired.
 
-bool SVM_Module::add_training_vector( struct svm_node * node, double label ){
+void SVM_Module::add_training_vector( struct svm_node * node, double label ){
 
-    _class_labels.push_back( label );
-    _support_vectors.push_back( node );
+    _class_labels->push_back( label );
+    _support_vectors->push_back( node );
 
     _training_samples++;
-
-    return _stopping_criterion->can_stop_training();
 }
 
 // Originally, this returned a double.  I have changed it so that it takes a 
@@ -69,6 +67,18 @@ int_fast32_t SVM_Module::save_model( const std::string file_name ){
     return save_model( file_name.c_str() );
 }
 
+void SVM_Module::free_support_vectors(){
+
+    if ( _support_vectors != NULL )
+    {
+        while ( !_support_vectors->empty() )
+        {
+            free ( _support_vectors->back() );
+            _support_vectors->pop_back();
+        }
+    }
+}
+
 // an svm_problem a struct with the following members:
 //
 // int l                -   'l' is the number of training data
@@ -80,12 +90,11 @@ void SVM_Module::make_problem(){
     _problem = new svm_problem();
 
     _problem->l = _problem_size;
-    _problem->y = &_class_labels[0];
-    _problem->x = &_support_vectors[0];
+    _problem->y = &(*_class_labels)[0];     // CHECK: These vectors are now pointers to vectors.
+    _problem->x = &(*_support_vectors)[0];  // I could see this being a problem.
 }
 
 bool SVM_Module::generate_model(){
-
     
     if ( svm_check_parameter( _problem, _parameters ) != NULL )
     {

@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 02-08-2017
  *
- *  Last Modified : Sun 19 Feb 2017 04:51:40 PM EST
+ *  Last Modified : Tue 21 Feb 2017 01:40:00 AM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -24,7 +24,7 @@ class One_Class_SVM: public SVM_Module{
         
         ~One_Class_SVM();   // TODO: also make destructors.
 
-        bool add_training_vector( const struct svm_node * node, double label=0.0 );
+        void add_training_vector( struct svm_node * node, double label=0.0 );
 
         bool predict( const struct svm_node * node, double & label );
 

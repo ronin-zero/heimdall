@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 02-15-2017
  *
- *  Last Modified : Mon 20 Feb 2017 02:10:35 AM EST
+ *  Last Modified : Tue 21 Feb 2017 01:39:12 AM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -11,9 +11,15 @@
 
 #include "one_class_svm.h"
 
+// Constructors
+
 One_Class_SVM::One_Class_SVM(){
 
     _parameters = new svm_parameter();
+
+    _training_samples = 0;
+    _class_labels = new std::vector<double>();
+    _support_vectors = new std::vector<struct svm_node*>();
 
     set_default_parameters();
 
@@ -22,15 +28,39 @@ One_Class_SVM::One_Class_SVM(){
 
 One_Class_SVM::One_Class_SVM( const char * file_name ){
 
+    _support_vectors = new std::vector<struct svm_node*>();
+
     trained = load_model( file_name );
 }
 
 One_Class_SVM::One_Class_SVM( const std::string file_name ){
 
+    _support_vectors = new std::vector<struct svm_node*>();
+
     trained = load_model( file_name );
 }
 
-bool One_Class_SVM::add_training_vector( const struct svm_node * node, double label ){
+// Destructors
+
+One_Class_SVM::~One_Class_SVM(){
+
+    if ( trained )
+    {
+        svm_free_model_content( _model );
+        free( _model );
+    }
+    else
+    {
+        SVM_Module::free_support_vectors();
+    }
+
+    delete _class_labels;
+    delete _support_vectors;
+    delete _parameters;
+    
+}
+
+void One_Class_SVM::add_training_vector( struct svm_node * node, double label ){
 
     return SVM_Module::add_training_vector( node, label );
 }
@@ -40,7 +70,7 @@ bool One_Class_SVM::load_model( const char * file_name ){
     struct svm_model * temp_model = svm_load_model( file_name );
 
     // If load_model fails, this temp_model will be a null pointer.
-    // If it succeeds and the resulting model's kernel_type is not ONE_CLASS,
+    // If it succeeds and the resulting model's svm_type is not ONE_CLASS,
     // it can't be used as a model for one_class_svm (for obvious reasons)
     // and we should consider it a failure.
 

@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 02-08-2017
  *
- *  Last Modified : Wed 08 Feb 2017 07:03:52 PM EST
+ *  Last Modified : Mon 20 Feb 2017 10:46:09 PM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -29,5 +29,4 @@ class Training_Counter: public Stopping_Criterion{
 
         uint_fast64_t _sample_count;
         uint_fast64_t _num_samples_required;
-
 };
