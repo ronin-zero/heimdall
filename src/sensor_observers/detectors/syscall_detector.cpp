@@ -1,9 +1,9 @@
 /*
  *  File Name : syscall_detector.cpp
  *  
- *  Creation Date : 27-12-2016
+ *  Creation Date : 12-27-2016
  *
- *  Last Modified : Tue 21 Feb 2017 08:05:37 PM EST
+ *  Last Modified : Wed 22 Feb 2017 08:11:29 AM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -12,6 +12,10 @@
 #include "syscall_detector.h"
 
 Syscall_Detector::Syscall_Detector( Trace_Window * window, Data_Point_Generator * generator, Support_Vector_Generator * sv_generator, SVM_Module * svm_module ){
+
+    // TODO:  Put that string in a constant or something.
+
+    detection_log.open( "syscall_detector.log" );
 
     observing = false;
     processing = false;
@@ -26,6 +30,8 @@ Syscall_Detector::Syscall_Detector( Trace_Window * window, Data_Point_Generator 
 
 Syscall_Detector::~Syscall_Detector(){
 
+    detection_log.close();
+
     delete ( _call_formatter );
 }
 
@@ -34,12 +40,121 @@ bool Syscall_Detector::train_from_saved_model( const std::string file_name ){
     return _svm_module->load_model( file_name );
 }
 
+// Ultimately, there should be a more elegant way of doing this.  As of now, 
+// the syscall number needs to be the last field on a line in a trace.
+// There should probably be a class that handles this with stuff like how many
+// fields there are, what the separator is, and which field is the syscall number.
+
 bool Syscall_Detector::train_from_trace( const std::string file_name, uint_fast8_t sep ){
 
     // TODO: Write this method to pull a system call trace from a trace file and use
     // it to train the svm_module.
+   
+    if ( processing )
+    {
+        return false;
+    }
+    
+    std::ifstream trace_file( file_name );
+    
+    if ( trace_file.is_open() )
+    {
+        std::string line;
 
+        uint_fast32_t line_count = 0;
+        uint_fast32_t syscall_value;
+
+        bool line_format_valid = true;
+
+        while( std::getline( trace_file, line ) && line_format_valid )
+        {
+            size_t syscall_index = line.rfind(sep);
+
+            std::string syscall_string;
+
+            if ( syscall_index != std::string::npos )
+            {
+                syscall_string = line.substr( syscall_index + 1 );
+            }
+            else
+            {
+                syscall_string = line;
+            }
+
+            line_format_valid = ASCII_Operations::is_number( syscall_string );
+
+            if ( line_format_valid )
+            {
+                // add data point.
+
+                syscall_value = ASCII_Operations::to_uint( syscall_string );
+
+                process_data_point( syscall_value );
+
+                line_count++; 
+            }
+            else
+            {
+                // log failure, break loop.  give line number and offending line.
+                // clean up training objects.
+                // return false.
+                
+                detection_log << "ERROR - Malformed record at line #" << line_count << ": " << line << std::endl;
+            }
+        }
+
+        if ( line_format_valid )
+        {
+            detection_log << "Finished reading trace_file. " << line_count << " lines read." << std::endl;
+        }
+
+        trace_file.close();
+
+        return train_model();
+        
+    }
+    else
+    {
+        detection_log << "ERROR: Could not open file " << file_name << std::endl;
+    }
+   
     return false;
+}
+
+bool Syscall_Detector::train_model(){
+
+    if ( _svm_module->is_trained() )
+    {
+        detection_log << "ERROR: SVM_Module is already trained." << std::endl;
+
+        return false;
+    }
+
+    char * message;
+
+    time_t timer;
+
+    if ( _svm_module->generate_model( message ) )
+    {
+        time(&timer);
+        detection_log << "TRAINING SUCCEEDED at: ";
+        detection_log << ctime(&timer) << std::endl;
+        return true;
+    }
+    else
+    {
+        time(&timer);
+        detection_log << "TRAINING FAILED at: ";
+        detection_log << ctime(&timer) << std::endl;
+
+        if ( message != NULL )
+        {
+            detection_log << "Error message: " << message << std::endl;
+        }
+
+        return false;
+    }
+
 }
 
 void Syscall_Detector::update(){
@@ -115,6 +230,33 @@ void Syscall_Detector::stop_processing(){
     // TODO: The rest of this method!
 }
 
+/*
+bool Syscall_Detector::start_training(){
+
+    if ( training )
+    {
+        return false;
+    }
+    else
+    {
+        training = true;
+        return training;
+    }
+}
+
+bool Syscall_Detector::stop_training(){
+
+    if ( !training )
+    {
+        return false;
+    }
+    else
+    {
+        training = false;
+        return training;
+    }
+}*/
+
 void Syscall_Detector::set_generator( Data_Point_Generator * generator ){
 
     _data_point_generator = generator;
@@ -145,6 +287,55 @@ void Syscall_Detector::process(){
         if ( !process_success )
         {
             std::this_thread::yield();
+        }
+    }
+}
+
+void Syscall_Detector::process_data_point( uint_fast32_t data_point ){
+
+    _window->add_data_point( _call_formatter->format_syscall_num( data_point ) );
+
+    while ( _data_point_generator->has_next( _window ) && !_sv_generator->full() )
+    {
+        _sv_generator->add_data_point( _data_point_generator->generate_data_point( _window ) );
+    }
+
+    if ( _sv_generator->full() )
+    {
+        struct svm_node * node = _sv_generator->get_support_vector();
+
+        process_data_vector( node );
+
+        _sv_generator->reset();
+    }
+
+    if ( _data_point_generator->done( _window ) )
+    {
+        _window->reset_window();
+        _data_point_generator->reset();
+    }
+}
+
+void Syscall_Detector::process_data_vector( struct svm_node * node ){
+
+    if ( !_svm_module->is_trained() )
+    {
+        _svm_module->add_training_vector( node, 0.0 );
+    }
+    else
+    {
+        time_t timer;
+        double label = 0.0;
+
+        if( _svm_module->predict( node, label ) )
+        {
+            time(&timer);
+            detection_log << "CLASS: " << label << " predicted - " << ctime(&timer) << std::endl;
+        }
+        else
+        {
+            time(&timer);
+            detection_log << "ERROR: Prediction failed - " << ctime(&timer) << std::endl;
         }
     }
 }

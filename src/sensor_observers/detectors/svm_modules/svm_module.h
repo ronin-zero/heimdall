@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 01-25-2017
  *
- *  Last Modified : Tue 21 Feb 2017 01:01:02 AM EST
+ *  Last Modified : Wed 22 Feb 2017 08:13:58 AM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -38,7 +38,7 @@ class SVM_Module{
 
         virtual bool set_parameters( const struct svm_parameter * parameters ) = 0;
 
-        virtual bool train_model() = 0;
+        virtual bool generate_model( const char * msg ) = 0;
         
         struct svm_parameter * _parameters;
         
@@ -49,8 +49,6 @@ class SVM_Module{
         void free_support_vectors();
 
         virtual void make_problem() = 0;
-
-        virtual bool generate_model() = 0;
 
         struct svm_problem * _problem;
         struct svm_model * _model;

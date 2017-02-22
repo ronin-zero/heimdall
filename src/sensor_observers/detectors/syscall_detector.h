@@ -1,9 +1,9 @@
 /*
  *  File Name : syscall_detector.h
  *  
- *  Creation Date : 04-10-2016
+ *  Creation Date : 10-04-2016
  *
- *  Last Modified : Tue 21 Feb 2017 08:01:55 PM EST
+ *  Last Modified : Wed 22 Feb 2017 08:02:31 AM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -14,7 +14,10 @@
 #include <string>
 #include <thread>
 #include <map>
+#include <iostream>
+#include <fstream>
 
+#include "utils/ascii_operations.h"
 #include "sensor_data/sensor_data.h"
 #include "sensor_observers/sensor_observer.h"
 #include "sensor_observers/data_records/data_record.h"
@@ -57,6 +60,8 @@ class Syscall_Detector : public Sensor_Observer{
 
         bool train_from_trace( const std::string file_name, uint_fast8_t sep = ',' );
         bool train_from_saved_model( const std::string file_name );
+        
+        bool train_model();
 
         void update();
         void update( Sensor_Data data );
@@ -73,14 +78,23 @@ class Syscall_Detector : public Sensor_Observer{
         void stop_observing();
         void stop_processing();
 
+        //bool start_training();
+        //bool stop_training();
+
         void set_trace_window( Trace_Window * window );
         void set_generator( Data_Point_Generator * genenerator );
 
     private:
 
+        std::ofstream detection_log;
+
         void process();
 
+        void process_data_point( uint_fast32_t data_point );
+        void process_data_vector( struct svm_node * node );
+
         bool update_window();
+        
         bool generate_data();
 
         Syscall_Formatter * _call_formatter;

@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 11-01-2017
  *
- *  Last Modified : Tue 21 Feb 2017 04:20:52 PM EST
+ *  Last Modified : Wed 22 Feb 2017 08:10:53 AM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -63,4 +63,9 @@ bool NGram_Generator::has_next( Trace_Window * trace ){
 bool NGram_Generator::done( Trace_Window * trace ){
 
     return ( trace->trace_window_full() && !has_next( trace ) );
+}
+
+void NGram_Generator::reset(){
+
+    _index = 0;
 }

@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 01-31-2017
  *
- *  Last Modified : Tue 21 Feb 2017 01:44:59 AM EST
+ *  Last Modified : Wed 22 Feb 2017 08:14:13 AM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -94,9 +94,13 @@ void SVM_Module::make_problem(){
     _problem->x = &(*_support_vectors)[0];  // I could see this being a problem.
 }
 
-bool SVM_Module::generate_model(){
+bool SVM_Module::generate_model( const char * msg ){
+
+    make_problem();
+
+    msg = svm_check_parameter( _problem, _parameters );
     
-    if ( svm_check_parameter( _problem, _parameters ) != NULL )
+    if ( msg == NULL )
     {
         _model = svm_train( _problem, _parameters );
 

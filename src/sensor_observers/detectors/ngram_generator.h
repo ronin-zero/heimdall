@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 11-01-2017
  *
- *  Last Modified : Tue 21 Feb 2017 01:37:32 PM EST
+ *  Last Modified : Wed 22 Feb 2017 08:10:11 AM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -29,6 +29,8 @@ class NGram_Generator : public Data_Point_Generator{
 
         bool has_next( Trace_Window * trace );
         bool done( Trace_Window * trace );
+
+        void reset();
 
     private:
 
