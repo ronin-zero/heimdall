@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 11-01-2017
  *
- *  Last Modified : Wed 25 Jan 2017 02:56:15 AM EST
+ *  Last Modified : Tue 21 Feb 2017 04:20:52 PM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -44,6 +44,8 @@ int_fast64_t NGram_Generator::generate_data_point( Trace_Window * trace ){
     {
         ngram_value += ( int_fast64_t ) trace->at( _index + i ) * pow( _table_size, ( _n - 1 ) - i ); 
     }
+
+    _index++;
     
     return ngram_value;
 }

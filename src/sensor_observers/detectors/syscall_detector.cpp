@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 27-12-2016
  *
- *  Last Modified : Wed 25 Jan 2017 02:58:21 AM EST
+ *  Last Modified : Tue 21 Feb 2017 08:05:37 PM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -11,10 +11,15 @@
 
 #include "syscall_detector.h"
 
-Syscall_Detector::Syscall_Detector(){
+Syscall_Detector::Syscall_Detector( Trace_Window * window, Data_Point_Generator * generator, Support_Vector_Generator * sv_generator, SVM_Module * svm_module ){
 
     observing = false;
     processing = false;
+
+    _window = window;
+    _data_point_generator = generator;
+    _sv_generator = sv_generator;
+    _svm_module = svm_module;
 
     _call_formatter = new Syscall_Formatter();
 }
@@ -22,6 +27,19 @@ Syscall_Detector::Syscall_Detector(){
 Syscall_Detector::~Syscall_Detector(){
 
     delete ( _call_formatter );
+}
+
+bool Syscall_Detector::train_from_saved_model( const std::string file_name ){
+
+    return _svm_module->load_model( file_name );
+}
+
+bool Syscall_Detector::train_from_trace( const std::string file_name, uint_fast8_t sep ){
+
+    // TODO: Write this method to pull a system call trace from a trace file and use
+    // it to train the svm_module.
+
+    return false;
 }
 
 void Syscall_Detector::update(){
@@ -99,7 +117,7 @@ void Syscall_Detector::stop_processing(){
 
 void Syscall_Detector::set_generator( Data_Point_Generator * generator ){
 
-    _generator = generator;
+    _data_point_generator = generator;
 }
 
 void Syscall_Detector::set_trace_window( Trace_Window * window ){
@@ -118,8 +136,10 @@ void Syscall_Detector::process(){
     {
         process_success = false; 
 
+        // Add a new syscall to the trace winow if possible
         process_success |= update_window();
 
+        // Add a new formatted data point to the sv generator if possible
         process_success |= generate_data();
         
         if ( !process_success )
@@ -141,7 +161,7 @@ bool Syscall_Detector::update_window(){
     {
         Syscall_Record record( sensor_data );
 
-        uint_fast32_t syscall_num = record.get_syscall_num();
+        uint_fast32_t syscall_num = _call_formatter->format_syscall_num( record.get_syscall_num() );
 
         return _window->add_data_point( syscall_num );
     }
@@ -149,15 +169,21 @@ bool Syscall_Detector::update_window(){
     return false;
 }
 
-// TODO: This method has nothing.  Fix it.
+// This method checks to see if there is enough data in the trace window
+// for the data point generator to generate a new data point.
+// If the data point generator is capable of generating a new data point
+// and the support vector generator is able to take another data point, 
+// it generates a new point and adds it to the support vector generator
+// and returns true.  Otherwise, it returns false.
 
 bool Syscall_Detector::generate_data(){
 
-    if ( _generator->has_next( _window ) && !_call_formatter->full() )
+    if ( _data_point_generator->has_next( _window ) && !_sv_generator->full() )
     {
-        int_fast64_t tmp_data_point = _generator->( _window );
+        int_fast64_t tmp_data_point = _data_point_generator->generate_data_point( _window );
 
-        // tmp_data_point should be passed to the support vector generator, which is not included here.
+        _sv_generator->add_data_point( tmp_data_point );
+
         return true;
     }
 

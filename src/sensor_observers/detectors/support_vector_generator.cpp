@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 18-01-2017
  *
- *  Last Modified : Wed 25 Jan 2017 12:52:23 AM EST
+ *  Last Modified : Tue 21 Feb 2017 12:12:42 PM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -41,7 +41,7 @@ bool Support_Vector_Generator::full(){
     return _max_data_points == _data_point_count;
 }
 
-svm_node * Support_Vector_Generator::get_support_vector(){
+struct svm_node * Support_Vector_Generator::get_support_vector(){
 
     svm_node * node_instance = NULL;
     

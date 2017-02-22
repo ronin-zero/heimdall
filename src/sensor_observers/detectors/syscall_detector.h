@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 04-10-2016
  *
- *  Last Modified : Wed 18 Jan 2017 02:56:30 AM EST
+ *  Last Modified : Tue 21 Feb 2017 08:01:55 PM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -21,6 +21,8 @@
 #include "sensor_observers/data_records/system_call_record.h"
 #include "sensor_observers/detectors/trace_window.h"
 #include "sensor_observers/detectors/data_point_generator.h"
+#include "sensor_observers/detectors/svm_modules/svm_module.h"
+#include "sensor_observers/detectors/support_vector_generator.h"
 
 /*  
  *  For now, only Linux is supported.  If other operating systems are added later, handle 
@@ -49,8 +51,12 @@ class Syscall_Detector : public Sensor_Observer{
 
     public:
 
-        Syscall_Detector();
+        Syscall_Detector( Trace_Window * window, Data_Point_Generator * generator, Support_Vector_Generator * sv_generator, SVM_Module * svm_module );
+
         ~Syscall_Detector();
+
+        bool train_from_trace( const std::string file_name, uint_fast8_t sep = ',' );
+        bool train_from_saved_model( const std::string file_name );
 
         void update();
         void update( Sensor_Data data );
@@ -79,7 +85,9 @@ class Syscall_Detector : public Sensor_Observer{
 
         Syscall_Formatter * _call_formatter;
         Trace_Window * _window;
-        Data_Point_Generator * _generator;
+        Data_Point_Generator * _data_point_generator;
+        Support_Vector_Generator * _sv_generator;
+        SVM_Module * _svm_module;
 };
 
 /*

@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 11-01-2017
  *
- *  Last Modified : Tue 24 Jan 2017 11:17:24 PM EST
+ *  Last Modified : Tue 21 Feb 2017 01:37:32 PM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -35,5 +35,4 @@ class NGram_Generator : public Data_Point_Generator{
         size_t _index;
         uint_fast32_t _n;
         uint_fast32_t _table_size;
-
 };
