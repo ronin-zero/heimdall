@@ -1,9 +1,9 @@
 /*
  *  File Name : ngram_generator.h
  *  
- *  Creation Date : 11-01-2017
+ *  Creation Date : 01-11-2017
  *
- *  Last Modified : Wed 22 Feb 2017 08:10:11 AM EST
+ *  Last Modified : Wed 01 Mar 2017 01:45:48 AM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -23,18 +23,15 @@ class NGram_Generator : public Data_Point_Generator{
         NGram_Generator( uint_fast32_t n_value, uint_fast32_t table_size );
         ~NGram_Generator() {}
 
-        int_fast64_t generate_data_point( Trace_Window * trace );
+        int_fast64_t generate_data_point( Trace_Window trace, uint_fast32_t index = 0 );
 
         uint_fast32_t ngram_size();
 
-        bool has_next( Trace_Window * trace );
-        bool done( Trace_Window * trace );
-
-        void reset();
+        bool has_next( Trace_Window trace, uint_fast32_t index = 0 );
 
     private:
 
-        size_t _index;
         uint_fast32_t _n;
+
         uint_fast32_t _table_size;
 };

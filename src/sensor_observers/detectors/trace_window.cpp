@@ -1,9 +1,9 @@
 /*
  *  File Name : trace_window.cpp
  *  
- *  Creation Date : 08-01-2017
+ *  Creation Date : 01-08-2017
  *
- *  Last Modified : Fri 13 Jan 2017 01:04:51 AM EST
+ *  Last Modified : Wed 01 Mar 2017 12:41:55 AM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -11,30 +11,15 @@
 
 #include "trace_window.h"
 
-Trace_Window::Trace_Window( size_t trace_window_length ){
+Trace_Window::Trace_Window( size_t trace_window_length ) : _trace_window() {
 
     _trace_length = trace_window_length;
-
-    _trace_window[ _trace_length ];
-
-    _index = 0;
 }
+
+// Really nothing needed here.
 
 Trace_Window::~Trace_Window(){
 
-    // As of now, we don't need to do anything.
-    // If I wind up allocating memory for the array representing the
-    // trace window, of course I will have to free it here.
-}
-
-// This one should just provide "getter" access to the index provided by the parameter "index."
-// It should almost certainly have some exception handling and bounds checking, but for now,
-// only I'm using this, so I'm going to just trust myself to not provide malicious input.
-//
-// TODO: Exception handling and bounds checking here.
-int_fast32_t Trace_Window::at( size_t index ){
-
-    return _trace_window[ index ];
 }
 
 size_t Trace_Window::get_trace_length(){
@@ -42,21 +27,21 @@ size_t Trace_Window::get_trace_length(){
     return _trace_length;
 }
 
-size_t Trace_Window::get_index(){
+size_t Trace_Window::size(){
 
-    return _index;
+    return _trace_window.size();
 }
 
 bool Trace_Window::trace_window_full(){
 
-    return ( _index >= _trace_length );
+    return ( _trace_window.size() == _trace_length );
 }
 
 bool Trace_Window::add_data_point( int_fast32_t data_point ){
 
     if ( !trace_window_full() )
     {
-        _trace_window[ _index++ ] = data_point;
+        _trace_window.push_back( data_point );
         return true;
     }
     else
@@ -65,28 +50,28 @@ bool Trace_Window::add_data_point( int_fast32_t data_point ){
     }
 }
 
-void Trace_Window::reset_window(){
-
-    _index = 0;
-}
-
-ostream& operator<<( ostream& s_out, Trace_Window const& window ){
+std::ostream& operator<<( std::ostream& s_out, Trace_Window const& window ){
 
     window.print( s_out );
     return s_out;
 }
 
-void Trace_Window::print( ostream& s_out ) const{
+const int_fast32_t& Trace_Window::operator[]( uint_fast32_t i ) const{
+
+    return _trace_window[ i ];
+}
+
+void Trace_Window::print( std::ostream& s_out ) const{
 
     s_out << '[';
 
-    if ( _index > 0 )
+    if ( !_trace_window.empty() )
     {
-        s_out << _trace_window[0];
+        s_out << _trace_window[ 0 ];
 
-        for ( uint_fast32_t i = 1; i < _index; i++ )
+        for ( uint_fast32_t i = 1; i < _trace_window.size(); i++ )
         {
-            s_out << ',' << _trace_window[ i ];        
+            s_out << ',' << _trace_window[ i ]; 
         }
     }
     else

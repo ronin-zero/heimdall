@@ -1,9 +1,9 @@
 /*
  *  File Name : ngram_generator.cpp
  *  
- *  Creation Date : 11-01-2017
+ *  Creation Date : 01-11-2017
  *
- *  Last Modified : Wed 22 Feb 2017 08:10:53 AM EST
+ *  Last Modified : Wed 01 Mar 2017 01:43:03 AM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -16,8 +16,6 @@ NGram_Generator::NGram_Generator( uint_fast32_t n_value, uint_fast32_t table_siz
     _n = n_value;
 
     _table_size = table_size;
-
-    _index = 0;
 }
 
 /*
@@ -36,16 +34,14 @@ NGram_Generator::NGram_Generator( uint_fast32_t n_value, uint_fast32_t table_siz
  *      s = g_0 * c ^ ( (n - 1) - 0 ) + g_1 * ( ( n - 1 ) - 1 )
  */
 
-int_fast64_t NGram_Generator::generate_data_point( Trace_Window * trace ){
+int_fast64_t NGram_Generator::generate_data_point( Trace_Window trace, uint_fast32_t index ){
 
     int_fast64_t ngram_value = 0;
 
     for ( uint_fast32_t i = 0; i < _n; i++ )
     {
-        ngram_value += ( int_fast64_t ) trace->at( _index + i ) * pow( _table_size, ( _n - 1 ) - i ); 
+        ngram_value += ( int_fast64_t ) trace[ index + i ] * pow( _table_size, ( _n - 1 ) - i ); 
     }
-
-    _index++;
     
     return ngram_value;
 }
@@ -55,17 +51,7 @@ uint_fast32_t NGram_Generator::ngram_size(){
     return _n;
 }
 
-bool NGram_Generator::has_next( Trace_Window * trace ){
+bool NGram_Generator::has_next( Trace_Window trace, uint_fast32_t index ){
     
-    return ( trace->get_index() > ( _index + _n ) );
-}
-
-bool NGram_Generator::done( Trace_Window * trace ){
-
-    return ( trace->trace_window_full() && !has_next( trace ) );
-}
-
-void NGram_Generator::reset(){
-
-    _index = 0;
+    return ( trace.size() > ( index + _n ) );
 }
