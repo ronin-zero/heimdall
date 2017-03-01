@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 10-04-2016
  *
- *  Last Modified : Wed 22 Feb 2017 08:02:31 AM EST
+ *  Last Modified : Wed 22 Feb 2017 11:28:36 AM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -88,14 +88,16 @@ class Syscall_Detector : public Sensor_Observer{
 
         std::ofstream detection_log;
 
+        char * current_time();
+
         void process();
 
         void process_data_point( uint_fast32_t data_point );
         void process_data_vector( struct svm_node * node );
 
-        bool update_window();
+        // bool update_window();
         
-        bool generate_data();
+        // bool generate_data();
 
         Syscall_Formatter * _call_formatter;
         Trace_Window * _window;

@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 08-01-2017
  *
- *  Last Modified : Thu 26 Jan 2017 11:43:41 PM EST
+ *  Last Modified : Tue 28 Feb 2017 05:59:14 PM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -16,6 +16,7 @@
 #include <string>
 #include <cstdint>
 #include <cstddef>
+#include <deque>
 
 using std::string;
 using std::ostream;
@@ -39,6 +40,8 @@ class Trace_Window{
         void reset_window();
 
         friend ostream& operator<<( ostream& s_out, Trace_Window const& window );
+
+        const int_fast32_t& operator[]( uint_fast32_t i ) const;
 
     private:
 

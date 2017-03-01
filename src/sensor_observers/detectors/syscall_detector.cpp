@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 12-27-2016
  *
- *  Last Modified : Wed 22 Feb 2017 08:11:29 AM EST
+ *  Last Modified : Wed 22 Feb 2017 11:36:04 AM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -30,6 +30,10 @@ Syscall_Detector::Syscall_Detector( Trace_Window * window, Data_Point_Generator 
 
 Syscall_Detector::~Syscall_Detector(){
 
+    stop_observing();
+    stop_processing();
+
+    detection_log << "Detection stopped at: " << current_time();
     detection_log.close();
 
     delete ( _call_formatter );
@@ -138,14 +142,14 @@ bool Syscall_Detector::train_model(){
     {
         time(&timer);
         detection_log << "TRAINING SUCCEEDED at: ";
-        detection_log << ctime(&timer) << std::endl;
+        detection_log << current_time() << std::endl;
         return true;
     }
     else
     {
         time(&timer);
         detection_log << "TRAINING FAILED at: ";
-        detection_log << ctime(&timer) << std::endl;
+        detection_log << current_time() << std::endl;
 
         if ( message != NULL )
         {
@@ -226,8 +230,12 @@ void Syscall_Detector::stop_observing(){
 
 void Syscall_Detector::stop_processing(){
 
-    processing = false;
-    // TODO: The rest of this method!
+    if ( processing )
+    {
+        processing = false;
+
+        processing_thread.join();
+    }
 }
 
 /*
@@ -267,26 +275,32 @@ void Syscall_Detector::set_trace_window( Trace_Window * window ){
     _window = window;
 }
 
+char * Syscall_Detector::current_time(){
+
+    time_t current_time;
+
+    time( &current_time );
+
+    return ctime(&current_time);
+}
+
 void Syscall_Detector::process(){
 
     // This will be set to false if one of the operations succeeded.
     // If none of them succeeded, we need to yield.
 
-    bool process_success;
-
     while ( processing )
     {
-        process_success = false; 
 
-        // Add a new syscall to the trace winow if possible
-        process_success |= update_window();
-
-        // Add a new formatted data point to the sv generator if possible
-        process_success |= generate_data();
+        Sensor_Data data_point;
         
-        if ( !process_success )
+        if ( data_queue.try_dequeue( data_point ) )
         {
-            std::this_thread::yield();
+            Syscall_Record record( data_point );
+
+            uint_fast32_t syscall_num = _call_formatter->format_syscall_num( record.get_syscall_num() );
+
+            process_data_point( syscall_num );
         }
     }
 }
@@ -324,22 +338,21 @@ void Syscall_Detector::process_data_vector( struct svm_node * node ){
     }
     else
     {
-        time_t timer;
         double label = 0.0;
 
         if( _svm_module->predict( node, label ) )
         {
-            time(&timer);
-            detection_log << "CLASS: " << label << " predicted - " << ctime(&timer) << std::endl;
+            detection_log << "CLASS: " << label << " predicted - " << current_time() << std::endl;
         }
         else
         {
-            time(&timer);
-            detection_log << "ERROR: Prediction failed - " << ctime(&timer) << std::endl;
+            detection_log << "ERROR: Prediction failed - " << current_time() << std::endl;
         }
     }
 }
 
+
+/*
 bool Syscall_Detector::update_window(){
 
     Sensor_Data sensor_data;
@@ -358,7 +371,7 @@ bool Syscall_Detector::update_window(){
     }
     
     return false;
-}
+}*/
 
 // This method checks to see if there is enough data in the trace window
 // for the data point generator to generate a new data point.
@@ -367,6 +380,7 @@ bool Syscall_Detector::update_window(){
 // it generates a new point and adds it to the support vector generator
 // and returns true.  Otherwise, it returns false.
 
+/*
 bool Syscall_Detector::generate_data(){
 
     if ( _data_point_generator->has_next( _window ) && !_sv_generator->full() )
@@ -379,4 +393,4 @@ bool Syscall_Detector::generate_data(){
     }
 
     return false;
-}
+}*/
