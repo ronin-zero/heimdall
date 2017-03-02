@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 10-04-2016
  *
- *  Last Modified : Thu 02 Mar 2017 03:17:23 AM EST
+ *  Last Modified : Thu 02 Mar 2017 03:27:49 AM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -106,7 +106,7 @@ class Syscall_Detector : public Sensor_Observer{
         Trace_Window _window;
         NGram_Generator _ngram_generator;
         Support_Vector_Generator _sv_generator;
-        SVM_Module _svm_module;
+        One_Class_SVM _svm_module;
 };
 
 /*
