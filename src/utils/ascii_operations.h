@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 06-01-2016
  *
- *  Last Modified : Tue 31 Jan 2017 03:40:58 PM EST
+ *  Last Modified : Wed 01 Mar 2017 02:15:29 PM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -25,8 +25,6 @@
 #include <iostream>
 #include <fstream>
 #include <cmath> 
-
-using std::string;
 
 // This should be the same across platforms, but
 // just in case, this gets us the integer values
@@ -69,23 +67,23 @@ class ASCII_Operations{
 
         // Only convert numbers within a range (unsigned)
         
-        static uint_fast64_t convert_range( string num, uint_fast64_t start, uint_fast64_t chars );
+        static uint_fast64_t convert_range( std::string num, uint_fast64_t start, uint_fast64_t chars );
 
         // Signed integral values
 
-        static int_fast64_t to_int( string num );
+        static int_fast64_t to_int( std::string num );
 
         // Unsigned integral values
 
-        static uint_fast64_t to_uint( string num );
+        static uint_fast64_t to_uint( std::string num );
 
         // Floating point values
 
-        static double to_floating_point( string num );
+        static double to_floating_point( std::string num );
 
         // Hexidecimal conversions
 
-        static uint_fast8_t hex_byte_val( string num );
+        static uint_fast8_t hex_byte_val( std::string num );
         static uint_fast8_t hex_digit_val( uint_fast8_t c );
 
         // range checking
@@ -97,6 +95,6 @@ class ASCII_Operations{
         static bool is_alphanum( uint_fast8_t c );
         static bool is_hex_digit( uint_fast8_t c );
 
-        static bool is_hex_byte( string input );
-        static bool is_number( string input );
+        static bool is_hex_byte( std::string input );
+        static bool is_number( std::string input );
 };

@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 01-11-2017
  *
- *  Last Modified : Wed 01 Mar 2017 01:43:03 AM EST
+ *  Last Modified : Wed 01 Mar 2017 12:32:21 PM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -34,7 +34,7 @@ NGram_Generator::NGram_Generator( uint_fast32_t n_value, uint_fast32_t table_siz
  *      s = g_0 * c ^ ( (n - 1) - 0 ) + g_1 * ( ( n - 1 ) - 1 )
  */
 
-int_fast64_t NGram_Generator::generate_data_point( Trace_Window trace, uint_fast32_t index ){
+int_fast64_t NGram_Generator::generate_data_point( Trace_Window& trace, uint_fast32_t index ){
 
     int_fast64_t ngram_value = 0;
 
@@ -51,7 +51,7 @@ uint_fast32_t NGram_Generator::ngram_size(){
     return _n;
 }
 
-bool NGram_Generator::has_next( Trace_Window trace, uint_fast32_t index ){
+bool NGram_Generator::has_next( Trace_Window& trace, uint_fast32_t index ){
     
     return ( trace.size() > ( index + _n ) );
 }

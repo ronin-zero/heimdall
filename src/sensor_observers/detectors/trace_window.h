@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 01-08-2017
  *
- *  Last Modified : Wed 01 Mar 2017 12:42:07 AM EST
+ *  Last Modified : Wed 01 Mar 2017 12:32:13 PM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -31,6 +31,8 @@ class Trace_Window{
         bool trace_window_full();
 
         bool add_data_point( int_fast32_t data_point );
+
+        void pop_front();
 
         friend std::ostream& operator<<( std::ostream& s_out, Trace_Window const& window );
 

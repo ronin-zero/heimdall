@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 01-08-2017
  *
- *  Last Modified : Wed 01 Mar 2017 12:41:55 AM EST
+ *  Last Modified : Wed 01 Mar 2017 12:32:24 PM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -34,7 +34,7 @@ size_t Trace_Window::size(){
 
 bool Trace_Window::trace_window_full(){
 
-    return ( _trace_window.size() == _trace_length );
+    return ( _trace_window.size() >= _trace_length );
 }
 
 bool Trace_Window::add_data_point( int_fast32_t data_point ){
@@ -48,6 +48,11 @@ bool Trace_Window::add_data_point( int_fast32_t data_point ){
     {
         return false;
     }
+}
+
+void Trace_Window::pop_front(){
+
+    _trace_window.pop_front();
 }
 
 std::ostream& operator<<( std::ostream& s_out, Trace_Window const& window ){
