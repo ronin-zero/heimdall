@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 03-01-2017
  *
- *  Last Modified : Wed 01 Mar 2017 10:58:23 PM EST
+ *  Last Modified : Thu 02 Mar 2017 02:35:25 AM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -13,23 +13,14 @@
 
 //syscall_position should be the 0-indexed position of the field containing the syscall.
 
-Trace_Reader::Trace_Reader( std::string file_name, uint_fast8_t separator, size_t syscall_position ) : trace_file() {
+Trace_Reader::Trace_Reader( std::string file_name, uint_fast8_t separator, size_t syscall_position ) : trace_file( file_name ) {
 
     _separator = separator;
     _syscall_position = syscall_position;
 
     _file_name = file_name;
 
-    sep_after_call = 0;
-
     line_count = 0;
-
-    valid_file = set_parameters();
-
-    if ( valid_file )
-    {
-        trace_file.open( file_name );
-    }
 }
 
 Trace_Reader::~Trace_Reader(){
@@ -39,16 +30,52 @@ Trace_Reader::~Trace_Reader(){
 
 bool Trace_Reader::has_next(){
 
-    return !trace_file.eof()
+    return !trace_file.eof();
 }
 
 int_fast32_t Trace_Reader::next_syscall(){
 
     // TODO: make this return a meaningful value here.
 
-    return -1;
+    int_fast32_t syscall = -1;
+
+    std::string line;
+    std::string syscall_field;
+
+    if ( !has_next() )
+    {
+        std::cerr << "ERROR: file " << _file_name << " has no more lines." << std::endl;
+    } 
+
+    else if ( getline( trace_file, line ) )
+    {
+        syscall_field = get_syscall_field( line );
+
+        if ( ASCII_Operations::is_number( syscall_field ) )
+        {
+            syscall = ASCII_Operations::to_int( syscall_field );
+        }
+        else
+        {
+            std::cerr << "ERROR: the system call field is not a number!" << std::endl;
+            std::cerr << '\t' << "File Name: " << _file_name << std::endl;
+            std::cerr << '\t' << "System call field: " << syscall_field << std::endl;
+            std::cerr << '\t' << "Line " << line_count << ": " << line << std::endl;
+            std::cerr << '\t' << "Syscall field position: " << _syscall_position << std::endl;
+            std::cerr << '\t' << "Separator: " << _separator << std::endl;
+        }
+
+        line_count++;
+    }
+    else
+    {
+        std::cerr << "ERROR: Could not read line from file " << _file_name << "." << std::endl;
+    }
+
+    return syscall;
 }
 
+/*
 bool Trace_Reader::set_parameters(){
 
     trace_file.open( _file_name );
@@ -176,29 +203,12 @@ bool Trace_Reader::set_parameters(){
         trace_file.close();
         return false;
     }
-}
-
-bool Trace_Reader::valid_string( std::string syscall_field ){
-
-    size_t sep_index = 0;
-    size_t next_index = line.find( _separator, sep_index + 1 );
-
-    for ( int i = 0; i < _syscall_position && next_index != std::string::npos; i++ )
-    {
-        sep_index = next_index;
-
-        next_index = test_string.find( _separator, sep_index + 1 );
-    }
-
-
-    std::string syscall_portion = test_string.substr( sep_index + 1 );
-
-    return ( is_num (syscall_portion ) );
-}
+}*/
 
 std::string Trace_Reader::get_syscall_field( std::string line ){
 
     size_t field_start = 0;
+    size_t field_end = 0;
 
     std::string syscall_portion;
 
@@ -217,7 +227,23 @@ std::string Trace_Reader::get_syscall_field( std::string line ){
     }
     else
     {
-        
+        field_end = line.find( _separator );
+
+        for ( uint_fast32_t i = 0; i < _syscall_position && field_end != std::string::npos; i++ )
+        {
+            field_start = field_end + 1;
+            field_end = line.find( _separator, field_start );
+        }
+
+        if ( field_end == std::string::npos )
+        {
+            syscall_portion = line.substr( field_start );
+        }
+        else
+        {
+            syscall_portion = line.substr( field_start, field_end - field_start );
+        }
     }
 
+    return syscall_portion;
 }

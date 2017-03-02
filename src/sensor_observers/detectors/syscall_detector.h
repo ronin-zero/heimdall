@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 10-04-2016
  *
- *  Last Modified : Wed 22 Feb 2017 11:28:36 AM EST
+ *  Last Modified : Thu 02 Mar 2017 03:17:23 AM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -42,11 +42,14 @@ typedef System_Call_Record Syscall_Record;
 #ifdef __arm__
 #include "sensor_observers/detectors/linux/syscall_formatters/arch/arm/arm_syscall_formatter.h"
 typedef ARM_Syscall_Formatter System_Call_Formatter;
+#define TABLE_SIZE 390
 #elif __mips__
 #include "sensor_observers/detectors/linux/syscall_formatters/arch/mips/mips_syscall_formatter.h"
+#define TABLE_SIZE 347
 typedef MIPS_Syscall_Formatter System_Call_Formatter;
 #else
 #include "sensor_observers/detectors/linux/syscall_formatters/syscall_formatter.h"
+#define TABLE_SIZE 350
 typedef Syscall_Formatter System_Call_Formatter;
 #endif
 
@@ -54,11 +57,11 @@ class Syscall_Detector : public Sensor_Observer{
 
     public:
 
-        Syscall_Detector( Trace_Window * window, Data_Point_Generator * generator, Support_Vector_Generator * sv_generator, SVM_Module * svm_module );
+        Syscall_Detector( size_t window_size, uint_fast32_t ngram_length );
 
         ~Syscall_Detector();
 
-        bool train_from_trace( const std::string file_name, uint_fast8_t sep = ',' );
+        bool train_from_trace( const std::string file_name, uint_fast8_t sep = ',', size_t syscall_position = std::string::npos );
         bool train_from_saved_model( const std::string file_name );
         
         bool train_model();
@@ -99,11 +102,11 @@ class Syscall_Detector : public Sensor_Observer{
         
         // bool generate_data();
 
-        Syscall_Formatter * _call_formatter;
-        Trace_Window * _window;
-        Data_Point_Generator * _data_point_generator;
-        Support_Vector_Generator * _sv_generator;
-        SVM_Module * _svm_module;
+        Syscall_Formatter _call_formatter;
+        Trace_Window _window;
+        NGram_Generator _ngram_generator;
+        Support_Vector_Generator _sv_generator;
+        SVM_Module _svm_module;
 };
 
 /*
@@ -120,7 +123,7 @@ class Syscall_Detector : public Sensor_Observer{
  * Start: 4000 (not implemented, really starts at 4001)
  * End: 4346
  * Size: 346 entries
- *
+ * Range: 347
  * --------------
  *
  * Linux Mips n32
@@ -128,6 +131,7 @@ class Syscall_Detector : public Sensor_Observer{
  * Start: 6000
  * End: 6310
  * Size: 310 entries
+ * Range: 311
  *
  * --------------
  *
@@ -136,6 +140,7 @@ class Syscall_Detector : public Sensor_Observer{
  * Start: 5000
  * End: 5305
  * Size: 305 entries
+ * Range: 306
  *
  * =================================
  *
@@ -144,6 +149,7 @@ class Syscall_Detector : public Sensor_Observer{
  * Start: 9437184
  * End: 9437561
  * Size: 345 entries (the spread is really 377, not all numbers are implemented)
+ * Range: 378 (use 390)
  *
  * --------------
  *
@@ -158,6 +164,8 @@ class Syscall_Detector : public Sensor_Observer{
  * See the file arm_syscall_formatter.h for details, but there is a potential range of 390
  * once the 983045 is adjusted to 389.  Note that 378 through 388 will be unused.
  *
+ * Range: 390
+ *
  * ==================================
  *
  * Linux x86
@@ -165,6 +173,7 @@ class Syscall_Detector : public Sensor_Observer{
  * Start: 0
  * End: 349
  * Size: 346 (the spread is 349)
+ * Range: 350
  *
  * --------------
  *
@@ -173,5 +182,6 @@ class Syscall_Detector : public Sensor_Observer{
  * Start: 0
  * End: 312
  * Size: 313
+ * Range: 313
  * 
  */

@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 03-01-2017
  *
- *  Last Modified : Wed 01 Mar 2017 10:22:06 PM EST
+ *  Last Modified : Thu 02 Mar 2017 02:35:22 AM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -32,18 +32,12 @@ class Trace_Reader{
 
         std::ifstream trace_file;
 
-        bool valid_file;
-
         uint_fast32_t line_count;
 
-        size_t sep_after_call;
         size_t _syscall_position;
-
         uint_fast8_t _separator;
 
-        bool set_parameters();
-
-        bool valid_string( std::string syscall_field );
+        //bool set_parameters();
 
         std::string get_syscall_field( std::string line );
 };
