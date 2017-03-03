@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 02-08-2017
  *
- *  Last Modified : Tue 21 Feb 2017 01:40:00 AM EST
+ *  Last Modified : Thu 02 Mar 2017 03:09:27 PM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -17,12 +17,12 @@ class One_Class_SVM: public SVM_Module{
 
     public:
 
-        One_Class_SVM(); // TODO: Make constructors.
+        One_Class_SVM();
 
         One_Class_SVM( const char * file_name );
         One_Class_SVM( const std::string file_name );
         
-        ~One_Class_SVM();   // TODO: also make destructors.
+        ~One_Class_SVM();
 
         void add_training_vector( struct svm_node * node, double label=0.0 );
 

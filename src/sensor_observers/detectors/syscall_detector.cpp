@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 12-27-2016
  *
- *  Last Modified : Thu 02 Mar 2017 03:26:55 AM EST
+ *  Last Modified : Thu 02 Mar 2017 07:01:51 PM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -41,6 +41,7 @@ bool Syscall_Detector::train_from_saved_model( const std::string file_name ){
 
 bool Syscall_Detector::train_from_trace( const std::string file_name, uint_fast8_t sep, size_t syscall_position ){
 
+    Trace_Reader reader( file_name, sep, syscall_position );
 
 }
 
