@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 05-09-2017
  *
- *  Last Modified : Tue 31 Jan 2017 03:33:37 PM EST
+ *  Last Modified : Fri 03 Mar 2017 11:12:47 PM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -18,20 +18,20 @@
 #include "syscall_reader.h"
 #include "utils/ascii_operations.h"
 
-static const string FTRACE_DIR =        "/sys/kernel/debug/tracing/";
-static const string TRACE =             "trace";
-static const string TRACING_ON =        "tracing_on";
-static const string RAW_SYSCALLS_DIR =  "raw_syscalls/";
-static const string SYS_ENTER_DIR =     "sys_enter/";
-static const string SYS_EXIT_DIR =      "sys_exit/";
-static const string EVENTS_DIR =        "events/";
-static const string TRACE_PIPE =        "trace_pipe";
-static const string CURRENT_TRACER =    "current_tracer";
-static const string ENABLE =            "enable";
-static const string NO_TRACE =          "set_ftrace_notrace";
-static const string FILTER  =           "filter";
-static const string FILTER_SYS_ENTER =  FTRACE_DIR + EVENTS_DIR + RAW_SYSCALLS_DIR + SYS_ENTER_DIR + FILTER;
-static const string FILTER_SYS_EXIT =   FTRACE_DIR + EVENTS_DIR + RAW_SYSCALLS_DIR + SYS_EXIT_DIR + FILTER;
+static const std::string FTRACE_DIR =        "/sys/kernel/debug/tracing/";
+static const std::string TRACE =             "trace";
+static const std::string TRACING_ON =        "tracing_on";
+static const std::string RAW_SYSCALLS_DIR =  "raw_syscalls/";
+static const std::string SYS_ENTER_DIR =     "sys_enter/";
+static const std::string SYS_EXIT_DIR =      "sys_exit/";
+static const std::string EVENTS_DIR =        "events/";
+static const std::string TRACE_PIPE =        "trace_pipe";
+static const std::string CURRENT_TRACER =    "current_tracer";
+static const std::string ENABLE =            "enable";
+static const std::string NO_TRACE =          "set_ftrace_notrace";
+static const std::string FILTER  =           "filter";
+static const std::string FILTER_SYS_ENTER =  FTRACE_DIR + EVENTS_DIR + RAW_SYSCALLS_DIR + SYS_ENTER_DIR + FILTER;
+static const std::string FILTER_SYS_EXIT =   FTRACE_DIR + EVENTS_DIR + RAW_SYSCALLS_DIR + SYS_EXIT_DIR + FILTER;
 
 static const uint_fast8_t MIN_LENGTH = 50;  // This is the FUNCTION_INDEX (see: linux_syscall_record.h lines 65 and 81).
                                             // Sometimes a line like "CPU:13 [LOST 28120 EVENTS]" will appear in the trace pipe.
@@ -81,15 +81,15 @@ class Linux_Syscall_Reader:public Syscall_Reader{
 
         Linux_Syscall_Reader( uint_fast8_t flags=READER_DEFAULT );
 
-        bool write_to_file( string filename, string output );
-        bool append_to_file( string filename, string output );
-        bool file_write( string filename, string output, std::ios_base::openmode mode=std::ofstream::out );
+        bool write_to_file( std::string filename, std::string output );
+        bool append_to_file( std::string filename, std::string output );
+        bool file_write( std::string filename, std::string output, std::ios_base::openmode mode=std::ofstream::out );
 
-        void clear_file( string file_name );
+        void clear_file( std::string file_name );
 
-        string build_filter();
+        std::string build_filter();
 
-        std::vector<string> filter_files = { FILTER_SYS_ENTER, FILTER_SYS_EXIT };
+        std::vector<std::string> filter_files = { FILTER_SYS_ENTER, FILTER_SYS_EXIT };
 
-        string os = "linux";
+        std::string os = "linux";
 };

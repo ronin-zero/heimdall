@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 05-09-2016
  *
- *  Last Modified : Tue 31 Jan 2017 03:36:10 PM EST
+ *  Last Modified : Fri 03 Mar 2017 11:09:17 PM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -18,8 +18,6 @@
 #include <string>
 
 #include "sensor_data/sensor_data.h"
-
-using std::string;
 
 static const uint_fast8_t READING_ON       = 0x01; // CHECK: Note that this is the same value as SENSING_ON.  May need to change it...
 static const uint_fast8_t FILTER_SELF      = 0x02;
@@ -64,8 +62,8 @@ class Syscall_Reader{
 
         uint_fast8_t status;
 
-        string os;
-        string data_type = "syscall";
+        std::string os;
+        std::string data_type = "syscall";
 
         std::ifstream trace_pipe_stream;
 };

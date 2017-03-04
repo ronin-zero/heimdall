@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 03-01-2017
  *
- *  Last Modified : Thu 02 Mar 2017 02:35:22 AM EST
+ *  Last Modified : Sat 04 Mar 2017 12:40:54 AM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -14,7 +14,17 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include <regex>
 #include "utils/ascii_operations.h"
+
+static const std::string PROCESS_NAME   =   "[[:graph:]]*";
+static const std::string PID            =   "[[:digit:]]+";
+static const std::string CPU            =   "[[:digit:]]{3}";
+static const std::string TRACE_FLAGS    =   "[[.d][.Nnp][.Hhs][.[:digit:]]";
+static const std::string TIMESTAMP      =   "[[:digit:]]+\\.[[:digit:]]+";
+static const std::string SYSCALL        =   "[[:digit:]]+";
+static const std::string SYSCALL_ARG    =   "[[:xdigit:]{1-8}[,?[:blank:]]?";
+static const std::string SYSCALL_ARGS   =   "\\(" + SYSCALL_ARG + "{6}\\)";
 
 class Trace_Reader{
 
