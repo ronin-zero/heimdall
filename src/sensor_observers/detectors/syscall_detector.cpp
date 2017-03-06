@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 12-27-2016
  *
- *  Last Modified : Thu 02 Mar 2017 07:01:51 PM EST
+ *  Last Modified : Mon 06 Mar 2017 01:35:04 PM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -12,8 +12,9 @@
 #include "syscall_detector.h"
 
 Syscall_Detector::Syscall_Detector( size_t window_size, uint_fast32_t ngram_length ) : _call_formatter(), _window( window_size ), _ngram_generator( ngram_length, TABLE_SIZE ),
-                                                                                        _sv_generator( window_size - ( ngram_length - 1 )){
+                                                                                        _sv_generator( window_size - ( ngram_length - 1 )), _svm_module(){
 
+    
     // TODO:  Put that string in a constant or something.
 
     detection_log.open( "syscall_detector.log" );
@@ -39,10 +40,63 @@ bool Syscall_Detector::train_from_saved_model( const std::string file_name ){
 // There should probably be a class that handles this with stuff like how many
 // fields there are, what the separator is, and which field is the syscall number.
 
-bool Syscall_Detector::train_from_trace( const std::string file_name, uint_fast8_t sep, size_t syscall_position ){
+bool Syscall_Detector::train_from_trace( const std::string file_name, uint_fast8_t sep ){
 
-    Trace_Reader reader( file_name, sep, syscall_position );
+    detection_log << "Training from trace beginning at: " << current_time << std::endl;
 
+    Trace_Reader reader( file_name, sep );
+
+    // First, fill the trace window
+
+    while ( reader.has_next() && !_window.trace_window_full() )
+    {
+        _window.add_data_point( reader.next_syscall() );
+    }
+
+    // Check if the loop broke because there weren't enough samples in the tracefile,
+    // in which case, return false.  There is (at most) one full trace, which isn't enough.
+
+    if ( !_window.trace_window_full() )
+    {
+        detection_log << "ERROR:  Training failed at " << current_time() << std::endl;
+
+        return false;
+    }
+
+    // While the file has more records, keep adding them to the trace window.  If the window
+    // is full when a record is added, it will dequeue the first elemement.  This way, the
+    // window will always be full.  Until the file is out of records, the windows will not
+    // overlap.
+
+    while ( reader.has_next() )
+    {
+        _sv_generator.add_data_point( _ngram_generator.generate_data_point( _window ) );
+
+        if ( _sv_generator.full() )
+        {
+            _svm_module.add_training_vector( _sv_generator.get_support_vector() );
+            _sv_generator.reset();
+        }
+
+        _window.add_data_point( reader.next_syscall() );
+    }
+
+    // At this point, the file has no more records, but the window should be full.
+    // Read the rest of the window and add the ngrams to the support vector generator.
+    // There will most likely be overlap between the last two trace windows.
+
+    for ( uint_fast32_t i = 0;  !_svm_generator.full() && _ngram_generator.has_next( _window, i ); i++ )
+    {
+        _sv_generator.add_data_point( _ngram_generator.generate_data_point( _window, i ) );
+    }
+
+    _svm_module.add( _sv_generator.get_support_vector() );
+
+    _sv_generator.reset();
+
+    detection_log << "Training from trace complete at " << current_time() << std::endl;
+
+    return _svm_module.train_model();
 }
 
 bool Syscall_Detector::train_model(){
@@ -78,7 +132,6 @@ bool Syscall_Detector::train_model(){
 
         return false;
     }
-
 }
 
 void Syscall_Detector::update(){
@@ -218,18 +271,39 @@ void Syscall_Detector::process(){
         {
             Syscall_Record record( data_point );
 
-            uint_fast32_t syscall_num = _call_formatter.format_syscall_num( record.get_syscall_num() );
-
-            process_data_point( syscall_num );
+            send_data( record );
+        }
+        else
+        {
+            std::this_thread::yield();
         }
     }
+}
+
+void Syscall_Detector::send_data( Syscall_Record& record ){
+
+    // TODO: Later, this should determine whether we are training or testing, but for now,
+    // just assume it's testing.
+
+    process_data_point( record.get_syscall_num() );
 }
 
 void Syscall_Detector::process_data_point( uint_fast32_t data_point ){
 
     _window.add_data_point( _call_formatter.format_syscall_num( data_point ) );
 
-    while ( _data_point_generator.has_next( _window ) && !_sv_generator.full() )
+    _sv_generator.add_data_point( _data_point_generator.generate_data_point( _window ) );
+
+    if ( _sv_generator.full() )
+    {
+        struct svm_node * node = _sv_generator.get_support_vector();
+
+        process_data_vector ( node );
+
+        _sv_generator.reset();
+    }
+
+/*    while ( _data_point_generator.has_next( _window ) && !_sv_generator.full() )
     {
         _sv_generator.add_data_point( _data_point_generator.generate_data_point( _window ) );
     }
@@ -247,7 +321,7 @@ void Syscall_Detector::process_data_point( uint_fast32_t data_point ){
     {
         _window.reset_window();
         _data_point_generator.reset();
-    }
+    }*/
 }
 
 void Syscall_Detector::process_data_vector( struct svm_node * node ){

@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 10-04-2016
  *
- *  Last Modified : Thu 02 Mar 2017 03:27:49 AM EST
+ *  Last Modified : Mon 06 Mar 2017 01:35:15 PM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -24,7 +24,9 @@
 #include "sensor_observers/data_records/system_call_record.h"
 #include "sensor_observers/detectors/trace_window.h"
 #include "sensor_observers/detectors/data_point_generator.h"
+#include "sensor_observers/detectors/ngram_generator.h"
 #include "sensor_observers/detectors/svm_modules/svm_module.h"
+#include "sensor_observers/detectors/svm_modules/one_class_svm.h"
 #include "sensor_observers/detectors/support_vector_generator.h"
 
 /*  
@@ -94,6 +96,8 @@ class Syscall_Detector : public Sensor_Observer{
         char * current_time();
 
         void process();
+
+        void send_data( Syscall_Record& record );
 
         void process_data_point( uint_fast32_t data_point );
         void process_data_vector( struct svm_node * node );

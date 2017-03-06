@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 01-08-2017
  *
- *  Last Modified : Wed 01 Mar 2017 12:32:24 PM EST
+ *  Last Modified : Sun 05 Mar 2017 03:42:58 AM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -39,15 +39,12 @@ bool Trace_Window::trace_window_full(){
 
 bool Trace_Window::add_data_point( int_fast32_t data_point ){
 
-    if ( !trace_window_full() )
+    if ( trace_window_full() )
     {
-        _trace_window.push_back( data_point );
-        return true;
+        _trace_window.pop_front();
     }
-    else
-    {
-        return false;
-    }
+    
+    _trace_window.push_back( data_point );
 }
 
 void Trace_Window::pop_front(){

@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 02-08-2017
  *
- *  Last Modified : Thu 02 Mar 2017 03:09:27 PM EST
+ *  Last Modified : Sun 05 Mar 2017 11:53:07 PM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -28,7 +28,7 @@ class One_Class_SVM: public SVM_Module{
 
         bool predict( const struct svm_node * node, double & label );
 
-        //bool is_trained();
+        bool is_trained();
 
         bool load_model( const char * file_name );
         bool load_model( const std::string file_name );

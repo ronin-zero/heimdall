@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 02-15-2017
  *
- *  Last Modified : Tue 21 Feb 2017 01:39:12 AM EST
+ *  Last Modified : Sun 05 Mar 2017 11:56:58 PM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -97,6 +97,8 @@ bool One_Class_SVM::load_model( const char * file_name ){
 
     return trained;
 }
+
+
 
 bool One_Class_SVM::load_model( const std::string file_name ){
 
