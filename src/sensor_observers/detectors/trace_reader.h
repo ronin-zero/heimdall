@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 03-01-2017
  *
- *  Last Modified : Sat 04 Mar 2017 10:56:15 PM EST
+ *  Last Modified : Mon 06 Mar 2017 02:18:55 PM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -18,15 +18,15 @@
 #include <regex>
 #include "utils/ascii_operations.h"
 
-static const std::string PROCESS_NAME   =   "([[:graph:]]*)";
-static const std::string PID            =   "([[:digit:]]+)?";
-static const std::string CPU            =   "([[:digit:]]{3})?";
-static const std::string TRACE_FLAGS    =   "([.d][.Nnp][.Hhs][.[:digit:]])?";
-static const std::string TIMESTAMP      =   "([[:digit:]]+\\.[[:digit:]]+)?";
-static const std::string SYSCALL        =   "([[:digit:]]+)?";
-static const std::string SYSCALL_ARG    =   "(?:[[:xdigit:]]{1,8}(?:, )?){6}";
+static const std::string PROCESS_NAME_REG   =   "([[:graph:]]*)";
+static const std::string PID_REG            =   "([[:digit:]]+)?";
+static const std::string CPU_REG            =   "([[:digit:]]{3})?";
+static const std::string TRACE_FLAGS_REG    =   "([.d][.Nnp][.Hhs][.[:digit:]])?";
+static const std::string TIMESTAMP_REG      =   "([[:digit:]]+\\.[[:digit:]]+)?";
+static const std::string SYSCALL_REG        =   "([[:digit:]]+)?";
+static const std::string SYSCALL_ARG_REG    =   "(?:[[:xdigit:]]{1,8}(?:, )?){6}";
 //static const std::string SYSCALL_ARGS   =   "(\\(" + SYSCALL_ARG + "\\))";
-static const std::string SYSCALL_ARGS   =   "(\\([, [:xdigit:]]*\\))?";
+static const std::string SYSCALL_ARGS_REG   =   "(\\([, [:xdigit:]]*\\))?";
 
 class Trace_Reader{
 

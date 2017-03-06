@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 12-27-2016
  *
- *  Last Modified : Mon 06 Mar 2017 01:35:04 PM EST
+ *  Last Modified : Mon 06 Mar 2017 02:28:33 PM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -42,7 +42,7 @@ bool Syscall_Detector::train_from_saved_model( const std::string file_name ){
 
 bool Syscall_Detector::train_from_trace( const std::string file_name, uint_fast8_t sep ){
 
-    detection_log << "Training from trace beginning at: " << current_time << std::endl;
+    detection_log << "Training from trace beginning at: " << current_time() << std::endl;
 
     Trace_Reader reader( file_name, sep );
 
@@ -85,18 +85,18 @@ bool Syscall_Detector::train_from_trace( const std::string file_name, uint_fast8
     // Read the rest of the window and add the ngrams to the support vector generator.
     // There will most likely be overlap between the last two trace windows.
 
-    for ( uint_fast32_t i = 0;  !_svm_generator.full() && _ngram_generator.has_next( _window, i ); i++ )
+    for ( uint_fast32_t i = 0;  !_sv_generator.full() && _ngram_generator.has_next( _window, i ); i++ )
     {
         _sv_generator.add_data_point( _ngram_generator.generate_data_point( _window, i ) );
     }
 
-    _svm_module.add( _sv_generator.get_support_vector() );
+    _svm_module.add_training_vector( _sv_generator.get_support_vector() );
 
     _sv_generator.reset();
 
     detection_log << "Training from trace complete at " << current_time() << std::endl;
 
-    return _svm_module.train_model();
+    return train_model();
 }
 
 bool Syscall_Detector::train_model(){
@@ -236,17 +236,18 @@ bool Syscall_Detector::stop_training(){
         training = false;
         return training;
     }
-}*/
+}
 
 void Syscall_Detector::set_generator( Data_Point_Generator * generator ){
 
-    _data_point_generator = generator;
+    _ngram_generator = generator;
 }
 
 void Syscall_Detector::set_trace_window( Trace_Window * window ){
     
     _window = window;
 }
+*/
 
 char * Syscall_Detector::current_time(){
 
@@ -292,7 +293,7 @@ void Syscall_Detector::process_data_point( uint_fast32_t data_point ){
 
     _window.add_data_point( _call_formatter.format_syscall_num( data_point ) );
 
-    _sv_generator.add_data_point( _data_point_generator.generate_data_point( _window ) );
+    _sv_generator.add_data_point( _ngram_generator.generate_data_point( _window ) );
 
     if ( _sv_generator.full() )
     {

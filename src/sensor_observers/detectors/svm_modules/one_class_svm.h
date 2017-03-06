@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 02-08-2017
  *
- *  Last Modified : Sun 05 Mar 2017 11:53:07 PM EST
+ *  Last Modified : Mon 06 Mar 2017 02:25:11 PM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -33,11 +33,12 @@ class One_Class_SVM: public SVM_Module{
         bool load_model( const char * file_name );
         bool load_model( const std::string file_name );
 
+        bool generate_model( const char * msg );
+
         bool set_parameters( const struct svm_parameter * parameters );
 
     private:
 
         void set_default_parameters();
 
-        bool generate_model();
 };

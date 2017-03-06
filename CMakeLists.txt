@@ -6,11 +6,15 @@ set( targetname "syscall-sensor" )
 
 message( "At the start, our CMAKE_CXX_FLAGS are: ${CMAKE_CXX_FLAGS}" )
 
-set( CMAKE_CXX_FLAGS "-Wall -Wextra -Werror -pedantic -std=c++11 -pthread" )
+set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Werror -pedantic -std=c++11 -pthread" )
 
 message( "At the start, our CMAKE_CXX_FLAGS_DEBUG are: ${CMAKE_CXX_FLAGS_DEBUG}" )
 
-set( CMAKE_CXX_FLAGS_DEBUG "-ggdb3 -O0 -DDEBUG_COUT" )
+set( CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -ggdb3 -O0 -DDEBUG_COUT" )
+
+set( CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} ${CMAKE_CXX_FLAGS}" )
+
+message( "CMAKE_SOURCE_DIR is: ${CMAKE_SOURCE_DIR}" )
 
 set( INCLUDE_DIR "${CMAKE_SOURCE_DIR}/src/" )
 set( SOURCE_DIR "${CMAKE_SOURCE_DIR}/src/" )
@@ -30,7 +34,7 @@ endif( CMAKE_BUILD_TYPE STREQUAL "Debug" )
 set( BIN_DIR "${CMAKE_SOURCE_DIR}/bin" )
 set( DEBUG_DIR "${CMAKE_SOURCE_DIR}/debug" )
 
-set( SENSOR_PROGRAM "${SOURCE_DIR}sensor_program/")
+set( SENSOR_PROGRAM "${SOURCE_DIR}executables/")
 
 find_package( Threads )
 

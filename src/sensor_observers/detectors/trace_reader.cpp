@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 03-01-2017
  *
- *  Last Modified : Sat 04 Mar 2017 11:05:59 PM EST
+ *  Last Modified : Mon 06 Mar 2017 02:20:52 PM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -133,19 +133,19 @@ std::string Trace_Reader::generate_regex_string( uint_fast8_t separator ){
 
     std::string field_separator = sep_string + "(?!$)";
 
-    std::string r_string = "^" + PROCESS_NAME + field_separator 
-        + PID + field_separator
-        //+ CPU + field_separator
-        //+ TRACE_FLAGS + field_separator
-        + TIMESTAMP + field_separator
-        + SYSCALL + "$";// field_separator
-    //+ SYSCALL_ARGS + "$";
+    std::string r_string = "^" + PROCESS_NAME_REG + field_separator 
+        + PID_REG + field_separator
+        //+ CPU_REG + field_separator
+        //+ TRACE_FLAGS_REG + field_separator
+        + TIMESTAMP_REG + field_separator
+        + SYSCALL_REG + "$";// field_separator
+    //+ SYSCALL_ARGS_REG + "$";
 
-    //+ field_separator + PID + field_separator + CPU + field_separator + TRACE_FLAGS + field_separator
-    //   + TIMESTAMP + field_separator + SYSCALL + field_separator + SYSCALL_ARGS;
+    //+ field_separator + PID_REG + field_separator + CPU_REG + field_separator + TRACE_FLAGS_REG + field_separator
+    //   + TIMESTAMP_REG + field_separator + SYSCALL_REG + field_separator + SYSCALL_ARGS_REG;
 
-    /*    std::string r_string = "^" + PROCESS_NAME + field_separator + PID + field_separator + CPU + field_separator + TRACE_FLAGS + field_separator
-          + TIMESTAMP + field_separator + SYSCALL + field_separator + SYSCALL_ARGS + "$";*/
+    /*    std::string r_string = "^" + PROCESS_NAME_REG + field_separator + PID_REG + field_separator + CPU_REG + field_separator + TRACE_FLAGS_REG + field_separator
+          + TIMESTAMP_REG + field_separator + SYSCALL_REG + field_separator + SYSCALL_ARGS_REG + "$";*/
 
     return r_string;
 }

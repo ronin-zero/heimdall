@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 06-01-2016
  *
- *  Last Modified : Tue 31 Jan 2017 03:41:07 PM EST
+ *  Last Modified : Mon 06 Mar 2017 06:33:51 PM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -53,7 +53,7 @@ uint_fast8_t ASCII_Operations::char_val( uint_fast8_t num ){
 // chars is the number of digits in the number that we want to convert; how
 // many characters to convert beginning with start.
 
-uint_fast64_t ASCII_Operations::convert_range( string num, uint_fast64_t start, uint_fast64_t chars ){
+uint_fast64_t ASCII_Operations::convert_range( std::string num, uint_fast64_t start, uint_fast64_t chars ){
 
     uint_fast64_t sum = 0;
 
@@ -74,7 +74,7 @@ uint_fast64_t ASCII_Operations::convert_range( string num, uint_fast64_t start, 
     return sum;
 }
 
-int_fast64_t ASCII_Operations::to_int( string num ){
+int_fast64_t ASCII_Operations::to_int( std::string num ){
 
     uint_fast64_t string_val = 0;
 
@@ -95,19 +95,19 @@ int_fast64_t ASCII_Operations::to_int( string num ){
     return string_val;
 }
 
-uint_fast64_t ASCII_Operations::to_uint( string num ){
+uint_fast64_t ASCII_Operations::to_uint( std::string num ){
     
     uint_fast64_t string_val = convert_range( num, 0, num.length() );
    
     return string_val;
 }
 
-double ASCII_Operations::to_floating_point( string num ){
+double ASCII_Operations::to_floating_point( std::string num ){
 
     double string_val = 0;
 
-    string integer_portion;
-    string decimal_portion;
+    std::string integer_portion;
+    std::string decimal_portion;
 
     int_fast32_t integer_val = 0;
     double decimal_val = 0.0;
@@ -120,7 +120,7 @@ double ASCII_Operations::to_floating_point( string num ){
 
     std::size_t decimal_index = num.find('.');
 
-    if ( decimal_index != string::npos )
+    if ( decimal_index != std::string::npos )
     {
         decimal_portion = num.substr( decimal_index + 1 );
 
@@ -140,7 +140,7 @@ double ASCII_Operations::to_floating_point( string num ){
     return string_val;
 }
 
-uint_fast8_t ASCII_Operations::hex_byte_val( string num ){
+uint_fast8_t ASCII_Operations::hex_byte_val( std::string num ){
 
     uint_fast8_t hex_val = 0;
 
@@ -242,7 +242,7 @@ bool ASCII_Operations::is_hex_digit( uint_fast8_t c ){
                 ( c >= CAPS_HEX_START && c <= CAPS_HEX_END )    );
 }
 
-bool ASCII_Operations::is_hex_byte( string input ){
+bool ASCII_Operations::is_hex_byte( std::string input ){
 
     if ( input.length() > 4 || input.length() < 3 )
     {
@@ -265,7 +265,7 @@ bool ASCII_Operations::is_hex_byte( string input ){
     }
 }
 
-bool ASCII_Operations::is_number( string input ){
+bool ASCII_Operations::is_number( std::string input ){
 
     bool is_a_number = input.length() > 0;
 

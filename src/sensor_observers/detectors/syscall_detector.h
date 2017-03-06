@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 10-04-2016
  *
- *  Last Modified : Mon 06 Mar 2017 01:35:15 PM EST
+ *  Last Modified : Mon 06 Mar 2017 02:15:23 PM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -23,6 +23,7 @@
 #include "sensor_observers/data_records/data_record.h"
 #include "sensor_observers/data_records/system_call_record.h"
 #include "sensor_observers/detectors/trace_window.h"
+#include "sensor_observers/detectors/trace_reader.h"
 #include "sensor_observers/detectors/data_point_generator.h"
 #include "sensor_observers/detectors/ngram_generator.h"
 #include "sensor_observers/detectors/svm_modules/svm_module.h"
@@ -63,7 +64,7 @@ class Syscall_Detector : public Sensor_Observer{
 
         ~Syscall_Detector();
 
-        bool train_from_trace( const std::string file_name, uint_fast8_t sep = ',', size_t syscall_position = std::string::npos );
+        bool train_from_trace( const std::string file_name, uint_fast8_t sep = ',' );
         bool train_from_saved_model( const std::string file_name );
         
         bool train_model();
