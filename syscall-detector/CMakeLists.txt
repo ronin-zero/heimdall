@@ -2,7 +2,7 @@ cmake_minimum_required ( VERSION 3.0 )
 
 project (Heimdall)
 
-set( targetname "syscall-sensor" )
+set( targetname "syscall-detector" )
 
 message( "At the start, our CMAKE_CXX_FLAGS are: ${CMAKE_CXX_FLAGS}" )
 
@@ -16,9 +16,9 @@ set( CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} ${CMAKE_CXX_FLAGS}" )
 
 message( "CMAKE_SOURCE_DIR is: ${CMAKE_SOURCE_DIR}" )
 
-if ( TARGET "syscall-sensor" )
+if ( TARGET "syscall-detector" )
     message( "Target is ${TARGET}" )
-endif( TARGET "syscall-sensor" )
+endif( TARGET "syscall-detector" )
 
 
 set( INCLUDE_DIR "${CMAKE_SOURCE_DIR}/../src/" )
@@ -69,8 +69,8 @@ add_subdirectory( ${SENSOR_OBSERVERS} ${BIN_DIR}/sensor_observers )
 
 message( "Libs to Link: ${CMAKE_THREAD_LIBS_INIT}" )
 
-add_executable( syscall-sensor "${SOURCE}" )
+add_executable( syscall-detector "${SOURCE}" )
 
-target_link_libraries( syscall-sensor ${CMAKE_THREAD_LIBS_INIT} )
+target_link_libraries( syscall-detector ${CMAKE_THREAD_LIBS_INIT} )
 
-install( TARGETS syscall-sensor RUNTIME DESTINATION /usr/sbin/ )
+install( TARGETS syscall-detector RUNTIME DESTINATION /usr/sbin/ )
