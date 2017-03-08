@@ -1,9 +1,9 @@
 /*
- *  File Name : launcher.cpp
+ *  File Name : detector_launcher.cpp
  *  
- *  Creation Date : 06-27-2016
+ *  Creation Date : 03-07-2017
  *
- *  Last Modified : Tue 07 Mar 2017 09:30:03 PM EST
+ *  Last Modified : Wed 08 Mar 2017 02:09:22 AM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -19,10 +19,12 @@
 #include "sensor_observers/data_records/linux/linux_syscall_record.h"
 #include "sensor_observers/detectors/syscall_detector.h"
 
-#include "command_line_utils/command_line_parser.h"
-#include "sensor_manager/sensor_manager.h"
+#include "utils/ascii_operations.h"
 
-std::vector<std::string> opt_flags = { "-d,", "-l", "-m","-n", "-t", };
+#include "detector_command_line_utils/command_line_parser.h"
+#include "detector_manager/detector_manager.h"
+
+std::vector<std::string> opt_flags = { "-d,", "-l", "-m", "-n", "-o", "-t", };
 
 const std::string pipe_name = "/var/run/detector.pipe";
 
@@ -189,58 +191,45 @@ void start ( Command_Line_Parser & parser ){
     {
         mkfifo ( pipe_name.c_str(), 0666 );
 
-        uint_fast8_t flags = 0x00;
-        std::string out_file_name = "trace.log";
-        std::string separator=",";
+        size_t window_len = 100;
+        uint_fast32_t ngram_len = 2;
+        std::string out_file_name = "new_trace.log";
+        std::string detection_log = "syscall_detector.log";
         bool run_daemon = true;
 
-        if (  !parser.contains_option( "--flags=" ) && !parser.contains_any( opt_flags ) )
+        if ( parser.contains_arg( "-d" ) )
         {
-            flags = TIMESTAMP | PROCESS_NAME | PID | SYSCALL_NUM;
+            std::cout << "Contains flag -d " << std::endl;
+            detection_log = parser.arg_at( parser.arg_index( "-d" ) + 1 );
         }
-        else
+
+        if ( parser.contains_arg( "-l" ) )
         {
-            if ( parser.contains_option( "--flags=" ) )
+            std::cout << "Contains flag -l" << std::endl;
+            std::string tmp_arg = parser.arg_at( parser.arg_index( "-l" ) + 1 );
+
+            if ( ASCII_Operations::is_number( tmp_arg ) )
             {
-                uint_fast32_t flags_index = parser.option_index( "--flags=" );
-
-                string flags_arg = parser.arg_at( flags_index );
-
-                flags = parser.get_option_value( flags_arg );
+                window_len = ASCII_Operations::to_uint( tmp_arg );
             }
-            if ( parser.contains_arg( "-n" ) )
+            else
             {
-                flags |= PROCESS_NAME;
+                std::cout << "Argument given to -l: " << tmp_arg << " is not a number." << std::endl;
             }
+        }
 
-            if ( parser.contains_arg( "-p" ) )
+        if ( parser.contains_arg( "-n" ) )
+        {
+            std::cout << "Contains flag -n" << std::endl;
+            std::string tmp_arg = parser.arg_at( parser.arg_index( "-n" ) + 1 );
+
+            if ( ASCII_Operations::is_number( tmp_arg ) )
             {
-                flags |= PID;
+                ngram_len = ASCII_Operations::to_uint( tmp_arg );
             }
-
-            if ( parser.contains_arg( "-c" ) )
+            else
             {
-                flags |= CPU;
-            }
-
-            if ( parser.contains_arg( "-f" ) )
-            {
-                flags |= TRACE_FLAGS;
-            }
-
-            if ( parser.contains_arg( "-t" ) )
-            {
-                flags |= TIMESTAMP;
-            }
-
-            if ( parser.contains_arg( "-s" ) )
-            {
-                flags |= SYSCALL_NUM;
-            }
-
-            if ( parser.contains_arg( "-a" ) )
-            {
-                flags |= SYSCALL_ARGS;
+                std::cout << "Argument given to -n: " << tmp_arg << " is not a number." << std::endl;
             }
         }
 
@@ -249,12 +238,7 @@ void start ( Command_Line_Parser & parser ){
             std::cout << "Contains flag -o " << std::endl;
             out_file_name = parser.arg_at( parser.arg_index( "-o" ) + 1 );
         }
-
-        if ( parser.contains_option( "--separator=" ) )
-        {
-            separator = parser.get_option_string( parser.arg_at ( parser.option_index ("--separator=") ) );
-        }
-
+        
         if ( parser.contains_option( "--daemon=" ) )
         {
             std::string daemon_option = parser.get_option_string( parser.arg_at ( parser.option_index ( "--daemon=" ) ) );
@@ -282,23 +266,56 @@ void start ( Command_Line_Parser & parser ){
 
 
         std::cout << "You chose to print to file: " << out_file_name << std::endl;
-        std::cout << "You chose to use separator: " << separator << std::endl;
-        std::cout << "You set your flags to be : " << (int)flags << " -- " << flag_string( flags ) << std::endl;
 
         if ( run_daemon )
         {
-            std::cout << "Sensor will be run as a daemon." << std::endl;
+            std::cout << "Detector will be run as a daemon." << std::endl;
         }
         else
         {
-            std::cout << "Daemonization disabled.  Sensor will be run as a regular application." << std::endl;
+            std::cout << "Daemonization disabled.  Detector will be run as a regular application." << std::endl;
         }
 
-        Sensor_Manager manager( flags, out_file_name, separator, prog_name );
+        Detector_Manager manager( window_len, ngram_len, detection_log, out_file_name, prog_name );
 
-        manager.run_sensor( run_daemon );
+        // Having a model supercedes having a trace file.
 
-        std::cout << "From launcher, manager has finished run_sensor." << std::endl;
+        if ( parser.contains_arg( "-m" ) )
+        {
+            std::cout << "Contains flag -m" << std::endl;
+
+            std::string tmp_arg = parser.arg_at( parser.arg_index( "-m" ) + 1 );
+
+            std::cout << "Attempting to load model from file " << tmp_arg << "..." << std::endl;
+
+            if ( manager.train_on_model( tmp_arg ) )
+            {
+                std::cout << "Model loaded!" << std::endl;
+            }
+            else
+            {
+                std::cout << "Failed to load model." << std::endl;
+            }
+        }
+        else if ( parser.contains_arg( "-t" ) )
+        {
+            std::string tmp_arg = parser.arg_at( parser.arg_index( "-t" ) + 1 );
+
+            std::cout << "Attempting to train from trace data in file " << tmp_arg << "..." << std::endl;
+
+            if ( manager.train_on_trace( tmp_arg ) )
+            {
+                std::cout << "Model trained!" << std::endl;
+            }
+            else
+            {
+                std::cout << "Could not train from trace in file " << tmp_arg << std::endl;
+            }
+        }
+
+        manager.run_detector( run_daemon );
+
+        std::cout << "From launcher, manager has finished run_detector." << std::endl;
     }
 }
 
@@ -306,11 +323,11 @@ void status ( Command_Line_Parser & parser ){
 
     if ( is_running( parser.get_program_name() ) )
     {
-        std::cout << "The sensor is running with PID " << Daemonizer::get_daemon_pid( parser.get_program_name() ) << std::endl;
+        std::cout << "The detector is running with PID " << Daemonizer::get_daemon_pid( parser.get_program_name() ) << std::endl;
     }
     else
     {
-        std::cout << "The sensor is not running." << std::endl;
+        std::cout << "The detector is not running." << std::endl;
     }
 }
 
@@ -318,7 +335,7 @@ void stop ( Command_Line_Parser & parser ){
 
     if ( !is_running( parser.get_program_name() ) )
     {
-        std::cout << "The sensor is not running." << std::endl;
+        std::cout << "The detector is not running." << std::endl;
     }
     else
     {

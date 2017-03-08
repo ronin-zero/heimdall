@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 10-04-2016
  *
- *  Last Modified : Tue 07 Mar 2017 05:32:42 PM EST
+ *  Last Modified : Wed 08 Mar 2017 12:31:39 AM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -60,7 +60,7 @@ class Syscall_Detector : public Sensor_Observer{
 
     public:
 
-        Syscall_Detector( size_t window_size, uint_fast32_t ngram_length );
+        Syscall_Detector( size_t window_size, uint_fast32_t ngram_length, std::string detection_log_file_name );
 
         ~Syscall_Detector();
 

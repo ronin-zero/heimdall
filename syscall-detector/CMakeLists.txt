@@ -61,6 +61,8 @@ set( SOURCE "" )
 
 # These are basically always added.
 
+message( "Executable directory is: ${SENSOR_PROGRAM}")
+
 add_subdirectory( ${SENSOR_DATA} ${BIN_DIR}/sensor_data )
 add_subdirectory( ${UTILS} ${BIN_DIR}/utils )
 add_subdirectory( ${SENSOR_PROGRAM} ${BIN_DIR}/executables )

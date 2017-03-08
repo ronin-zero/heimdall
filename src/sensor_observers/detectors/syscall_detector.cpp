@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 12-27-2016
  *
- *  Last Modified : Tue 07 Mar 2017 05:32:38 PM EST
+ *  Last Modified : Wed 08 Mar 2017 12:28:11 AM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -11,13 +11,16 @@
 
 #include "syscall_detector.h"
 
-Syscall_Detector::Syscall_Detector( size_t window_size, uint_fast32_t ngram_length ) : _call_formatter(), _window( window_size ), _ngram_generator( ngram_length, TABLE_SIZE ),
-                                                                                        _sv_generator( window_size - ( ngram_length - 1 )), _svm_module(){
+Syscall_Detector::Syscall_Detector( size_t window_size, uint_fast32_t ngram_length, std::string detection_log_file_name ) : _call_formatter(), 
+                                                                                                                            _window( window_size ), 
+                                                                                                                            _ngram_generator( ngram_length, TABLE_SIZE ),
+                                                                                                                            _sv_generator( window_size - ( ngram_length - 1 )), 
+                                                                                                                            _svm_module(){
 
     
     // TODO:  Put that string in a constant or something.
 
-    detection_log.open( "syscall_detector.log" );
+    detection_log.open( detection_log_file_name );
 
     observing = false;
     processing = false;

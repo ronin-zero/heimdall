@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 06-27-2016
  *
- *  Last Modified : Tue 07 Mar 2017 09:18:10 PM EST
+ *  Last Modified : Wed 08 Mar 2017 12:13:31 AM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -192,13 +192,15 @@ void Command_Line_Parser::print_help(){
 
     std::cout << std::string( 8, ' ' ) << "3. NGRAMS - An explanation of what an ngram is and how to specify its length." << std::endl << std::endl;
 
-    std::cout << std::string( 8, ' ' ) << "4. TRACE FILE - Explains the input trace file and its options." << std::endl << std::endl;
+    std::cout << std::string( 8, ' ' ) << "4. TRACE INPUT FILE - Explains the input trace file and its options." << std::endl << std::endl;
 
-    std::cout << std::string( 8, ' ' ) << "5. MODEL FILE - Explains the input model file and its options." << std::endl << std::endl;
+    std::cout << std::string( 8, ' ' ) << "5. TRACE OUTPUT FILE - Explains where the current syscall trace is recorded." << std::endl << std::endl;
+
+    std::cout << std::string( 8, ' ' ) << "6. MODEL FILE - Explains the input model file and its options." << std::endl << std::endl;
     
-    std::cout << std::string( 8, ' ' ) << "6. DAEMONIZE - Explains how to run as a daemon." << std::endl << std::endl;
+    std::cout << std::string( 8, ' ' ) << "7. DAEMONIZE - Explains how to run as a daemon." << std::endl << std::endl;
 
-    std::cout << std::string( 8, ' ' ) << "7. DEFAULT CONFIGURATION - The configuration of the detector if it is run with no specified" << std::endl << std::endl;
+    std::cout << std::string( 8, ' ' ) << "8. DEFAULT CONFIGURATION - The configuration of the detector if it is run with no specified" << std::endl << std::endl;
 
     std::cout << std::string( 8, ' ' ) << "1. DETECTION LOG" << std::endl << std::endl;
 
@@ -237,7 +239,7 @@ void Command_Line_Parser::print_help(){
 
     std::cout << std::string( 11, ' ') << "Ngrams are effectively sliding windows over the trace window." << std::endl << std::endl;
     
-    std::cout << std::string( 8, ' ' ) << "4. TRACE FILE" << std::endl << std::endl;
+    std::cout << std::string( 8, ' ' ) << "4. TRACE INPUT FILE" << std::endl << std::endl;
 
     std::cout << std::string( 8, ' ' ) << "-t <trace_file>" << std::endl << std::endl;
 
@@ -247,13 +249,21 @@ void Command_Line_Parser::print_help(){
 
     std::cout << std::string( 15, ' ' ) << "TASK,PID,TIMESTAMP,SYSCALL" << std::endl << std::endl;
 
-    std::cout << std::string( 8, ' ' ) << "5. MODEL FILE" << std::endl << std::endl;
+    std::cout << std::string( 8, ' ' ) << "5. TRACE INPUT FILE" << std::endl << std::endl;
+
+    std::cout << std::string( 8, ' ' ) << "-o <trace_log>" << std::endl << std::endl;
+
+    std::cout << std::string( 11, ' ' ) << "This is where the syscalls traced during this session will be logged.  For now, they will be logged in the default format" << std::endl;
+    std::cout << std::string( 11, ' ' ) << "used by the syscall-sensor program ( TASK,PID,TIMESTAMP,SYSCALL).  If no argument is supplied, they will be logged to" << std::endl;
+    std::cout << std::string( 11, ' ' ) << "trace.log" << std::endl << std::endl;
+
+    std::cout << std::string( 8, ' ' ) << "6. MODEL FILE" << std::endl << std::endl;
 
     std::cout << std::string( 8, ' ' ) << "-m <model_file>" << std::endl << std::endl;
 
     std::cout << std::string( 11, ' ' ) << "<model_file> specifies the file containing the svm model to use rather than training from a trace." << std::endl << std::endl;
 
-    std::cout << std::string( 8, ' ' ) << "6. DAEMON" << std::endl << std::endl;
+    std::cout << std::string( 8, ' ' ) << "7. DAEMON" << std::endl << std::endl;
 
     std::cout << std::string( 8, ' ' ) << "--daemon=[ON|OFF|0|1]" << std::endl << std::endl;
 
@@ -261,7 +271,7 @@ void Command_Line_Parser::print_help(){
     std::cout << std::string( 11, ' ' ) << "functionality for debugging or other reasons by passing option \"OFF\" (do not do this unless" << std::endl;
     std::cout << std::string( 11, ' ' ) << "you know what you are doing)." << std::endl << std::endl;
 
-    std::cout << std::string( 8, ' ' ) << "7. DEFAULT CONFIGURATION" << std::endl << std::endl;
+    std::cout << std::string( 8, ' ' ) << "8. DEFAULT CONFIGURATION" << std::endl << std::endl;
 
     std::cout << std::string( 11, ' ' ) << "When run with no arguments, it is equivalent to entering with arguments: " << std::endl << std::endl;
 
@@ -308,6 +318,9 @@ void Command_Line_Parser::print_usage(){
 
     std::cout << std::string( 11, ' ' ) << std::setw(20) << std::setfill(' ') << std::left << "-t <trace_file>";
     std::cout << "Specify the name of the file contraining the trace to use for training" << std::endl;
+
+    std::cout << std::string( 11, ' ' ) << std::setw(20) << std::setfill(' ') << std::left << "-o <trace_log>";
+    std::cout << "Specify the name of the file to which syscalls will be logged (default filename: trace.log)" << std::endl;
 
     std::cout << std::string( 11, ' ' ) << std::setw(20) << std::setfill(' ') << std::left << "--daemon=[ON|OFF]";
     std::cout << "run the detector as a daemon-like background process (ON; the default) or as a regular application (OFF). (ADVANCED)" << std::endl << std::endl;
