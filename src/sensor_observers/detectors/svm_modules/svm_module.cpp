@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 01-31-2017
  *
- *  Last Modified : Mon 06 Mar 2017 01:06:15 PM EST
+ *  Last Modified : Wed 08 Mar 2017 12:36:33 PM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -35,7 +35,7 @@ void SVM_Module::add_training_vector( struct svm_node * node, double label ){
 // reference with the label predicted according to the model for the given
 // svm_node pointer input.
 
-bool SVM_Module::predict( struct svm_node * node, double & label ){
+bool SVM_Module::predict( const struct svm_node * node, double & label ){
 
     if ( !trained || _model == NULL )
     {
@@ -113,4 +113,3 @@ bool SVM_Module::generate_model( const char * msg ){
 
     return trained;
 }
-

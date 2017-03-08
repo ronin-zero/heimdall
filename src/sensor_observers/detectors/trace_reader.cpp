@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 03-01-2017
  *
- *  Last Modified : Mon 06 Mar 2017 02:20:52 PM EST
+ *  Last Modified : Wed 08 Mar 2017 12:38:06 PM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -326,7 +326,6 @@ else
 std::string Trace_Reader::get_syscall_field( std::string line ){
 
     size_t field_start = 0;
-    size_t field_end = 0;
 
     std::string syscall_portion;
 

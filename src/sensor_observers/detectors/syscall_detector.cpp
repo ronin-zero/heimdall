@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 12-27-2016
  *
- *  Last Modified : Wed 08 Mar 2017 12:28:11 AM EST
+ *  Last Modified : Wed 08 Mar 2017 12:39:05 PM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -111,7 +111,7 @@ bool Syscall_Detector::train_model(){
         return false;
     }
 
-    char * message;
+    char * message = NULL;
 
     time_t timer;
 

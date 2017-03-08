@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 02-15-2017
  *
- *  Last Modified : Tue 07 Mar 2017 05:36:27 PM EST
+ *  Last Modified : Wed 08 Mar 2017 12:46:45 PM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -101,6 +101,11 @@ bool One_Class_SVM::load_model( const char * file_name ){
 bool One_Class_SVM::load_model( const std::string file_name ){
 
     return load_model( file_name.c_str() );
+}
+
+bool One_Class_SVM::is_trained(){
+
+    return trained;
 }
 
 // This effectively produces a deep copy of another svm_parameter into this class's _parameter member.

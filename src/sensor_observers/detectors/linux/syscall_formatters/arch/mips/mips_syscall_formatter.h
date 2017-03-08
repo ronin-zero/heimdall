@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 12-26-2016
  *
- *  Last Modified : Wed 01 Mar 2017 12:15:59 PM EST
+ *  Last Modified : Wed 08 Mar 2017 12:27:58 PM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -13,7 +13,7 @@
 
 #include <cstdint> 
 
-#include "sensor_observers/detectors/syscall_formatters/syscall_formatter.h"
+#include "sensor_observers/detectors/linux/syscall_formatters/syscall_formatter.h"
 
 
 class MIPS_Syscall_Formatter : public Syscall_Formatter{
