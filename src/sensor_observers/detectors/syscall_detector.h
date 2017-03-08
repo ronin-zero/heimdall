@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 10-04-2016
  *
- *  Last Modified : Mon 06 Mar 2017 02:15:23 PM EST
+ *  Last Modified : Tue 07 Mar 2017 05:32:42 PM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -87,8 +87,10 @@ class Syscall_Detector : public Sensor_Observer{
         //bool start_training();
         //bool stop_training();
 
-        void set_trace_window( Trace_Window * window );
-        void set_generator( Data_Point_Generator * genenerator );
+        bool save_model( const std::string file_name );
+
+        //void set_trace_window( Trace_Window * window );
+        //void set_generator( Data_Point_Generator * genenerator );
 
     private:
 

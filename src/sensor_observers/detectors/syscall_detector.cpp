@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 12-27-2016
  *
- *  Last Modified : Mon 06 Mar 2017 02:28:33 PM EST
+ *  Last Modified : Tue 07 Mar 2017 05:32:38 PM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -248,6 +248,18 @@ void Syscall_Detector::set_trace_window( Trace_Window * window ){
     _window = window;
 }
 */
+
+bool Syscall_Detector::save_model( const std::string file_name ){
+
+    int_fast32_t result = _svm_module.save_model( file_name );
+
+    if ( result != 0 )
+    {
+        std::cerr << "ERROR:  Model could not be saved to file " << file_name << std::endl;
+    }
+
+    return result == 0;
+}
 
 char * Syscall_Detector::current_time(){
 

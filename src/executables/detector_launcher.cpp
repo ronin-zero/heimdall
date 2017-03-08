@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 06-27-2016
  *
- *  Last Modified : Mon 06 Mar 2017 10:14:56 PM EST
+ *  Last Modified : Tue 07 Mar 2017 09:30:03 PM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -22,9 +22,9 @@
 #include "command_line_utils/command_line_parser.h"
 #include "sensor_manager/sensor_manager.h"
 
-std::vector<std::string> opt_flags = { "-n", "-p", "-c", "-f", "-t", "-s", "-a", };
+std::vector<std::string> opt_flags = { "-d,", "-l", "-m","-n", "-t", };
 
-const std::string pipe_name = "/var/run/sensor.pipe";
+const std::string pipe_name = "/var/run/detector.pipe";
 
 std::string flag_string( uint_fast8_t flags );
 //std::string get_program_name( char* arg );

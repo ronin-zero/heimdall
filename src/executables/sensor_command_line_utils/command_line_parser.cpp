@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 06-27-2016
  *
- *  Last Modified : Tue 31 Jan 2017 03:47:30 PM EST
+ *  Last Modified : Tue 07 Mar 2017 05:53:17 PM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -11,7 +11,9 @@
 
 #include "command_line_parser.h"
 
-Command_Line_Parser::Command_Line_Parser( int argc, char** argv ){
+Command_Line_Parser::Command_Line_Parser( int argc, char** argv ) : arg_flags( { "-o", "-n", "-p", "-c", "-f", "-t", "-s", "-a", "-h"} ),
+                                                                    opt_flags( { "--separator=", "--flags=", "--daemon=" } ),
+                                                                    commands( { "start", "stop", "status" } ){
 
     if ( argc <= 0 )
     {
