@@ -69,6 +69,8 @@ add_subdirectory( ${SENSOR_OBSERVERS} ${BIN_DIR}/sensor_observers )
 
 message( "Libs to Link: ${CMAKE_THREAD_LIBS_INIT}" )
 
+message( "Source is ${SOURCE}" )
+
 add_executable( syscall-sensor "${SOURCE}" )
 
 target_link_libraries( syscall-sensor ${CMAKE_THREAD_LIBS_INIT} )

@@ -1,2 +1,4 @@
 ./CMakeFiles
 ./*/*
+syscall-sensor
+trace.log

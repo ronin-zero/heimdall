@@ -1,0 +1,5 @@
+./CMakeFiles
+./*/*
+syscall-detector
+new_trace.log
+syscall_detector.log
