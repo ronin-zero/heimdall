@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 06-27-2016
  *
- *  Last Modified : Mon 13 Mar 2017 12:08:37 AM EDT
+ *  Last Modified : Mon 13 Mar 2017 03:54:02 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -186,118 +186,129 @@ void start ( Command_Line_Parser & parser ){
     }
     else
     {
-        mkfifo ( pipe_name.c_str(), 0666 );
+        // mkfifo returns 0 upon success and -1 upon failure.  We only want to continue
+        // if the command succeeds.  It will fail if run without sudo or root permissions.
+        // see 'man 3 mkfifo' for more information.
 
-        uint_fast8_t flags = 0x00;
-        std::string out_file_name = "trace.log";
-        std::string separator=",";
-        bool run_daemon = true;
-
-        if (  !parser.contains_option( "--flags=" ) && !parser.contains_any( opt_flags ) )
+        if ( mkfifo ( pipe_name.c_str(), 0666 ) == 0 )
         {
-            flags = TIMESTAMP | PROCESS_NAME | PID | SYSCALL_NUM;
-        }
-        else
-        {
-            if ( parser.contains_option( "--flags=" ) )
+            uint_fast8_t flags = 0x00;
+            std::string out_file_name = "trace.log";
+            std::string separator=",";
+            bool run_daemon = true;
+
+            if (  !parser.contains_option( "--flags=" ) && !parser.contains_any( opt_flags ) )
             {
-                uint_fast32_t flags_index = parser.option_index( "--flags=" );
-
-                string flags_arg = parser.arg_at( flags_index );
-
-                flags = parser.get_option_value( flags_arg );
-            }
-            if ( parser.contains_arg( "-n" ) )
-            {
-                flags |= PROCESS_NAME;
-            }
-
-            if ( parser.contains_arg( "-p" ) )
-            {
-                flags |= PID;
-            }
-
-            if ( parser.contains_arg( "-c" ) )
-            {
-                flags |= CPU;
-            }
-
-            if ( parser.contains_arg( "-f" ) )
-            {
-                flags |= TRACE_FLAGS;
-            }
-
-            if ( parser.contains_arg( "-t" ) )
-            {
-                flags |= TIMESTAMP;
-            }
-
-            if ( parser.contains_arg( "-s" ) )
-            {
-                flags |= SYSCALL_NUM;
-            }
-
-            if ( parser.contains_arg( "-a" ) )
-            {
-                flags |= SYSCALL_ARGS;
-            }
-        }
-
-        if ( parser.contains_arg( "-o" ) )// && parser.arg_index( "-o" ) < parser.num_args() - 1 )
-        {
-            std::cout << "Contains flag -o " << std::endl;
-            out_file_name = parser.arg_at( parser.arg_index( "-o" ) + 1 );
-        }
-
-        if ( parser.contains_option( "--separator=" ) )
-        {
-            separator = parser.get_option_string( parser.arg_at ( parser.option_index ("--separator=") ) );
-        }
-
-        if ( parser.contains_option( "--daemon=" ) )
-        {
-            std::string daemon_option = parser.get_option_string( parser.arg_at ( parser.option_index ( "--daemon=" ) ) );
-
-            // TODO: This should be cleaned up to do a better case-insensitive comparison.
-            // In the interest of time, I just wrote this quickly.
-
-            if ( daemon_option == "0" || daemon_option == "OFF" || daemon_option == "off" 
-                    || daemon_option == "Off" || daemon_option == "oFf" || daemon_option == "ofF"
-                    || daemon_option == "oFF" || daemon_option == "OFf" || daemon_option == "OfF" )
-            {
-                run_daemon = false;
-            }
-            else if ( daemon_option == "1" || daemon_option == "ON" || daemon_option == "on" || daemon_option == "oN" || daemon_option == "On" )
-            {
-                run_daemon = true;
+                flags = TIMESTAMP | PROCESS_NAME | PID | SYSCALL_NUM;
             }
             else
             {
-                std::cerr << "WARNING: Argument " << daemon_option << " passed to option --daemon is invalid." << std::endl;
-                std::cerr << "Option/argument must be of the form: --daemon=[ON|1] to run as daemon or --daemon=[OFF|0] to run" << std::endl;
-                std::cerr << "as a normal application (see help: run with -h or --help)." << std::endl;
+                if ( parser.contains_option( "--flags=" ) )
+                {
+                    uint_fast32_t flags_index = parser.option_index( "--flags=" );
+
+                    string flags_arg = parser.arg_at( flags_index );
+
+                    flags = parser.get_option_value( flags_arg );
+                }
+                if ( parser.contains_arg( "-n" ) )
+                {
+                    flags |= PROCESS_NAME;
+                }
+
+                if ( parser.contains_arg( "-p" ) )
+                {
+                    flags |= PID;
+                }
+
+                if ( parser.contains_arg( "-c" ) )
+                {
+                    flags |= CPU;
+                }
+
+                if ( parser.contains_arg( "-f" ) )
+                {
+                    flags |= TRACE_FLAGS;
+                }
+
+                if ( parser.contains_arg( "-t" ) )
+                {
+                    flags |= TIMESTAMP;
+                }
+
+                if ( parser.contains_arg( "-s" ) )
+                {
+                    flags |= SYSCALL_NUM;
+                }
+
+                if ( parser.contains_arg( "-a" ) )
+                {
+                    flags |= SYSCALL_ARGS;
+                }
             }
-        }
+
+            if ( parser.contains_arg( "-o" ) )// && parser.arg_index( "-o" ) < parser.num_args() - 1 )
+            {
+                std::cout << "Contains flag -o " << std::endl;
+                out_file_name = parser.arg_at( parser.arg_index( "-o" ) + 1 );
+            }
+
+            if ( parser.contains_option( "--separator=" ) )
+            {
+                separator = parser.get_option_string( parser.arg_at ( parser.option_index ("--separator=") ) );
+            }
+
+            if ( parser.contains_option( "--daemon=" ) )
+            {
+                std::string daemon_option = parser.get_option_string( parser.arg_at ( parser.option_index ( "--daemon=" ) ) );
+
+                // TODO: This should be cleaned up to do a better case-insensitive comparison.
+                // In the interest of time, I just wrote this quickly.
+
+                if ( daemon_option == "0" || daemon_option == "OFF" || daemon_option == "off" 
+                        || daemon_option == "Off" || daemon_option == "oFf" || daemon_option == "ofF"
+                        || daemon_option == "oFF" || daemon_option == "OFf" || daemon_option == "OfF" )
+                {
+                    run_daemon = false;
+                }
+                else if ( daemon_option == "1" || daemon_option == "ON" || daemon_option == "on" || daemon_option == "oN" || daemon_option == "On" )
+                {
+                    run_daemon = true;
+                }
+                else
+                {
+                    std::cerr << "WARNING: Argument " << daemon_option << " passed to option --daemon is invalid." << std::endl;
+                    std::cerr << "Option/argument must be of the form: --daemon=[ON|1] to run as daemon or --daemon=[OFF|0] to run" << std::endl;
+                    std::cerr << "as a normal application (see help: run with -h or --help)." << std::endl;
+                }
+            }
 
 
-        std::cout << "You chose to print to file: " << out_file_name << std::endl;
-        std::cout << "You chose to use separator: " << separator << std::endl;
-        std::cout << "You set your flags to be : " << (int)flags << " -- " << flag_string( flags ) << std::endl;
+            std::cout << "You chose to print to file: " << out_file_name << std::endl;
+            std::cout << "You chose to use separator: " << separator << std::endl;
+            std::cout << "You set your flags to be : " << (int)flags << " -- " << flag_string( flags ) << std::endl;
 
-        if ( run_daemon )
-        {
-            std::cout << "Sensor will be run as a daemon." << std::endl;
+            if ( run_daemon )
+            {
+                std::cout << "Sensor will be run as a daemon." << std::endl;
+            }
+            else
+            {
+                std::cout << "Daemonization disabled.  Sensor will be run as a regular application." << std::endl;
+            }
+
+            Sensor_Manager manager( flags, out_file_name, separator, prog_name );
+
+            manager.run_sensor( run_daemon );
+
+            std::cout << "From launcher, manager has finished run_sensor." << std::endl;
         }
         else
         {
-            std::cout << "Daemonization disabled.  Sensor will be run as a regular application." << std::endl;
+            std::cerr << "ERROR: Sensor could not be started." << std::endl;
+            std::cerr << "Reason: Trace pipe could not be opened at " << pipe_name << "." << std::endl;
+            std::cerr << "NOTE: You may need root permission or sudo." << std::endl;
         }
-
-        Sensor_Manager manager( flags, out_file_name, separator, prog_name );
-
-        manager.run_sensor( run_daemon );
-
-        std::cout << "From launcher, manager has finished run_sensor." << std::endl;
     }
 }
 

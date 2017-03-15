@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 07-08-2016
  *
- *  Last Modified : Tue 31 Jan 2017 03:48:52 PM EST
+ *  Last Modified : Mon 13 Mar 2017 06:33:20 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -39,11 +39,15 @@ void Sensor_Manager::run_sensor( bool daemon_on ){
         Daemonizer::launch_daemon( task_name );
     }
 
-    logger->start_observing();
+    // We want to start the observing and processing threads before we begin sensing.
+    // That way, their thread IDs exist and can get added into the filter.
+    // There will be nothing to observe or process, but that should be alright.
+    // The processing thread yields if there is no data in the queue.
 
+    logger->start_observing(); 
+    logger->start_processing();
     running = ( sensor->start_sensing() & SENSING_ON );
     
-    logger->start_processing();
 
     if ( !running )
     {
