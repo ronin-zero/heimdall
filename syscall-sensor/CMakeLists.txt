@@ -21,8 +21,8 @@ if ( TARGET "syscall-sensor" )
 endif( TARGET "syscall-sensor" )
 
 
-set( INCLUDE_DIR "${CMAKE_SOURCE_DIR}/../src/" )
-set( SOURCE_DIR "${CMAKE_SOURCE_DIR}/../src/" )
+set( INCLUDE_DIR "${CMAKE_SOURCE_DIR}/src/" )
+set( SOURCE_DIR "${CMAKE_SOURCE_DIR}/src/" )
 set( SENSORS "${SOURCE_DIR}sensors/" )
 set( SYSCALL_SENSORS "${SENSORS}syscall_sensors/" )
 set( SENSOR_OBSERVERS "${SOURCE_DIR}sensor_observers" )
@@ -36,8 +36,8 @@ elseif( CMAKE_BUILD_TYPE STREQUAL "Release" )
     message( "===RELEASE MODE===" )
 endif( CMAKE_BUILD_TYPE STREQUAL "Debug" )
 
-set( BIN_DIR "${CMAKE_SOURCE_DIR}/bin" )
-set( DEBUG_DIR "${CMAKE_SOURCE_DIR}/debug" )
+set( BIN_DIR "${CMAKE_CURRENT_SOURCE_DIR}/bin" )
+set( DEBUG_DIR "${CMAKE_CURRENT_SOURCE_DIR}/debug" )
 
 set( SENSOR_PROGRAM "${SOURCE_DIR}executables/")
 
