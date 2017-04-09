@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 07-08-2016
  *
- *  Last Modified : Mon 13 Mar 2017 06:33:20 PM EDT
+ *  Last Modified : Thu 06 Apr 2017 08:37:11 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -43,6 +43,8 @@ void Sensor_Manager::run_sensor( bool daemon_on ){
     // That way, their thread IDs exist and can get added into the filter.
     // There will be nothing to observe or process, but that should be alright.
     // The processing thread yields if there is no data in the queue.
+    //
+    // WARNING: As of 4/5/17, this DOES NOT WORK.
 
     logger->start_observing(); 
     logger->start_processing();
