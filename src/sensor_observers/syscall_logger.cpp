@@ -3,19 +3,13 @@
  *  
  *  Creation Date : 06-06-2016
  *
- *  Last Modified : Mon 07 Nov 2016 11:27:48 AM EST
+ *  Last Modified : Wed 12 Apr 2017 08:13:18 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
  */
 
 #include "syscall_logger.h"
-
-// Debug stuff
-#include <sys/types.h>
-#include <sys/syscall.h>
-#include <unistd.h>
-#define gettid() syscall(SYS_gettid)
 
 Syscall_Logger::Syscall_Logger(){
 
@@ -154,6 +148,10 @@ void Syscall_Logger::process(){
             send_data( syscall_record );
             delete( syscall_record );*/
         }
+
+        // As of April 9, 2017, I commented this out because it's apparently causing problems.
+        // As of April 12, 2017, The problem has persisted despite being commented out, so I'm
+        // putting it back in.
         else
         {
             std::this_thread::yield();

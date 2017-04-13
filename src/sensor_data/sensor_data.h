@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 05-09-2016
  *
- *  Last Modified : Tue 31 Jan 2017 03:09:21 PM EST
+ *  Last Modified : Wed 12 Apr 2017 08:13:02 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -13,14 +13,6 @@
 
 #include <cstdint>
 #include <string>
-
-#include <sys/types.h>
-#include <sys/syscall.h>
-
-//Debugging stuff...
-#include <iostream>
-#include <unistd.h>
-#define gettid() syscall(SYS_gettid)
 
 using std::string;
 

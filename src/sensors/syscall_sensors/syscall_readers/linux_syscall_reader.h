@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 05-09-2017
  *
- *  Last Modified : Fri 03 Mar 2017 11:12:47 PM EST
+ *  Last Modified : Wed 12 Apr 2017 08:19:45 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -12,8 +12,7 @@
 #pragma once
 
 #include <vector>
-#include <sys/types.h>  // Needed for get_pid and pid_t
-#include <unistd.h>     // Needed for get_pid and pid_t
+#include <unistd.h>
 
 #include "syscall_reader.h"
 #include "utils/ascii_operations.h"

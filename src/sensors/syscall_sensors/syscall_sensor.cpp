@@ -3,19 +3,11 @@
  *  
  *  Creation Date : 05-09-2016
  *
- *  Last Modified : Tue 31 Jan 2017 03:32:21 PM EST
+ *  Last Modified : Thu 13 Apr 2017 01:46:04 AM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
  */
-
-#include <iostream>
-#include <sys/types.h>
-#include <sys/syscall.h>
-
-//Debugging stuff...
-#include <unistd.h>
-#define gettid() syscall(SYS_gettid)
 
 #include "syscall_readers/reader_factory.h"
 #include "syscall_sensor.h"
@@ -205,8 +197,8 @@ uint_fast8_t Syscall_Sensor::start_sensing(){
 
         if ( is_sensing() )
         {
-            sense_thread = thread( &Syscall_Sensor::sense, this );
             notify_thread = thread( &Syscall_Sensor::notify_observers, this );
+            sense_thread = thread( &Syscall_Sensor::sense, this );
         }
     }
 

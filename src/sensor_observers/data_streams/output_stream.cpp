@@ -3,19 +3,13 @@
  *  
  *  Creation Date : 06-06-2016
  *
- *  Last Modified : Tue 21 Feb 2017 06:19:47 PM EST
+ *  Last Modified : Thu 13 Apr 2017 04:24:01 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
  */
 
 #include "output_stream.h"
-
-// Debugging stuff...
-#include <sys/types.h>
-#include <sys/syscall.h>
-#include <unistd.h>
-#define gettid() syscall(SYS_gettid)
 
 Output_Stream::Output_Stream( uint_fast8_t out_flags, string sep ){
 
