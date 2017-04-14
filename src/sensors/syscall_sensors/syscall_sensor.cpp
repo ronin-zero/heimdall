@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 05-09-2016
  *
- *  Last Modified : Fri 14 Apr 2017 12:42:08 AM EDT
+ *  Last Modified : Fri 14 Apr 2017 05:11:42 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -86,7 +86,6 @@ void Syscall_Sensor::sense(){
 
     while ( is_sensing() )
     {
-        std::cout << "Sensing (reading) thread: top of the while loop." << std::endl;
         Sensor_Data * tmp = sense_data();
 
         if ( tmp != NULL )
@@ -102,25 +101,16 @@ void Syscall_Sensor::sense(){
             data_queue.enqueue( data_point );
             */
 
-            std::cout << "Sensing (reading) thread: non-null data was read!" << std::endl;
-
             // This is my new idea to fix the deadlock.
             while ( !data_queue.try_enqueue( *tmp ) )
             {
-                std::cout << "Sensing (reading) thread: sensor queue was full, so I'm yielding!" << std::endl;
                 std::this_thread::yield();
-                std::cout << "Sensing (reading) thread: just finished yielding!" << std::endl;
             }
-            std::cout << "Sensing (reading) thread: Successfully queued a data point!" << std::endl;
         }
         else
         {
-            std::cout << "Sensing (reading) thread: There wasn't a record to read (it was NULL), yielding..." << std::endl;
             std::this_thread::yield();
-            std::cout << "Sensing (reading) thread: Done yielding after reading a NULL record!" << std::endl;
         }
-
-        std::cout << "Sensing (reading) thread: Deleting the record" << std::endl;
 
         delete ( tmp );
     }
