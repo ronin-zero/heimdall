@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 05-09-2016
  *
- *  Last Modified : Tue 31 Jan 2017 03:29:58 PM EST
+ *  Last Modified : Thu 13 Apr 2017 04:47:16 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -37,7 +37,7 @@ class Sensor {
         // initializes a queue. All sensors
         // should have a queue like this.
 
-        Sensor() : data_queue () {}
+        Sensor() : data_queue ( SENSOR_QUEUE_SIZE ) {}
         virtual ~Sensor() {} // CHECK: I had to define this one in the header.
 
        

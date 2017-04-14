@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 05-09-2016
  *
- *  Last Modified : Thu 13 Apr 2017 01:46:04 AM EDT
+ *  Last Modified : Thu 13 Apr 2017 07:46:39 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -101,7 +101,11 @@ void Syscall_Sensor::sense(){
             data_queue.enqueue( data_point );
             */
 
-            data_queue.enqueue( *tmp );
+            // This is my new idea to fix the deadlock.
+            while ( !data_queue.try_enqueue( *tmp ) )
+            {
+                std::this_thread::yield();
+            }
         }
         else
         {

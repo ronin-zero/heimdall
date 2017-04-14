@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 05-09-2017
  *
- *  Last Modified : Tue 31 Jan 2017 03:31:16 PM EST
+ *  Last Modified : Thu 13 Apr 2017 07:46:47 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -28,7 +28,6 @@ class Syscall_Sensor:public Sensor{
 
     public:
 
-
         static Syscall_Sensor * get_instance();
         static Syscall_Sensor * get_instance( uint_fast8_t flags  );
         
@@ -38,10 +37,7 @@ class Syscall_Sensor:public Sensor{
 
         uint_fast8_t set_sensing( bool on );
         uint_fast8_t sensing_status();
-        
-        // CHECK: Shawn feels this is unnecessary.
 
-        //uint_fast8_t toggle_sensing();
         uint_fast8_t start_sensing();
         uint_fast8_t stop_sensing();
 
