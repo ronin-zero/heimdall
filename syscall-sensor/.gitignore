@@ -4,4 +4,6 @@ Makefile
 cmake_install.cmake
 install_manifest.txt
 aux/
+debug/*
+bin/*
 *.log
