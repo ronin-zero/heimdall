@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 03-01-2017
  *
- *  Last Modified : Wed 08 Mar 2017 12:38:06 PM EST
+ *  Last Modified : Mon 12 Jun 2017 06:30:24 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -192,6 +192,27 @@ int_fast32_t Trace_Reader::next_syscall(){
 
     return syscall;
 }
+
+std::string Trace_Reader::get_syscall_field( std::string line ){
+
+    size_t field_start = 0;
+
+    std::string syscall_portion;
+
+
+    field_start = line.rfind( _separator );
+
+    if ( field_start == std::string::npos )
+    {
+        syscall_portion = line;
+    }
+    else
+    {
+        syscall_portion = line.substr( field_start + 1 );
+    }
+
+    return syscall_portion;
+}
 /*
    bool Trace_Reader::set_parameters(){
 
@@ -323,23 +344,4 @@ else
 }
 */
 
-std::string Trace_Reader::get_syscall_field( std::string line ){
 
-    size_t field_start = 0;
-
-    std::string syscall_portion;
-
-
-    field_start = line.rfind( _separator );
-
-    if ( field_start == std::string::npos )
-    {
-        syscall_portion = line;
-    }
-    else
-    {
-        syscall_portion = line.substr( field_start + 1 );
-    }
-
-    return syscall_portion;
-}
