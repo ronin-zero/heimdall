@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 12-26-2016
  *
- *  Last Modified : Wed 08 Mar 2017 12:27:58 PM EST
+ *  Last Modified : Mon 19 Jun 2017 05:23:45 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -25,10 +25,13 @@ class MIPS_Syscall_Formatter : public Syscall_Formatter{
 
         uint_fast32_t format_syscall_num( uint_fast32_t syscall_num );
         uint_fast32_t recover_syscall_num( uint_fast32_t formatted_syscall_num );
+        uint_fast32_t table_size() const;
 
     private:
 
         static const uint_fast32_t MIPS_OFFSET  =   4000;
+
+        const uint_fast32_t table_size_         =   347;
 
         /*  CHECK: The assumption of 4000 for the MIPS offset is consistent with mips_o32 architecture.
          *

@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 12-26-2016
  *
- *  Last Modified : Wed 08 Mar 2017 12:27:32 PM EST
+ *  Last Modified : Mon 19 Jun 2017 05:21:19 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -25,6 +25,8 @@ class ARM_Syscall_Formatter : public Syscall_Formatter{
 
         uint_fast32_t format_syscall_num( uint_fast32_t syscall_num );
         uint_fast32_t recover_syscall_num( uint_fast32_t formatted_syscall_num );
+
+        uint_fast32_t table_size() const;
 
     private:
 
@@ -54,6 +56,8 @@ class ARM_Syscall_Formatter : public Syscall_Formatter{
         static const uint_fast32_t BIT_SHIFT        = 9;            /* See the comment on BIT_MASK for explanation.  This is just to 
                                                                      *  avoid magic numbers by placing 9 in a constant.
                                                                      */
+
+        const uint_fast32_t table_size_             = 390;
 
 
 };

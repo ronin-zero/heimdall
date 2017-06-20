@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 22-12-2016
  *
- *  Last Modified : Thu 22 Dec 2016 07:46:48 PM EST
+ *  Last Modified : Mon 19 Jun 2017 05:19:24 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -25,4 +25,9 @@ uint_fast32_t Syscall_Formatter::format_syscall_num( uint_fast32_t syscall_num )
 uint_fast32_t Syscall_Formatter::recover_syscall_num( uint_fast32_t formatted_syscall_num ){
 
     return formatted_syscall_num;
+}
+
+uint_fast32_t Syscall_Formatter::table_size() const{
+
+    return table_size_;
 }
