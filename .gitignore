@@ -3,5 +3,6 @@ CMakeCache.txt
 Makefile
 cmake_install.cmake
 install_manifest.txt
+src/trace_detector
 aux/
 *.log
