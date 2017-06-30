@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 01-11-2017
  *
- *  Last Modified : Wed 01 Mar 2017 12:32:21 PM EST
+ *  Last Modified : Fri 30 Jun 2017 12:51:08 AM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -36,6 +36,15 @@ NGram_Generator::NGram_Generator( uint_fast32_t n_value, uint_fast32_t table_siz
 
 int_fast64_t NGram_Generator::generate_data_point( Trace_Window& trace, uint_fast32_t index ){
 
+    // To be overly cautious, return -1 if a data point can't be generated.
+    // This is to avoid segmentation faults -- You should still check with has_next manually
+    // before calling this function.
+
+    if ( !has_next( trace, index ) )
+    {
+        return -1;
+    }
+    
     int_fast64_t ngram_value = 0;
 
     for ( uint_fast32_t i = 0; i < _n; i++ )

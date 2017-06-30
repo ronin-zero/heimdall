@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 03-01-2017
  *
- *  Last Modified : Mon 12 Jun 2017 06:30:24 PM EDT
+ *  Last Modified : Thu 29 Jun 2017 11:28:35 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -87,7 +87,7 @@ Trace_Reader::~Trace_Reader(){
 
 bool Trace_Reader::has_next(){
 
-    return !trace_file.eof();
+    return trace_file.good();
 }
 
 void Trace_Reader::dump_file( std::string out_file ){

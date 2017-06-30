@@ -5,7 +5,7 @@
  *  
  *  Creation Date : 03-08-2017
  *
- *  Last Modified : Wed 08 Mar 2017 01:54:44 AM EST
+ *  Last Modified : Fri 30 Jun 2017 10:17:56 AM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -32,12 +32,17 @@ class Detector_Manager{
     public:
 
         Detector_Manager( size_t window_length, uint_fast32_t ngram_length, std::string detection_log_file_name, std::string trace_out_file_name, std::string program_name );
+        Detector_Manager( size_t window_length, uint_fast32_t ngram_length, std::string detection_log_file_name, std::string trace_out_file_name, std::string program_name, uint_fast8_t arch );
         ~Detector_Manager();
 
         void run_detector( bool daemon_on=true );
 
         bool train_on_model( std::string trace_model );
         bool train_on_trace( std::string trace_file );
+        bool train_model ();
+        bool save_model ( std::string file_name );
+
+        double test_file ( std::string test_file_name );
 
     private:
 

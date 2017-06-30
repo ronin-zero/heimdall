@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 10-04-2016
  *
- *  Last Modified : Wed 08 Mar 2017 12:31:39 AM EST
+ *  Last Modified : Fri 30 Jun 2017 10:21:19 AM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -29,42 +29,56 @@
 #include "sensor_observers/detectors/svm_modules/svm_module.h"
 #include "sensor_observers/detectors/svm_modules/one_class_svm.h"
 #include "sensor_observers/detectors/support_vector_generator.h"
-
+#include "sensor_observers/data_records/linux/linux_syscall_record.h"
+#include "sensor_observers/detectors/linux/syscall_formatters/arch/arm/arm_syscall_formatter.h"
+#include "sensor_observers/detectors/linux/syscall_formatters/syscall_formatter.h"
+#include "sensor_observers/detectors/linux/syscall_formatters/arch/mips/mips_syscall_formatter.h"
 /*  
  *  For now, only Linux is supported.  If other operating systems are added later, handle 
  *  them similarly.
  */
 
 #ifdef __linux__
-#include "sensor_observers/data_records/linux/linux_syscall_record.h"
 typedef Linux_Syscall_Record Syscall_Record;
 #else
 typedef System_Call_Record Syscall_Record;
 #endif
 
-#ifdef __arm__
-#include "sensor_observers/detectors/linux/syscall_formatters/arch/arm/arm_syscall_formatter.h"
-typedef ARM_Syscall_Formatter System_Call_Formatter;
-#define TABLE_SIZE 390
-#elif __mips__
-#include "sensor_observers/detectors/linux/syscall_formatters/arch/mips/mips_syscall_formatter.h"
-#define TABLE_SIZE 347
-typedef MIPS_Syscall_Formatter System_Call_Formatter;
-#else
-#include "sensor_observers/detectors/linux/syscall_formatters/syscall_formatter.h"
-#define TABLE_SIZE 350
-typedef Syscall_Formatter System_Call_Formatter;
-#endif
+
+
 
 class Syscall_Detector : public Sensor_Observer{
 
     public:
+        // Architecture Constants
 
-        Syscall_Detector( size_t window_size, uint_fast32_t ngram_length, std::string detection_log_file_name );
+        static const uint_fast8_t   ARCH_DEFAULT     =   0x18;
+
+        static const uint_fast8_t   ARCH_ARM         =   0x21;
+        static const uint_fast8_t   ARCH_ARM_STRONG =   0x41;   // Same as 'A'
+        static const uint_fast8_t   ARCH_ARM_THUMB  =   0x61;   // Same as 'a'
+
+        static const uint_fast8_t   ARCH_MIPS       =   0x2D;
+        static const uint_fast8_t   ARCH_MIPS_64    =   0x4D;   // Same as 'M'
+        static const uint_fast8_t   ARCH_MIPS_32    =   0x6D;   // Same as 'm'
+
+        static const uint_fast8_t   ARCH_X86_64     =   0x58;   // Same as 'X'
+        static const uint_fast8_t   ARCH_X86        =   0x78;   // Same as 'x'
+
+#ifdef __arm__
+    static const uint_fast8_t HOST_ARCH = ARCH_ARM;
+#elif __mips__
+    static const uint_fast8_t HOST_ARCH = ARCH_MIPS;
+#else
+    static const uint_fast8_t HOST_ARCH = ARCH_DEFAULT;
+#endif
+        Syscall_Detector( size_t window_size, uint_fast32_t ngram_length, std::string detection_log_file_name, uint_fast8_t arch=HOST_ARCH );
 
         ~Syscall_Detector();
 
         bool train_from_trace( const std::string file_name, uint_fast8_t sep = ',' );
+        double test_trace_file( const std::string file_name, uint_fast8_t sep = ',' );
+
         bool train_from_saved_model( const std::string file_name );
         
         bool train_model();
@@ -105,13 +119,15 @@ class Syscall_Detector : public Sensor_Observer{
         void process_data_point( uint_fast32_t data_point );
         void process_data_vector( struct svm_node * node );
 
+        uint_fast8_t _arch;
+
         // bool update_window();
         
         // bool generate_data();
 
-        Syscall_Formatter _call_formatter;
+        Syscall_Formatter * _call_formatter;
+        NGram_Generator * _ngram_generator;
         Trace_Window _window;
-        NGram_Generator _ngram_generator;
         Support_Vector_Generator _sv_generator;
         One_Class_SVM _svm_module;
 };

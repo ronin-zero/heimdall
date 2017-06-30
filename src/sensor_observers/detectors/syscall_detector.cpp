@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 12-27-2016
  *
- *  Last Modified : Mon 19 Jun 2017 09:44:15 PM EDT
+ *  Last Modified : Fri 30 Jun 2017 06:03:59 AM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -11,13 +11,13 @@
 
 #include "syscall_detector.h"
 
-Syscall_Detector::Syscall_Detector( size_t window_size, uint_fast32_t ngram_length, std::string detection_log_file_name ) : _call_formatter(), 
-                                                                                                                            _window( window_size ), 
-                                                                                                                            _ngram_generator( ngram_length, TABLE_SIZE ),
-                                                                                                                            _sv_generator( window_size - ( ngram_length - 1 )), 
-                                                                                                                            _svm_module(){
+Syscall_Detector::Syscall_Detector( size_t window_size, uint_fast32_t ngram_length, std::string detection_log_file_name, uint_fast8_t arch) : 
+    _window( window_size ), 
+    _sv_generator( window_size - ( ngram_length - 1 )), 
+    _svm_module() 
+{
 
-    
+
     // TODO:  Put that string in a constant or something.
 
     detection_log.open( detection_log_file_name );
@@ -25,10 +25,28 @@ Syscall_Detector::Syscall_Detector( size_t window_size, uint_fast32_t ngram_leng
     observing = false;
     processing = false;
 
+    _arch = arch;
+
+    if ( ( _arch & ARCH_ARM ) == ARCH_ARM )
+    {
+        _call_formatter = new ARM_Syscall_Formatter();
+    }
+    else if ( ( _arch & ARCH_MIPS ) == ARCH_MIPS )
+    {
+        _call_formatter = new MIPS_Syscall_Formatter();
+    }
+    else
+    {
+        _call_formatter = new Syscall_Formatter();
+    }
+
+    _ngram_generator = new NGram_Generator( ngram_length, _call_formatter->table_size() );
 }
 
 Syscall_Detector::~Syscall_Detector(){
 
+    delete _call_formatter;
+    delete _ngram_generator;
     detection_log << "Detection stopped at: " << current_time();
     detection_log.close();
 }
@@ -45,61 +63,288 @@ bool Syscall_Detector::train_from_saved_model( const std::string file_name ){
 
 bool Syscall_Detector::train_from_trace( const std::string file_name, uint_fast8_t sep ){
 
-    detection_log << "Training from trace beginning at: " << current_time() << std::endl;
+    bool training_result_status = false;
+
+    if ( ! _svm_module.is_trained() ) 
+    {
+        bool prev_processing_status = processing_status();
+
+        stop_processing();
+
+        detection_log << "TRAINING TRACE FILE: " << file_name << std::endl;
+
+        Trace_Reader reader( file_name, sep );
+
+        _window.clear();
+        _sv_generator.reset();
+
+        uint_fast32_t syscall_records   = 0;
+        uint_fast32_t ngrams            = 0;
+        uint_fast32_t training_vectors  = 0;
+
+        training_result_status = true;
+
+        while ( reader.has_next() )
+        {
+            int_fast32_t curr_syscall = reader.next_syscall();
+
+            if ( curr_syscall >= 0 )
+            {
+
+                _window.add_data_point( _call_formatter->format_syscall_num( curr_syscall ) );
+                syscall_records++;
+
+                if ( _ngram_generator->has_next( _window ) )
+                {
+                    int_fast64_t ngram = _ngram_generator->generate_data_point( _window );
+
+                    if ( ngram >= 0 )
+                    {
+                        _sv_generator.add_data_point( ngram );
+                        ngrams++;
+                    }
+                }
+
+                if ( _sv_generator.full() )
+                {
+                    struct svm_node * current_node = _sv_generator.get_support_vector();
+
+                    if ( current_node != NULL )
+                    {
+                        _svm_module.add_training_vector( current_node, 0.0 );
+                        training_vectors++;
+                    }
+
+                    _sv_generator.reset();
+                }
+            }
+        }
+
+        // At this point, the file has no more records, but the window should be full.
+        // Read the rest of the window and add the ngrams to the support vector generator.
+        // There will most likely be overlap between the last two trace windows.
+
+        if ( !_window.trace_window_full() )
+        {
+            detection_log << "ERROR: Not enough records to make a data point or file does not exist." << std::endl;
+            training_result_status = false;
+        }
+        else
+        {
+            uint_fast32_t window_index = 0;
+
+            while ( !_sv_generator.full() && _ngram_generator->has_next( _window, window_index ) )
+            {
+                _sv_generator.add_data_point( _ngram_generator->generate_data_point( _window, window_index ) );
+                ngrams++;
+                window_index++;
+            }
+
+            if ( _sv_generator.full() )
+            {
+                struct svm_node * current_node = _sv_generator.get_support_vector();
+
+                if ( current_node != NULL )
+                {
+                    _svm_module.add_training_vector( current_node, 0.0 );
+                    training_vectors++;
+                }
+
+                _sv_generator.reset();
+            }
+
+            // Check if there is even one syscall in the window that hasn't been included.
+            // If there is, make a new vector out of the remaining calls (even if there 
+            // is a slight overlap between the last two windows/vectors)
+
+            if ( _ngram_generator->has_next( _window, window_index ) )
+            {
+                while ( _ngram_generator->has_next( _window, 0 ) )
+                {
+                    _sv_generator.add_data_point( _ngram_generator->generate_data_point( _window, 0 ) );
+                    ngrams++;
+                    _window.pop_front();
+                }
+
+                struct svm_node * current_node = _sv_generator.get_support_vector();
+
+                if ( current_node != NULL )
+                {
+                    _svm_module.add_training_vector( current_node, 0.0 );
+                    training_vectors++;
+                }
+
+                _sv_generator.reset();
+
+            }
+
+            training_result_status = true;
+        }
+        // Report the stats of the file
+
+        detection_log << "  Syscall_Records:    " << syscall_records << std::endl;
+        detection_log << "  Ngrams:             " << ngrams << std::endl;
+        detection_log << "  Training_Vectors:   " << training_vectors << std::endl;
+
+        detection_log << "TRAINING FILE " << file_name << " finished." << std::endl << std::endl;
+
+        _window.clear();
+        _sv_generator.reset();
+
+        set_processing( prev_processing_status );
+    }
+    else
+    {
+        detection_log << "ERROR: Training -- Module already trained!" << std::endl;
+    }
+
+    return training_result_status;
+}
+
+double Syscall_Detector::test_trace_file( const std::string file_name, uint_fast8_t sep ){
+
+    double percent_anomaly = 0.0;
+
+    uint_fast32_t call_trace_vectors   = 0;
+    uint_fast32_t anomalies     = 0;
+
+    std::cout << "TESTING FILE: " << file_name << std::endl;
 
     Trace_Reader reader( file_name, sep );
 
-    // First, fill the trace window
+    bool prev_processing_status = processing_status();
 
-    while ( reader.has_next() && !_window.trace_window_full() )
+    stop_processing();
+
+
+    if ( _svm_module.is_trained() ) 
     {
-        _window.add_data_point( reader.next_syscall() );
-    }
+        
+        _window.clear();
+        _sv_generator.reset();
 
-    // Check if the loop broke because there weren't enough samples in the tracefile,
-    // in which case, return false.  There is (at most) one full trace, which isn't enough.
-
-    if ( !_window.trace_window_full() )
-    {
-        detection_log << "ERROR:  Training failed at " << current_time() << std::endl;
-
-        return false;
-    }
-
-    // While the file has more records, keep adding them to the trace window.  If the window
-    // is full when a record is added, it will dequeue the first elemement.  This way, the
-    // window will always be full.  Until the file is out of records, the windows will not
-    // overlap.
-
-    while ( reader.has_next() )
-    {
-        _sv_generator.add_data_point( _ngram_generator.generate_data_point( _window ) );
-
-        if ( _sv_generator.full() )
+        while ( reader.has_next() )
         {
-            _svm_module.add_training_vector( _sv_generator.get_support_vector() );
-            _sv_generator.reset();
+            _window.add_data_point( _call_formatter->format_syscall_num( reader.next_syscall() ) );
+
+            if ( _ngram_generator->has_next( _window ) )
+            {
+                _sv_generator.add_data_point( _ngram_generator->generate_data_point( _window ) ); 
+            }
+
+            if ( _sv_generator.full() )
+            {
+                struct svm_node * test_vector = _sv_generator.get_support_vector();
+
+                double label = 0.0;
+
+                if ( test_vector != NULL )
+                {
+
+                    if ( _svm_module.predict( test_vector, label ) )
+                    {
+                        if ( label < 0.0 )
+                        {
+                            anomalies++;
+                        }
+                    }
+                }
+
+                detection_log << call_trace_vectors << "    " << label << std::endl;
+                call_trace_vectors++;
+
+                _sv_generator.reset();
+            }
         }
 
-        _window.add_data_point( reader.next_syscall() );
+        if ( _window.trace_window_full() )
+        {
+            // Finish the last test vector (even with overlap)
+
+            uint_fast32_t window_index = 0;
+            while ( _ngram_generator->has_next( _window, window_index ) && !_sv_generator.full() )
+            {
+                _sv_generator.add_data_point( _ngram_generator->generate_data_point( _window, window_index ) ); 
+                window_index++;
+            }
+
+            if ( _sv_generator.full() )
+            {
+                struct svm_node * test_vector = _sv_generator.get_support_vector();
+
+                double label = 0.0;
+
+                if ( test_vector != NULL )
+                {
+                    if ( _svm_module.predict( test_vector, label ) )
+                    {
+                        if ( label < 0.0 )
+                        {
+                            anomalies++;
+                        }
+                    }
+                }
+                detection_log << call_trace_vectors << "    " << label << std::endl;
+                call_trace_vectors++;
+            }
+
+            _sv_generator.reset();
+
+            // Check that there are data points in the window that weren't
+            // included in a model yet.
+
+            if ( _ngram_generator->has_next( _window, window_index ) )
+            {
+                // Empty the current window into the generator, get a vector, and test it.
+
+                while ( _ngram_generator->has_next( _window, 0 ) )
+                {
+                    _sv_generator.add_data_point( _ngram_generator->generate_data_point( _window, 0 ) );
+                    _window.pop_front();
+                }
+
+                struct svm_node * test_vector = _sv_generator.get_support_vector();
+                double label = 0.0;
+
+                if ( test_vector != NULL )
+                {
+                    if ( _svm_module.predict( test_vector, label ) )
+                    {
+                        if ( label < 0.0 )
+                        {
+                            anomalies++;
+                        }
+                    }
+                }
+
+                detection_log << call_trace_vectors << "    " << label << std::endl;
+                call_trace_vectors++;
+            }
+        }
+
+        if ( call_trace_vectors > 0 )
+        {
+            // TODO:  This is a paranoid level of double casting.
+
+            percent_anomaly = (double) ( (double) anomalies / (double) call_trace_vectors );
+        }
+
+        _window.clear();
+        _sv_generator.reset();
     }
-
-    // At this point, the file has no more records, but the window should be full.
-    // Read the rest of the window and add the ngrams to the support vector generator.
-    // There will most likely be overlap between the last two trace windows.
-
-    for ( uint_fast32_t i = 0;  !_sv_generator.full() && _ngram_generator.has_next( _window, i ); i++ )
+    else
     {
-        _sv_generator.add_data_point( _ngram_generator.generate_data_point( _window, i ) );
+        percent_anomaly = -1.0;
     }
 
-    _svm_module.add_training_vector( _sv_generator.get_support_vector() );
+    detection_log << "RESULTS for file: " << file_name << std::endl;
+    detection_log << "TEST_VECTORS: " << call_trace_vectors << std::endl;
+    detection_log << "ANOMALIES:    " << anomalies << std::endl;
+    detection_log << "PERCENT:      " << percent_anomaly << std::endl << std::endl;
 
-    _sv_generator.reset();
+    set_processing( prev_processing_status );
 
-    detection_log << "Training from trace complete at " << current_time() << std::endl;
-
-    return train_model();
+    return percent_anomaly;
 }
 
 bool Syscall_Detector::train_model(){
@@ -194,7 +439,7 @@ void Syscall_Detector::start_processing(){
     if ( !processing )
     {
         processing = true;
-        
+
         processing_thread = thread ( &Syscall_Detector::process, this );
     }
 }
@@ -215,42 +460,42 @@ void Syscall_Detector::stop_processing(){
 }
 
 /*
-bool Syscall_Detector::start_training(){
+   bool Syscall_Detector::start_training(){
 
-    if ( training )
-    {
-        return false;
-    }
-    else
-    {
-        training = true;
-        return training;
-    }
-}
+   if ( training )
+   {
+   return false;
+   }
+   else
+   {
+   training = true;
+   return training;
+   }
+   }
 
-bool Syscall_Detector::stop_training(){
+   bool Syscall_Detector::stop_training(){
 
-    if ( !training )
-    {
-        return false;
-    }
-    else
-    {
-        training = false;
-        return training;
-    }
-}
+   if ( !training )
+   {
+   return false;
+   }
+   else
+   {
+   training = false;
+   return training;
+   }
+   }
 
-void Syscall_Detector::set_generator( Data_Point_Generator * generator ){
+   void Syscall_Detector::set_generator( Data_Point_Generator * generator ){
 
-    _ngram_generator = generator;
-}
+   _ngram_generator = generator;
+   }
 
-void Syscall_Detector::set_trace_window( Trace_Window * window ){
-    
-    _window = window;
-}
-*/
+   void Syscall_Detector::set_trace_window( Trace_Window * window ){
+
+   _window = window;
+   }
+   */
 
 bool Syscall_Detector::save_model( const std::string file_name ){
 
@@ -282,7 +527,7 @@ void Syscall_Detector::process(){
     {
 
         Sensor_Data data_point;
-        
+
         if ( data_queue.try_dequeue( data_point ) )
         {
             Syscall_Record record( data_point );
@@ -306,9 +551,9 @@ void Syscall_Detector::send_data( Syscall_Record& record ){
 
 void Syscall_Detector::process_data_point( uint_fast32_t data_point ){
 
-    _window.add_data_point( _call_formatter.format_syscall_num( data_point ) );
+    _window.add_data_point( _call_formatter->format_syscall_num( data_point ) );
 
-    _sv_generator.add_data_point( _ngram_generator.generate_data_point( _window ) );
+    _sv_generator.add_data_point( _ngram_generator->generate_data_point( _window ) );
 
     if ( _sv_generator.full() )
     {
@@ -319,25 +564,25 @@ void Syscall_Detector::process_data_point( uint_fast32_t data_point ){
         _sv_generator.reset();
     }
 
-/*    while ( _data_point_generator.has_next( _window ) && !_sv_generator.full() )
-    {
-        _sv_generator.add_data_point( _data_point_generator.generate_data_point( _window ) );
-    }
+    /*    while ( _data_point_generator.has_next( _window ) && !_sv_generator.full() )
+          {
+          _sv_generator.add_data_point( _data_point_generator.generate_data_point( _window ) );
+          }
 
-    if ( _sv_generator.full() )
-    {
-        struct svm_node * node = _sv_generator.get_support_vector();
+          if ( _sv_generator.full() )
+          {
+          struct svm_node * node = _sv_generator.get_support_vector();
 
-        process_data_vector( node );
+          process_data_vector( node );
 
-        _sv_generator.reset();
-    }
+          _sv_generator.reset();
+          }
 
-    if ( _data_point_generator.done( _window ) )
-    {
-        _window.reset_window();
-        _data_point_generator.reset();
-    }*/
+          if ( _data_point_generator.done( _window ) )
+          {
+          _window.reset_window();
+          _data_point_generator.reset();
+          }*/
 }
 
 void Syscall_Detector::process_data_vector( struct svm_node * node ){
@@ -363,25 +608,25 @@ void Syscall_Detector::process_data_vector( struct svm_node * node ){
 
 
 /*
-bool Syscall_Detector::update_window(){
+   bool Syscall_Detector::update_window(){
 
-    Sensor_Data sensor_data;
+   Sensor_Data sensor_data;
 
-    if ( _window->trace_window_full() )
-    {
-        return false;
-    }
-    else if ( data_queue.try_dequeue( sensor_data ) )
-    {
-        Syscall_Record record( sensor_data );
+   if ( _window->trace_window_full() )
+   {
+   return false;
+   }
+   else if ( data_queue.try_dequeue( sensor_data ) )
+   {
+   Syscall_Record record( sensor_data );
 
-        uint_fast32_t syscall_num = _call_formatter->format_syscall_num( record.get_syscall_num() );
+   uint_fast32_t syscall_num = _call_formatter->format_syscall_num( record.get_syscall_num() );
 
-        return _window->add_data_point( syscall_num );
-    }
-    
-    return false;
-}*/
+   return _window->add_data_point( syscall_num );
+   }
+
+   return false;
+   }*/
 
 // This method checks to see if there is enough data in the trace window
 // for the data point generator to generate a new data point.
@@ -391,16 +636,16 @@ bool Syscall_Detector::update_window(){
 // and returns true.  Otherwise, it returns false.
 
 /*
-bool Syscall_Detector::generate_data(){
+   bool Syscall_Detector::generate_data(){
 
-    if ( _data_point_generator->has_next( _window ) && !_sv_generator->full() )
-    {
-        int_fast64_t tmp_data_point = _data_point_generator->generate_data_point( _window );
+   if ( _data_point_generator->has_next( _window ) && !_sv_generator->full() )
+   {
+   int_fast64_t tmp_data_point = _data_point_generator->generate_data_point( _window );
 
-        _sv_generator->add_data_point( tmp_data_point );
+   _sv_generator->add_data_point( tmp_data_point );
 
-        return true;
-    }
+   return true;
+   }
 
-    return false;
-}*/
+   return false;
+   }*/

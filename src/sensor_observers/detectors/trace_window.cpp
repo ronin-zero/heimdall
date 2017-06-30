@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 01-08-2017
  *
- *  Last Modified : Wed 08 Mar 2017 12:37:19 PM EST
+ *  Last Modified : Thu 29 Jun 2017 11:03:11 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -50,6 +50,11 @@ void Trace_Window::add_data_point( int_fast32_t data_point ){
 void Trace_Window::pop_front(){
 
     _trace_window.pop_front();
+}
+
+void Trace_Window::clear(){
+
+    _trace_window.clear();
 }
 
 std::ostream& operator<<( std::ostream& s_out, Trace_Window const& window ){

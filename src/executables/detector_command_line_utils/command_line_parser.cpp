@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 06-27-2016
  *
- *  Last Modified : Wed 08 Mar 2017 12:13:31 AM EST
+ *  Last Modified : Fri 30 Jun 2017 10:16:13 AM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -11,10 +11,9 @@
 
 #include "command_line_parser.h"
 
-Command_Line_Parser::Command_Line_Parser( int argc, char** argv ) : arg_flags( { "-d", "-l", "-m", "-n", "-t", "-s" } ),
-                                                                    //opt_flags( { "--model=", "--trace=", "--daemon=" } ),
-                                                                    opt_flags(),
-                                                                    commands( { "start", "stop", "status" } ){
+Command_Line_Parser::Command_Line_Parser( int argc, char** argv ) : arg_flags( { "-d", "-l", "-n", "-o", "-h" } ),
+                                                                    opt_flags( { "--loadmodel=", "--savemodel=", "--daemon=", "--training=", "--clean=", "--infected=", "--arch=", "--threshhold="} ),
+                                                                    commands( { "offline", "start", "stop", "status" } ){
 
     if ( argc <= 0 )
     {
@@ -450,7 +449,7 @@ bool Command_Line_Parser::check_args(){
         }
         else if ( !( valid_option( arguments[i] ) || valid_arg( arguments[i] ) ) )
         {
-            if ( i > 0 && arguments[ i -1 ] != "-o" )
+            if ( i > 0 && !( arguments[ i -1 ] != "-o" || arguments[ i - 1 ] != "-d" || arguments[ i -1 ] != "-l" || arguments[ i -1 ] != "-n" ) )
             {
                 errors++;
                 bad_args.push_back(i);
@@ -481,7 +480,14 @@ bool Command_Line_Parser::valid_command( std::string input ){
     {
         if ( input == commands[i] )
         {
-            return true;
+            if ( input == "offline" )
+            {
+                return contains_option( "--arch=") && ( contains_option( "--loadmodel=" ) || contains_option( "--training=" ) );
+            }
+            else
+            {
+                return true;
+            }
         }
     }
 

@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 01-31-2017
  *
- *  Last Modified : Wed 08 Mar 2017 12:36:33 PM EST
+ *  Last Modified : Fri 30 Jun 2017 05:29:57 AM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -93,6 +93,8 @@ void SVM_Module::make_problem(){
     _problem->y = &(*_class_labels)[0];     // CHECK: These vectors are now pointers to vectors.
     _problem->x = &(*_support_vectors)[0];  // I could see this being a problem.
 }
+
+// TODO: the return statements there could probably be more elegant 
 
 bool SVM_Module::generate_model( const char * msg ){
 

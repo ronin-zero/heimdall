@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 06-01-2016
  *
- *  Last Modified : Wed 01 Mar 2017 02:15:29 PM EST
+ *  Last Modified : Fri 30 Jun 2017 08:31:29 AM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -97,4 +97,5 @@ class ASCII_Operations{
 
         static bool is_hex_byte( std::string input );
         static bool is_number( std::string input );
+        static bool is_floating_point( std::string input );
 };

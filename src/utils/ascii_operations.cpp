@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 06-01-2016
  *
- *  Last Modified : Mon 06 Mar 2017 06:33:51 PM EST
+ *  Last Modified : Fri 30 Jun 2017 08:31:06 AM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -275,4 +275,18 @@ bool ASCII_Operations::is_number( std::string input ){
     }
 
     return is_a_number;
+}
+
+bool ASCII_Operations::is_floating_point( std::string input ){
+
+    std::size_t dec_index = input.find('.');
+
+    if ( dec_index == std::string::npos )
+    {
+        return is_number( input );
+    }
+    else
+    {
+        return ( is_number( input.substr( 0, dec_index ) ) && is_number ( input.substr(dec_index + 1 ) ) );
+    }
 }
