@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 10-04-2016
  *
- *  Last Modified : Fri 30 Jun 2017 10:21:19 AM EDT
+ *  Last Modified : Fri 21 Jul 2017 06:00:32 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -52,9 +52,9 @@ class Syscall_Detector : public Sensor_Observer{
     public:
         // Architecture Constants
 
-        static const uint_fast8_t   ARCH_DEFAULT     =   0x18;
+        static const uint_fast8_t   ARCH_DEFAULT    =   0x18;
 
-        static const uint_fast8_t   ARCH_ARM         =   0x21;
+        static const uint_fast8_t   ARCH_ARM        =   0x21;
         static const uint_fast8_t   ARCH_ARM_STRONG =   0x41;   // Same as 'A'
         static const uint_fast8_t   ARCH_ARM_THUMB  =   0x61;   // Same as 'a'
 
