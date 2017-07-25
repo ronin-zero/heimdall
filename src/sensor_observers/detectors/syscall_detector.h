@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 10-04-2016
  *
- *  Last Modified : Fri 21 Jul 2017 06:00:32 PM EDT
+ *  Last Modified : Tue 25 Jul 2017 04:21:28 AM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -51,27 +51,71 @@ class Syscall_Detector : public Sensor_Observer{
 
     public:
         // Architecture Constants
+        //
+        // NOTE: There is probably a better way to do this, 
+        // but after spending ours trying to come up with
+        // a more clever way and looking into precompiler
+        // macro definitions, I decided to go with what I
+        // declared to be "good enough" and move on.
+        //
+        // The idea is that the rightmost 4 bits indicate
+        // basic instruction set families with 0000 being
+        // a generic or unknown instruction set.
+        //
+        // The next bit to the left indicates endiannness
+        // where a value of 0 indicates little endianness
+        // and a value of 1 indicates big endianness.
+        //
+        // The next bit to the left after that indicates
+        // whether the architecture is 32-bit or 64-bit
+        // where 0 indicates 32-bit architecture and 1
+        // indicates 64-bit architecture.
+        //
+        // The leftmost two bits are left to provide
+        // information that is specific to architecture
+        // families.
+        //
+        // Largely arbitrarily, little endianness and
+        // 32-bit architecture is treated as the default
+        // with a value of 0 in their respective bits.
+        //
+        // Not all instruction sets are supported.
+        // 
+        // See the definitions to be sure.
 
-        static const uint_fast8_t   ARCH_DEFAULT    =   0x18;
+        static const uint_fast8_t   ARCH_DEFAULT    =   0x00;
 
-        static const uint_fast8_t   ARCH_ARM        =   0x21;
-        static const uint_fast8_t   ARCH_ARM_STRONG =   0x41;   // Same as 'A'
-        static const uint_fast8_t   ARCH_ARM_THUMB  =   0x61;   // Same as 'a'
+        // Basic architecture families  (x86, ARM, MIPS...)
 
-        static const uint_fast8_t   ARCH_MIPS       =   0x2D;
-        static const uint_fast8_t   ARCH_MIPS_64    =   0x4D;   // Same as 'M'
-        static const uint_fast8_t   ARCH_MIPS_32    =   0x6D;   // Same as 'm'
+        static const uint_fast8_t   ARCH_x86        =   0x01;
+        static const uint_fast8_t   ARCH_ARM        =   0x02;
+        static const uint_fast8_t   ARCH_MIPS       =   0x04;
 
-        static const uint_fast8_t   ARCH_X86_64     =   0x58;   // Same as 'X'
-        static const uint_fast8_t   ARCH_X86        =   0x78;   // Same as 'x'
+        // MIPS ABI specific constants...
+
+        static const uint_fast8_t   OABI_32        =   0x10;
+        static const uint_fast8_t   NABI_32        =   0x50;
+        static const uint_fast8_t   NABI_64        =   0x60;
+
+        // CHECK: I'm not sure the MIPS defines used are universal.
 
 #ifdef __arm__
     static const uint_fast8_t HOST_ARCH = ARCH_ARM;
 #elif __mips__
+#ifdef _MIPS_SIM_ABI32
+    static const uint_fast8_t HOST_ARCH = ( ARCH_MIPS | OABI_32 );
+#elif _MIPS_SIM_NABI32
+    static const uint_fast8_t HOST_ARCH = ( ARCH_MIPS | NABI_32 );
+#elif _MIPS_SIM_ABI64
+    static const uint_fast8_t HOST_ARCH = ( ARCH_MIPS | NABI_64 );
+#else
     static const uint_fast8_t HOST_ARCH = ARCH_MIPS;
 #else
     static const uint_fast8_t HOST_ARCH = ARCH_DEFAULT;
 #endif
+
+#ifdef __
+
         Syscall_Detector( size_t window_size, uint_fast32_t ngram_length, std::string detection_log_file_name, uint_fast8_t arch=HOST_ARCH );
 
         ~Syscall_Detector();
