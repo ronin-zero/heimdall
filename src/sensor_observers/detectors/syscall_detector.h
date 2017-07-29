@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 10-04-2016
  *
- *  Last Modified : Tue 25 Jul 2017 04:21:28 AM EDT
+ *  Last Modified : Sat 29 Jul 2017 04:24:47 AM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -114,8 +114,6 @@ class Syscall_Detector : public Sensor_Observer{
     static const uint_fast8_t HOST_ARCH = ARCH_DEFAULT;
 #endif
 
-#ifdef __
-
         Syscall_Detector( size_t window_size, uint_fast32_t ngram_length, std::string detection_log_file_name, uint_fast8_t arch=HOST_ARCH );
 
         ~Syscall_Detector();
@@ -175,80 +173,3 @@ class Syscall_Detector : public Sensor_Observer{
         Support_Vector_Generator _sv_generator;
         One_Class_SVM _svm_module;
 };
-
-/*
- * This would be a good place to perhaps define the table sizes, starts, and ending points for various instruction sets.
- *
- * Citation: https://w3challs.com/syscalls/
- * 
- * I'll start here with MIPS.
- *
- * ================================
- *
- * Linux Mips o32
- *
- * Start: 4000 (not implemented, really starts at 4001)
- * End: 4346
- * Size: 346 entries
- * Range: 347
- * --------------
- *
- * Linux Mips n32
- *
- * Start: 6000
- * End: 6310
- * Size: 310 entries
- * Range: 311
- *
- * --------------
- *
- * Linux Mips n64
- *
- * Start: 5000
- * End: 5305
- * Size: 305 entries
- * Range: 306
- *
- * =================================
- *
- * Linux ARM (aka arm_strong)
- *
- * Start: 9437184
- * End: 9437561
- * Size: 345 entries (the spread is really 377, not all numbers are implemented)
- * Range: 378 (use 390)
- *
- * --------------
- *
- * Linux ARM (thumb mode, aka arm_thumb)
- *
- * Start: 0
- * End: 377
- * Size: 345 (the spread is 377, not all numbers are implemented)
- * NOTE: 983045 sometimes appears.  I can't seem to figure out why...
- * That means the spread is really 378.
- *
- * See the file arm_syscall_formatter.h for details, but there is a potential range of 390
- * once the 983045 is adjusted to 389.  Note that 378 through 388 will be unused.
- *
- * Range: 390
- *
- * ==================================
- *
- * Linux x86
- *
- * Start: 0
- * End: 349
- * Size: 346 (the spread is 349)
- * Range: 350
- *
- * --------------
- *
- * Linux x86_64
- *
- * Start: 0
- * End: 312
- * Size: 313
- * Range: 313
- * 
- */

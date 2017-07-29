@@ -1,0 +1,123 @@
+This would be a good place to perhaps define the table sizes, starts, and ending points for various instruction sets.
+
+I had originally based this on the documentation found on this website: https://w3challs.com/syscalls/
+That information appears to be outdated.
+
+Instead, one should consult the header files that define these system calls on the system directly.
+
+They can usually be found in the file:
+
+/usr/src/linux-KERNELVERSION/arch/ARCH/include/uapi/asm/unistd.h
+
+where KERNELVERSION is the version returned by the command "uname -r" and ARCH
+is the relevant architecture.
+
+For specific architectures below, I will provide the actual path as of
+the date July 29, 2017 and the kernel version: 4.4.0-87.
+
+I'll start here with MIPS.
+
+================================
+
+--Linux MIPS--
+
+Defined in file:
+/usr/src/linux-headers-4.4.0-87/arch/mips/include/uapi/asm/unistd.h
+
+Linux MIPS o32 ( _MIPS_SIM_ABI32 )
+
+Start: 4000 
+End: 4359
+Range: 360
+
+--------------
+
+Linux MIPS n32 ( _MIPS_SIM_NABI32 )
+
+Start: 6000
+End: 6323
+Range: 324
+
+--------------
+
+Linux MIPS n64 ( _MIPS_SIM_ABI64 )
+
+Start: 5000
+End: 5319
+Range: 320
+
+=================================
+
+--Linux ARM--
+
+Defined in file:
+/usr/src/linux-headers-4.4.0-87/arch/arm/include/uapi/asm/unistd.h
+
+Linux ARM strong (ARM OABI)
+
+Start: 9437184 (0x900000)
+End: 9437574 (0x900186)
+Range: 391
+
+--------------
+
+Linux ARM thumb -- defined(__thumb__) || defined(__ARM_EABI__)
+
+Start: 0
+End: 390
+Range: 391
+
+NOTE: The only difference between the ARM OABI and the ARM EABI (ARM thumb mode) is the
+offset of the first system call number: the first OABI system call number begins at
+9437184 (0x900000).  Taking an ARM syscall number modulus 9437184 will result in the
+same system call number regardless of which mode is used.
+
+--PRIVATE ARM SWIs--
+
+NOTE: These should apparently never be called by user programs, but they do occasionally
+appear in traces.  There are only five of them, but the complication comes from the large
+offset between the last standard system call and the first private one.  At this time,
+I'm not sure whether they should be filtered out of the traces using ftrace's filters
+or whether they should be remapped to more manageable values closer to the range of the
+rest of the system calls.  More research is required to determine whether they are useful
+in detecting system anomalies.
+
+Range in ARM OABI: 
+
+Offset: 10420224 (0x9F0000)
+Start: 10420225 (0x9F0001)
+End: 10420229 (0x9F0005)
+
+Range in ARM EABI (thumb):
+
+Offset: 983040 (0x0F0000)
+Start: 983041 (0x0F0001)
+End: 983045 (0x0F0005)
+
+==================================
+
+Linux x86 ( __i386__ )
+
+Defined in file:
+/usr/src/linux-headers-4.4.0-87-generic/arch/x86/include/generated/uapi/asm/unistd_32.h
+
+Start: 0
+End: 376
+Range: 377
+
+--------------
+
+Linux x86_64
+
+Defined in file:
+/usr/src/linux-headers-4.4.0-87-generic/arch/x86/include/generated/uapi/asm/unistd_64.h
+
+Start: 0
+End: 325
+Range: 326
+
+--------------
+
+NOTE: As of July 29, 2017, ILP32 ( defined(__ILP32__) ) is not supported, but its system calls are defined here:
+
+/usr/src/linux-headers-4.4.0-87-generic/arch/x86/include/generated/uapi/asm/unistd_x32.h
