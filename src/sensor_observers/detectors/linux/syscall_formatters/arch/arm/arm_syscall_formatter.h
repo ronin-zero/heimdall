@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 12-26-2016
  *
- *  Last Modified : Mon 19 Jun 2017 05:21:19 PM EDT
+ *  Last Modified : Mon 31 Jul 2017 12:23:40 AM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -11,10 +11,8 @@
 
 #pragma once
 
-#include <cstdint> 
-
+#include <cstdint>
 #include "sensor_observers/detectors/linux/syscall_formatters/syscall_formatter.h"
-
 
 class ARM_Syscall_Formatter : public Syscall_Formatter{
 
@@ -34,15 +32,11 @@ class ARM_Syscall_Formatter : public Syscall_Formatter{
                                                                      *  they begin at 9437184 (decimal), 0x0090000 (hexidecimal).
                                                                      */
 
-        static const uint_fast32_t OUTLIER_SYSCALL  = 0x000F0005;   /*  This value rarely appears, but it sometimes does.  It has a 
+        static const uint_fast32_t PRIVATE_OFFSET   = 0x000F0000;   /*  This value rarely appears, but it sometimes does.  It has a 
                                                                      *  decimal value of 983045.  It is (apparently) the syscall
                                                                      *  set_tls.  Why it has this number so far outside of the range
                                                                      *  of the others in either "strong" or "thumb" mode is unclear.
                                                                      */
-
-        static const uint_fast32_t FORMATTED_OUTLIER = 0x00000185;  /*  This is what the OUTLIER_SYSCALL becomes after formatting. */
-                                                                    
-
 
         static const uint_fast32_t BIT_MASK        = 0x000001FF;    /*  When adjusted, ARM syscalls have a range of 0-377.  The outlier 
                                                                      *  value that sometimes appears is 983045.  When adjusted, it takes 
@@ -57,7 +51,9 @@ class ARM_Syscall_Formatter : public Syscall_Formatter{
                                                                      *  avoid magic numbers by placing 9 in a constant.
                                                                      */
 
-        const uint_fast32_t table_size_             = 390;
+        const uint_fast32_t last_syscall_            = 390;
+
+        const uint_fast32_t table_size_             = 396;
 
 
 };

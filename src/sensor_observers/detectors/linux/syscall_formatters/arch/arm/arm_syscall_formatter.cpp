@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 12-26-2016
  *
- *  Last Modified : Mon 19 Jun 2017 05:22:37 PM EDT
+ *  Last Modified : Mon 31 Jul 2017 12:25:17 AM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -16,9 +16,18 @@ ARM_Syscall_Formatter::ARM_Syscall_Formatter(){
     //  Nothing needs to be done for the constructor.
 }
 
+// TODO: I'm sure there's a better way to do this, in terms of efficiency.
+// I want it to return value between 0 and 395, inclusive.  The if statement
+// here seems like it will waste CPU time...
+
 uint_fast32_t ARM_Syscall_Formatter::format_syscall_num( uint_fast32_t syscall_num ){
 
-    uint_fast32_t formatted_syscall_num = ( syscall_num >> BIT_SHIFT | syscall_num ) & BIT_MASK;
+    uint_fast32_t formatted_syscall_num = ( syscall_num & BIT_MASK );
+
+    if ( syscall_num & PRIVATE_OFFSET )
+    {
+        formatted_syscall_num += last_syscall;
+    }
 
     return formatted_syscall_num;
 }
