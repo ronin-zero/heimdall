@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 12-26-2016
  *
- *  Last Modified : Mon 31 Jul 2017 12:23:40 AM EDT
+ *  Last Modified : Mon 31 Jul 2017 04:08:33 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -51,7 +51,8 @@ class ARM_Syscall_Formatter : public Syscall_Formatter{
                                                                      *  avoid magic numbers by placing 9 in a constant.
                                                                      */
 
-        const uint_fast32_t last_syscall_            = 390;
+        const uint_fast32_t last_syscall_           = 390;
+        const uint_fast32_t first_private_syscall_  = last_syscall_ + 1; // 391
 
         const uint_fast32_t table_size_             = 396;
 

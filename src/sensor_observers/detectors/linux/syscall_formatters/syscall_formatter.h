@@ -1,9 +1,9 @@
 /*
  *  File Name : syscall_formatter.h
  *  
- *  Creation Date : 22-12-2016
+ *  Creation Date : 12-22-2016
  *
- *  Last Modified : Mon 19 Jun 2017 07:22:49 PM EDT
+ *  Last Modified : Mon 31 Jul 2017 12:27:34 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -27,5 +27,5 @@ class Syscall_Formatter{
 
     private:
 
-        const uint_fast32_t table_size_ = 350;
+        const uint_fast32_t table_size_ = 400;
 };

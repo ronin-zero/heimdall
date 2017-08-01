@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 12-26-2016
  *
- *  Last Modified : Mon 31 Jul 2017 12:25:17 AM EDT
+ *  Last Modified : Mon 31 Jul 2017 05:18:50 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -16,52 +16,32 @@ ARM_Syscall_Formatter::ARM_Syscall_Formatter(){
     //  Nothing needs to be done for the constructor.
 }
 
-// TODO: I'm sure there's a better way to do this, in terms of efficiency.
-// I want it to return value between 0 and 395, inclusive.  The if statement
-// here seems like it will waste CPU time...
+/* This function takes a raw system call number and returns a value within the range 0-395 in
+ * thumb mode.  These numbers are offset by 0x900000 outside of thumb or EABI mode.
+ * Currently, the default system calls for ARM range from 0 to 390, but there are 5 proprietary
+ * calls that number from 983041 through 983045 (inclusive).  To keep the numbers in a usable
+ * range, this function maps the first 391 (0-390) system calls to values in the range 0-390,
+ * regardless of whether the OABI, EABI, or Thumb Mode is used.  The 5 proprietary calls
+ * are re-mapped to values ranging from 391-395 (inclusive).  Thus, there are 396 system
+ * calls mapped to the range 0-395.
+ */
 
 uint_fast32_t ARM_Syscall_Formatter::format_syscall_num( uint_fast32_t syscall_num ){
 
-    uint_fast32_t formatted_syscall_num = ( syscall_num & BIT_MASK );
-
-    if ( syscall_num & PRIVATE_OFFSET )
-    {
-        formatted_syscall_num += last_syscall;
-    }
-
-    return formatted_syscall_num;
+    return ( syscall_num & BIT_MASK ) + ( last_syscall_ ) * ( syscall_num / PRIVATE_OFFSET );
 }
+
+/* This function takes the formatted system call and returns the actual value as described in the linux kernel
+ * headers for ARM.  Formatted system call numbers in range 0-390 retain their value.  Formatted system call 
+ * numbers in range 391-395 will be mapped to their value modulo 390 plus the private offset.
+ * These aren't guaranteed to be the original values because we don't know whether these were collected from
+ * a system using EABI/Thumb or OABI, so all of these values might be 0x00900000 (the STRONG_OFFSET) less
+ * than they were originally.
+ */
 
 uint_fast32_t ARM_Syscall_Formatter::recover_syscall_num( uint_fast32_t formatted_syscall_num ){
 
-    /* If the systen call comes from "strong" mode, the offset must be added to the formatted number.
-     *
-     * If the original call comes from "thumb" mode, the number should be fine to return as-is UNLESS
-     * it is the outlier for set_tls (0x000F0005, 983045).  The formatted value of this system call is
-     * 389, which is 0x185 in hex.  For now, I'm just going to do this using a basic "if" check.
-     * I don't like it this way, but I need to move on.
-     *
-     * CHECK: Full disclosure here: I'm not sure if this kind of #ifdef block is good practice, here.
-     * I'm also not sure if the outlier syscall for set_tls (0x000F0005, 983045) occurs outside of thumb mode,
-     * and if so, how.  As such, I've included this soft task:
-     *
-     * TODO: consult someone who knows more than I do about the safety/reliability/best practice for this sort
-     * of thing.
-     */
-
-    uint_fast32_t syscall_num = formatted_syscall_num;
-
-#ifdef __thumb__
-    if ( formatted_syscall_num == FORMATTED_OUTLIER )
-    {
-        syscall_num = OUTLIER_SYSCALL;
-    }
-#else
-    syscall_num |= STRONG_OFFSET;
-#endif
-
-    return syscall_num;
-
+    return ( formatted_syscall_number % first_private_syscall_ ) + (formatted_syscall_num / first_private_syscall_ ) * ( PRIVATE_OFFSET + 1 )
 }
 
 uint_fast32_t ARM_Syscall_Formatter::table_size() const{
