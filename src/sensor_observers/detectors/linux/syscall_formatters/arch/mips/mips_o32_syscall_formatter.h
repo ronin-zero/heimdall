@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 07-31-2017
  *
- *  Last Modified : Tue 01 Aug 2017 01:53:19 AM EDT
+ *  Last Modified : Tue 01 Aug 2017 08:17:47 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -19,4 +19,4 @@ class MIPS_o32_Syscall_Formatter : public MIPS_Syscall_Formatter {
 
     public:
         MIPS_o32_Syscall_Formatter();
-}
+};

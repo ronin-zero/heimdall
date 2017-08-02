@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 12-26-2016
  *
- *  Last Modified : Tue 01 Aug 2017 12:15:10 AM EDT
+ *  Last Modified : Tue 01 Aug 2017 08:30:41 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -20,7 +20,7 @@
 #define MIPS_N32_OFFSET     6000
 #define MIPS_GEN_OFFSET     1000 // In the event that the EABI/OABI can't be detected
 
-#define MIPS_032_TABLE_SIZE 360
+#define MIPS_O32_TABLE_SIZE 360
 #define MIPS_N64_TABLE_SIZE 320
 #define MIPS_N32_TABLE_SIZE 324
 #define MIPS_GEN_TABLE_SIZE 360 // Use the largest of the three table sizes when ABI unknown

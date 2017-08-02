@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 12-26-2016
  *
- *  Last Modified : Mon 31 Jul 2017 05:18:50 PM EDT
+ *  Last Modified : Tue 01 Aug 2017 08:14:11 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -41,7 +41,7 @@ uint_fast32_t ARM_Syscall_Formatter::format_syscall_num( uint_fast32_t syscall_n
 
 uint_fast32_t ARM_Syscall_Formatter::recover_syscall_num( uint_fast32_t formatted_syscall_num ){
 
-    return ( formatted_syscall_number % first_private_syscall_ ) + (formatted_syscall_num / first_private_syscall_ ) * ( PRIVATE_OFFSET + 1 )
+    return ( formatted_syscall_num % first_private_syscall_ ) + (formatted_syscall_num / first_private_syscall_ ) * ( PRIVATE_OFFSET + 1 );
 }
 
 uint_fast32_t ARM_Syscall_Formatter::table_size() const{

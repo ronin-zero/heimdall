@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 10-04-2016
  *
- *  Last Modified : Sat 29 Jul 2017 04:24:47 AM EDT
+ *  Last Modified : Tue 01 Aug 2017 08:30:08 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -33,6 +33,7 @@
 #include "sensor_observers/detectors/linux/syscall_formatters/arch/arm/arm_syscall_formatter.h"
 #include "sensor_observers/detectors/linux/syscall_formatters/syscall_formatter.h"
 #include "sensor_observers/detectors/linux/syscall_formatters/arch/mips/mips_syscall_formatter.h"
+
 /*  
  *  For now, only Linux is supported.  If other operating systems are added later, handle 
  *  them similarly.
@@ -44,16 +45,13 @@ typedef Linux_Syscall_Record Syscall_Record;
 typedef System_Call_Record Syscall_Record;
 #endif
 
-
-
-
 class Syscall_Detector : public Sensor_Observer{
 
     public:
         // Architecture Constants
         //
         // NOTE: There is probably a better way to do this, 
-        // but after spending ours trying to come up with
+        // but after spending hours trying to come up with
         // a more clever way and looking into precompiler
         // macro definitions, I decided to go with what I
         // declared to be "good enough" and move on.
