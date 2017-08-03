@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 12-27-2016
  *
- *  Last Modified : Fri 30 Jun 2017 06:03:59 AM EDT
+ *  Last Modified : Thu 03 Aug 2017 12:03:56 AM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -27,13 +27,25 @@ Syscall_Detector::Syscall_Detector( size_t window_size, uint_fast32_t ngram_leng
 
     _arch = arch;
 
-    if ( ( _arch & ARCH_ARM ) == ARCH_ARM )
+    if ( _arch & ARCH_ARM )
     {
         _call_formatter = new ARM_Syscall_Formatter();
     }
-    else if ( ( _arch & ARCH_MIPS ) == ARCH_MIPS )
+    else if ( _arch & ARCH_MIPS )
     {
-        _call_formatter = new MIPS_Syscall_Formatter();
+        switch ( _arch & OPTS_MASK ) {
+            case OABI_32:
+                _call_formatter = new MIPS_o32_Syscall_Formatter();
+                break;
+            case NABI_32:
+                _call_formatter = new MIPS_n32_Syscall_Formatter();
+                break;
+            case NABI_64:
+                _call_formatter = new MIPS_n64_Syscall_Formatter();
+                break;
+            default:
+                _call_formatter = new MIPS_Syscall_Formatter();
+        }
     }
     else
     {
