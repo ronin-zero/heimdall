@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 10-04-2016
  *
- *  Last Modified : Thu 03 Aug 2017 01:05:24 AM EDT
+ *  Last Modified : Fri 04 Aug 2017 10:24:15 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -33,6 +33,9 @@
 #include "sensor_observers/detectors/linux/syscall_formatters/arch/arm/arm_syscall_formatter.h"
 #include "sensor_observers/detectors/linux/syscall_formatters/syscall_formatter.h"
 #include "sensor_observers/detectors/linux/syscall_formatters/arch/mips/mips_syscall_formatter.h"
+#include "sensor_observers/detectors/linux/syscall_formatters/arch/mips/mips_o32_syscall_formatter.h"
+#include "sensor_observers/detectors/linux/syscall_formatters/arch/mips/mips_n32_syscall_formatter.h"
+#include "sensor_observers/detectors/linux/syscall_formatters/arch/mips/mips_n64_syscall_formatter.h"
 
 // Architecture Constants
 //
@@ -90,14 +93,15 @@ static const uint_fast8_t   NABI_64        =   0x60;
 #ifdef __arm__
 static const uint_fast8_t HOST_ARCH = ARCH_ARM;
 #elif __mips__
-#ifdef _MIPS_SIM_ABI32
+#if ( _MIPS_SIM == _MIPS_SIM_ABI32 )
 static const uint_fast8_t HOST_ARCH = ( ARCH_MIPS | OABI_32 );
-#elif _MIPS_SIM_NABI32
+#elif ( _MIPS_SIM == _MIPS_SIM_NABI32 )
 static const uint_fast8_t HOST_ARCH = ( ARCH_MIPS | NABI_32 );
-#elif _MIPS_SIM_ABI64
+#elif ( _MIPS_SIM == _MIPS_SIM_ABI64 )
 static const uint_fast8_t HOST_ARCH = ( ARCH_MIPS | NABI_64 );
 #else
 static const uint_fast8_t HOST_ARCH = ARCH_MIPS;
+#endif
 #else
 static const uint_fast8_t HOST_ARCH = ARCH_DEFAULT;
 #endif

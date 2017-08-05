@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 12-22-2016
  *
- *  Last Modified : Mon 31 Jul 2017 11:58:49 PM EDT
+ *  Last Modified : Fri 04 Aug 2017 09:56:37 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -16,10 +16,10 @@ Syscall_Formatter::Syscall_Formatter(){
     // Nothing needs to be done for the constructor.
 }
 
-// Simply return the original number.
+// Simply return the original number modded by the table_size_.
 uint_fast32_t Syscall_Formatter::format_syscall_num( uint_fast32_t syscall_num ){
 
-    return syscall_num;
+    return syscall_num % table_size_;
 }
 
 // Return the original number.

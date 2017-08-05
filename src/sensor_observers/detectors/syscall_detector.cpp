@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 12-27-2016
  *
- *  Last Modified : Thu 03 Aug 2017 12:03:56 AM EDT
+ *  Last Modified : Fri 04 Aug 2017 10:23:49 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -45,6 +45,7 @@ Syscall_Detector::Syscall_Detector( size_t window_size, uint_fast32_t ngram_leng
                 break;
             default:
                 _call_formatter = new MIPS_Syscall_Formatter();
+                break;
         }
     }
     else
