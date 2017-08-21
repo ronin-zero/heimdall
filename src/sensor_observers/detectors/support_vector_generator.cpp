@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 01-18-2017
  *
- *  Last Modified : Wed 01 Mar 2017 01:12:34 PM EST
+ *  Last Modified : Mon 21 Aug 2017 04:40:36 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -71,6 +71,16 @@ struct svm_node * Support_Vector_Generator::get_support_vector(){
     }
 
     return node_instance;
+}
+
+uint_fast32_t Support_Vector_Generator::data_point_count() const {
+
+    return _data_point_count;
+}
+
+uint_fast32_t Support_Vector_Generator::points_until_full() const {
+
+    return _max_point_count - _data_point_count;
 }
 
 void Support_Vector_Generator::reset(){
