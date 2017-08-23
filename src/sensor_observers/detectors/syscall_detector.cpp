@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 12-27-2016
  *
- *  Last Modified : Fri 04 Aug 2017 10:23:49 PM EDT
+ *  Last Modified : Wed 23 Aug 2017 07:15:28 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -564,9 +564,14 @@ void Syscall_Detector::send_data( Syscall_Record& record ){
 
 void Syscall_Detector::process_data_point( uint_fast32_t data_point ){
 
-    _window.add_data_point( _call_formatter->format_syscall_num( data_point ) );
+    uint_fast32_t syscall_num = _call_formatter->format_syscall_num( data_point );
 
-    _sv_generator.add_data_point( _ngram_generator->generate_data_point( _window ) );
+    _window.add_data_point( syscall_num );
+
+    if ( _window.trace_window_full() )
+    {
+        _sv_generator.add_data_point( _ngram_generator->generate_data_point( _window ) );
+    }
 
     if ( _sv_generator.full() )
     {
