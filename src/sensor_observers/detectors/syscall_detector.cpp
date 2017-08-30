@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 12-27-2016
  *
- *  Last Modified : Wed 23 Aug 2017 07:15:28 PM EDT
+ *  Last Modified : Tue 29 Aug 2017 09:53:45 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -74,8 +74,29 @@ bool Syscall_Detector::train_from_saved_model( const std::string file_name ){
 // There should probably be a class that handles this with stuff like how many
 // fields there are, what the separator is, and which field is the syscall number.
 
-bool Syscall_Detector::train_from_trace( const std::string file_name, uint_fast8_t sep ){
+bool Syscall_Detector::train_from_trace( const std::string file_name, double class_label, uint_fast8_t sep ){
 
+    // Don't try to train if it's already trained.
+
+    if ( _svm_module.is_trained() ) {
+        return false;
+    }
+
+    bool prev_processing_status = processing_status();
+
+    // We don't want the sensor to be training in real-time while we train offline.
+
+    stop_processing();
+
+    /*
+     * Do some stuff...
+     */
+
+    
+
+    set_processing( prev_processing_status );
+
+    /*
     bool training_result_status = false;
 
     if ( ! _svm_module.is_trained() ) 
@@ -211,7 +232,7 @@ bool Syscall_Detector::train_from_trace( const std::string file_name, uint_fast8
         detection_log << "ERROR: Training -- Module already trained!" << std::endl;
     }
 
-    return training_result_status;
+    return training_result_status;*/
 }
 
 double Syscall_Detector::test_trace_file( const std::string file_name, uint_fast8_t sep ){
@@ -622,6 +643,22 @@ void Syscall_Detector::process_data_vector( struct svm_node * node ){
             detection_log << "ERROR: Prediction failed - " << current_time() << std::endl;
         }
     }
+}
+
+std::vector<struct svm_node *> Syscall_Detector::get_trace_vectors( Trace_Reader & trace_reader ){
+
+    std::vector<struct svm_node *> trace_vectors;
+
+    if ( trace_reader.has_next() ){
+        Trace_Window temp_window( _window.get_trace_length() );
+        Support_Vector_Generator temp_sv_generator( _window.get_trace_length() - ( _ngram_generator->ngram_size() - 1 ) );
+
+        while ( trace_reader.has_next() ){
+            trace_reader.
+        }
+    }
+
+    return trace_vectors;
 }
 
 

@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 10-04-2016
  *
- *  Last Modified : Fri 04 Aug 2017 10:24:15 PM EDT
+ *  Last Modified : Tue 29 Aug 2017 09:37:04 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -16,6 +16,7 @@
 #include <map>
 #include <iostream>
 #include <fstream>
+#include <vector>
 
 #include "utils/ascii_operations.h"
 #include "sensor_data/sensor_data.h"
@@ -120,11 +121,11 @@ class Syscall_Detector : public Sensor_Observer{
 
     public:
 
-        Syscall_Detector( size_t window_size, uint_fast32_t ngram_length, std::string detection_log_file_name, uint_fast8_t arch=HOST_ARCH );
+        Syscall_Detector( size_t window_size, uint_fast32_t ngram_length, std::string detection_log_file_name, uint_fast8_t arch = HOST_ARCH );
 
         ~Syscall_Detector();
 
-        bool train_from_trace( const std::string file_name, uint_fast8_t sep = ',' );
+        bool train_from_trace( const std::string file_name, double class_label = 0.0, uint_fast8_t sep = ',' );
         double test_trace_file( const std::string file_name, uint_fast8_t sep = ',' );
 
         bool train_from_saved_model( const std::string file_name );
@@ -166,6 +167,8 @@ class Syscall_Detector : public Sensor_Observer{
 
         void process_data_point( uint_fast32_t data_point );
         void process_data_vector( struct svm_node * node );
+
+        std::vector<struct svm_node *> get_trace_vectors( Trace_Reader & trace_reader );
 
         uint_fast8_t _arch;
 
