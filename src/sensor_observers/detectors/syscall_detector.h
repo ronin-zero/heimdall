@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 10-04-2016
  *
- *  Last Modified : Tue 29 Aug 2017 09:37:04 PM EDT
+ *  Last Modified : Wed 30 Aug 2017 07:31:03 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -166,6 +166,7 @@ class Syscall_Detector : public Sensor_Observer{
         void send_data( Syscall_Record& record );
 
         void process_data_point( uint_fast32_t data_point );
+        void process_data_point( uint_fast32_t data_point, Trace_Window & window, Support_Vector_Generator & sv_generator );
         void process_data_vector( struct svm_node * node );
 
         std::vector<struct svm_node *> get_trace_vectors( Trace_Reader & trace_reader );

@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 01-18-2017
  *
- *  Last Modified : Mon 21 Aug 2017 04:40:36 PM EDT
+ *  Last Modified : Wed 30 Aug 2017 06:59:12 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -71,6 +71,13 @@ struct svm_node * Support_Vector_Generator::get_support_vector(){
     }
 
     return node_instance;
+}
+
+// It is sometimes convenient to know how many data points the generator is meant to hold. This method achieves that.
+
+uint_fast32_t Support_Vector_Generator::size() const{
+
+    return _max_data_points;
 }
 
 uint_fast32_t Support_Vector_Generator::data_point_count() const {

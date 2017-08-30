@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 12-27-2016
  *
- *  Last Modified : Tue 29 Aug 2017 09:53:45 PM EDT
+ *  Last Modified : Wed 30 Aug 2017 07:53:06 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -584,23 +584,18 @@ void Syscall_Detector::send_data( Syscall_Record& record ){
 }
 
 void Syscall_Detector::process_data_point( uint_fast32_t data_point ){
+    process_data_point( data_point, _window, _sv_generator );
+}
+
+void Syscall_Detector::process_data_point( uint_fast32_t data_point, Trace_Window & window, Support_Vector_Generator & sv_generator ){
 
     uint_fast32_t syscall_num = _call_formatter->format_syscall_num( data_point );
 
-    _window.add_data_point( syscall_num );
+    window.add_data_point( syscall_num );
 
-    if ( _window.trace_window_full() )
+    if ( window.trace_window_full() )
     {
-        _sv_generator.add_data_point( _ngram_generator->generate_data_point( _window ) );
-    }
-
-    if ( _sv_generator.full() )
-    {
-        struct svm_node * node = _sv_generator.get_support_vector();
-
-        process_data_vector ( node );
-
-        _sv_generator.reset();
+        sv_generator.add_data_point( _ngram_generator->generate_data_point( window ) );
     }
 
     /*    while ( _data_point_generator.has_next( _window ) && !_sv_generator.full() )
@@ -650,12 +645,24 @@ std::vector<struct svm_node *> Syscall_Detector::get_trace_vectors( Trace_Reader
     std::vector<struct svm_node *> trace_vectors;
 
     if ( trace_reader.has_next() ){
-        Trace_Window temp_window( _window.get_trace_length() );
-        Support_Vector_Generator temp_sv_generator( _window.get_trace_length() - ( _ngram_generator->ngram_size() - 1 ) );
+        Trace_Window tmp_window( _window.get_trace_length() );
+        Support_Vector_Generator tmp_sv_generator( _sv_generator.size() );
 
         while ( trace_reader.has_next() ){
-            trace_reader.
+            int_fast32_t curr_syscall = trace_reader.next_syscall();
+            if ( curr_syscall >= 0 ) {
+                process_data_point( curr_syscall, tmp_window, tmp_sv_generator );
+            }
+            if ( tmp_sv_generator.full() ){
+                struct svm_node * tmp_support_vector = tmp_sv_generator.get_support_vector();
+                trace_vectors.push_back( tmp_support_vector );
+                tmp_sv_generator.reset();
+            }
         }
+
+        // TODO two things here:
+        // If the window is full and the generator isn't, fill the generator, add that support vector, and reset the generator.
+        // Then, fill the generator with the contents of the full window (there will be overlap in the last two vectors).
     }
 
     return trace_vectors;
