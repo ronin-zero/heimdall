@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 01-11-2017
  *
- *  Last Modified : Fri 30 Jun 2017 05:58:19 AM EDT
+ *  Last Modified : Tue 03 Oct 2017 12:45:45 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -24,6 +24,7 @@ class NGram_Generator : public Data_Point_Generator{
         ~NGram_Generator() {}
 
         int_fast64_t generate_data_point( Trace_Window& trace, uint_fast32_t index = 0 );
+        uint_fast32_t num_data_points( Trace_Window trace );
 
         uint_fast32_t ngram_size();
 
