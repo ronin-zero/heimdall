@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 12-27-2016
  *
- *  Last Modified : Wed 30 Aug 2017 07:53:06 PM EDT
+ *  Last Modified : Tue 03 Oct 2017 01:29:17 AM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -666,6 +666,18 @@ std::vector<struct svm_node *> Syscall_Detector::get_trace_vectors( Trace_Reader
     }
 
     return trace_vectors;
+}
+
+uint_fast32_t Syscall_Detector::fill_generator( Trace_Window & window, Support_Vector_Generator & sv_generator ){
+    uint_fast32_t index = 0;
+
+    if ( window.size() >= sv_generator.points_until_full() ){
+        while( !sv_generator.full() ) {
+
+        }
+    }
+    
+    return index;
 }
 
 
