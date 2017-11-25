@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 10-04-2016
  *
- *  Last Modified : Tue 03 Oct 2017 04:52:59 PM EDT
+ *  Last Modified : Sat 25 Nov 2017 01:12:00 AM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -72,9 +72,7 @@
 // See the definitions to be sure.
 
 static const uint_fast8_t   ARCH_DEFAULT    =   0x00;
-
 static const uint_fast8_t   ARCH_MASK       =   0x0F;
-
 static const uint_fast8_t   OPTS_MASK       =   0xF0;
 
 // Basic architecture families  (x86, ARM, MIPS...)
