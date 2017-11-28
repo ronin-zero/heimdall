@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 12-27-2016
  *
- *  Last Modified : Tue 03 Oct 2017 05:20:19 PM EDT
+ *  Last Modified : Mon 27 Nov 2017 09:26:09 PM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -88,8 +88,9 @@ bool Syscall_Detector::train_from_trace( const std::string file_name, double cla
 
     stop_processing();
 
-    /*
-     * Do some stuff...
+    /*  create Trace_Reader object
+     *  call get_trace_vectors
+     *  for each trace vector (struct svm_node *), call process_data_vector
      */
 
 
