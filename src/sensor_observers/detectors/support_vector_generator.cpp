@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 01-18-2017
  *
- *  Last Modified : Wed 30 Aug 2017 06:59:12 PM EDT
+ *  Last Modified : Tue 09 Jan 2018 03:23:41 AM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -49,7 +49,8 @@ struct svm_node * Support_Vector_Generator::get_support_vector(){
 
     if ( ngram_count > 0 )
     {
-        node_instance = (svm_node *) malloc( sizeof( svm_node ) * ( ngram_count + 1 ) );
+        // FIXME: This is probably the cause of somem problems.  Look at svm-toy/qt/svm-toy.cpp line 239 at how to do this and check your pointers.
+        node_instance = (svm_node *) malloc( sizeof( svm_node ) * ( ngram_count + 1 ) ); // The + 1 is to account for the last node at index -1.
 
         uint_fast32_t i = 0;
 
