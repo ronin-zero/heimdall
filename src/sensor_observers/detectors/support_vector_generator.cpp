@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 01-18-2017
  *
- *  Last Modified : Tue 09 Jan 2018 03:23:41 AM EST
+ *  Last Modified : Tue 23 Jan 2018 04:57:02 PM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -41,16 +41,21 @@ bool Support_Vector_Generator::full(){
     return _data_point_count >= _max_data_points;
 }
 
+bool Support_Vector_Generator::empty(){
+    
+    return ( _data_point_count == 0 && call_table.empty() ); // CHECK: Probably redundant but we'll see.
+}
+
 struct svm_node * Support_Vector_Generator::get_support_vector(){
 
-    svm_node * node_instance = NULL;
+    struct svm_node * node_instance = NULL;
     
     uint_fast32_t ngram_count = call_table.size();
 
     if ( ngram_count > 0 )
     {
         // FIXME: This is probably the cause of somem problems.  Look at svm-toy/qt/svm-toy.cpp line 239 at how to do this and check your pointers.
-        node_instance = (svm_node *) malloc( sizeof( svm_node ) * ( ngram_count + 1 ) ); // The + 1 is to account for the last node at index -1.
+        node_instance = (struct svm_node *) malloc( sizeof( struct svm_node ) * ( ngram_count + 1 ) ); // The + 1 is to account for the last node at index -1.
 
         uint_fast32_t i = 0;
 
@@ -88,7 +93,7 @@ uint_fast32_t Support_Vector_Generator::data_point_count() const {
 
 uint_fast32_t Support_Vector_Generator::points_until_full() const {
 
-    return _max_point_count - _data_point_count;
+    return _max_data_points - _data_point_count;
 }
 
 void Support_Vector_Generator::reset(){

@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 01-08-2017
  *
- *  Last Modified : Thu 29 Jun 2017 11:03:11 PM EDT
+ *  Last Modified : Tue 23 Jan 2018 03:35:58 PM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -32,14 +32,14 @@ size_t Trace_Window::size(){
     return _trace_window.size();
 }
 
-bool Trace_Window::trace_window_full(){
+bool Trace_Window::full(){
 
     return ( _trace_window.size() >= _trace_length );
 }
 
 void Trace_Window::add_data_point( int_fast32_t data_point ){
 
-    if ( trace_window_full() )
+    if ( full() )
     {
         _trace_window.pop_front();
     }

@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 03-07-2017
  *
- *  Last Modified : Fri 30 Jun 2017 11:29:01 AM EDT
+ *  Last Modified : Tue 23 Jan 2018 02:58:47 PM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -257,7 +257,7 @@ void offline( Command_Line_Parser & parser ){
 
 
     std::string prog_name = parser.get_program_name();
-    uint_fast8_t trace_arch = Syscall_Detector::ARCH_DEFAULT;
+    uint_fast8_t trace_arch = ARCH_DEFAULT;
 
     if ( parser.contains_option( "--arch=" ) )
     {
@@ -266,15 +266,15 @@ void offline( Command_Line_Parser & parser ){
 
         if ( tmp_arch.find( "ARM" ) != std::string::npos || tmp_arch.find( "arm" ) != std::string::npos )
         {
-            trace_arch = Syscall_Detector::ARCH_ARM;
+            trace_arch = ARCH_ARM;
         }
         else if ( tmp_arch.find( "MIPS" ) != std::string::npos || tmp_arch.find("mips") != std::string::npos )
         {
-            trace_arch = Syscall_Detector::ARCH_MIPS;
+            trace_arch = ARCH_MIPS;
         }
         else
         {
-            trace_arch = Syscall_Detector::ARCH_DEFAULT;
+            trace_arch = ARCH_DEFAULT;
         }
     }
 
@@ -676,15 +676,15 @@ void start ( Command_Line_Parser & parser ){
 
             if ( tmp_arch.find( "ARM" ) != std::string::npos || tmp_arch.find( "arm" ) != std::string::npos )
             {
-                trace_arch = Syscall_Detector::ARCH_ARM;
+                trace_arch = ARCH_ARM;
             }
             else if ( tmp_arch.find( "MIPS" ) != std::string::npos || tmp_arch.find("mips") != std::string::npos )
             {
-                trace_arch = Syscall_Detector::ARCH_MIPS;
+                trace_arch = ARCH_MIPS;
             }
             else
             {
-                trace_arch = Syscall_Detector::ARCH_DEFAULT;
+                trace_arch = ARCH_DEFAULT;
             }
 
             Detector_Manager manager( window_len, ngram_len, detection_log, out_file_name, prog_name, trace_arch );

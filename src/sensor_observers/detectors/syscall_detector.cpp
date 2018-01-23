@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 12-27-2016
  *
- *  Last Modified : Mon 27 Nov 2017 09:26:09 PM EST
+ *  Last Modified : Tue 23 Jan 2018 04:59:11 PM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -96,6 +96,10 @@ bool Syscall_Detector::train_from_trace( const std::string file_name, double cla
 
 
     set_processing( prev_processing_status );
+
+    // TODO: finish this mess.  The hardcoded "false" return is just to get this compiling for now.
+    
+    return false;
 
     /*
        bool training_result_status = false;
@@ -292,7 +296,7 @@ double Syscall_Detector::test_trace_file( const std::string file_name, uint_fast
             }
         }
 
-        if ( _window.trace_window_full() )
+        if ( _window.full() )
         {
             // Finish the last test vector (even with overlap)
 
@@ -594,7 +598,7 @@ void Syscall_Detector::process_data_point( uint_fast32_t data_point, Trace_Windo
 
     window.add_data_point( syscall_num );
 
-    if ( window.trace_window_full() )
+    if ( window.full() )
     {
         sv_generator.add_data_point( _ngram_generator->generate_data_point( window ) );
     }
@@ -717,12 +721,16 @@ struct svm_node * Syscall_Detector::get_current_vector( Trace_Window window ){
 
         Support_Vector_Generator tmp_sv_generator( _sv_generator.size() );
 
-        while ( _ngram_generator->has_next( window ) &  ){
-            tmp_sv_generator.add_data_point( _ngram_generator->generate_data_point( window ) );
+        uint_fast32_t i = 0;
+
+        while ( _ngram_generator->has_next( window, i ) && !tmp_sv_generator.full()  ){
+            tmp_sv_generator.add_data_point( _ngram_generator->generate_data_point( window, i++ ) );
         }
+
+        tmp_node = tmp_sv_generator.get_support_vector();
     }
 
-    return svm_node;
+    return tmp_node;
 }
 
 

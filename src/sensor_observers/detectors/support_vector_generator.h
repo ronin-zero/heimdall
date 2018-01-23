@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 01-18-2017
  *
- *  Last Modified : Wed 30 Aug 2017 06:59:25 PM EDT
+ *  Last Modified : Tue 23 Jan 2018 03:39:46 PM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -28,6 +28,7 @@ class Support_Vector_Generator{
 
         void add_data_point( uint_fast64_t data_point );
         bool full();
+        bool empty();
 
         struct svm_node * get_support_vector();
 

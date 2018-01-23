@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 01-08-2017
  *
- *  Last Modified : Thu 29 Jun 2017 11:03:14 PM EDT
+ *  Last Modified : Tue 23 Jan 2018 03:35:33 PM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -28,7 +28,7 @@ class Trace_Window{
         size_t get_trace_length();
         size_t size();
 
-        bool trace_window_full();
+        bool full();
 
         void add_data_point( int_fast32_t data_point );
 

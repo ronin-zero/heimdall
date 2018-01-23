@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 12-26-2016
  *
- *  Last Modified : Fri 04 Aug 2017 10:12:30 PM EDT
+ *  Last Modified : Tue 23 Jan 2018 03:31:06 PM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -24,7 +24,7 @@ class ARM_Syscall_Formatter : public Syscall_Formatter{
         uint_fast32_t format_syscall_num( uint_fast32_t syscall_num );
         uint_fast32_t recover_syscall_num( uint_fast32_t formatted_syscall_num );
 
-        //uint_fast32_t table_size() const;
+        uint_fast32_t table_size() const;
 
     private:
 
