@@ -5,14 +5,19 @@ project (Heimdall)
 set( targetname "syscall-sensor" )
 
 message( "At the start, our CMAKE_CXX_FLAGS are: ${CMAKE_CXX_FLAGS}" )
+message( "At the start, our CMAKE_CXX_FLAGS_DEBUG are: ${CMAKE_CXX_FLAGS_DEBUG}" )
+message( "At the start, our CMAKE_CXX_FLAGS_RELEASE are: ${CMAKE_CXX_FLAGS_RELEASE}" )
 
 set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Werror -pedantic -std=c++11 -pthread" )
 
+message( "After modifying them, our CMAKE_CXX_FLAGS are: ${CMAKE_CXX_FLAGS}" )
+
+
 message( "At the start, our CMAKE_CXX_FLAGS_DEBUG are: ${CMAKE_CXX_FLAGS_DEBUG}" )
 
-set( CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -ggdb3 -O0 -DDEBUG_COUT" )
+set( CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wno-unused-parameter -Wno-unused-variable -ggdb3 -O0 -DDEBUG_COUT" )
 
-set( CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} ${CMAKE_CXX_FLAGS}" )
+#set( CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} ${CMAKE_CXX_FLAGS}" )
 
 message( "CMAKE_SOURCE_DIR is: ${CMAKE_SOURCE_DIR}" )
 
@@ -34,6 +39,8 @@ if( CMAKE_BUILD_TYPE STREQUAL "Debug" )
     #set( CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wno-unused-parameter -Wno-unused-variable" )
 elseif( CMAKE_BUILD_TYPE STREQUAL "Release" )
     message( "===RELEASE MODE===" )
+else()
+    message( "===DEFAULT MODE===" )
 endif( CMAKE_BUILD_TYPE STREQUAL "Debug" )
 
 set( BIN_DIR "${CMAKE_CURRENT_SOURCE_DIR}/bin" )
