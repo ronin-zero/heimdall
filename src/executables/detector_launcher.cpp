@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 03-07-2017
  *
- *  Last Modified : Tue 23 Jan 2018 02:58:47 PM EST
+ *  Last Modified : Fri 26 Jan 2018 11:02:55 PM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -667,7 +667,7 @@ void start ( Command_Line_Parser & parser ){
         {
             std::cout << "Daemonization disabled.  Detector will be run as a regular application." << std::endl;
         }
-
+/*
         if ( parser.contains_option( "--arch=" ) )
         {
             std::string tmp_arch = parser.get_option_string( parser.arg_at ( parser.option_index ( "--arch=" ) ) );
@@ -693,7 +693,7 @@ void start ( Command_Line_Parser & parser ){
         else
         {
             Detector_Manager manager( window_len, ngram_len, detection_log, out_file_name, prog_name );
-        }
+        }*/
 
         Detector_Manager manager( window_len, ngram_len, detection_log, out_file_name, prog_name );
 
