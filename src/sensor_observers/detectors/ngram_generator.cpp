@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 01-11-2017
  *
- *  Last Modified : Tue 03 Oct 2017 03:16:10 PM EDT
+ *  Last Modified : Mon 26 Feb 2018 09:06:21 PM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -31,7 +31,7 @@ NGram_Generator::NGram_Generator( uint_fast32_t n_value, uint_fast32_t table_siz
  * Using variables n for the length of the ngram, a table size of c calls, g_i as the ith member of the ngram (0-indexed),
  * and s for the resulting scalar value, we use the following generalized formula:
  *
- *      s = g_0 * c ^ ( (n - 1) - 0 ) + g_1 * ( ( n - 1 ) - 1 )
+ *      s = g_0 * c ^ ( (n - 1) - 0 ) + g_1 * c ^ ( ( n - 1 ) - 1 )
  */
 
 int_fast64_t NGram_Generator::generate_data_point( Trace_Window& trace, uint_fast32_t index ){
