@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 02-15-2017
  *
- *  Last Modified : Wed 08 Mar 2017 12:46:45 PM EST
+ *  Last Modified : Mon 12 Mar 2018 03:50:58 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -26,18 +26,13 @@ One_Class_SVM::One_Class_SVM(){
     trained = false;
 }
 
-One_Class_SVM::One_Class_SVM( const char * file_name ){
-
-    _support_vectors = new std::vector<struct svm_node*>();
+One_Class_SVM::One_Class_SVM( const char * file_name ) : One_Class_SVM() {
 
     trained = load_model( file_name );
 }
 
-One_Class_SVM::One_Class_SVM( const std::string file_name ){
+One_Class_SVM::One_Class_SVM( const std::string file_name ) : One_Class_SVM( file_name.cstr() ) {
 
-    _support_vectors = new std::vector<struct svm_node*>();
-
-    trained = load_model( file_name );
 }
 
 // Destructors
@@ -62,7 +57,10 @@ One_Class_SVM::~One_Class_SVM(){
 
 void One_Class_SVM::add_training_vector( struct svm_node * node, double label ){
 
-    return SVM_Module::add_training_vector( node, label );
+    // CHECK: This seems like a sloppy way around the unused parameter warning, but 
+    // I'm out of ideas.
+    (void)label;
+    return SVM_Module::add_training_vector( node, 0.0 );
 }
 
 bool One_Class_SVM::load_model( const char * file_name ){
@@ -78,10 +76,10 @@ bool One_Class_SVM::load_model( const char * file_name ){
     {
         return false;
     }
-    else if ( temp_model->param.kernel_type != ONE_CLASS )
+    else if ( temp_model->param.svm_type != ONE_CLASS )
     {
         // Memory was allocated as a result of the successful load_model function,
-        // but the kernel type is incompatible.  The pointer must be freed before
+        // but the svm type is incompatible.  The pointer must be freed before
         // the function returns false.
 
         free ( temp_model );
@@ -89,11 +87,13 @@ bool One_Class_SVM::load_model( const char * file_name ){
     }
 
     // If the method hasn't returned false yet, temp_model is both non-NULL and
-    // has kernel_type ONE_CLASS.  Set _model to temp_model, set trained to true,
+    // has svm_type ONE_CLASS.  Set _model to temp_model, set trained to true,
     // and return trained.
 
     _model = temp_model;
     trained = true;
+    _training_samples = _model->l;
+    set_parameters( &(_model->param) );
 
     return trained;
 }
