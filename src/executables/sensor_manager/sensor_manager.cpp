@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 07-08-2016
  *
- *  Last Modified : Thu 06 Apr 2017 08:37:11 PM EDT
+ *  Last Modified : Fri 13 Apr 2018 06:28:25 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -37,6 +37,11 @@ void Sensor_Manager::run_sensor( bool daemon_on ){
     if ( daemon_on )
     {
         Daemonizer::launch_daemon( task_name );
+    }
+    else
+    {
+        logger->remove_stream( s_out );
+        logger->add_stream( new Output_Stream( s_out->get_flags(), s_out->get_separator() ) );
     }
 
     // We want to start the observing and processing threads before we begin sensing.

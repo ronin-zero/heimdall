@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 06-27-2016
  *
- *  Last Modified : Mon 13 Mar 2017 03:54:02 PM EDT
+ *  Last Modified : Fri 13 Apr 2018 05:58:44 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -190,12 +190,39 @@ void start ( Command_Line_Parser & parser ){
         // if the command succeeds.  It will fail if run without sudo or root permissions.
         // see 'man 3 mkfifo' for more information.
 
-        if ( mkfifo ( pipe_name.c_str(), 0666 ) == 0 )
+
+        uint_fast8_t flags = 0x00;
+        std::string out_file_name = "trace.log";
+        std::string separator=",";
+        bool run_daemon = true;
+
+        if ( parser.contains_option( "--daemon=" ) )
         {
-            uint_fast8_t flags = 0x00;
-            std::string out_file_name = "trace.log";
-            std::string separator=",";
-            bool run_daemon = true;
+            std::string daemon_option = parser.get_option_string( parser.arg_at ( parser.option_index ( "--daemon=" ) ) );
+
+            // TODO: This should be cleaned up to do a better case-insensitive comparison.
+            // In the interest of time, I just wrote this quickly.
+
+            if ( daemon_option == "0" || daemon_option == "OFF" || daemon_option == "off" 
+                    || daemon_option == "Off" || daemon_option == "oFf" || daemon_option == "ofF"
+                    || daemon_option == "oFF" || daemon_option == "OFf" || daemon_option == "OfF" )
+            {
+                run_daemon = false;
+            }
+            else if ( daemon_option == "1" || daemon_option == "ON" || daemon_option == "on" || daemon_option == "oN" || daemon_option == "On" )
+            {
+                run_daemon = true;
+            }
+            else
+            {
+                std::cerr << "WARNING: Argument " << daemon_option << " passed to option --daemon is invalid." << std::endl;
+                std::cerr << "Option/argument must be of the form: --daemon=[ON|1] to run as daemon or --daemon=[OFF|0] to run" << std::endl;
+                std::cerr << "as a normal application (see help: run with -h or --help)." << std::endl;
+            }
+        }
+
+        if ( !run_daemon || mkfifo ( pipe_name.c_str(), 0666 ) == 0 )
+        {
 
             if (  !parser.contains_option( "--flags=" ) && !parser.contains_any( opt_flags ) )
             {
@@ -258,30 +285,7 @@ void start ( Command_Line_Parser & parser ){
                 separator = parser.get_option_string( parser.arg_at ( parser.option_index ("--separator=") ) );
             }
 
-            if ( parser.contains_option( "--daemon=" ) )
-            {
-                std::string daemon_option = parser.get_option_string( parser.arg_at ( parser.option_index ( "--daemon=" ) ) );
 
-                // TODO: This should be cleaned up to do a better case-insensitive comparison.
-                // In the interest of time, I just wrote this quickly.
-
-                if ( daemon_option == "0" || daemon_option == "OFF" || daemon_option == "off" 
-                        || daemon_option == "Off" || daemon_option == "oFf" || daemon_option == "ofF"
-                        || daemon_option == "oFF" || daemon_option == "OFf" || daemon_option == "OfF" )
-                {
-                    run_daemon = false;
-                }
-                else if ( daemon_option == "1" || daemon_option == "ON" || daemon_option == "on" || daemon_option == "oN" || daemon_option == "On" )
-                {
-                    run_daemon = true;
-                }
-                else
-                {
-                    std::cerr << "WARNING: Argument " << daemon_option << " passed to option --daemon is invalid." << std::endl;
-                    std::cerr << "Option/argument must be of the form: --daemon=[ON|1] to run as daemon or --daemon=[OFF|0] to run" << std::endl;
-                    std::cerr << "as a normal application (see help: run with -h or --help)." << std::endl;
-                }
-            }
 
 
             std::cout << "You chose to print to file: " << out_file_name << std::endl;
