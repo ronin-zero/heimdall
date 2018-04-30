@@ -1,3 +1,4 @@
 [submodule "src/libsvm"]
 	path = src/libsvm
-	url = https://github.com/ronin-zero/libsvm.git
+    url = https://github.com/ronin-zero/libsvm.git
+    fetchRecurseSubmodules = yes
