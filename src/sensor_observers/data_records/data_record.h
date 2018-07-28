@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 05-20-2016
  *
- *  Last Modified : Tue 31 Jan 2017 03:24:48 PM EST
+ *  Last Modified : Sat 28 Jul 2018 03:13:15 AM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -44,6 +44,7 @@ class Data_Record{
         // 
         // Below is the "friend" declaration of the << operator.  I think this should be OK.
 
+        // CHECK: Make sure that the const correctness is done right on this function and the print function
         friend ostream& operator<<( ostream& s_out, Data_Record const& record );
 
     protected:
