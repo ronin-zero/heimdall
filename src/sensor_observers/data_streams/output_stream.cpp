@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 06-06-2016
  *
- *  Last Modified : Thu 13 Apr 2017 04:24:01 PM EDT
+ *  Last Modified : Thu 16 Aug 2018 11:48:43 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -36,7 +36,7 @@ Output_Stream::Output_Stream( string file_name, uint_fast8_t out_flags, string s
     flags = out_flags;
     separator = sep;
     
-    out = new std::ofstream ( file_name, std::ofstream::app );
+    out = new std::ofstream ( file_name );
 
     needs_delete = true;
 }
