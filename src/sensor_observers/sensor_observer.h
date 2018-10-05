@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 05-10-2016
  *
- *  Last Modified : Tue 31 Jan 2017 03:17:44 PM EST
+ *  Last Modified : Fri 05 Oct 2018 04:31:01 AM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -23,7 +23,7 @@ using std::string;
 
 typedef moodycamel::ReaderWriterQueue<Sensor_Data> queue;
 
-const uint_fast32_t OBSERVER_QUEUE_SIZE = 100; // CHECK: As with include/sensors/sensor.h, this figure is arbitrary for now.
+//const uint_fast32_t OBSERVER_QUEUE_SIZE = 100; // CHECK: As with include/sensors/sensor.h, this figure is arbitrary for now. CURRENTLY UNUSED.
 
 class Sensor_Observer{
 

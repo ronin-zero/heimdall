@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 05-09-2016
  *
- *  Last Modified : Thu 13 Apr 2017 04:47:16 PM EDT
+ *  Last Modified : Fri 05 Oct 2018 04:28:46 AM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -26,7 +26,7 @@ using std::thread;
 // Sensor constants
 static const uint_fast8_t SENSING_OFF   = 0x00;
 static const uint_fast8_t SENSING_ON    = 0x01;
-static const uint_fast32_t SENSOR_QUEUE_SIZE = 100; // CHECK: This is entirely arbitrary right now. If something works better, it will be changed.
+//static const uint_fast32_t SENSOR_QUEUE_SIZE = 100; // CHECK: This is entirely arbitrary right now. If something works better, it will be changed. CURRENTLY UNUSED.
 
 class Sensor {
 
@@ -37,7 +37,7 @@ class Sensor {
         // initializes a queue. All sensors
         // should have a queue like this.
 
-        Sensor() : data_queue ( SENSOR_QUEUE_SIZE ) {}
+        Sensor() : data_queue () {} // CHECK: I gave "SENSOR_QUEUE_SIZE" as an argument at one point while debugging, but I don't believe it's necessary.
         virtual ~Sensor() {} // CHECK: I had to define this one in the header.
 
        
