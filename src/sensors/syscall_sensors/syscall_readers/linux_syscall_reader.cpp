@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 05-09-2016
  *
- *  Last Modified : Tue 31 Jan 2017 03:33:51 PM EST
+ *  Last Modified : Fri 05 Oct 2018 11:21:55 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -47,14 +47,7 @@ Linux_Syscall_Reader::~Linux_Syscall_Reader(){
 
 uint_fast8_t Linux_Syscall_Reader::set_reading( bool on ){
 
-    if ( on )
-    {
-        return start_reading();
-    }
-    else
-    {
-        return stop_reading();
-    }
+    return on ? start_reading() : stop_reading();
 }
 
 uint_fast8_t Linux_Syscall_Reader::start_reading(){
