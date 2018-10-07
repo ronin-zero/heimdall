@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 05-09-2016
  *
- *  Last Modified : Fri 03 Mar 2017 11:09:17 PM EST
+ *  Last Modified : Sun 07 Oct 2018 03:29:49 AM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -43,10 +43,9 @@ class Syscall_Reader{
         virtual uint_fast8_t start_reading() = 0;
         virtual uint_fast8_t stop_reading() = 0;
 
-        virtual uint_fast8_t set_self_filter( bool on=true ) = 0;
-        
         virtual uint_fast8_t set_enter( bool on ) = 0;
         virtual uint_fast8_t set_exit( bool on ) = 0;
+        virtual uint_fast8_t set_self_filter( bool on=true ) = 0;
 
         virtual uint_fast8_t reading_status() = 0;
 
@@ -61,6 +60,9 @@ class Syscall_Reader{
     protected:
 
         uint_fast8_t status;
+
+        virtual bool tracing_event( std::string event_path ) = 0;
+        virtual bool filtering_self( std::string event_path ) = 0;
 
         std::string os;
         std::string data_type = "syscall";

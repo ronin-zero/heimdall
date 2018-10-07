@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 05-09-2016
  *
- *  Last Modified : Fri 05 Oct 2018 11:21:55 PM EDT
+ *  Last Modified : Sun 07 Oct 2018 03:31:16 AM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -210,6 +210,16 @@ void Linux_Syscall_Reader::update_filter(){
 
 // Protected methods
 
+bool Linux_Syscall_Reader::tracing_event( string event_path ){
+    string enable_status = file_readline( event_path + ENABLE );
+    return enable_status == "1";
+}
+
+bool Linux_Syscall_Reader::filtering_self( string event_path ){
+    string event_filter = file_readline( event_path + FILTER );
+    return event_filter != "none";
+}
+
 Linux_Syscall_Reader::Linux_Syscall_Reader( uint_fast8_t flags ){
 
     status = 0x00;
@@ -261,6 +271,33 @@ bool Linux_Syscall_Reader::file_write( string filename, string output, std::ios_
     }
 
     return true;
+}
+
+// This is just a function to quickly read a line from a file.
+// The use case that this function exists to address is quickly check whether
+// tracing events are enabled by reading the "enable" file in the directory
+// for a given event.
+
+string Linux_Syscall_Reader::file_readline( string filename ){
+
+    string file_line;
+
+    try
+    {
+        std::ifstream ifs( filename );
+        ifs >> file_line;
+        ifs.close();
+    }
+    catch( std::ifstream::failure &read_err )
+    {
+        std::cerr << "\n\n Exception occurred when attempting to read a line a file.";
+        std::cerr << "\n\nFilename: " << filename << "\n\n";
+        std::cerr << "Exception information:    \n\n";
+        std::cerr << read_err.what() << "\n\n";
+        std::cerr << flush();
+    }
+
+    return file_line;
 }
 
 void Linux_Syscall_Reader::clear_file( string file_name ){

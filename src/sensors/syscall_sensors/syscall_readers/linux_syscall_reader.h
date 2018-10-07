@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 05-09-2017
  *
- *  Last Modified : Wed 12 Apr 2017 08:19:45 PM EDT
+ *  Last Modified : Sun 07 Oct 2018 03:29:35 AM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -72,9 +72,12 @@ class Linux_Syscall_Reader:public Syscall_Reader{
 
         Sensor_Data * read_syscall();
 
-        
-
     protected:
+
+        // Inherited from syscall_reader.h
+
+        bool tracing_event( std::string event_path );
+        bool filtering_self( std::string event_path );
 
         static Linux_Syscall_Reader * lsr_instance;
 
@@ -83,6 +86,8 @@ class Linux_Syscall_Reader:public Syscall_Reader{
         bool write_to_file( std::string filename, std::string output );
         bool append_to_file( std::string filename, std::string output );
         bool file_write( std::string filename, std::string output, std::ios_base::openmode mode=std::ofstream::out );
+        
+        std::string file_readline( std::string filename );
 
         void clear_file( std::string file_name );
 
