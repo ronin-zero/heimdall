@@ -1,0 +1,52 @@
+.TH SYSCALL\-SENSOR 1 "08 October 2018"
+.SH NAME
+syscall\-sensor \- a system call sensing utility
+.SH SYNOPSIS
+\fBsyscall\-sensor\fP [\fICOMMAND\fP] [\fIOPTIONS\fP]
+
+\fBsyscall\-sensor\fP [\fBstatus\fP|\fBstop\fP|\fBstart\fP 
+.in +8
+[\fB\-\-flags\fP=\fIFLAGS\fP] [\fB\-n \-p \-c \-f \-t \-s \-a\fP]
+.br
+[\fB\-o\fP \fIFILE\fP]
+.br
+[\fB\-\-separator=\fP\fISEP\fP]
+.br
+[\fB\-\-daemonize=\fP\fBON\fP|\fBOFF\fP|\fB0\fP|\fB1\fP] ]
+.in -8
+.SH DESCRIPTION
+This program traces raw system calls and logs them to a specified output file.
+See OPTIONS for what data can be traced and logged.
+See COMMANDS for what actions can be taken.
+See DEFAULTS for the behavior when no options are set.
+.SH COMMANDS
+When run without a command, the program will print its usage and exit.
+
+\fBstart\fP [\fIOPTIONS\fP]
+.in +4
+Starts tracing according to the given OPTIONS.
+.br
+Begins reading system call data from the trace pipe and logging it to trace.log or to the (optionally) specified output file.
+.br
+See section \fIOPTIONS\fP for more information on valid options for the \fBstart\fP command.
+.in -4
+
+\fBstop\fP
+.in +4
+Stops the sensor (if it is running).
+.br
+Cleanly closes the open files, resets the trace pipe, clears filters, and closes the log file.
+.in -4
+
+\fBstatus\fP
+.in +4
+Shows the status of the sensor.
+.br
+Status information includes whether the sensor is running and what data is being recorded.
+.in -4
+
+.SH OPTIONS
+.SS Data Field Options
+.TP
+\fB-n\fP
+Include the name of the process in the log.
