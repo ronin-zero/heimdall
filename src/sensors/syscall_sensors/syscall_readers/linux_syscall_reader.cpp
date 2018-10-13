@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 05-09-2016
  *
- *  Last Modified : Sun 07 Oct 2018 03:31:16 AM EDT
+ *  Last Modified : Sat 13 Oct 2018 01:48:50 AM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -111,6 +111,39 @@ uint_fast8_t Linux_Syscall_Reader::set_self_filter( bool filter ){
     }
     
     return status;
+}
+
+uint_fast8_t Linux_Syscall_Reader::ftrace_status(){
+
+    uint_fast8_t ftrace_status = 0x00;
+    uint_fast8_t tmp_status = 0x00;
+
+    std::ifstream tracing_on_fs( FTRACE_DIR + TRACING_ON );
+    std::ifstream sys_enter_fs( FTRACE_DIR + EVENTS_DIR + RAW_SYSCALLS_DIR + SYS_ENTER_DIR + ENABLE );
+    std::ifstream sys_exit_fs( FTRACE_DIR + EVENTS_DIR + RAW_SYSCALLS_DIR + SYS_EXIT_DIR + ENABLE );
+
+    tracing_on_fs >> tmp_status;
+
+    if ( tmp_status == '1' )
+    {
+        ftrace_status |= READING_ON;
+    }
+
+    sys_enter_fs >> tmp_status;
+
+    if ( tmp_status != '0' )
+    {
+        ftrace_status |= SYS_ENTER;
+    }
+
+    sys_exit_fs >> tmp_status;
+
+    if ( tmp_status != '0' )
+    {
+        ftrace_status |= SYS_EXIT;
+    }
+    
+    return ftrace_status;
 }
 
 uint_fast8_t Linux_Syscall_Reader::set_enter( bool on ){
@@ -285,7 +318,7 @@ string Linux_Syscall_Reader::file_readline( string filename ){
     try
     {
         std::ifstream ifs( filename );
-        ifs >> file_line;
+        std::getline(ifs, file_line);
         ifs.close();
     }
     catch( std::ifstream::failure &read_err )
@@ -294,7 +327,7 @@ string Linux_Syscall_Reader::file_readline( string filename ){
         std::cerr << "\n\nFilename: " << filename << "\n\n";
         std::cerr << "Exception information:    \n\n";
         std::cerr << read_err.what() << "\n\n";
-        std::cerr << flush();
+        std::cerr.flush();
     }
 
     return file_line;

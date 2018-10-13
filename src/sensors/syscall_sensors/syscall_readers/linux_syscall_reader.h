@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 05-09-2017
  *
- *  Last Modified : Sun 07 Oct 2018 03:29:35 AM EDT
+ *  Last Modified : Fri 12 Oct 2018 11:41:45 PM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -59,7 +59,7 @@ class Linux_Syscall_Reader:public Syscall_Reader{
         uint_fast8_t set_enter( bool on );
         uint_fast8_t set_exit( bool on );
         uint_fast8_t set_self_filter( bool on=true );
-
+        
         uint_fast8_t reading_status();
 
         bool is_reading();
@@ -88,6 +88,7 @@ class Linux_Syscall_Reader:public Syscall_Reader{
         bool file_write( std::string filename, std::string output, std::ios_base::openmode mode=std::ofstream::out );
         
         std::string file_readline( std::string filename );
+        uint_fast8_t ftrace_status();
 
         void clear_file( std::string file_name );
 
