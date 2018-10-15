@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 05-09-2016
  *
- *  Last Modified : Sat 13 Oct 2018 01:48:50 AM EDT
+ *  Last Modified : Mon 15 Oct 2018 12:20:26 AM EDT
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -243,8 +243,8 @@ void Linux_Syscall_Reader::update_filter(){
 
 // Protected methods
 
-bool Linux_Syscall_Reader::tracing_event( string event_path ){
-    string enable_status = file_readline( event_path + ENABLE );
+bool Linux_Syscall_Reader::tracing_event( std::string event_path ){
+    std::string enable_status = file_readline( event_path + ENABLE );
     return enable_status == "1";
 }
 
