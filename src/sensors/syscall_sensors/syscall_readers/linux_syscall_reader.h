@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 05-09-2017
  *
- *  Last Modified : Fri 12 Oct 2018 11:41:45 PM EDT
+ *  Last Modified : Mon 12 Nov 2018 03:48:22 AM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -13,9 +13,11 @@
 
 #include <vector>
 #include <unistd.h>
+#include <regex>
 
 #include "syscall_reader.h"
 #include "utils/ascii_operations.h"
+#include "sensor_data/data_patterns/syscall_patterns/linux_syscall_constants.h"
 
 static const std::string FTRACE_DIR =        "/sys/kernel/debug/tracing/";
 static const std::string TRACE =             "trace";
@@ -91,6 +93,8 @@ class Linux_Syscall_Reader:public Syscall_Reader{
         uint_fast8_t ftrace_status();
 
         void clear_file( std::string file_name );
+
+        std::regex syscall_regex;
 
         std::string build_filter();
 
