@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 05-26-2016
  *
- *  Last Modified : Tue 31 Jan 2017 03:25:38 PM EST
+ *  Last Modified : Sat 17 Nov 2018 05:19:15 AM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -11,8 +11,11 @@
 
 #pragma once
 
+#include <regex>
+
 #include "sensor_observers/data_records/data_record.h"
 #include "sensor_observers/data_records/system_call_record.h"
+#include "sensor_data/data_patterns/syscall_patterns/linux_syscall_constants.h"
 
 // Each of these represents a field
 // in a line in trace_pipe.
@@ -88,7 +91,7 @@ class Linux_Syscall_Record : public Data_Record, public System_Call_Record{
 
     public:
         
-        Linux_Syscall_Record( const Sensor_Data& data, uint_fast8_t settings_flags=ALL, string sep="," );
+        Linux_Syscall_Record( const Sensor_Data& data, uint_fast8_t settings_flags=ALL, std::string sep="," );
         ~Linux_Syscall_Record() {}
 
         //string raw_string() const;
@@ -97,13 +100,13 @@ class Linux_Syscall_Record : public Data_Record, public System_Call_Record{
         //
         // This just returns them as strings.
 
-        string get_task() const;
-        string get_pid() const;
-        string get_cpu() const;
-        string get_trace_flags() const;
-        string get_timestamp() const;
-        string get_syscall() const;
-        string get_syscall_args() const;
+        std::string get_task() const;
+        std::string get_pid() const;
+        std::string get_cpu() const;
+        std::string get_trace_flags() const;
+        std::string get_timestamp() const;
+        std::string get_syscall() const;
+        std::string get_syscall_args() const;
 
         // It might be handy to get some of the numeric fields as
         // numeric types:

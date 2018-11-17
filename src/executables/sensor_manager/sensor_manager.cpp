@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 07-08-2016
  *
- *  Last Modified : Fri 13 Apr 2018 06:28:25 PM EDT
+ *  Last Modified : Sat 17 Nov 2018 05:22:02 AM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -20,8 +20,16 @@ Sensor_Manager::Sensor_Manager( uint_fast8_t sensor_flags, std::string file_name
     logger = new Syscall_Logger();
 
     s_out = new Output_Stream( file_name, sensor_flags, separator );
-
+    
     logger->add_stream( s_out );
+    
+    // THIS IS FOR TESTING REGEX STUFF.
+    std::string regex_file_name = "regextest_" + file_name;
+    r_out = new Regex_Stream( regex_file_name, sensor_flags, separator );
+    logger->add_stream( r_out );
+    // END TESTING STUFF.
+
+
     sensor->attach_observer( logger );
 }
 
@@ -30,6 +38,10 @@ Sensor_Manager::~Sensor_Manager(){
     delete ( sensor ); 
     delete ( logger );
     delete ( s_out );
+    
+    // GOTTA CLEAN UP THE TESTING STUFF
+    delete ( r_out );
+    // DONE CLEANING UP
 }
 
 void Sensor_Manager::run_sensor( bool daemon_on ){
