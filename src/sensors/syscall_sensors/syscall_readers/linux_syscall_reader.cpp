@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 05-09-2016
  *
- *  Last Modified : Tue 20 Nov 2018 01:29:59 AM EST
+ *  Last Modified : Tue 20 Nov 2018 04:11:07 AM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -211,8 +211,8 @@ Sensor_Data * Linux_Syscall_Reader::read_syscall(){
     {
         getline( trace_pipe_stream, tmp );
   
-        //if ( std::regex_match( tmp, syscall_regex ) )
-        if ( tmp.length() > MIN_LENGTH )
+        if ( std::regex_match( tmp, syscall_regex ) )
+        //if ( tmp.length() > MIN_LENGTH )
         {
             data = new Sensor_Data( os, data_type, tmp, "" );
         }

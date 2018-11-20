@@ -16,6 +16,7 @@ message( "After modifying them, our CMAKE_CXX_FLAGS are: ${CMAKE_CXX_FLAGS}" )
 message( "At the start, our CMAKE_CXX_FLAGS_DEBUG are: ${CMAKE_CXX_FLAGS_DEBUG}" )
 
 set( CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wno-unused-parameter -Wno-unused-variable -ggdb3 -O0 -DDEBUG_COUT" )
+#set( CMAKE_EXE_LINKER_FLAGS_DEBUG "${CMAKE_EXE_LINKER_FLAGS_DEBUG}" )
 
 #set( CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} ${CMAKE_CXX_FLAGS}" )
 
