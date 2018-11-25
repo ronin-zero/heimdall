@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 05-20-2016
  *
- *  Last Modified : Sat 28 Jul 2018 03:13:15 AM EDT
+ *  Last Modified : Sun 25 Nov 2018 12:38:16 AM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -15,6 +15,7 @@
 #include <fstream>
 #include <cstdint>
 #include <string>
+#include <regex>
 
 using std::string;
 using std::ostream;
@@ -27,7 +28,8 @@ class Data_Record{
 
     public:
 
-        Data_Record( const Sensor_Data& data, uint_fast8_t setting_flags=ALL, string sep="," );
+        Data_Record( const Sensor_Data& data, uint_fast8_t settings_flags=ALL, std::string sep="," );
+        Data_Record( const std::smatch& matches, uint_fast8_t settings_flags=ALL, std::string sep="," );
         virtual ~Data_Record() {}
 
         string raw_string() const;

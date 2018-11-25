@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 05-26-2016
  *
- *  Last Modified : Sat 17 Nov 2018 05:19:15 AM EST
+ *  Last Modified : Sun 25 Nov 2018 12:39:07 AM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -92,6 +92,7 @@ class Linux_Syscall_Record : public Data_Record, public System_Call_Record{
     public:
         
         Linux_Syscall_Record( const Sensor_Data& data, uint_fast8_t settings_flags=ALL, std::string sep="," );
+        Linux_Syscall_Record( const std::smatch matches, uint_fast8_t settings_flags=ALL, std::string sep="," );
         ~Linux_Syscall_Record() {}
 
         //string raw_string() const;
@@ -142,6 +143,14 @@ class Linux_Syscall_Record : public Data_Record, public System_Call_Record{
         //uint_fast8_t get_flags() const; // This should return the flags data member, not the flags portion of the raw_data.
 
     protected:
+
+        std::string task_field;
+        std::string pid_field;
+        std::string cpu_field;
+        std::string trace_flags_field;
+        std::string timestamp_field;
+        std::string syscall_field;
+        std::string args_field;
 
         virtual void print( ostream& s_out ) const;
 };

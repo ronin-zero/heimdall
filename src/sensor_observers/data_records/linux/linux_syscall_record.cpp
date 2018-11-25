@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 06-01-2016
  *
- *  Last Modified : Tue 31 Jan 2017 03:26:28 PM EST
+ *  Last Modified : Sun 25 Nov 2018 12:45:58 AM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -16,6 +16,18 @@
 Linux_Syscall_Record::Linux_Syscall_Record( const Sensor_Data& data, uint_fast8_t settings_flags, string sep )
 : Data_Record( data, settings_flags, sep ){
 
+}
+
+Linux_Syscall_Record::Linux_Syscall_Record( const std::smatch& matches, uint_fast8_t settings_flags, std::string sep )
+: Data_Record( matches, settings_flags, sep ){
+
+    task_field = matches[ Linux_Syscall_Constants::TASK_INDEX ];
+    pid_field = matches[ Linux_Syscall_Constants::PID_INDEX ];
+    cpu_field = matches[ Linux_Syscall_Constants::CPU_INDEX ];
+    trace_flags_field = matches[ Linux_Syscall_Constants::TRACE_FLAGS_INDEX ];
+    timestamp_field = matches[ Linux_Syscall_Constants::TIMESTAMP_INDEX ];
+    syscall_field = matches[ Linux_Syscall_Constants::SYSCALL_INDEX ];
+    args_field = matches[ Linux_Syscall_Constants::ARGS_INDEX ];
 }
 
 /*

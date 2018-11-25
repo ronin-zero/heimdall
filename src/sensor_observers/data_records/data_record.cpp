@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 06-10-2016
  *
- *  Last Modified : Tue 31 Jan 2017 03:25:08 PM EST
+ *  Last Modified : Sun 25 Nov 2018 12:38:49 AM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -11,11 +11,18 @@
 
 #include "data_record.h"
 
-Data_Record::Data_Record( const Sensor_Data& data, uint_fast8_t setting_flags, string sep ){
+Data_Record::Data_Record( const Sensor_Data& data, uint_fast8_t settings_flags, std::string sep ){
 
     raw_data = data.get_data();
-    flags = setting_flags;
+    flags = settings_flags;
     separator = sep;
+}
+
+Data_Record::Data_Record( const std::smatch& matches, uint_fast8_t settings_flags, std::string sep ){
+
+    raw_data = matches[0];
+    flags = settings_flags;
+    searator = sep;
 }
 
 string Data_Record::raw_string() const{
