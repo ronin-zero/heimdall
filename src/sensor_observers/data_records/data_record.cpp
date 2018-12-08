@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 06-10-2016
  *
- *  Last Modified : Sun 25 Nov 2018 12:38:49 AM EST
+ *  Last Modified : Sat 08 Dec 2018 12:42:10 AM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -11,21 +11,14 @@
 
 #include "data_record.h"
 
-Data_Record::Data_Record( const Sensor_Data& data, uint_fast8_t settings_flags, std::string sep ){
+Data_Record::Data_Record( const std::smatch matches, uint_fast8_t settings_flags, std::string sep ){
 
-    raw_data = data.get_data();
-    flags = settings_flags;
-    separator = sep;
-}
-
-Data_Record::Data_Record( const std::smatch& matches, uint_fast8_t settings_flags, std::string sep ){
-
-    raw_data = matches[0];
+    record_fields = matches;
     flags = settings_flags;
     searator = sep;
 }
 
-string Data_Record::raw_string() const{
+std::string Data_Record::raw_string() const{
 
     return raw_data;
 }
@@ -40,7 +33,7 @@ uint_fast8_t Data_Record::get_flags(){
     return flags;
 }
 
-void Data_Record::set_separator( string sep ){
+void Data_Record::set_separator( std::string sep ){
 
     separator = sep;
 }
@@ -52,7 +45,7 @@ string Data_Record::get_separator(){
 
 // This must be defined like this in order to have polymorphic behavior of <<
 
-ostream& operator<<( ostream& s_out, Data_Record const& record ){
+std::ostream& operator<<( std::ostream& s_out, Data_Record const& record ){
 
         record.print( s_out );
         return s_out;
@@ -62,7 +55,7 @@ ostream& operator<<( ostream& s_out, Data_Record const& record ){
 // type of record available for that type of data/os.
 // It just prints out the raw data. 
 
-void Data_Record::print( ostream& s_out ) const{
+void Data_Record::print( std::ostream& s_out ) const{
 
-    s_out << raw_string();
+    s_out << record_fields.str();
 }

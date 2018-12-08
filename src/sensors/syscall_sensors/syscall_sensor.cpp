@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 05-09-2016
  *
- *  Last Modified : Tue 20 Nov 2018 11:33:52 AM EST
+ *  Last Modified : Fri 07 Dec 2018 11:10:45 PM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -97,22 +97,23 @@ void Syscall_Sensor::sense(){
             // "*tmp" into "enqueue."  Who knows?
 
             /*
-            Sensor_Data data_point( *tmp );
-            data_queue.enqueue( data_point );
-            */
+               Sensor_Data data_point( *tmp );
+               data_queue.enqueue( data_point );
+               */
 
             // This is my new idea to fix the deadlock.
             while ( !data_queue.try_enqueue( *tmp ) )
             {
                 std::this_thread::yield();
             }
+
+            delete ( tmp );
         }
         else
         {
             std::this_thread::yield();
         }
 
-        delete ( tmp );
     }
 
     status = reader->stop_reading();
@@ -155,7 +156,7 @@ void Syscall_Sensor::push_data( const Sensor_Data& data ){
 
     for ( auto obs_it = observers.begin(); obs_it != observers.end(); ++obs_it )
     {
-       (*obs_it)->update( data );
+        (*obs_it)->update( data );
     }
 }
 

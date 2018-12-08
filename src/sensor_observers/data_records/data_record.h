@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 05-20-2016
  *
- *  Last Modified : Sun 25 Nov 2018 12:38:16 AM EST
+ *  Last Modified : Sat 08 Dec 2018 12:41:19 AM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -28,15 +28,14 @@ class Data_Record{
 
     public:
 
-        Data_Record( const Sensor_Data& data, uint_fast8_t settings_flags=ALL, std::string sep="," );
-        Data_Record( const std::smatch& matches, uint_fast8_t settings_flags=ALL, std::string sep="," );
+        Data_Record( const std::smatch matches, uint_fast8_t settings_flags=ALL, std::string sep="," );
         virtual ~Data_Record() {}
 
-        string raw_string() const;
+        std::string raw_string() const;
         void set_flags( uint_fast8_t new_flags );
         uint_fast8_t get_flags();
-        void set_separator( string sep );
-        string get_separator();
+        void set_separator( std::string sep );
+        std::string get_separator();
 
         // CHECK: I want to try making this protected.  If it doesn't work, fall back to public.
         // virtual void print( ostream& s_out ) const = 0;
@@ -47,13 +46,13 @@ class Data_Record{
         // Below is the "friend" declaration of the << operator.  I think this should be OK.
 
         // CHECK: Make sure that the const correctness is done right on this function and the print function
-        friend ostream& operator<<( ostream& s_out, Data_Record const& record );
+        friend std::ostream& operator<<( std::ostream& s_out, Data_Record const& record );
 
     protected:
         
         uint_fast8_t flags;
-        string raw_data;
-        string separator;
+        std::smatch record_fields;
+        std::string separator;
 
-        virtual void print( ostream& s_out ) const;
+        virtual void print( std::ostream& s_out ) const;
 };

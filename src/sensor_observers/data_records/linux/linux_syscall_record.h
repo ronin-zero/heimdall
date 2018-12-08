@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 05-26-2016
  *
- *  Last Modified : Sun 25 Nov 2018 12:39:07 AM EST
+ *  Last Modified : Sat 08 Dec 2018 12:55:31 AM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -16,6 +16,7 @@
 #include "sensor_observers/data_records/data_record.h"
 #include "sensor_observers/data_records/system_call_record.h"
 #include "sensor_data/data_patterns/syscall_patterns/linux_syscall_constants.h"
+#include "utils/ascii_operations.h"
 
 // Each of these represents a field
 // in a line in trace_pipe.
@@ -91,7 +92,6 @@ class Linux_Syscall_Record : public Data_Record, public System_Call_Record{
 
     public:
         
-        Linux_Syscall_Record( const Sensor_Data& data, uint_fast8_t settings_flags=ALL, std::string sep="," );
         Linux_Syscall_Record( const std::smatch matches, uint_fast8_t settings_flags=ALL, std::string sep="," );
         ~Linux_Syscall_Record() {}
 
@@ -116,7 +116,18 @@ class Linux_Syscall_Record : public Data_Record, public System_Call_Record{
         // from the System_Call_Record abstract class to allow generalized behavior across platforms.
 
         uint_fast32_t get_pid_num() const;
-        uint_fast32_t get_syscall_num() const; // NOTE: Initially, I had this method return a uint_fast16_t reasoning that 16 bits was 
+        int_fast32_t get_syscall_num() const;   // NOTE: as of 12/08/2018, I've changed this to a signed integer on this branch.
+                                                // I have discovered that sometimes, -1 appears as the system call number in the
+                                                // actual trace_pipe.  This was observed on x86_64 architecture, specifically on
+                                                // motherbase.  I can't find documentation explaining why this might be, but it
+                                                // is something under the domain of ftrace and not this program, so I've changed
+                                                // this method to allow for signed integers so that valid records aren't presented
+                                                // incorrectly with a syscall number that's a negative number being printed as 
+                                                // if it were interpreted as unsigned.  Ultimately, I'd like to know why this 
+                                                // occurs; if it's intentional and meaningful, then obviously I will keep this
+                                                // as a signed integer, but ideally it should be unsigned.
+                                                //
+                                                // NOTE: Initially, I had this method return a uint_fast16_t reasoning that 16 bits was 
                                                 // "more than enough" for any system call number regardless of instruction set.
                                                 // This turns out not to be true.  For example, ARM Thumb-mode mostly has syscall numbers
                                                 // ranging from 0-377, but there is a syscall that appears occasionally with the number

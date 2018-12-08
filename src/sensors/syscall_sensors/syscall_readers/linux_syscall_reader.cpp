@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 05-09-2016
  *
- *  Last Modified : Tue 20 Nov 2018 11:20:47 AM EST
+ *  Last Modified : Fri 07 Dec 2018 11:11:47 PM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -209,6 +209,7 @@ Sensor_Data * Linux_Syscall_Reader::read_syscall(){
 
     if ( is_reading() && trace_pipe_stream.is_open() && !trace_pipe_stream.eof() )
     {
+        std::getline( trace_pipe_stream, tmp );
         data = new Sensor_Data( os, data_type, tmp, "" );
     }
 
@@ -253,7 +254,6 @@ Linux_Syscall_Reader::Linux_Syscall_Reader( uint_fast8_t flags ){
     status = 0x00;
     clear_file( FTRACE_DIR + TRACE ); // This should clear the trace file and thus trace_pipe.
     status = configure( flags );
-    syscall_regex = std::regex( Linux_Syscall_Constants::FTRACE_REG );
 }
 
 bool Linux_Syscall_Reader::write_to_file( string filename, string output ){
