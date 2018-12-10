@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 05-26-2016
  *
- *  Last Modified : Sat 08 Dec 2018 12:55:31 AM EST
+ *  Last Modified : Mon 10 Dec 2018 03:00:37 AM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -79,13 +79,6 @@ const uint_fast8_t SYSCALL_ARGS = 0x02;
  *  The system call number appears 2 spaces after the function name and the argument list is one space beyond that.
  */
 
-const uint_fast8_t TASK_INDEX       = 15;
-const uint_fast8_t PID_INDEX        = 17;
-const uint_fast8_t CPU_INDEX        = 25;
-const uint_fast8_t TFLAGS_INDEX     = 29;
-const uint_fast8_t TIMESTAMP_INDEX  = 40;
-const uint_fast8_t FUNCTION_INDEX   = 50;
-
 const uint_fast8_t NUM_TFLAGS       = 4; // This is just to avoid magic numbers.  There are 4 flags.
 
 class Linux_Syscall_Record : public Data_Record, public System_Call_Record{
@@ -150,18 +143,9 @@ class Linux_Syscall_Record : public Data_Record, public System_Call_Record{
                                     //
                                     // UPDATE: I've made the decision to use a double.  If we want it to be a float, just
                                     // cast it.  I do not claim this is a perfect or permanent solution.
-        
-        //uint_fast8_t get_flags() const; // This should return the flags data member, not the flags portion of the raw_data.
 
     protected:
 
-        std::string task_field;
-        std::string pid_field;
-        std::string cpu_field;
-        std::string trace_flags_field;
-        std::string timestamp_field;
-        std::string syscall_field;
-        std::string args_field;
-
+        virtual std::string get_field( size_t field_num );
         virtual void print( ostream& s_out ) const;
 };

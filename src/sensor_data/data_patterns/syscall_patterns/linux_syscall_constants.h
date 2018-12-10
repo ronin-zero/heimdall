@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 11-12-2018
  *
- *  Last Modified : Mon 12 Nov 2018 03:53:26 AM EST
+ *  Last Modified : Mon 10 Dec 2018 03:17:06 AM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -17,7 +17,7 @@ namespace Linux_Syscall_Constants{
 
     static const std::string TASK_REG           =   "([[:graph:][:space:]]*)";
     static const std::string PID_REG            =   "([[:digit:]]+)";
-    static const std::string CPU_REG            =   "(\\[[[:digit:]]{3}\\])";
+    static const std::string CPU_REG            =   "\\[([[:digit:]]{3})\\]";
     static const std::string TRACE_FLAGS_REG    =   "([dX.][Nnp.][ZzHhs.][.[:digit:]])";
     static const std::string TIMESTAMP_REG      =   "([[:digit:]]+\\.[[:digit:]]+)";
     static const std::string SYSCALL_REG        =   "([[:digit:]]+)";

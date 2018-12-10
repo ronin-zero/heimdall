@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 06-10-2016
  *
- *  Last Modified : Sat 08 Dec 2018 12:42:10 AM EST
+ *  Last Modified : Mon 10 Dec 2018 02:28:00 AM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -15,12 +15,12 @@ Data_Record::Data_Record( const std::smatch matches, uint_fast8_t settings_flags
 
     record_fields = matches;
     flags = settings_flags;
-    searator = sep;
+    separator = sep;
 }
 
 std::string Data_Record::raw_string() const{
 
-    return raw_data;
+    return record_fields.str();
 }
 
 void Data_Record::set_flags( uint_fast8_t new_flags ){
@@ -57,5 +57,5 @@ std::ostream& operator<<( std::ostream& s_out, Data_Record const& record ){
 
 void Data_Record::print( std::ostream& s_out ) const{
 
-    s_out << record_fields.str();
+    s_out << raw_string();
 }
