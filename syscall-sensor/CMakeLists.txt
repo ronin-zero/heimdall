@@ -8,7 +8,7 @@ message( "At the start, our CMAKE_CXX_FLAGS are: ${CMAKE_CXX_FLAGS}" )
 message( "At the start, our CMAKE_CXX_FLAGS_DEBUG are: ${CMAKE_CXX_FLAGS_DEBUG}" )
 message( "At the start, our CMAKE_CXX_FLAGS_RELEASE are: ${CMAKE_CXX_FLAGS_RELEASE}" )
 
-set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Werror -pedantic -std=c++11 -pthread" )
+set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wfatal-errors -Wall -Wextra -Werror -pedantic -std=c++11 -pthread" )
 
 message( "After modifying them, our CMAKE_CXX_FLAGS are: ${CMAKE_CXX_FLAGS}" )
 

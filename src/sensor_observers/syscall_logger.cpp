@@ -3,13 +3,15 @@
  *  
  *  Creation Date : 06-06-2016
  *
- *  Last Modified : Wed 12 Apr 2017 08:13:18 PM EDT
+ *  Last Modified : Tue 11 Dec 2018 08:29:47 AM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
  */
 
 #include "syscall_logger.h"
+
+std::regex Syscall_Logger::syscall_regex( syscall_pattern );
 
 Syscall_Logger::Syscall_Logger(){
 
@@ -137,16 +139,7 @@ void Syscall_Logger::process(){
 
         if ( data_queue.try_dequeue( data_point ) )
         {
-            // The line below is OK, but no logging happens.
-            Syscall_Record syscall_record ( data_point );
-            send_data( syscall_record );
-            //
-            //I'm trying this next line and the one after "send_data."
-
-            /*
-            Syscall_Record* syscall_record = new Syscall_Record ( data_point );
-            send_data( syscall_record );
-            delete( syscall_record );*/
+            process_data_point( data_point );
         }
 
         // As of April 9, 2017, I commented this out because it's apparently causing problems.
@@ -157,6 +150,29 @@ void Syscall_Logger::process(){
             std::this_thread::yield();
         }
     }
+}
+
+// Both process() and process_remaining_queue() do very similar things with
+// Sensor_Data objects read from the data_queue, so I've written this
+// method to handle the shared operations.
+
+void Syscall_Logger::process_data_point( Sensor_Data data ){
+
+    std::string tmp_data = data.get_data();
+    std::smatch syscall_fields;
+
+    if ( std::regex_match( tmp_data, syscall_fields, syscall_regex ) )
+    {
+        //Syscall_Record* syscall_record = new Syscall_Record( syscall_fields );
+        Syscall_Record syscall_record( syscall_fields );
+        send_data( syscall_record );
+        //delete( syscall_record );
+    }
+    else
+    {
+        std::cerr << "Error!  Line didn't match regex.  Line: " << tmp_data << std::endl;
+    }
+
 }
 
 // CHECK: I'm a bit worried about passing a reference, here. So far, there is only a single observer,
@@ -184,9 +200,7 @@ void Syscall_Logger::process_remaining_queue(){
 
     while ( data_queue.try_dequeue( data_point ) )
     {
-        Syscall_Record syscall_record( data_point );
-
-        send_data( syscall_record );
+        process_data_point( data_point );
     }
 }
 

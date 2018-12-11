@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 05-31-2016
  *
- *  Last Modified : Tue 31 Jan 2017 03:18:13 PM EST
+ *  Last Modified : Tue 11 Dec 2018 08:14:33 AM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -11,6 +11,7 @@
 
 #pragma once
 
+#include <regex>
 #include <string>
 #include <thread>
 #include <unordered_set>
@@ -29,9 +30,12 @@
 
 #ifdef __linux__
 #include "data_records/linux/linux_syscall_record.h"
+#include "sensor_data/data_patterns/syscall_patterns/linux_syscall_constants.h"
 typedef Linux_Syscall_Record Syscall_Record;
+#define syscall_pattern Linux_Syscall_Constants::FTRACE_REG
 #else
 typedef Data_Record Syscall_Record;
+typedef syscall_pattern ".*"
 #endif
 
 
@@ -68,10 +72,13 @@ class Syscall_Logger : public Sensor_Observer{
 
         void process();
 
+        void process_data_point( Sensor_Data data );
+
         void send_data( Syscall_Record& record );
         void process_remaining_queue();
 
         void clear_streams();
 
         std::unordered_set<Data_Stream *> streams;
+        static std::regex syscall_regex;
 };

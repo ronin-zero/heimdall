@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 12-23-2016
  *
- *  Last Modified : Sat 08 Dec 2018 12:54:44 AM EST
+ *  Last Modified : Tue 11 Dec 2018 06:13:40 AM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -35,6 +35,7 @@ class System_Call_Record{
     public:
 
        virtual uint_fast32_t get_pid_num() const = 0;
-       virtual int_fast32_t get_syscall_num() const = 0; // NOTE: see the explanation for why this is no longer an unsigned int in linux/linux_syscall_record.h
+       virtual uint_fast32_t get_syscall_num() const = 0;   // NOTE: I changed this to a signed type, but changed it back to unsigned.  
+                                                            //See ./linux/linux_syscall_record.h and the git log for more information.
 
 };

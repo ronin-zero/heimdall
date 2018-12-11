@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 06-01-2016
  *
- *  Last Modified : Mon 10 Dec 2018 03:16:43 AM EST
+ *  Last Modified : Tue 11 Dec 2018 08:21:07 AM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -11,7 +11,7 @@
 
 #include "linux_syscall_record.h"
 
-Linux_Syscall_Record::Linux_Syscall_Record( const std::smatch& matches, uint_fast8_t settings_flags, std::string sep )
+Linux_Syscall_Record::Linux_Syscall_Record( const std::smatch matches, uint_fast8_t settings_flags, std::string sep )
 : Data_Record( matches, settings_flags, sep ){
     // Nothing to do here for now.
 }
@@ -52,7 +52,7 @@ std::string Linux_Syscall_Record::get_syscall_args() const{
 }
 
 //  At present, even on a 64 bit system, the maximum PID value 
-//  is 2^22 and a PID will never be negative.  As such, I calculate
+//  is 2^22 and a PID should never be negative.  As such, I calculate
 //  the PID value as a uint_fast32_t.
 
 uint_fast32_t Linux_Syscall_Record::get_pid_num() const{
@@ -60,14 +60,19 @@ uint_fast32_t Linux_Syscall_Record::get_pid_num() const{
     return ASCII_Operations::to_uint( get_pid() );
 }
 
+//  NOTE: I decided to change this back to uint_fast32_t.
+//  The -1 syscall value happens in the case of an error as far
+//  as I can tell.  If negative syscall values are useful in the future,
+//  I'll come up with something to handle that case.
+//
 //  NOTE: I've encountered some cases where the syscall number is -1
 //  on x86_64 Linux (on motherbase).  This field is now returned as
 //  a signed int until I can figure out what's going on and how
 //  best to proceed.
 
-int_fast32_t Linux_Syscall_Record::get_syscall_num() const{
+uint_fast32_t Linux_Syscall_Record::get_syscall_num() const{
 
-    return ASCII_Operations::to_int( get_syscall() );
+    return ASCII_Operations::to_uint( get_syscall() );
 }
 
 uint_fast16_t Linux_Syscall_Record::get_cpu_num() const{
@@ -85,7 +90,7 @@ double Linux_Syscall_Record::get_timestamp_num() const{
 // This will print out the fields specified by the flags,
 // separated by commas.
 
-std::string Linux_Syscall_Record::get_field( size_t field_num ){
+std::string Linux_Syscall_Record::get_field( size_t field_num ) const{
 
     return ( field_num < record_fields.size() ? record_fields[ field_num ] : "UNDEF_" + std::to_string( field_num ) + "_" + std::to_string( record_fields.size() ) );
 }

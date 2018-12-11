@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 05-26-2016
  *
- *  Last Modified : Mon 10 Dec 2018 03:00:37 AM EST
+ *  Last Modified : Tue 11 Dec 2018 08:20:37 AM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -109,16 +109,11 @@ class Linux_Syscall_Record : public Data_Record, public System_Call_Record{
         // from the System_Call_Record abstract class to allow generalized behavior across platforms.
 
         uint_fast32_t get_pid_num() const;
-        int_fast32_t get_syscall_num() const;   // NOTE: as of 12/08/2018, I've changed this to a signed integer on this branch.
-                                                // I have discovered that sometimes, -1 appears as the system call number in the
-                                                // actual trace_pipe.  This was observed on x86_64 architecture, specifically on
-                                                // motherbase.  I can't find documentation explaining why this might be, but it
-                                                // is something under the domain of ftrace and not this program, so I've changed
-                                                // this method to allow for signed integers so that valid records aren't presented
-                                                // incorrectly with a syscall number that's a negative number being printed as 
-                                                // if it were interpreted as unsigned.  Ultimately, I'd like to know why this 
-                                                // occurs; if it's intentional and meaningful, then obviously I will keep this
-                                                // as a signed integer, but ideally it should be unsigned.
+        uint_fast32_t get_syscall_num() const;  // NOTE: I deleted the note from the 12/8/2018 because I'm changing this back to an
+                                                // an unsigned 32 bit int.  I realized that this code probably won't ever make it into
+                                                // anything meaningful anyway, but also negative system call numbers indicate errors.
+                                                // I'll ask someone who knows better than I do later about if I should bother considering
+                                                // errors.
                                                 //
                                                 // NOTE: Initially, I had this method return a uint_fast16_t reasoning that 16 bits was 
                                                 // "more than enough" for any system call number regardless of instruction set.
@@ -146,6 +141,6 @@ class Linux_Syscall_Record : public Data_Record, public System_Call_Record{
 
     protected:
 
-        virtual std::string get_field( size_t field_num );
-        virtual void print( ostream& s_out ) const;
+        virtual std::string get_field( size_t field_num ) const;
+        virtual void print( std::ostream& s_out ) const;
 };
