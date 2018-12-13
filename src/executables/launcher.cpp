@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 06-27-2016
  *
- *  Last Modified : Thu 13 Dec 2018 12:36:19 AM EST
+ *  Last Modified : Thu 13 Dec 2018 12:08:17 PM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -20,9 +20,6 @@
 
 #include "sensor_command_line_utils/command_line_parser.h"
 #include "sensor_manager/sensor_manager.h"
-
-// THIS IS FOR COMPARING REGEX PERFORMANCE.
-//#include "sensor_observers/data_streams/regex_stream.h"
 
 std::vector<std::string> opt_flags = { "-n", "-p", "-c", "-f", "-t", "-s", "-a", };
 
@@ -60,7 +57,6 @@ int main( int argc, char** argv ){
             stop( command_parser );
         }
     }
-
     else
     {
         return -1;
@@ -78,7 +74,6 @@ std::string flag_string( uint_fast8_t flags ){
     if ( flags & PROCESS_NAME )
     {
         string_flag += "PROCESS_NAME";
-
         flag_count++;
     }
 
