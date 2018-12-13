@@ -8,14 +8,14 @@ message( "At the start, our CMAKE_CXX_FLAGS are: ${CMAKE_CXX_FLAGS}" )
 message( "At the start, our CMAKE_CXX_FLAGS_DEBUG are: ${CMAKE_CXX_FLAGS_DEBUG}" )
 message( "At the start, our CMAKE_CXX_FLAGS_RELEASE are: ${CMAKE_CXX_FLAGS_RELEASE}" )
 
-set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wfatal-errors -Wall -Wextra -Werror -pedantic -std=c++11 -pthread" )
+set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wfatal-errors -Wall -Wextra -Werror -pedantic -std=c++11 -pthread ${MY_FLAGS}" )
 
 message( "After modifying them, our CMAKE_CXX_FLAGS are: ${CMAKE_CXX_FLAGS}" )
 
+set( CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wno-unused-parameter -Wno-unused-variable -O0 -ggdb -DDEBUG_COUT ${MY_FLAGS}" )
 
-message( "At the start, our CMAKE_CXX_FLAGS_DEBUG are: ${CMAKE_CXX_FLAGS_DEBUG}" )
+message( "After modifying them, our CMAKE_CXX_FLAGS_DEBUG are: ${CMAKE_CXX_FLAGS_DEBUG}" )
 
-set( CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Wno-unused-parameter -Wno-unused-variable -ggdb3 -O0 -DDEBUG_COUT" )
 #set( CMAKE_EXE_LINKER_FLAGS_DEBUG "${CMAKE_EXE_LINKER_FLAGS_DEBUG}" )
 
 #set( CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} ${CMAKE_CXX_FLAGS}" )
@@ -63,7 +63,7 @@ message( "CXX Debug Flags: ${CMAKE_CXX_FLAGS_DEBUG}" )
 message( "CXX Release Flags: ${CMAKE_CXX_FLAGS_RELEASE}" )
 message( "CMake Shared Linker Flags: ${CMAKE_SHARED_LINKER_FLAGS}" )
 
-message( "Just seeing if this is a thing: ${CXX_FLAGS}" )
+message( "Just seeing if this is a thing: ${CXXFLAGS}" )
 
 set( SOURCE "" )
 

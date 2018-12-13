@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 06-27-2016
  *
- *  Last Modified : Sat 17 Nov 2018 05:22:24 AM EST
+ *  Last Modified : Thu 13 Dec 2018 12:36:19 AM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -22,7 +22,7 @@
 #include "sensor_manager/sensor_manager.h"
 
 // THIS IS FOR COMPARING REGEX PERFORMANCE.
-#include "sensor_observers/data_streams/regex_stream.h"
+//#include "sensor_observers/data_streams/regex_stream.h"
 
 std::vector<std::string> opt_flags = { "-n", "-p", "-c", "-f", "-t", "-s", "-a", };
 

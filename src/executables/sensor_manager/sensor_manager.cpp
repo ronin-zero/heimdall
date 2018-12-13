@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 07-08-2016
  *
- *  Last Modified : Tue 20 Nov 2018 04:11:38 AM EST
+ *  Last Modified : Thu 13 Dec 2018 12:35:55 AM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -22,12 +22,12 @@ Sensor_Manager::Sensor_Manager( uint_fast8_t sensor_flags, std::string file_name
     s_out = new Output_Stream( file_name, sensor_flags, separator );
     
     logger->add_stream( s_out );
-    
+   /* 
     // THIS IS FOR TESTING REGEX STUFF.
     std::string regex_file_name = "regextest_" + file_name;
     r_out = new Regex_Stream( regex_file_name, sensor_flags, separator );
     logger->add_stream( r_out );
-    // END TESTING STUFF.
+    // END TESTING STUFF.*/
 
 
     sensor->attach_observer( logger );
@@ -40,7 +40,7 @@ Sensor_Manager::~Sensor_Manager(){
     delete ( s_out );
     
     // GOTTA CLEAN UP THE TESTING STUFF
-    delete ( r_out );
+    // delete ( r_out );
     // DONE CLEANING UP
 }
 

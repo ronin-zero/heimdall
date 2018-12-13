@@ -5,7 +5,7 @@
  *  
  *  Creation Date : 07-08-2016
  *
- *  Last Modified : Sat 17 Nov 2018 05:12:33 AM EST
+ *  Last Modified : Thu 13 Dec 2018 12:34:53 AM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -27,7 +27,7 @@
 #include "daemon_utils/daemonizer.h"
 
 // THIS IS FOR TESTING
-#include "sensor_observers/data_streams/regex_stream.h"
+//#include "sensor_observers/data_streams/regex_stream.h"
 // END TESTING THINGS
 
 class Sensor_Manager{
@@ -44,7 +44,7 @@ class Sensor_Manager{
         Syscall_Sensor * sensor;
         Syscall_Logger * logger;
         Output_Stream * s_out;
-        Regex_Stream * r_out;
+        //Regex_Stream * r_out;
 
         std::string task_name;
 
