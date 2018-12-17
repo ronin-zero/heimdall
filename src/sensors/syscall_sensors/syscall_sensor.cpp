@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 05-09-2016
  *
- *  Last Modified : Fri 07 Dec 2018 11:10:45 PM EST
+ *  Last Modified : Mon 17 Dec 2018 04:22:13 AM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -18,13 +18,18 @@ Syscall_Sensor * Syscall_Sensor::ss_instance = NULL;
 
 Syscall_Sensor * Syscall_Sensor::get_instance( uint_fast8_t flags ){
 
-    ss_instance = get_instance();
-
-    ss_instance->configure( flags );
+    if ( !ss_instance )
+    {
+        ss_instance = new Syscall_Sensor( flags );
+    }
+    else
+    {
+        ss_instance->configure( flags );
+    }
 
     return ss_instance;
 }
-
+/*
 Syscall_Sensor * Syscall_Sensor::get_instance(){
 
     if ( !ss_instance )
@@ -33,7 +38,7 @@ Syscall_Sensor * Syscall_Sensor::get_instance(){
     }
 
     return ss_instance;
-}
+}*/
 
 // Deconstructor
 

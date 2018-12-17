@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 05-09-2017
  *
- *  Last Modified : Thu 13 Apr 2017 07:46:47 PM EDT
+ *  Last Modified : Mon 17 Dec 2018 04:03:54 AM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -28,8 +28,8 @@ class Syscall_Sensor:public Sensor{
 
     public:
 
-        static Syscall_Sensor * get_instance();
-        static Syscall_Sensor * get_instance( uint_fast8_t flags  );
+        //static Syscall_Sensor * get_instance();
+        static Syscall_Sensor * get_instance( uint_fast8_t flags=SENSOR_DEFAULT  );
         
         virtual ~Syscall_Sensor();
 
