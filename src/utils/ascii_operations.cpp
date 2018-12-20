@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 06-01-2016
  *
- *  Last Modified : Fri 30 Jun 2017 08:31:06 AM EDT
+ *  Last Modified : Thu 20 Dec 2018 05:02:55 AM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -44,7 +44,7 @@
  */
 
 uint_fast8_t ASCII_Operations::char_val( uint_fast8_t num ){
-    
+
     return ( is_num( num ) ? num - INT_OFFSET : ERROR_VAL );
 }
 
@@ -96,9 +96,9 @@ int_fast64_t ASCII_Operations::to_int( std::string num ){
 }
 
 uint_fast64_t ASCII_Operations::to_uint( std::string num ){
-    
+
     uint_fast64_t string_val = convert_range( num, 0, num.length() );
-   
+
     return string_val;
 }
 
@@ -125,7 +125,7 @@ double ASCII_Operations::to_floating_point( std::string num ){
         decimal_portion = num.substr( decimal_index + 1 );
 
         dec_digits = decimal_portion.length();
-        
+
         decimal_val = to_uint( decimal_portion ) / pow( 10, dec_digits );
 
         int_digits = decimal_index;
@@ -136,7 +136,7 @@ double ASCII_Operations::to_floating_point( std::string num ){
     integer_val = to_int( integer_portion );
 
     string_val = integer_val + decimal_val;
-    
+
     return string_val;
 }
 
@@ -238,8 +238,8 @@ bool ASCII_Operations::is_alphanum( uint_fast8_t c ){
 bool ASCII_Operations::is_hex_digit( uint_fast8_t c ){
 
     return (    ( c >= INT_RANGE_START && c <= INT_RANGE_END ) ||
-                ( c >= LOWER_HEX_START && c <= LOWER_HEX_END ) ||
-                ( c >= CAPS_HEX_START && c <= CAPS_HEX_END )    );
+            ( c >= LOWER_HEX_START && c <= LOWER_HEX_END ) ||
+            ( c >= CAPS_HEX_START && c <= CAPS_HEX_END )    );
 }
 
 bool ASCII_Operations::is_hex_byte( std::string input ){
@@ -289,4 +289,38 @@ bool ASCII_Operations::is_floating_point( std::string input ){
     {
         return ( is_number( input.substr( 0, dec_index ) ) && is_number ( input.substr(dec_index + 1 ) ) );
     }
+}
+
+bool ASCII_Operations::streq_case_ins( std::string str1, std::string str2 ){
+
+    bool str_equal = str1.length() == str2.length();
+
+    for ( uint_fast32_t i = 0; str_equal && i < str1.length(); i++ )
+    {
+        str_equal = !(( str1[i] ^ str2[i] ) & ~CAPS_OFFSET);
+    }
+
+    return str_equal;
+}
+
+std::string ASCII_Operations::to_upper( std::string input ){
+
+    return case_change( input, true );
+}
+
+std::string ASCII_Operations::to_lower( std::string input ){
+
+    return case_change( input, false );
+}
+
+std::string ASCII_Operations::case_change( std::string input, bool upper ){
+
+    std::string output = input;
+
+    for ( uint_fast32_t i = 0; i < output.length(); i++ )
+    {
+        output[i] = ( upper ? ( output[i] & ~CAPS_OFFSET ) : ( output[i] | CAPS_OFFSET ) );
+    }
+
+    return output;
 }
