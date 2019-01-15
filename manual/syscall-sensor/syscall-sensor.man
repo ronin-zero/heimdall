@@ -63,3 +63,24 @@ Include the number of the system call made by the process in the log.
 .TP
 \fB-a\fP
 Include the arguments to the system call made by the process in the log.
+.TP
+\fB--flags=\fP\fIFLAGS\fP
+Specify what fields should be included in the output.  The value of \fIFLAGS\fP is interpreted as the number representing the values of the flags
+corresponding to the fields you wish to include in your output 'or'd together.  The value of \fIFLAGS\fP can be given either as a decimal integer
+between 0 and 255 (inclusive) or as the hexidecimal representation of the same value.  Hexidecimal values must be in the range 0x00 to 0xFF
+(inclusive) and MUST be preceeded by 0x as shown.
+
+.SS Table of Data Field Options
+.TS
+tab(@);
+l n n r.
+Field Name@Flag Value (Decimal)@Flag Value (Hex)@Option Flag
+=
+Process Name@128@0x80@-n
+PID@64@0x40@-p
+CPU@32@0x20@-c
+Trace Flags@16@0x10@-f
+Timestamp@8@0x08@-t
+System Call Number@4@0x04@-s
+System Call Args@2@0x02@-a
+.TE
