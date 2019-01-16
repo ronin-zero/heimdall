@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 06-27-2016
  *
- *  Last Modified : Thu 13 Dec 2018 12:36:19 AM EST
+ *  Last Modified : Thu 20 Dec 2018 04:53:12 AM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -20,9 +20,7 @@
 
 #include "sensor_command_line_utils/command_line_parser.h"
 #include "sensor_manager/sensor_manager.h"
-
-// THIS IS FOR COMPARING REGEX PERFORMANCE.
-//#include "sensor_observers/data_streams/regex_stream.h"
+#include "utils/ascii_operations.h"
 
 std::vector<std::string> opt_flags = { "-n", "-p", "-c", "-f", "-t", "-s", "-a", };
 
@@ -60,7 +58,6 @@ int main( int argc, char** argv ){
             stop( command_parser );
         }
     }
-
     else
     {
         return -1;
@@ -78,7 +75,6 @@ std::string flag_string( uint_fast8_t flags ){
     if ( flags & PROCESS_NAME )
     {
         string_flag += "PROCESS_NAME";
-
         flag_count++;
     }
 
@@ -206,13 +202,11 @@ void start ( Command_Line_Parser & parser ){
             // TODO: This should be cleaned up to do a better case-insensitive comparison.
             // In the interest of time, I just wrote this quickly.
 
-            if ( daemon_option == "0" || daemon_option == "OFF" || daemon_option == "off" 
-                    || daemon_option == "Off" || daemon_option == "oFf" || daemon_option == "ofF"
-                    || daemon_option == "oFF" || daemon_option == "OFf" || daemon_option == "OfF" )
+            if ( daemon_option == "0" || ASCII_Operations::to_upper( daemon_option ) == "OFF" )
             {
                 run_daemon = false;
             }
-            else if ( daemon_option == "1" || daemon_option == "ON" || daemon_option == "on" || daemon_option == "oN" || daemon_option == "On" )
+            else if ( daemon_option == "1" || ASCII_Operations::to_upper( daemon_option ) == "ON" )
             {
                 run_daemon = true;
             }

@@ -3,7 +3,7 @@
  *  
  *  Creation Date : 06-01-2016
  *
- *  Last Modified : Fri 30 Jun 2017 08:31:29 AM EDT
+ *  Last Modified : Thu 20 Dec 2018 04:47:16 AM EST
  *
  *  Created By : ronin-zero (浪人ー無)
  *
@@ -98,4 +98,22 @@ class ASCII_Operations{
         static bool is_hex_byte( std::string input );
         static bool is_number( std::string input );
         static bool is_floating_point( std::string input );
+
+        // case-insensitive string equality -- c++11 seems to lack a built-in method for this
+
+        static bool streq_case_ins( std::string str1, std::string str2 );
+
+        // convert std::string to uppercase
+        
+        static std::string to_upper( std::string input );
+
+        // convert std::string to lowercase
+        
+        static std::string to_lower( std::string input );
+
+    private:
+
+        // both to_upper and to_lower call this function with the argument as true or false, respectively.
+
+        static std::string case_change( std::string input, bool upper );
 };
