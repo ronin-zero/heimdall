@@ -84,3 +84,15 @@ Timestamp@8@0x08@-t
 System Call Number@4@0x04@-s
 System Call Args@2@0x02@-a
 .TE
+
+.SH SYSTEM CALL RECORDS
+The ftrace utility records raw system call events to the trace pipe as strings consisting of a series of text fields containing information 
+such as the system call number and the time stamp of the event.  The following is an example typical raw system call record with each field labeled:
+
+.DS
+    TASK-PID   CPU# TFLAGS    TIMESTAMP  FUNCTION  SYSCALL#          SYSCALLARGS
+       | |       |   ||||       |         |             |                  |
+    bash-15509 [002] .... 112170.687012: sys_enter: NR 16 (0, 5403, 7ffd0c9241f0, 0, 0, 700600)
+.DE
+
+
