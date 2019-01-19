@@ -22,7 +22,7 @@ See DEFAULTS for the behavior when no options are set.
 .SH COMMANDS
 When run without a command, the program will print its usage and exit.
 
-.SS start \fP[\fIOPTIONS\fP]
+.SS start [\fIOPTIONS\fP]
 Starts tracing according to the given OPTIONS.
 .br
 Begins reading system call data from the trace pipe and logging it to trace.log or to the (optionally) specified output file.
@@ -42,6 +42,7 @@ Status information includes whether the sensor is running and what data is being
 
 .SH OPTIONS
 .SS Data Field Options
+.br
 .TP
 \fB-n\fP
 Include the name of the process in the log.
@@ -73,7 +74,8 @@ between 0 and 255 (inclusive) or as the hexidecimal representation of the same v
 .SS Table of Data Field Options
 .TS
 tab(@);
-l n n r.
+lllr
+lnnn.
 Field Name@Flag Value (Decimal)@Flag Value (Hex)@Option Flag
 =
 Process Name@128@0x80@-n
@@ -101,7 +103,7 @@ The example record is taken from \fBftrace\fP on an x86_64 architecture system w
 
 A brief explanation of each field follows.
 
-.TP 
+.TP
 .B TASK
 The name of the process that generated the record.  In the example, it is 'bash'.
 
