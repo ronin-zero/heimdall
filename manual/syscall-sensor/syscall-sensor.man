@@ -87,7 +87,9 @@ System Call Args@2@0x02@-a
 
 .SH SYSTEM CALL RECORDS
 The ftrace utility records raw system call events to the trace pipe as strings consisting of a series of text fields containing information 
-such as the system call number and the time stamp of the event.  The following is an example typical raw system call record with each field labeled:
+such as the system call number and the time stamp of the event.  For reference, consider this line as a practical 
+example of a typical system call record (\fBNOTE:\fP Only the third line is actual record; the first and second lines are included in order
+to label the individual fields and explicitly indicate the part of the record to which each label applies, respectively):
 
 .DS
     TASK-PID   CPU# TFLAGS    TIMESTAMP  FUNCTION  SYSCALL#          SYSCALLARGS
@@ -95,4 +97,20 @@ such as the system call number and the time stamp of the event.  The following i
     bash-15509 [002] .... 112170.687012: sys_enter: NR 16 (0, 5403, 7ffd0c9241f0, 0, 0, 700600)
 .DE
 
+The example record is taken from \fBftrace\fP on an x86_64 architecture system with 16 logical CPUs.
 
+A brief explanation of each field follows.
+
+.TP 
+.B TASK
+The name of the process that generated the record.  In the example, it is 'bash'.
+
+.TP 
+.B PID
+Stands for "Process ID."  It is a number associated with a process that serves as a unique, uniform
+identifier.  Every running process has a PID.
+
+.TP 
+.B CPU#
+Stands for "Central Processing Unit."  On systems with multiple CPUs and/or multiple CPU cores, processes may run
+simultaneously on different processors/cores.
