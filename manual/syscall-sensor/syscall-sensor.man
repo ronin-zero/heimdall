@@ -2,7 +2,8 @@
 .SH NAME
 syscall\-sensor \- a system call sensing utility
 .SH SYNOPSIS
-\fBsyscall\-sensor\fP [\fICOMMAND\fP] [\fIOPTIONS\fP]
+.B syscall\-sensor
+[\fICOMMAND\fR] [\fIOPTIONS\fR]
 
 \fBsyscall\-sensor\fP [\fBstatus\fP|\fBstop\fP|\fBstart\fP 
 .RS
