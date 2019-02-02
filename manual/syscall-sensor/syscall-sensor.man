@@ -1,4 +1,4 @@
-.TH SYSCALL\-SENSOR 1 "08 October 2018"
+.TH SYSCALL\-SENSOR 1 2019-02-02 "Linux" 
 .SH NAME
 syscall\-sensor \- a system call sensing utility
 .SH SYNOPSIS
@@ -18,19 +18,20 @@ syscall\-sensor \- a system call sensing utility
 
 .SH DESCRIPTION
 This program traces raw system calls and logs them to a specified output file.
-See "OPTIONS" for what data can be traced and logged.
-See "COMMANDS" for what actions can be taken.
-See "DEFAULTS" for the behavior when no options are set.
+See "\fBOPTIONS\fP" for what data can be traced and logged.
+See "\fBCOMMANDS\fP" for what actions can be taken.
+See "\fBDEFAULTS\fP" for the behavior when no options are set.
 
 .SH COMMANDS
 When run without a command, the program will print its usage and exit.
 
-.SS start [\fIOPTIONS\fP]
+.SS 
+.BR start " [\fIOPTIONS\fP]"
 Starts tracing according to the given \fIOPTIONS\fP.
 .br
 Begins reading system call data from the trace pipe and logging it to trace.log or to the (optionally) specified output file.
 .br
-See section "OPTIONS" for more information on valid options for the \fBstart\fP command.
+See section "\fBOPTIONS\fP" for more information on valid options for the \fBstart\fP command.
 
 .SS stop
 Stops the sensor (if it is running).
@@ -45,7 +46,7 @@ Status information includes whether the sensor is running and what data is being
 .SH OPTIONS
 .SS Output File Options
 .TP
-\fB\-o\fR \fIOUTPUT_FILE\fR
+.B -o \fIOUTPUT_FILE\fP
 Writes the sensor data to the file specified by \fIOUTPUT_FILE\fP.  The path is relative from wherever
 the command to run the sensor was called.  The filename cannot contain white space.
 \fBWARNING:\fP This program should be considered a rough beta.  It strongly recommended that you avoid using
@@ -54,17 +55,17 @@ be sanitized and any such behavior is undefined AT BEST.  The user assumes all r
 
 .SS Field Separator Options
 .TP
-\fB\-\-separator\fP\=\fISEP\fP
+.BI \-\-separator= SEP
 Specify how the fields should be separated in the output log. \fISEP\fP is interpreted as a string.
 \fBWARNING:\fP As this program should be considered a rough beta, the functionality of this option is still
-somewhat limited.  It SHOULD support meta characters such as \fI\\t\fP (for tab) and it SHOULD be able to
+somewhat limited.  It SHOULD support meta characters such as \\t (for tab) and it SHOULD be able to
 support values for \fISEP\fP that include whitespace so long as they are within double quotes (").
 Still, this is an experimental program that is still in development, so no promises are made and no
 guarantees are given.
 
 .SS Running Options
 .TP
-\fB\-\-daemon\fP\=[\fBON\fR|\fBOFF\fR|\fB1\fR|\fB0\fR]
+.BR \-\-daemon =[ ON | OFF | 1 | 0 ]
 Choose whether to run the sensor as a background, daemon-like process.  Options \fBON\fR and \fB1\fR will set
 the sensor to launch as a daemonized, background process.  Options \fBOFF\fR and \fB0\fRwill set the sensor to
 run in the forground like a regular application.  Options \fBON\fR and \fBOFF\fR should be case-insensitive, but
@@ -96,7 +97,7 @@ Include the number of the system call made by the process in the log.
 \fB\-a\fP
 Include the arguments to the system call made by the process in the log.
 .TP
-\fB\-\-flags\fP\=\fIFLAGS\fP
+.BI \-\-flags= FLAGS
 Specify what fields should be included in the output.  The value of \fIFLAGS\fP is interpreted as the number representing the values of the flags
 corresponding to the fields you wish to include in your output 'or'd together.  The value of \fIFLAGS\fP can be given either as a decimal integer
 between 0 and 255 (inclusive) or as the hexidecimal representation of the same value.  Hexidecimal values must be in the range 0x00 to 0xFF
@@ -104,7 +105,7 @@ between 0 and 255 (inclusive) or as the hexidecimal representation of the same v
 
 .SS Table of Data Field Options
 .TS
-tab(@);
+box tab(@);
 lllr
 lnnn.
 Field Name@Flag Value (Decimal)@Flag Value (Hex)@Option Flag
@@ -125,12 +126,28 @@ separated by a comma (',') as the default separator (\fISEP\fP value).  This is 
 to a file named "trace.log" in the directory from which the command to execute the program was given. It is
 equivalent executing any of the following commands:
 
-.DS C
-    syscall-sensor start
-    syscall-sensor start -n -p -t -s --separator=, -o trace.log
-    syscall-sensor start --flags=0xCC --separator=, -o trace.log
-    syscall-sensor start --flags=204 --separator=, -o trace.log
+.RS
+.DS B
+syscall-sensor start
+.br
+syscall-sensor start -n -p -t -s --separator=, -o trace.log
+.br
+syscall-sensor start --flags=0xCC --separator=, -o trace.log
+.br
+syscall-sensor start --flags=204 --separator=, -o trace.log
 .DE
+.RE
+
+If the record in the example provided in the section "\fBSYSTEM CALL RECORDS\fP" appeared in a trace during the execution of this program running
+with the default settings (or any of the example settings shown above, all of which are equivalent to the default configuration), its corresponding
+record in the log file would appear as follows (without the leading whitespace):
+
+.RS
+.DS 
+bash,15509,112170.687012,16
+.DE
+.RE
+
 
 .SH SYSTEM CALL RECORDS
 The ftrace utility records raw system call events to the trace pipe as strings consisting of a series of text fields containing information 
@@ -138,11 +155,14 @@ such as the system call number and the time stamp of the event.  For reference, 
 example of a typical system call record (\fBNOTE:\fP Only the third line is actual record; the first and second lines are included in order
 to label the individual fields and explicitly indicate the part of the record to which each label applies, respectively):
 
-.DS
-    TASK-PID   CPU# TFLAGS    TIMESTAMP  FUNCTION  SYSCALL#          SYSCALLARGS
-       | |       |   ||||       |         |             |                  |
-    bash-15509 [002] .... 112170.687012: sys_enter: NR 16 (0, 5403, 7ffd0c9241f0, 0, 0, 700600)
+.RS
+.DS B
+TASK-PID   CPU# TFLAGS    TIMESTAMP  FUNCTION  SYSCALL#          SYSCALLARGS
+   | |       |   ||||       |         |             |                  |
+.br
+bash-15509 [002] .... 112170.687012: sys_enter: NR 16 (0, 5403, 7ffd0c9241f0, 0, 0, 700600)
 .DE
+.RE
 
 The example record is taken from \fBftrace\fP on an x86_64 architecture system with 16 logical CPUs.
 
@@ -184,9 +204,12 @@ Information regarding which system call was issued is given by SYSCALL#, the fol
 .B SYSCALL#
 Every system call has an associated number.  The number of a given system call, the number of total system calls available to a system, and even 
 the range of values for system call numbers vary greatly depending on the system architecture and operating system.  For instance, on a 64-bit Linux Mips 
-machine, system call number values range from 5000 to 5305 (inclusive) and there are 305 system calls in the instruction set (see: Note 1), but on an x86 Linux system, 
-system call number values range from 0 to 349 and there are 346 system calls in the instruction set.  The example in this section was collected on a system running 
-x86-64 Linux where the number of the system call made by bash is '16,' which corresponds to system call 'ioctl' (see \fBioctl\fP(2) for information on this system call).
+machine, system call number values range from 5000 to 5305 (inclusive) and there are 305 system calls for this architecture (Note: Not all numbers within the 
+range of system calls for an architecture will necessarily have an associated system call (nor will the function corresponding to a number within the range 
+necessarily be implemented).  For example, if the range of system call numbers for a given architecture is 'n' to 'm' (inclusive), there are AT MOST ( m - n ) + 1
+system calls in said architecture.), but on an x86 Linux system, system call number values range from 0 to 349 and there are 346 system calls in the instruction set.  
+The example in this section was collected on a system running x86-64 Linux where the number of the system call made by bash is '16,' which corresponds to system call 
+'ioctl' (see \fBioctl\fP(2) for information on this system call).
 
 .TP
 .B SYSCALLARGS
@@ -194,5 +217,9 @@ These are the arguments that were given to the system call made by the process t
 values, and even number of arguments.  Normally, this field can be safely omitted from a trace without losing pertinent information, but it may be optionally enabled
 for the sake of completeness or in case these data can be used for a separate metric in the future.
 
-
-
+.SH FILES
+.I /sys/kernel/debug/tracing/
+.br
+.IR /sys/kernel/debug/tracing/ [ tracing_on | trace_pipe ]
+.br
+.IR /sys/kernel/debug/tracing/events/raw_syscalls/ [ sys_enter | sys_exit ]/[ enable | filter ]
