@@ -1,0 +1,15 @@
+This is a directory to contain improved executable code on a new branch.
+
+The source code found in the "executables" directory on the main branch is
+generally poorly written (see the README in that directory).  It's been
+a stretch goal of mine to write something better.  Currently, it seems
+like it would be a better idea to write new code from the ground up
+rather than try to make changes to the existing code (this is why it's
+on a branch and not something I've been working on in master).
+
+A lot of what's in the existing executables directory can be used as
+a good basis for what I intend to do here.  The files handling
+the daemonization process are fine and can be reused, so they are
+included as they written. 
+
+Like everything else, this is a work in progress.
