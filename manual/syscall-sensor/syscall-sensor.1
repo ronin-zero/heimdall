@@ -49,7 +49,7 @@ Status information includes whether the sensor is running and what data is being
 .B -o \fIOUTPUT_FILE\fP
 Writes the sensor data to the file specified by \fIOUTPUT_FILE\fP.  The path is relative from wherever
 the command to run the sensor was called.  The filename cannot contain white space.
-\fBWARNING:\fP This program should be considered a rough beta.  It strongly recommended that you avoid using
+\fBWARNING:\fR This program should be considered a rough beta.  It strongly recommended that you avoid using
 meta characters or characters with special significance to the terminal.  The input is not guaranteed to
 be sanitized and any such behavior is undefined AT BEST.  The user assumes all risk for using this program.
 
@@ -67,7 +67,7 @@ guarantees are given.
 .TP
 .BR \-\-daemon =[ ON | OFF | 1 | 0 ]
 Choose whether to run the sensor as a background, daemon-like process.  Options \fBON\fR and \fB1\fR will set
-the sensor to launch as a daemonized, background process.  Options \fBOFF\fR and \fB0\fRwill set the sensor to
+the sensor to launch as a daemonized, background process.  Options \fBOFF\fR and \fB0\fR will set the sensor to
 run in the forground like a regular application.  Options \fBON\fR and \fBOFF\fR should be case-insensitive, but
 entering them in all caps will work.
 
