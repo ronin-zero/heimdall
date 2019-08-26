@@ -1,7 +1,7 @@
-#Heimdall
+# Heimdall
 
 ## Description
 
-This package is maintained by a researcher at Drexel University.  Please don't steal it.
+This package is ~~maintained~~ **something written a while ago but never properly finished** by ~~a researcher~~ **some guy** ~~at Drexel University~~.  ~~Please don't s~~**S**teal it **if you want to, but I'm not sure why you would**.
 
-This is a temporary readme.
+This is**n't** a ~~temporary~~ **very useful** readme.
